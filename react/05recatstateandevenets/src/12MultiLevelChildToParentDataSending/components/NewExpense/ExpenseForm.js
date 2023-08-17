@@ -29,6 +29,7 @@ const ExpenseForm = (props) => {
     // ? which is a function object recived in props from parent
     // * send data after submitting the from
     props.SendDataToParent(expenseData);
+    console.log("data sent to grandpa");
 
     // ! removing values in input elements using two way binding
     setEnteredTitle("");

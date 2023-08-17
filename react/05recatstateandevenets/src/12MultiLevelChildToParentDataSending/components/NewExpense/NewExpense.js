@@ -10,6 +10,7 @@ const NewExpense = (props) => {
   // * parent componet function will be sent to child as function object
   // ^ in props to Recive Data From Child
   function ReciveDataFromChild(DataFromChild) {
+    console.log("ReciveDataFromChild");
     expenseDataFromChild = {
       ...DataFromChild,
     };
@@ -19,6 +20,7 @@ const NewExpense = (props) => {
     // * child element only will run again after the parent component was
     // ! rendered so we use only the same function to send the data to its parent
     props.SendDataToParent(expenseDataFromChild);
+    console.log("send to parent");
   }
 
   return (
