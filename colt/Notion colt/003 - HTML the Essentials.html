@@ -1,0 +1,718 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>003 - HTML the Essentials </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="032671ab-b337-42e2-915b-d4e37f0420b0" class="page sans"><header><h1 class="page-title">003 - HTML the Essentials </h1><p class="page-description"></p></header><div class="page-body"><figure id="27102144-b2d8-45ec-9468-6b23a80df9e3" class="block-color-pink link-to-page"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3.html">002 - An Introduction to Web Development</a></figure><figure id="9e36040e-845d-49ec-a941-4bac49c02498" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled.png"><img style="width:1571px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled.png"/></a></figure><p id="fb576c5b-0bd4-4ca4-bf7c-7ff478a9c306" class="block-color-orange_background">
+</p><figure id="8c5d1085-4fcd-417c-b4f4-9a7cc662c62f" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%201.png"><img style="width:1920px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%201.png"/></a></figure><h1 id="7e0be44e-9e7e-41e4-b0b8-98f2397f9895" class="block-color-orange_background">18. Introduction to HTML</h1><figure id="331ee622-fad3-4026-be42-c45423ca6325" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%202.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%202.png"/></a></figure><h1 id="5eed085b-31fa-48e5-90eb-5ffe1801d8ad" class="block-color-teal_background"><mark class="highlight-red">why html strong tag exists as we can do same in css using bold style?</mark></h1><ul id="5513392b-e178-46cf-a437-519e5a9a08ae" class="bulleted-list"><li style="list-style-type:disc">The <code>&lt;strong&gt;</code> tag in HTML is used to semantically mark up text as important or strongly emphasized. It is meant to convey meaning and add semantic value to the content. </li></ul><ul id="9b36f060-e192-4878-80f3-90d39ce8a503" class="bulleted-list"><li style="list-style-type:disc">On the other hand, the CSS <code>bold</code> style is used purely for visual presentation, without any semantic significance.</li></ul><ul id="3992c590-30b2-40d3-a09a-a6acb97a970f" class="bulleted-list"><li style="list-style-type:disc">Using the <code>&lt;strong&gt;</code> tag allows assistive technologies, search engines, and other tools to understand the importance and emphasis of the marked-up text. It helps improve accessibility and allows for better interpretation of the content by different users and systems.</li></ul><ul id="a5a18cbe-55ff-4119-b44b-549fcda23239" class="bulleted-list"><li style="list-style-type:disc">While it is true that you can achieve a similar visual effect using CSS, it is important to use HTML tags to express the meaning and structure of your content accurately. </li></ul><ul id="e3561533-3c23-4955-943b-6fb52f935061" class="bulleted-list"><li style="list-style-type:disc">Separating content and presentation is a best practice in web development, as it allows for more flexibility and adaptability in styling and presentation.</li></ul><blockquote id="ac880ee5-43cf-4ed7-849a-2b86ff5ddf67" class="">In summary, the <code>&lt;strong&gt;</code> tag exists in HTML to provide semantic meaning to text, while CSS is used for visual styling. It is generally recommended to use HTML tags appropriately to convey the intended meaning of the content.</blockquote><p id="32fc6f8d-cc56-41ff-8e69-0a1f56089cbb" class="block-color-orange_background">
+</p><figure id="c92e428c-91f2-48f9-bbb2-81eb8a03d183" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%203.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%203.png"/></a></figure><p id="3b307511-3e05-4e93-b64f-8fd2bb5fd5b9" class="block-color-orange_background">
+</p><figure id="437f7446-1f91-44d7-8168-8b1a44b49ec0" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%204.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%204.png"/></a></figure><p id="a1b0ea2e-8262-4a65-adec-80427e2ccda8" class="block-color-orange_background">
+</p><figure id="0488649e-50ce-4722-80d1-3be3135a8192" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%205.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%205.png"/></a></figure><p id="d11b7a15-187d-4f3d-a5c0-8737754da0a5" class="block-color-orange_background">
+</p><figure id="09aa2914-9432-4d46-a8f8-da24972c8cea" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%206.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%206.png"/></a></figure><p id="9d0ce069-176f-4277-9335-c41fc0853966" class="block-color-orange_background">
+</p><figure id="c9c76e07-a982-4cc8-b993-5b4c1f2817c3" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%207.png"><img style="width:711px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%207.png"/></a></figure><p id="1051de89-9957-4e02-9a5a-c362d92b6f0a" class="block-color-orange_background">
+</p><figure id="51448447-aafe-49f1-af12-55593b1c7cb7" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%208.png"><img style="width:1129px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%208.png"/></a></figure><p id="73ffd4bf-dde8-41dd-a954-0b29bb3fcfdd" class="block-color-orange_background">
+</p><h1 id="a58c591c-9e45-4c45-86f5-ea40484d11f7" class="block-color-orange_background">21.our very first html page</h1><figure id="cc9e932a-08dc-4b2f-8bb0-8010a74b9b73" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%209.png"><img style="width:1000px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%209.png"/></a></figure><p id="ce25cb96-d18f-47d3-a0ec-fa80974ce47b" class="block-color-orange_background">
+</p><h1 id="0b147f27-34b2-457b-a120-47ae64766f7c" class="block-color-orange_background">23.paragraph elements</h1><figure id="f132a24b-5fdc-4e50-9173-5aed09d1d2da" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2010.png"><img style="width:712px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2010.png"/></a></figure><p id="8982a361-6005-4c8f-a81c-7648f3aeb92d" class="block-color-orange_background">
+</p><figure id="b76e8afc-265e-4cb5-a4fb-ef9f6df97785" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2011.png"><img style="width:840px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2011.png"/></a></figure><p id="3bae7498-6864-4df0-946e-1c6d2fa07d75" class="block-color-orange_background">
+</p><h1 id="d88d422a-b8bf-46f4-aa44-8e1b44d3a388" class="block-color-orange_background">24.Heading elements</h1><figure id="2b211ae9-7061-4658-9bb9-ff640bbc5e57" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2012.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2012.png"/></a></figure><p id="3108e7f1-978e-4115-a27c-01da4d753f96" class="block-color-orange_background">
+</p><figure id="1c3de922-eae5-41bc-97a2-9cf32aa125d2" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2013.png"><img style="width:564px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2013.png"/></a></figure><p id="b3130354-8f4c-4078-a354-88ed6c075334" class="block-color-orange_background">
+</p><h1 id="bf79506e-bd05-4b43-81d1-a75e090901db" class="block-color-orange_background">25.introduction to chrome inspector</h1><figure id="4b749035-a9a6-4762-9fcd-3cb21e008e74" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2014.png"><img style="width:1636px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2014.png"/></a></figure><p id="7666db60-2582-40ca-986c-8a4894c5fa8a" class="block-color-orange_background">
+</p><figure id="77046787-049f-42bb-9ddd-a59a283a5c7f" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2015.png"><img style="width:1597px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2015.png"/></a></figure><p id="b1e314d2-d07e-476c-9efd-4840c6c7d8d7" class="block-color-orange_background">
+</p><h1 id="d924ef35-6416-47d2-a24d-d5b907d8ec79" class="block-color-orange_background">25. HTML Boilerplate</h1><figure id="a6459be5-5377-489b-8b4c-fbf0ca564f63" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2016.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2016.png"/></a></figure><p id="8629dbbc-1ff8-4c88-ab63-efc986da58fc" class="block-color-orange_background">
+</p><figure id="24822202-b543-4981-b3ec-faf326d10383" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/code.png"><img style="width:1904px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/code.png"/></a></figure><p id="100941fc-3077-4ca8-932e-545c1660fd61" class="block-color-orange_background">
+</p><figure id="27f9e45c-6219-4888-8e0a-893358e9d85c" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2017.png"><img style="width:720px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2017.png"/></a></figure><p id="452b96ee-1c0d-48c3-91ea-4a7f934e4929" class="block-color-orange_background">
+</p><figure id="c613b52d-e7d7-4d44-b4a8-9d355ab1e569" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2018.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2018.png"/></a></figure><p id="c2c123ec-a2c4-4c27-9bee-84ef6ad88537" class="block-color-orange_background">
+</p><figure id="c11a802e-977a-4196-915a-5e89bd1eee72" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2019.png"><img style="width:843px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2019.png"/></a></figure><p id="24299b3c-ac75-4a61-bc01-5356c5d7e219" class="block-color-orange_background">
+</p><figure id="c624c0dd-b06e-4135-83fc-498a3d17bfc4" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2020.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2020.png"/></a></figure><p id="5b9fdb80-a5f0-4bf2-8039-9fc14ab10f82" class="block-color-orange_background">
+</p><figure id="976add5e-d217-43ba-9419-dec8dde6d493" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2021.png"><img style="width:840px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2021.png"/></a></figure><p id="47005166-b933-4267-95ac-56f47cd19de1" class="block-color-orange_background">
+</p><figure id="57ed5e9f-aa17-43b2-86f4-bc3dfbc79866" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2022.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2022.png"/></a></figure><p id="7b28b53b-c438-4874-824f-42d1555dccfc" class="block-color-orange_background">
+</p><figure id="a1f6d244-0ba0-4119-a248-502924c53321" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2023.png"><img style="width:768px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2023.png"/></a></figure><p id="bc33c8ec-4aa6-4660-91af-60b94c35a17d" class="block-color-orange_background">
+</p><figure id="909b42c0-ffc6-40e0-8fb5-d1656e2094b6" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2024.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2024.png"/></a></figure><p id="2d1ab1e0-8220-4545-a8a8-8bf30b2b1df7" class="block-color-orange_background">
+</p><figure id="65aafade-f95c-4171-bbfd-0d0333544437" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2025.png"><img style="width:672px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2025.png"/></a></figure><p id="38c22a8b-a69a-4cc3-b76e-0d00e9232100" class="block-color-orange_background">
+</p><figure id="f3e0bac1-d2d0-43a3-a6f5-48cdad66eb2f" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2026.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2026.png"/></a></figure><p id="98e76471-8698-4dc7-9686-4b0de284dd4d" class="block-color-orange_background">
+</p><h1 id="cc0ac2b7-5628-4922-9c52-de4f4d8e277e" class="block-color-orange_background">28.list elements</h1><figure id="04b8fe7e-c085-4172-8e2b-28d2333cf599" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2027.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2027.png"/></a></figure><p id="21602b26-baf7-416f-850d-4934005f9a6a" class="block-color-orange_background">
+</p><figure id="40c9674c-46d3-489b-abe0-97079ba86bf4" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2028.png"><img style="width:1024px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2028.png"/></a></figure><p id="5905bdea-78e7-4b46-94b8-7390cedfe7bf" class="block-color-orange_background">
+</p><h1 id="8936f62c-4fe0-4c4f-9b9b-feb3cdff5bc0" class="block-color-orange_background">29.Anchor tags</h1><figure id="fec26710-8bed-4088-8790-2b7759e77516" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2029.png"><img style="width:650px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2029.png"/></a></figure><p id="cd48b354-e6c3-4fc4-90a1-a85ecfc21dbc" class="block-color-orange_background">
+</p><figure id="1cb21447-c1e8-4f90-a5ee-73009ecf5e13" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2030.png"><img style="width:1280px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2030.png"/></a></figure><p id="2dc6451e-da47-4809-8d61-4ebf4eebf2d9" class="block-color-orange_background">
+</p><figure id="a1578c7e-fade-428b-b22c-f61581f153f3" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2031.png"><img style="width:1324px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2031.png"/></a></figure><p id="1fd85366-d7bb-41fd-8f4d-7fe2f9970da4" class="block-color-orange_background">
+</p><figure id="8b05c6f3-a5be-474f-866b-819c76de24c7" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2032.png"><img style="width:602px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2032.png"/></a></figure><p id="5469e821-bd7d-474d-b157-6fd69134c844" class="block-color-orange_background">
+</p><figure id="1291cb88-0c36-4b22-a207-5d09d9899115" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2033.png"><img style="width:1055px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2033.png"/></a></figure><p id="0d42b338-2ae9-4604-a887-bd00679fc211" class="block-color-orange_background">
+</p><figure id="296286c7-1ddd-451e-89b1-aa355c720e89" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2034.png"><img style="width:1526px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2034.png"/></a></figure><p id="c5f6f70e-e7b6-4d66-824c-2d3cc002491d" class="block-color-orange_background">
+</p><h1 id="02c1d9c0-de55-492c-8826-eeebe1115fd9" class="block-color-orange_background">30.images</h1><figure id="22832126-58d3-4e57-8649-d7c2a43bfa83" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2035.png"><img style="width:1118px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2035.png"/></a></figure><p id="21e8d1b4-7bc4-4100-a822-16826d57fa9e" class="block-color-orange_background">
+</p><figure id="5bc8e512-7912-4ef8-9f1c-43c9d99a1955" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2036.png"><img style="width:718px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2036.png"/></a></figure><p id="625960ca-6e8f-444e-8883-5fd1ad383a60" class="block-color-orange_background">
+</p><figure id="63fb3124-8fe2-4295-8b45-e65352c1c7f3" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2037.png"><img style="width:1366px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2037.png"/></a></figure><p id="3358c128-c4b0-4768-862a-1c2f1161805c" class="block-color-orange_background">
+</p><figure id="746e55d7-676e-4470-a43e-7e156cdd2e24" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/code%201.png"><img style="width:1600px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/code%201.png"/></a></figure><p id="f3b0ccb9-8d4a-4cf2-b323-520b04b2641a" class="block-color-orange_background">
+</p><figure id="4296f2e3-19e5-472a-803b-2ea7b9e8ca37" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/code%202.png"><img style="width:1734px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/code%202.png"/></a></figure><p id="cade3870-e425-4e91-aee7-470465231b14" class="block-color-orange_background">
+</p><h1 id="5e36192d-278f-466f-bc58-75336b81709c" class="block-color-orange_background">31.comments</h1><figure id="0dee523d-f374-4713-99dc-8b7f5a9815a8" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2038.png"><img style="width:845px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2038.png"/></a></figure><p id="adc2a327-d6b6-4385-87df-d181e0692441" class="block-color-orange_background">
+</p><figure id="7f88cda2-5489-49ed-80b9-e618879430c0" class="image"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2039.png"><img style="width:1026px" src="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0/Untitled%2039.png"/></a></figure><p id="110bc748-bce2-4606-abf3-7f89052f4f5b" class="block-color-orange_background">
+</p><figure id="6f48a0d1-1b34-4215-abc4-278b9ec4ce37" class="block-color-pink link-to-page"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37.html">004 - HTML Next Steps &amp; Semantics</a></figure></div></article></body></html>

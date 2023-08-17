@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prevent from default</title>
+  </head>
+
+  <body>
+    <h2>Cat name form</h2>
+
+    <form action="/sendtolocation">
+      <label for="textinput">cat name</label>
+      <input type="text" name="catname" id="textinput" />
+      <label for="check">main</label>
+      <input type="checkbox" name="main" id="check" />
+      <button>Submit</button>
+    </form>
+
+    <h2>Cat names</h2>
+    <div id="list"></div>
+
+    <script src="008.fromevents.js"></script>
+  </body>
+</html>

@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>008 - CSS box Model</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="efbb0430-d7bf-4386-8b5e-cab2466a25a2" class="page sans"><header><h1 class="page-title">008 - CSS box Model</h1><p class="page-description"></p></header><div class="page-body"><figure id="133995ca-635f-4bf3-adae-1ee6f53f157f" class="block-color-orange link-to-page"><a href="007%20-%20The%20World%20Of%20CSS%20Selectors%20133995ca635f4bf3adae1ee6f53f157f.html">007 - The World Of CSS Selectors</a></figure><figure id="28c964e6-464e-48b6-becf-5a3419b99e4c" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled.png"><img style="width:816px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled.png"/></a></figure><figure id="2f43bc3b-9ab1-406b-9f6d-530b07c8b2d3" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%201.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%201.png"/></a></figure><h1 id="a255ffec-38b6-4006-965e-a31b81e50e8f" class="block-color-orange_background">83. Box Model: Width &amp; Height</h1><figure id="05b93bfd-e5b9-4e70-a97c-f755877a9fe9" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%202.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%202.png"/></a></figure><p id="b72dc4d3-28df-40fd-875e-de5f8613a889" class="">
+</p><figure id="32121cb3-6d46-4a4d-8c59-19b6bb0567a6" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%203.png"><img style="width:1400px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%203.png"/></a></figure><p id="2db4d975-2b6a-4f3b-95d9-089f209ea69a" class="">
+</p><figure id="682033fb-240a-4edf-bf7d-bec739ded9bb" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%204.png"><img style="width:3401px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%204.png"/></a></figure><p id="c4f0535a-3ce9-4556-9092-da445b7f449c" class="">
+</p><figure id="0f35d657-b246-43a1-af04-5e2db869e519" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%205.png"><img style="width:432px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%205.png"/></a></figure><p id="a4b05031-7885-413a-bb8d-14177f68cf53" class="">
+</p><figure id="144242dc-e295-4831-b96f-a4cd096e3ba6" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%206.png"><img style="width:1356px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%206.png"/></a></figure><p id="eeaf7364-48f1-45df-8192-963f34e83290" class="">
+</p><figure id="fd3cbff1-393e-49ee-83e8-4241c1cae620" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%207.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%207.png"/></a></figure><p id="156877e3-e506-4f43-b3f7-17e81fb614c4" class="">
+</p><figure id="6054acd1-607c-4059-a4fc-dde60e0e0e1f" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%208.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%208.png"/></a></figure><p id="4e8e64f8-8668-4e93-bd5a-47667f8fbaa7" class="">
+</p><figure id="cde2a9bd-b468-4902-817e-11ebcc119c1b" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%209.png"><img style="width:1457px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%209.png"/></a></figure><p id="690b99af-56e0-4aa5-93b8-7d181d413938" class="">
+</p><figure id="8babd9be-c939-44db-ac2d-bdecbcf6a500" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2010.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2010.png"/></a></figure><p id="96e5a387-17d2-4c16-bc11-c080831225e8" class="block-color-orange_background">
+</p><p id="287290eb-dc31-4f73-83ca-89c1e729fdfe" class="">Sure, here are the key points from the transcript:</p><ul id="3b24d664-364d-4a33-a7cb-9381a6d7a202" class="bulleted-list"><li style="list-style-type:disc">The box model is a way of thinking about how elements are displayed in CSS.</li></ul><ul id="e9be3584-f866-4cf2-8e3d-7d1d1cee4b7e" class="bulleted-list"><li style="list-style-type:disc">The box model consists of four parts: the content box, the padding, the border, and the margin.</li></ul><ul id="2ce09f1b-c916-4dcd-9ab2-0b63068ece0a" class="bulleted-list"><li style="list-style-type:disc">The width and height properties control the size of the content box.</li></ul><ul id="27665faa-bfdf-435b-9cf3-10052bd86730" class="bulleted-list"><li style="list-style-type:disc">The padding property adds space around the content box.</li></ul><ul id="ea7ace09-65ab-4c1b-a98a-2f8e3a492c20" class="bulleted-list"><li style="list-style-type:disc">The border property adds a border around the content box.</li></ul><ul id="74efd569-fddb-4735-9f10-f955c52ec944" class="bulleted-list"><li style="list-style-type:disc">The margin property adds space around the border.</li></ul><ul id="abb6531c-127c-4bcc-bc62-27fddeded27b" class="bulleted-list"><li style="list-style-type:disc">The box model is essential for understanding how elements are displayed in CSS.</li></ul><p id="17623f66-d253-4631-a4d9-fb6c1ba62122" class="">Here are some additional details that were mentioned in the transcript:</p><ul id="c292e436-5cda-4ea2-b123-11d65f53e95f" class="bulleted-list"><li style="list-style-type:disc">The width and height properties can be set in pixels, ems, rems, or percentages.</li></ul><ul id="1321b5f2-525b-4137-87d0-cc14b127d63f" class="bulleted-list"><li style="list-style-type:disc">The padding, border, and margin properties can also be set in pixels, ems, rems, or percentages.</li></ul><ul id="2cb6ec37-332b-43ff-8907-740c237e8e4a" class="bulleted-list"><li style="list-style-type:disc">The box sizing property can be set to content-box or border-box.</li></ul><ul id="ad1dbc34-caf3-47d2-a265-7fe2e917a19b" class="bulleted-list"><li style="list-style-type:disc">The content-box box sizing model is the default.</li></ul><ul id="9814165a-4d56-49c7-9a4b-046c16b98b24" class="bulleted-list"><li style="list-style-type:disc">The border-box box sizing model includes the border and padding in the width and height measurements.</li></ul><p id="fa2dad48-f0c2-41a6-bf17-691654ff6a8b" class="">I hope this summary is helpful. Please let me know if you have any other questions.</p><p id="a0ea2dc7-f918-4ae3-88fa-def3c9d09b66" class="block-color-orange_background">
+</p><h1 id="fbb93352-3c8f-41b5-9d75-af75699f4b35" class="block-color-orange_background"><strong>84. Box Model: Border &amp; Border-Radius</strong></h1><figure id="3fa841b1-5f57-48db-93ae-8735a2573e43" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2011.png"><img style="width:1457px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2011.png"/></a></figure><p id="4615043a-e9ec-464d-bac7-86366dbbf2ca" class="">
+</p><figure id="3ecfecfd-3c8f-4a11-9426-c47451133d1b" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2012.png"><img style="width:651px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2012.png"/></a></figure><p id="2a22db35-3bed-43ea-b597-df245f6df4d4" class="">
+</p><figure id="8bd7fa2e-2a4a-44e0-bc14-125b97563597" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2013.png"><img style="width:465px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2013.png"/></a></figure><p id="536d56b0-6e83-4b41-b94f-73a1e9046178" class="">
+</p><figure id="66f78656-e411-4a26-9453-30715c1d7136" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2014.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2014.png"/></a></figure><p id="280a5404-575e-41f9-addc-07402cebf944" class="">
+</p><figure id="b291be0a-8512-42eb-9979-d96c7f6385ec" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2015.png"><img style="width:1457px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2015.png"/></a></figure><p id="5734b9f9-10a1-4a5a-b445-720f7e63bf8d" class="">
+</p><figure id="61114b74-fe87-4d17-8a0f-d4dae87d5a53" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2016.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2016.png"/></a></figure><p id="23913fc1-9616-49e0-be45-e001e9124f23" class="">
+</p><figure id="e3f2bb57-df8a-4ee6-8008-f9b732796847" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2017.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2017.png"/></a></figure><p id="f441a13f-4949-4833-b79f-fa9a8008994c" class="">
+</p><h2 id="665d0efa-f4c2-4421-ac19-f1148df13e2f" class="">border short hand</h2><figure id="b948a2d3-716e-48bc-9d35-2a4195b82959" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2018.png"><img style="width:1920px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2018.png"/></a></figure><p id="be0ee6e3-be06-4a0c-ba0c-a6c30f994713" class="block-color-orange_background">
+</p><figure id="deea76f2-aef2-48d6-9ad8-e9aa05519476" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2019.png"><img style="width:1919px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2019.png"/></a></figure><p id="4f3cb71c-f2a7-41b2-b1f2-6ac64aa5c983" class="block-color-orange_background">
+</p><ol type="1" id="19a04749-b232-408d-bf8b-e6f9e0306f96" class="numbered-list" start="1"><li>Borders are essential for the appearance and functionality of a website.</li></ol><ol type="1" id="a5238353-9b55-44fa-916b-866b9d13d9b4" class="numbered-list" start="2"><li>Borders can be customized in terms of thickness, color, style, and corner rounding.</li></ol><ol type="1" id="917774a1-5674-4f83-bc8b-9f1cf0f8ef6c" class="numbered-list" start="3"><li>The main properties for borders are border width, border color, and border style.</li></ol><ol type="1" id="6344b65d-ec10-4b81-8cc0-bf447c9d3c8e" class="numbered-list" start="4"><li>Pixels are commonly used as a unit for border width.</li></ol><ol type="1" id="f07866ff-94df-4af4-92d5-62b517183f00" class="numbered-list" start="5"><li>The box-sizing property can change how the width of an element is calculated with borders.</li></ol><ol type="1" id="7d66a758-c15f-4d23-9a02-4575e50279a8" class="numbered-list" start="6"><li>Border shorthand allows for setting the width, color, and style in one property.</li></ol><ol type="1" id="eaf73d73-5aab-4c39-bc17-9c3b11aa324c" class="numbered-list" start="7"><li>Border radius controls the roundness of the corners and can be specified in pixels or percentages.</li></ol><ol type="1" id="904a6b93-d54d-437c-aa45-8369665a3384" class="numbered-list" start="8"><li>Different border properties can be set individually or collectively.</li></ol><ol type="1" id="f29c6b63-d6f3-4fa4-b1fb-e5f9b3966757" class="numbered-list" start="9"><li>Border radius is commonly used to create rounded corners or circular shapes.</li></ol><ol type="1" id="f1419caa-5170-49d1-8990-1971b9f849de" class="numbered-list" start="10"><li>Different shapes can be achieved by setting different border radii on different corners.</li></ol><ol type="1" id="51a64ce4-e93a-406f-b592-c343ae2b82fb" class="numbered-list" start="11"><li>Borders play a significant role in the overall visual appeal and structure of a website.</li></ol><ol type="1" id="6a2e2b20-f97b-47a3-976e-3504d56719be" class="numbered-list" start="12"><li>Familiarity with border properties is crucial for web development.</li></ol><p id="353c678c-a832-4e4e-9d61-93153d1d58b4" class="block-color-orange_background">
+</p><figure id="699fcd6b-8f3c-4968-8875-19910ab01f9b" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2020.png"><img style="width:993px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2020.png"/></a></figure><p id="912f1037-b0aa-4270-b25d-6549ec3a137a" class="block-color-orange_background">
+</p><h1 id="f7106f85-9bdd-4636-ab12-ccc010b22828" class="block-color-orange_background"><strong>85. Box Model: Padding</strong></h1><figure id="07ee094b-dfb9-499b-bda8-7092c1e1dc28" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2021.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2021.png"/></a></figure><p id="45097a62-3bb3-4bd5-a7aa-33349b9c944d" class="">
+</p><figure id="69d82a21-c794-46e7-a5f0-4e4dbb4d5337" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2022.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2022.png"/></a></figure><p id="71c9c66f-995d-4878-a7a1-a8938f467aca" class="">
+</p><figure id="54ecb912-9fd7-4e5f-ae87-635e542cd83e" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2023.png"><img style="width:1920px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2023.png"/></a></figure><p id="324a9bb5-e33c-4ffd-b328-607d62ea5140" class="">
+</p><figure id="d149740f-58f8-46fa-8285-40e03531ae45" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2024.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2024.png"/></a></figure><p id="8656af6d-e54f-4efb-bc2b-91dff8962de5" class="">
+</p><figure id="31224844-c46b-45a3-a8b6-cbe12c2d3737" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2025.png"><img style="width:650px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2025.png"/></a></figure><p id="01245966-d8ce-4f3e-a72c-f16903c897f7" class="">
+</p><figure id="7cec64d3-881f-45ab-ae61-4458a22f412e" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2026.png"><img style="width:814px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2026.png"/></a></figure><p id="40aa5bf3-86cd-44a9-ba34-0f9167cfdaac" class="">
+</p><figure id="78e9cf61-d20f-4350-96a4-9ee6551ff415" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2027.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2027.png"/></a></figure><h1 id="ce378833-1792-44ee-8287-39ac4932ed5d" class="block-color-orange_background"><strong>86. Box Model: Margin</strong></h1><figure id="70fd5dc3-e09e-46bf-a803-8dd0087d7ccd" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2028.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2028.png"/></a></figure><p id="64733de1-861b-408b-8b21-0a6b9e1dccb0" class="">
+</p><figure id="2fa95016-ff0d-426c-a013-6b2ccf5f41e1" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2029.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2029.png"/></a></figure><p id="a5d3e9c2-45e8-448d-92c7-443e6ce54884" class="">
+</p><figure id="9cbb30e9-84cf-4ba6-a08a-a235f4322634" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2030.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2030.png"/></a></figure><p id="e921eb4d-b081-468b-b8fa-0b385e7e66d4" class="">
+</p><figure id="f094b21b-4929-46fb-b4e8-fdf1cbcd4e3f" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2031.png"><img style="width:1920px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2031.png"/></a></figure><p id="35db3f07-bd59-4ebf-9e83-ec2c650dee23" class="">
+</p><h3 id="90357add-e1f3-4885-81bc-ae5a8399194f" class="">Changes in smiley after hello before margin</h3><figure id="6de97811-e55f-479a-aac5-c850781fa5fd" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2032.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2032.png"/></a></figure><p id="19dc343a-dfe7-46c5-8e2d-2b662f24230f" class="">
+</p><h3 id="4a3a4992-d7eb-4718-9548-aadd8f57428e" class="">apply margin to smiley after hello </h3><figure id="57f781b2-5268-4235-a99c-cd3d354dab1d" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2033.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2033.png"/></a></figure><p id="44012ef5-2961-402c-8fde-b718a30898e8" class="">
+</p><h3 id="403c301c-157d-45d0-86de-ab4fd5327974" class="">Changes in smiley after hello after margin</h3><p id="a1d2deaa-5d9b-4776-ae00-af338bae120e" class="">only margin-left applied not margin top we need to check this called display property</p><figure id="46850208-4829-404f-8d45-b03fcaef9b18" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2034.png"><img style="width:1585px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2034.png"/></a></figure><h1 id="90924b48-dc0b-4284-a9a4-810c3424a781" class="block-color-orange_background"><strong>87. The Display Property</strong></h1><figure id="6d6db1f2-b725-4048-8fc9-a9b27b4c8789" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2035.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2035.png"/></a></figure><p id="d97fa6fe-d98c-4b83-95d8-4e41b497fde5" class="">
+</p><figure id="55f9f2e5-3de7-4128-bf55-33f971e646ee" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2036.png"><img style="width:675px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2036.png"/></a></figure><p id="715826bb-b507-4ab6-87f6-3744dd909ba8" class="">
+</p><figure id="20d239cb-461d-4cbd-b487-b8c3981e89d9" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2037.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2037.png"/></a></figure><p id="dd309d1b-314e-47d3-8846-193b898c2f7a" class="block-color-orange_background">
+</p><p id="94a0713b-592b-4fde-9821-0d30d80777bf" class="block-color-orange_background">Sure! Let&#x27;s go through each of these CSS properties (margin, padding, border, height, and width) and see how they behave for inline, inline-block, and block elements:</p><ol type="1" id="0493e966-7570-4177-bd8d-0104c7cbcd88" class="block-color-orange_background numbered-list" start="1"><li>Margin:<ul id="c3c77de4-bf07-467d-a283-0b43102aa062" class="bulleted-list"><li style="list-style-type:disc">For inline elements: The top and bottom margins do not affect the vertical space taken up by the element. The left and right margins create space around the element.</li></ul><ul id="e4501f0a-e663-4530-a307-10550ca6b723" class="bulleted-list"><li style="list-style-type:disc">For inline-block elements: Margins behave the same way as for inline elements. The element will respect the top and bottom margins, but the margins will not affect the vertical space taken up by neighboring inline elements.</li></ul><ul id="692a0025-9ea8-4f00-9333-0bb3a41e378e" class="bulleted-list"><li style="list-style-type:disc">For block elements: Margins create space around the element, both horizontally and vertically, pushing neighboring elements away.</li></ul></li></ol><ol type="1" id="97904691-27ca-4e28-82b6-41fac740a26c" class="block-color-orange_background numbered-list" start="2"><li>Padding:<ul id="f57d61a9-7296-416f-9db6-fd6f6ce38100" class="bulleted-list"><li style="list-style-type:disc">For inline elements: Padding behaves the same way as for block elements, creating space within the element without affecting the layout or positioning of neighboring elements.</li></ul><ul id="e78695d3-0ced-480e-abad-8b9c332e6f86" class="bulleted-list"><li style="list-style-type:disc">For inline-block elements: Padding behaves the same way as for block elements, creating space within the element.</li></ul><ul id="0dc504a7-ee34-4fdb-b899-13a8acfd544a" class="bulleted-list"><li style="list-style-type:disc">For block elements: Padding creates space within the element, pushing the content away from the edges of the element.</li></ul></li></ol><ol type="1" id="664a7cba-2e09-4ac2-beb7-7c9e4b542787" class="block-color-orange_background numbered-list" start="3"><li>Border:<ul id="5d63c578-e81f-4d10-af55-92cd9336f892" class="bulleted-list"><li style="list-style-type:disc">For inline elements: Borders can be applied to inline elements, but they won&#x27;t affect the layout or positioning of neighboring elements. The border will surround the content, including any padding if applied.</li></ul><ul id="f81dd060-83b2-4a12-a9b2-c8ab44ac553f" class="bulleted-list"><li style="list-style-type:disc">For inline-block elements: Borders can be applied to inline-block elements, and they will surround the content, including any padding.</li></ul><ul id="b9b68f51-18cb-4562-b486-32fed1dc9b47" class="bulleted-list"><li style="list-style-type:disc">For block elements: Borders can be applied to block elements, and they will surround the content, including any padding. The border will create a visual separation between neighboring elements.</li></ul></li></ol><ol type="1" id="832dc981-b951-47ff-8248-286ded7a6079" class="block-color-orange_background numbered-list" start="4"><li>Height and Width:<ul id="3d220518-c68f-4f32-906e-6ea924981cc1" class="bulleted-list"><li style="list-style-type:disc">For inline elements: The height and width properties have no effect on inline elements. Inline elements adjust their size based on their content.</li></ul><ul id="7877e897-0927-48bd-aabd-68e3e8c4fb28" class="bulleted-list"><li style="list-style-type:disc">For inline-block elements: The height and width properties can be applied to inline-block elements, allowing you to explicitly set their dimensions.</li></ul><ul id="75960091-1248-467f-9384-d0c0d470f44d" class="bulleted-list"><li style="list-style-type:disc">For block elements: The height and width properties can be applied to block elements, allowing you to explicitly set their dimensions. If no height is specified, the element will expand vertically to fit its content. If no width is specified, the element will take up the full available width of its parent container.</li></ul></li></ol><p id="098baccc-ffd5-452a-81ef-4fb36b84c3c9" class="block-color-orange_background">It&#x27;s important to note that inline elements like <code>&lt;span&gt;</code> or <code>&lt;a&gt;</code> are generally not affected by height, width, or vertical spacing properties (like margin or padding) as they are designed to flow with the surrounding text. Block elements like <code>&lt;div&gt;</code> or <code>&lt;p&gt;</code> have a natural line break before and after them and can have their dimensions and spacing adjusted more easily.</p><p id="17a81853-db0c-44eb-afef-176ec7da54c6" class="block-color-orange_background">I hope this explanation helps clarify how these CSS properties behave for different types of elements!</p><p id="de6de1e6-fedb-4e3f-a955-4e8907d08f9e" class="block-color-orange_background">
+</p><h1 id="f9f25249-d404-403e-bac1-e758c1ab35f4" class="block-color-orange_background">88. CSS Units Revisited</h1><figure id="923f1441-1253-422f-83e1-baef7f6622c1" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2038.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2038.png"/></a></figure><p id="97d42c8b-7eb6-465e-9b64-d5c5495db222" class="">
+</p><figure id="1c9d3363-cd0c-4568-b86c-44206105ab2b" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2039.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2039.png"/></a></figure><p id="297911fa-1f30-42bb-a210-9735d6662007" class="">
+</p><figure id="52695e09-1a52-4214-bd39-542642a23f0d" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2040.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2040.png"/></a></figure><h2 id="61a4dbfd-49b1-4246-a17a-9db6ec94a4e8" class="">While pixels (px) are indeed commonly used as a unit of measurement in CSS for defining the size and positioning of elements on a web page, it is not accurate to say that they are the most common absolute unit in CSS.</h2><p id="f171bb9b-daaa-458b-9d4e-b0751c4e6c2a" class="">
+</p><figure id="4de96389-84bd-4588-b6c3-d37930f237cf" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2041.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2041.png"/></a></figure><p id="511f00b9-be4f-4f85-a855-546a49177802" class="">
+</p><figure id="0b2b19ae-7f2d-42ab-b08e-c5117833a15b" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2042.png"><img style="width:880px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2042.png"/></a></figure><p id="ea1ba86e-24d5-4e4d-8e6e-c2d08c22df3c" class="">
+</p><figure id="fc4a6b47-45fb-43ea-af99-2dea340d4928" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2043.png"><img style="width:880px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2043.png"/></a></figure><p id="7ca42fc2-855b-4e42-9d94-3feb7e67f89a" class="">
+</p><figure id="be9badf4-ef3c-4203-bff1-cf8c6f0923db" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2044.png"><img style="width:1200px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2044.png"/></a></figure><p id="d12e0404-7ab0-4182-90b7-01a948a2bfa2" class="">
+</p><p id="ab48f5e5-a4d1-4a77-9486-49350623c8e8" class="">
+</p><h1 id="e78524e2-1691-4b86-a7e5-438a0ad0f1c9" class="block-color-orange_background">89<strong>. CSS Units: ems</strong></h1><figure id="fb696b0a-233c-4baf-8208-2acf6c71883a" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2045.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2045.png"/></a></figure><h1 id="705b5d18-24a8-49e1-9e9a-f52724ac748f" class="block-color-orange_background"><strong>90. CSS Units: rems</strong></h1><figure id="befd329a-bb3b-4fbe-ade0-90d7415d822a" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2046.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2046.png"/></a></figure><p id="e13f0a96-19cb-4b9f-bfda-42a7271ee962" class="">
+</p><figure id="08d66794-4348-4309-ac24-37edb26d7489" class="image"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2047.png"><img style="width:1760px" src="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2/Untitled%2047.png"/></a></figure><p id="99874fef-f798-43f8-a86d-c293d71d1dc9" class="">
+</p><p id="700952b5-1110-4c0e-9dbb-16b0e1bc6369" class="block-color-orange_background">
+</p><figure id="739ec912-ebd3-4c2b-8e3b-b80987edec33" class="block-color-orange link-to-page"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33.html">009 - Other Assorted Useful CSS Properties</a></figure></div></article></body></html>

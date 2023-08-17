@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>009 - Other Assorted Useful CSS Properties</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="739ec912-ebd3-4c2b-8e3b-b80987edec33" class="page sans"><header><h1 class="page-title">009 - Other Assorted Useful CSS Properties</h1><p class="page-description"></p></header><div class="page-body"><figure id="efbb0430-d7bf-4386-8b5e-cab2466a25a2" class="block-color-orange link-to-page"><a href="008%20-%20CSS%20box%20Model%20efbb0430d7bf43868b5ecab2466a25a2.html">008 - CSS box Model</a></figure><h1 id="dbda275c-f45a-47d3-a1d9-020e3018058d" class="block-color-orange_background">92. What Matters In This Section</h1><figure id="b35c9468-e2a8-4673-a7f2-3e2b468bfaf4" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled.png"/></a></figure><h1 id="2d6439b4-2e58-48db-b20c-ec34b92e633b" class="block-color-orange_background">93. Opacity &amp; The Alpha Channel</h1><figure id="4ff734ae-58df-4d9f-a6fe-39e0c860bcbb" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%201.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%201.png"/></a></figure><p id="e98b7990-c0e1-498d-95ac-62cb145c2f32" class="block-color-orange_background">
+</p><figure id="270f2874-8488-4fac-940d-6b305559f440" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%202.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%202.png"/></a></figure><p id="0b536d77-1ecd-4947-98ae-c8089a2a329d" class="block-color-orange_background">
+</p><figure id="9da2eadb-7a3a-4b0a-b8ec-d09a63aaf492" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%203.png"><img style="width:432px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%203.png"/></a></figure><p id="3005e1d1-5cb2-43f4-910d-e77458447600" class="block-color-orange_background">
+</p><figure id="d43f655c-f5b9-4aaf-8b16-4886cca3377e" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%204.png"><img style="width:576px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%204.png"/></a></figure><p id="51aac323-f4f4-4768-a1d2-2c1e2b6cfa58" class="block-color-orange_background">
+</p><h2 id="21c1f0a7-f7fb-47a8-936a-d2ac1bab16f8" class="block-color-orange_background">In CSS, both <code>opacity</code> and <code>alpha</code> refer to the transparency or the degree of translucency of an element. However, they are used in different contexts.</h2><h3 id="9d0ced6f-75e0-4eaf-b9b2-977ffec3b536" class="block-color-teal_background"><code>opacity</code>: The <code>opacity</code> property is a CSS property that adjusts the transparency of an element and all its content. It accepts a value between 0 and 1, where 0 represents complete transparency (invisible) and 1 represents complete opacity (fully visible). Intermediate values, such as 0.5, make the element partially transparent.</h3><p id="7b9218ab-fddc-4242-b456-13819472c479" class="">Here&#x27;s an example of using <code>opacity</code> in CSS:</p><pre id="ec461bf1-dc15-4989-bcbd-605ff48f18e2" class="code code-wrap"><code>.my-element {
+  opacity: 0.7;
+}</code></pre><p id="98d4ad35-c929-4b15-bf01-3f9c2279dd3d" class="">The <code>opacity</code> property affects the entire element and its contents, including text, images, and child elements. It creates a stacking context, meaning that child elements cannot have a higher opacity than their parent.</p><h3 id="a6570dc9-78e7-4670-890c-3e0da879dc43" class="block-color-teal_background"><code>alpha</code> in RGBA: The <code>alpha</code> component is part of the RGBA (Red, Green, Blue, Alpha) color model. It defines the opacity of a color in CSS. The alpha value ranges from 0 to 1, where 0 represents complete transparency, and 1 represents complete opacity.</h3><p id="1f1081ac-04cc-46e6-a915-ed5ae414cd75" class="">Here&#x27;s an example of using <code>alpha</code> in CSS:</p><pre id="bc58bcec-b73b-4399-9682-f37d28e1364e" class="code code-wrap"><code>.my-element {
+  background-color: rgba(255, 0, 0, 0.5);
+}</code></pre><p id="c801f091-dca8-4134-99ab-21217a1ed88f" class="">In this example, the background color of <code>.my-element</code> is set to a semi-transparent red. The <code>0.5</code> alpha value makes it 50% opaque.</p><p id="ec0ad96d-3967-4f43-8f8a-bf8bcbfced4b" class="">Unlike the <code>opacity</code> property, changing the alpha value in RGBA affects only the color of the element, not its content. Other properties, such as text or borders, are not affected by the alpha value.</p><p id="87fd8e80-d431-41de-8575-5f7a4a65b17c" class="block-color-teal_background">In summary, <code>opacity</code> affects the entire element and its contents, adjusting their transparency uniformly, while <code>alpha</code> in RGBA is used to control the transparency of a specific color, allowing you to set different levels of opacity for different properties like background-color, border-color, etc.</p><p id="5301139b-695e-4939-84bb-8dd1783fd73f" class="block-color-orange_background">
+</p><figure id="50ef041a-32b3-4af7-a7ce-80689df3e72d" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%205.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%205.png"/></a></figure><p id="088bc40a-d5d4-44a1-b5cc-dcc9a8da8f33" class="block-color-orange_background">
+</p><h1 id="9df34d80-2d90-4ce2-8447-69b6785c4162" class="block-color-orange_background">94. The Position Property</h1><figure id="10e09779-a7a3-45fe-aa5d-757500c13bef" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%206.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%206.png"/></a></figure><p id="fbe27346-27e2-4a89-8ae8-b538fc23ea5f" class="block-color-orange_background">
+</p><figure id="fc7be0fb-7539-4703-9a68-92e6ba29b423" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%207.png"><img style="width:1000px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%207.png"/></a></figure><p id="fb9d4ebe-22d8-4c42-8582-a329cab0057b" class="block-color-orange_background">
+</p><figure id="b7ffbc0c-c5a1-46e0-ab80-05317d99aa65" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%208.png"><img style="width:720px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%208.png"/></a></figure><p id="f632dd5f-3440-4b27-8a09-903e6e42e2c8" class="block-color-orange_background">
+</p><figure id="1a44f051-0456-4e25-aed6-dfff9eebe0dd" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%209.png"><img style="width:861px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%209.png"/></a></figure><p id="1b1c02cd-024a-4bb6-926c-077427815a5d" class="block-color-orange_background">
+</p><figure id="7abd7270-ed65-4fd2-bc11-25927653006c"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">position - CSS: Cascading Style Sheets | MDN</div><div class="bookmark-description">The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.cbbd161b.png" class="icon bookmark-icon"/>https://developer.mozilla.org/en-US/docs/Web/CSS/position</div></div><img src="https://developer.mozilla.org/mdn-social-share.cd6c4a5a.png" class="bookmark-image"/></a></figure><p id="440fa617-7fab-4d3f-b20c-444ae1830698" class="block-color-orange_background">
+</p><figure id="1ee4c149-dde6-405e-a167-6780e609a9cc" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2010.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2010.png"/></a></figure><p id="8440f5a3-5676-492c-b8f9-b4a147c3b4fa" class="block-color-orange_background">
+</p><h1 id="2209b055-a8b1-45ef-9dd4-266708400a03" class="block-color-orange_background">95. CSS Transitions (yay!)</h1><figure id="561a2e40-12e9-4793-9477-902ba70e8779" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2011.png"><img style="width:1568px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2011.png"/></a></figure><p id="60babcd9-9784-402a-9fc9-e52d8c027ca8" class="block-color-orange_background">
+</p><figure id="02f9e0d2-3cc9-4441-b630-164e086f14cb" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2012.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2012.png"/></a></figure><p id="ba46a8f7-f7db-4f4c-9ca8-951ea74aab08" class="block-color-orange_background">
+</p><p id="f68c603e-bc28-4ad6-b15d-e241f4f7cb19" class="block-color-orange_background">
+</p><figure id="e8db16f4-0682-4147-97e1-8577dc309a75" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2013.png"><img style="width:706px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2013.png"/></a></figure><p id="3ea47dd5-f548-423e-96ce-39c29be2c729" class="block-color-orange_background">
+</p><figure id="e213449d-b5d4-4a6a-b4c4-fb04570070df" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2014.png"><img style="width:900px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2014.png"/></a></figure><h3 id="cbb5873b-e089-44ff-9e35-47b4ba102716" class="block-color-orange_background">Timing Functions</h3><figure id="d6bd9158-532b-42f8-a66b-37c01e410027" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2015.png"><img style="width:1920px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2015.png"/></a></figure><p id="7181bbe9-7946-4f4b-a41a-17280528d178" class="block-color-orange_background">
+</p><figure id="d86cf059-dcfd-4644-bd3c-46ebdb49a892"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">transition - CSS: Cascading Style Sheets | MDN</div><div class="bookmark-description">The transition CSS property is a shorthand property for transition-property, transition-duration, transition-timing-function, and transition-delay.</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.cbbd161b.png" class="icon bookmark-icon"/>https://developer.mozilla.org/en-US/docs/Web/CSS/transition</div></div><img src="https://developer.mozilla.org/mdn-social-share.cd6c4a5a.png" class="bookmark-image"/></a></figure><p id="07f69b04-47c0-4f5e-9ba5-86cd0b448a56" class="block-color-orange_background">
+</p><figure id="200988ba-ebcb-4a81-af4f-a9856ff06241" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2016.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2016.png"/></a></figure><p id="b2b1bebf-ddc7-4f28-ba7f-e669f99d9698" class="block-color-orange_background">
+</p><h1 id="cf156adb-7fcb-4169-b3f8-983492cdabef" class="block-color-orange_background"><strong>96. The Power of CSS Transforms</strong></h1><figure id="81234a10-6156-4b5b-9cd3-57966bd494e0" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2017.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2017.png"/></a></figure><p id="b7fb43a9-7258-426b-83d5-a3678fc8807b" class="block-color-orange_background">
+</p><figure id="40cced3e-60ec-4ded-94e3-7302764e06b2" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2018.png"><img style="width:1600px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2018.png"/></a></figure><p id="9b87a161-7cde-4a05-a02d-4dcb84638f2c" class="block-color-orange_background">
+</p><figure id="c286c9c0-e192-40fd-96d6-270c56725dc9" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2019.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2019.png"/></a></figure><p id="0400fa21-13d2-4abd-8c33-b868ac635cfd" class="block-color-orange_background">
+</p><figure id="d19339d3-ccc8-488e-bbb2-1942639772d2"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">transform - CSS: Cascading Style Sheets | MDN</div><div class="bookmark-description">The transform CSS property lets you rotate, scale, skew, or translate an element.   It modifies the coordinate space of the CSS visual formatting model.</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.cbbd161b.png" class="icon bookmark-icon"/>https://developer.mozilla.org/en-US/docs/Web/CSS/transform</div></div><img src="https://developer.mozilla.org/mdn-social-share.cd6c4a5a.png" class="bookmark-image"/></a></figure><p id="a3adf193-bd40-4696-816f-17eeb87e6254" class="block-color-orange_background">
+</p><figure id="35dfd37f-294f-4870-a71f-0db4afdcfca4" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2020.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2020.png"/></a></figure><p id="1316caa1-d55c-46cd-accb-a7103a8c9e29" class="block-color-orange_background">
+</p><figure id="57e573c3-037e-435a-9ca0-a1a8ce77bc69" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2021.png"><img style="width:1920px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2021.png"/></a></figure><p id="b4edd9b1-647c-426b-9d0c-bbc4053c2222" class="block-color-orange_background">
+</p><ul id="9f8fd108-44b6-4c60-8ca6-5c961f9bd723" class="bulleted-list"><li style="list-style-type:disc">The CSS transform property indeed has a powerful effect on both the parent element and its contents. When you apply a transform to an element, it affects the visual rendering of that element and its children, if any.</li></ul><ul id="f2c36f9e-c606-446b-94ef-8f0c1b49222d" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">The transform property allows you to apply various transformations to an element, such as rotation, scaling, skewing, and translating (moving) it in 2D or 3D space. These transformations are applied relative to the element&#x27;s own coordinate system.</li></ul><ul id="35599b10-7f4e-4b10-92ac-4134da51fc63" class="bulleted-list"><li style="list-style-type:disc">When you apply a transform to a parent element, all its child elements are also transformed along with it. This behavior is often referred to as &quot;transform propagation.&quot; For example, if you rotate a container element using <code>transform: rotate(45deg);</code>, all its child elements will be rotated as well.</li></ul><ul id="b123016c-09ec-4a50-9b82-969030696228" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">This behavior can be particularly useful when you want to create complex and visually appealing effects or animations. By applying transforms to a parent element, you can easily transform and manipulate the child elements within it, creating cohesive visual transformations across the entire element hierarchy.</li></ul><ul id="a9d9e0b0-533e-486c-afe5-0035deda065b" class="bulleted-list"><li style="list-style-type:disc">However, it&#x27;s important to note that not all CSS properties inherit from their parent elements. Inheriting properties, such as color or font, will affect the children elements by default, but some properties, like transform, need to be explicitly specified on the child elements if you want them to have independent transformations.</li></ul><ul id="ceed47c9-5bcc-4d68-8773-2d85efc4ea36" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">Overall, the ability of the transform property to affect both the parent element and its contents allows for powerful and flexible styling and animation capabilities in CSS.</li></ul><p id="5e154c04-b411-444e-807c-e4c256faa0e2" class="block-color-orange_background">
+</p><h1 id="cab9bc2c-8473-42ad-ac69-64b3ae34cbac" class="block-color-orange_background"><strong>97. Fancy Button Hover Effect Code Along</strong></h1><figure id="d2a054fd-3ffb-423c-834c-6ff7b0d5f3c1" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2022.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2022.png"/></a></figure><p id="c68eecf4-41a0-4456-9abb-d59f920cebf0" class="block-color-orange_background">
+</p><figure id="bf1a19c8-8b05-4c88-b012-d9a6b1f76f03" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2023.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2023.png"/></a></figure><p id="74b7116c-8b5b-4d2b-b6eb-df04390f0579" class="block-color-orange_background">
+</p><h1 id="0a6a67cd-7247-4505-a4d2-ad9c2b746883" class="block-color-orange_background"><strong>98. The Truth About Background</strong></h1><figure id="a425dc2c-ed6c-4f60-a5bd-c39fad3e10b8" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2024.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2024.png"/></a></figure><p id="a4efeaeb-deb7-41f9-a6f5-439c4cb74947" class="block-color-orange_background">
+</p><p id="1b4f71d7-47e5-400d-b6ab-af19f55fdcea" class="">Sure, here are the background properties in CSS:</p><ul id="ceb57d12-d91c-4713-89c2-9585ec46f5f1" class="bulleted-list"><li style="list-style-type:disc"><strong>background-attachment</strong> specifies how the background image moves relative to the viewport.</li></ul><ul id="bd18484f-03b3-46a5-a706-ebc307fb4f81" class="bulleted-list"><li style="list-style-type:disc"><strong>background-color</strong> specifies the background color of an element.</li></ul><ul id="37614ce6-cdcb-4504-adb0-033dc82f66ec" class="bulleted-list"><li style="list-style-type:disc"><strong>background-image</strong> specifies the background image of an element.</li></ul><ul id="4d0b9955-1fba-4e6b-8dec-1b193de64e4c" class="bulleted-list"><li style="list-style-type:disc"><strong>background-origin</strong> specifies where the background image is positioned relative to the element&#x27;s content.</li></ul><ul id="dc2df9d7-972f-4a64-b981-8d48a02d9210" class="bulleted-list"><li style="list-style-type:disc"><strong>background-position</strong> specifies the starting position of the background image.</li></ul><ul id="5b6a37b9-246d-4da5-a7e3-ce838fd61c56" class="bulleted-list"><li style="list-style-type:disc"><strong>background-repeat</strong> specifies how the background image is repeated.</li></ul><ul id="f2209b9d-42e2-47c5-aa2e-be885e7f1990" class="bulleted-list"><li style="list-style-type:disc"><strong>background-size</strong> specifies the size of the background image.</li></ul><ul id="4920dfb8-dcff-420c-99cb-cd49f3e277ed" class="bulleted-list"><li style="list-style-type:disc"><strong>background-clip</strong> specifies how the background image is clipped to the element&#x27;s borders.</li></ul><p id="e10eb433-4088-4f98-af6d-7c023be188e1" class="">You can use the shorthand <code>background</code> property to set multiple background properties at once. For example, the following code sets the background color to red, the background image to <code>url(image.png)</code>, and the background repeat to <code>repeat</code>:</p><p id="9e98094f-8fca-43f5-b7b3-31a5d81649c6" class=""><strong>Code snippet</strong></p><pre id="b31b28d3-a6e8-47e5-b69e-34634d6e7a0a" class="code code-wrap"><code>background: red url(image.png) repeat;</code></pre><p id="14c1fe37-7bf3-4032-a393-34485d63496d" class="">Here is a table of the possible values for each background property:</p><table id="889836a1-064a-495f-9701-12cec7d27971" class="simple-table"><thead class="simple-table-header"><tr id="dbfc1134-198d-4a93-84b5-8817929dd2c8"><th id="cF=B" class="simple-table-header-color simple-table-header"><strong>Property</strong></th><th id="=aKA" class="simple-table-header-color simple-table-header"><strong>Values</strong></th><th id="?&gt;tq" class="simple-table-header-color simple-table-header"><strong>Description</strong></th></tr></thead><tbody><tr id="e747e774-555f-4c46-adf1-c3aeb4441549"><th id="cF=B" class="simple-table-header-color simple-table-header">background-attachment</th><td id="=aKA" class="">scroll, fixed, local</td><td id="?&gt;tq" class="">Specifies how the background image moves relative to the viewport.</td></tr><tr id="e90e4efa-2b3c-4334-8184-71c8c000f075"><th id="cF=B" class="simple-table-header-color simple-table-header">background-color</th><td id="=aKA" class="">Color value</td><td id="?&gt;tq" class="">Specifies the background color of an element.</td></tr><tr id="be3b90ff-129a-4266-a654-72f00b928eb3"><th id="cF=B" class="simple-table-header-color simple-table-header">background-image</th><td id="=aKA" class="">URL</td><td id="?&gt;tq" class="">Specifies the background image of an element.</td></tr><tr id="be03b44b-b44f-4b3e-a34b-aa5ea4f1f033"><th id="cF=B" class="simple-table-header-color simple-table-header">background-origin</th><td id="=aKA" class="">border-box, padding-box, content-box, inherit</td><td id="?&gt;tq" class="">Specifies where the background image is positioned relative to the element&#x27;s content.</td></tr><tr id="f583ecf3-27a0-4fae-a80c-115b704d2c1c"><th id="cF=B" class="simple-table-header-color simple-table-header">background-position</th><td id="=aKA" class="">[x, y]</td><td id="?&gt;tq" class="">Specifies the starting position of the background image.</td></tr><tr id="1513ff61-6e85-4afd-a64c-6a981c19c53d"><th id="cF=B" class="simple-table-header-color simple-table-header">background-repeat</th><td id="=aKA" class="">repeat, repeat-x, repeat-y, no-repeat</td><td id="?&gt;tq" class="">Specifies how the background image is repeated.</td></tr><tr id="08215150-a0d9-4d22-a2b7-d08407c6ff16"><th id="cF=B" class="simple-table-header-color simple-table-header">background-size</th><td id="=aKA" class="">[width, height]</td><td id="?&gt;tq" class="">Specifies the size of the background image.</td></tr><tr id="c861cec5-bed3-4fb7-a87b-61624e756d30"><th id="cF=B" class="simple-table-header-color simple-table-header">background-clip</th><td id="=aKA" class="">border-box, padding-box, content-box, inherit</td><td id="?&gt;tq" class="">Specifies how the background image is clipped to the element&#x27;s borders.</td></tr></tbody></table><p id="70d84a02-5115-4a30-9a75-7b33c8c4029e" class="block-color-orange_background">
+</p><figure id="c3d3244d-79c4-45e1-955e-08c156909bf7" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2025.png"><img style="width:1535px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2025.png"/></a></figure><p id="65a5f90c-554f-4bd9-9105-4e2c3f7908a7" class="block-color-orange_background">
+</p><figure id="8ad5eaf1-3c11-4e90-923d-3b144c12de34" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2026.png"><img style="width:1866px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2026.png"/></a></figure><p id="6d140048-f9ec-4746-beea-6cf1b7aaaab0" class="block-color-orange_background">
+</p><figure id="2e2e1f86-72ea-408d-9ee8-4bb348e09808" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2027.png"><img style="width:518px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2027.png"/></a></figure><p id="66612721-3094-4a06-aade-49818bf39744" class="block-color-orange_background">
+</p><figure id="67fd54e6-0d1d-4623-be1d-035970219fc3" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2028.png"><img style="width:1280px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2028.png"/></a></figure><p id="d7999894-94c5-4c96-b29e-a95a81544e1e" class="block-color-orange_background">
+</p><h1 id="932dfdd8-b07d-467a-a329-e2e870b98463" class="block-color-orange_background"><strong>99. Google Fonts is Amazing</strong></h1><figure id="a66a1433-846f-42bd-bc84-6c00a35a24b4" class="image"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2029.png"><img style="width:1760px" src="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33/Untitled%2029.png"/></a></figure><p id="bc3910d5-8f58-4c56-9ec6-c3a02e50ba4c" class="block-color-orange_background">
+</p><figure id="dcb5e24b-e022-432f-b14c-181353f5cae1" class="block-color-orange link-to-page"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1.html">010 - Responsive CSS &amp; Flexbox</a></figure></div></article></body></html>

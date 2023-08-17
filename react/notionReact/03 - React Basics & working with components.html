@@ -1,0 +1,806 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>03 - React Basics &amp; working with components</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5c828ede-e7b4-4670-8c0b-82584b916a37" class="page sans"><header><h1 class="page-title">03 - React Basics &amp; working with components</h1><p class="page-description"></p></header><div class="page-body"><figure id="7f8f6165-d3e4-4d98-9048-c4d19c599a0f" class="link-to-page"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f.html">02 - JavaScript Refresher </a></figure><h1 id="201fe693-f0d2-46a2-9679-08d9d973b40d" class="block-color-orange_background">36. Module Introduction</h1><figure id="27c191b8-ff6d-4e33-98a7-eb23ba002e38" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled.png"/></a></figure><p id="bfd414e4-aace-4558-9578-5bef0dc43b97" class="block-color-orange_background">
+</p><figure id="5ccd5e8c-b35b-46eb-8b0c-9e95e1d6268a" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%201.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%201.png"/></a></figure><p id="ac83a2ac-1837-48ce-983b-2430ac38e17b" class="block-color-orange_background">
+</p><figure id="f33bf394-c6f1-4844-bd2d-425b3bdd5a0b" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%202.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%202.png"/></a></figure><p id="00716156-a655-45a1-b826-9899bd7b4b77" class="block-color-orange_background">
+</p><h1 id="bd79f965-55c6-4610-9110-726c8e4bff1f" class="block-color-orange_background">37. What Are Components? And Why Is React All About Them?</h1><figure id="8636e748-5b08-4e9e-b05f-ab1f98ade22b" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%203.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%203.png"/></a></figure><p id="6eb34d3c-48dd-4182-b07c-c10ef5d01ee2" class="block-color-orange_background">
+</p><figure id="676d370d-0403-4d7f-bb8c-41d5fec2f15d" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%204.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%204.png"/></a></figure><p id="61b0e63a-3cfc-4d34-a5d8-10ac0c8e7d61" class="block-color-orange_background">
+</p><figure id="206698f7-a42f-465a-88e2-3e7133a4986b" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%205.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%205.png"/></a></figure><p id="73289325-562b-49b6-ae3a-1fdc720c8eb5" class="block-color-orange_background">
+</p><figure id="b1e24b1d-0222-4815-93bf-9e4172af3288" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%206.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%206.png"/></a></figure><h3 id="25625dfd-23ba-4bd0-bb32-4209cf8af188" class="block-color-orange_background">Components are <mark class="highlight-red">building blocks</mark> that are used in your user interfaces
+some time we <mark class="highlight-red">reuse </mark>Components but not all components need to be <mark class="highlight-red">reused ,
+</mark>components reusability is just a one the many properties for the components </h3><figure id="98dc603f-443e-42f7-9e9d-7b17f2abc441" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%207.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%207.png"/></a></figure><p id="0066530a-7219-489f-98c3-e1e39e2f9dbd" class="block-color-orange_background">
+</p><figure id="cd9b1e9c-e995-4fb5-bbe7-71a3326acf72" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%208.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%208.png"/></a></figure><p id="056a7c19-a5e2-48d7-b44f-135aac6a5a5d" class="block-color-orange_background">
+</p><figure id="b1473308-2b59-4a11-a9be-a320c6027b18" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%209.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%209.png"/></a></figure><h3 id="45234963-aed8-4c64-8ee2-f4781595b543" class="block-color-orange_background">same component repeated twice</h3><figure id="978ab802-3b78-4c8d-8cb7-30b7efb29cf2" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2010.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2010.png"/></a></figure><h3 id="32e95986-44f8-48de-b15f-05f7761d9bcf" class="block-color-orange_background">same component repeated multiple times</h3><figure id="31e0072a-893f-48aa-8d93-17f349c72662" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2011.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2011.png"/></a></figure><p id="efa5a6e7-eef8-42a6-8ca1-ac8d5d224736" class="block-color-orange_background">
+</p><figure id="516e9311-6ed2-43f3-95a8-cd5207082d2b" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2012.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2012.png"/></a></figure><p id="4bed82da-0251-4e8f-949a-f0a4cfaf004d" class="block-color-orange_background">
+</p><h1 id="6296d635-a92e-4d59-94bc-cb1471a9eb90" class="block-color-orange_background">38. React Code Is Written In A &quot;Declarative Way&quot;!</h1><figure id="e162f319-7cb5-4af2-947e-04fe72a4929d" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2013.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2013.png"/></a></figure><p id="3ba894f9-3e83-4107-b23a-72010a68516e" class="block-color-orange_background">
+</p><figure id="9892a501-e05a-45c6-826f-6fe0f38b4f19" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2014.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2014.png"/></a></figure><p id="b6554db6-eeb2-408c-94c3-e7535ed3cc59" class="block-color-orange_background">
+</p><figure id="ae73f6ae-b27d-4388-b3c8-917d2af8f7aa" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2015.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2015.png"/></a></figure><h1 id="1aee3d9a-9054-4f47-a94c-4b2764da407a" class="block-color-orange_background">React main porpose</h1><figure id="df86d408-3cd4-4464-955d-0f2051929c22" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2016.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2016.png"/></a></figure><p id="9bf33228-9be3-435d-8afb-b197c5b54041" class="block-color-orange_background">
+</p><h1 id="2e49438b-793d-419f-97f2-dc3e45e87838" class="block-color-orange_background">39. Creating a new React Project</h1><figure id="9b232102-b0ef-44f0-9ee3-4b4ea667fdb1" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2017.png"><img style="width:1144px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2017.png"/></a></figure><p id="caf168c9-0a17-42f1-9404-4d3f1c6def69" class="block-color-orange_background">
+</p><figure id="9d083917-211d-4c17-ade6-0b7906540f85" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2018.png"><img style="width:756px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2018.png"/></a></figure><p id="e73671ca-e107-428b-a308-c64471b9f469" class="block-color-orange_background">
+</p><h1 id="9bf859f2-aec9-4035-8ee5-a80bf46cb3ab" class="block-color-orange_background">41. Analyzing a Standard React Project</h1><div id="3140f05f-d75d-411e-b601-2de713614821" class="column-list"><div id="1d84e79b-7749-4df6-a013-ec416fa3b804" style="width:25%" class="column"><h3 id="ff70c4c7-3147-452f-93ed-73d45c5c7971" class="block-color-orange_background"><em><strong>How should be the project </strong></em><em><mark class="highlight-red"><strong>architecture ( or structure ) of </strong></mark></em><em><strong>React </strong></em></h3></div><div id="e8055ecf-debc-4721-9d69-67ea596163c8" style="width:75%" class="column"><figure id="ef6994c3-291d-4daf-9916-245b651dd737" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2019.png"><img style="width:394px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2019.png"/></a></figure></div></div><h3 id="08656a28-2476-46aa-b764-a8f861093e1c" class="block-color-orange_background">index.js</h3><figure id="15da13fc-a224-4ac5-bf90-501f7d3a2795" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2020.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2020.png"/></a></figure><h2 id="33d95c56-74e1-4d59-a547-83c414cdd7c7" class="block-color-orange_background">both the packages react, react-dom make react library  </h2><figure id="c7ec882c-c15e-49ea-8953-cd5e37f8f7c7" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2021.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2021.png"/></a></figure><p id="49639965-0407-4020-b272-6deccb42f41b" class="block-color-orange_background">public/index.html 
+root div</p><figure id="464d1065-5107-4765-8a9c-495a15f326b9" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2022.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2022.png"/></a></figure><p id="0f8f046f-e3c4-4627-9d24-aefc158516f0" class="block-color-orange_background">
+</p><h1 id="03a282bb-bba5-43b4-9944-7a94a4ea49cd" class="block-color-orange_background">42. Introducing JSX</h1><figure id="2ed12f96-8e9f-4a0e-8590-0da517fdcf84" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2023.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2023.png"/></a></figure><p id="6b320b43-16bb-4e44-b8b4-d18eda95405a" class="block-color-orange_background">
+</p><h1 id="4d4c0124-3940-4a8b-9ddc-4be5d62365f0" class="block-color-orange_background"><strong>43. How React Works</strong></h1><figure id="99a52b56-2215-4c87-adc8-22ca3237c748" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2024.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2024.png"/></a></figure><p id="ef640992-59c1-4cd6-8726-421577d758ea" class="block-color-orange_background">
+</p><figure id="46ed538e-80d1-4f47-baea-dc9540109462" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2025.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2025.png"/></a></figure><h3 id="76d8cfd6-865a-4281-b49a-b02df39db8fa" class="block-color-orange_background">in plain js we need to do imperative approach but it can be complex
+we need to tell clear step by step what js needs to do</h3><figure id="0661f17b-f790-4d77-afd7-2f8e5da6374e" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2026.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2026.png"/></a></figure><h3 id="c7798bd4-4f6e-41ef-910c-bdc859fc7c6d" class="block-color-orange_background">In react we will define the end state of the component
+means
+we will just tell (or) we will declare to react library this is what the end component needs to look like 
+
+react will write the imperative code behind the scenes </h3><figure id="6ced9472-fdc1-4f38-b873-44eaf3bd3785" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2027.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2027.png"/></a></figure><p id="781922b0-f9d1-4976-8f17-482727c0c01f" class="block-color-orange_background">
+</p><h1 id="1e6a3280-de51-4290-b6ce-2f1f69a7065b" class="block-color-orange_background"><strong>44. Building a First Custom Component</strong></h1><figure id="c52ec011-db6f-406e-a016-f654e29f2d01" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2028.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2028.png"/></a></figure><p id="2c093589-a072-4d9a-aca1-2ab33035c0f7" class="block-color-orange_background">
+</p><figure id="cd846f50-cc03-44bd-93d0-a7cd3f332293" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2029.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2029.png"/></a></figure><p id="f04e8b64-9f2c-46c5-a307-32a80a247716" class="block-color-orange_background">
+</p><figure id="8697715d-7931-4e27-b73b-f38f72b31d09" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2030.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2030.png"/></a></figure><p id="fa3e0bea-9a7e-48fe-bb87-5c5c88ceb4c4" class="block-color-orange_background">
+</p><figure id="b19109e1-7e14-443d-a564-c81afad27281" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2031.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2031.png"/></a></figure><p id="4dc79b6c-d711-4453-915c-55ffa11f8e8a" class="block-color-orange_background">
+</p><figure id="1924d43a-75a9-4388-81dd-95e67f4f18fb" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2032.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2032.png"/></a></figure><p id="aabe8a09-c0d9-4855-b275-a191f40b9b5b" class="block-color-orange_background">
+</p><h1 id="77a48c1e-22d1-4981-bff0-e5bd84be5db1" class="block-color-orange_background">45. Writing More Complex JSX Code</h1><figure id="fee58e34-8444-4130-933b-5637b9c0128d" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2033.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2033.png"/></a></figure><p id="44e49015-3563-4c42-bb4f-7fedea2ca8bf" class="block-color-orange_background">
+</p><h1 id="6f7ec2e1-75c0-457e-b5ee-edb9d9d7b0ac" class="block-color-orange_background"><strong>46. Adding Basic CSS Styling</strong></h1><figure id="e0dac1f6-e7ef-4945-b610-22aa282c98b5" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2034.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2034.png"/></a></figure><p id="76ee216b-cc98-46ac-9d70-572c049bdcab" class="block-color-orange_background">
+</p><h1 id="868dbf78-4aeb-4f37-883c-742d2064261b" class="block-color-orange_background"><strong>47. Outputting Dynamic Data &amp; Working with Expressions in JSX</strong></h1><figure id="c0d79fbc-0725-4047-a8fd-3b7a3d10ffac" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2035.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2035.png"/></a></figure><p id="0eba8dfe-b4b4-4fd8-b36c-3ab55a8b3f82" class="block-color-orange_background">
+</p><figure id="09ceedb7-0117-4808-9b35-8f7398bfbbd0" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2036.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2036.png"/></a></figure><p id="5b5796a2-7137-4f35-a489-64873af75ea4" class="block-color-orange_background">
+</p><figure id="42106a6a-0c25-4a0a-84ca-17e6905d1708" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2037.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2037.png"/></a></figure><p id="c99220f0-8f88-4d7c-b70f-e77f905184ac" class="block-color-orange_background">
+</p><figure id="69474a4e-6602-48a4-9516-fba2ce6ea3b4" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2038.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2038.png"/></a></figure><p id="df28d8a1-e7bf-4c2e-a66b-cd3907456040" class="block-color-orange_background">
+</p><h1 id="b01b7e85-b441-4964-b3fc-62beb498d4ef" class="block-color-orange_background"><strong>48. Passing Data via &quot;props&quot;</strong></h1><figure id="46fb44b0-61ab-4b40-a78a-6fa7168de366" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2039.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2039.png"/></a></figure><p id="abac44a7-f184-4e79-b7d3-881cf31999d7" class="block-color-orange_background">
+</p><figure id="094365b2-d012-41b0-aa41-d670d15b5ac3" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2040.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2040.png"/></a></figure><p id="a52877a6-342e-48f6-98fe-88ac5f9048d4" class="block-color-orange_background">
+</p><figure id="1fb728f8-73a8-4430-ad46-1e0a5b2e0056" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2041.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2041.png"/></a></figure><p id="c6b34aeb-fddd-4ab2-a916-5e4d92001e30" class="block-color-orange_background">
+</p><figure id="2c953831-9910-4200-837e-3c5801e96c58" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2042.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2042.png"/></a></figure><p id="6032bfa3-217a-48aa-854b-e21b7b16884d" class="block-color-orange_background">
+</p><figure id="befeffb7-e781-44a4-b5c4-12a9f299d05a" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2043.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2043.png"/></a></figure><p id="2ed31f6e-1386-4e74-b8a6-6d4cd845fed6" class="block-color-orange_background">
+</p><figure id="0e7320ac-ef61-4188-be6e-00f8fe8017e5" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2044.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2044.png"/></a></figure><p id="ef77a8f0-1b12-4665-bc68-a3e1869baf76" class="block-color-orange_background">
+</p><h1 id="23e2dfae-c941-4b08-9764-f2850da82b20" class="block-color-orange_background"><strong>49. Alternative Ways of Passing &amp; Receiving / Handling &quot;props&quot;</strong></h1><figure id="db43492d-5536-48d2-8e26-a66431429418" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2045.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2045.png"/></a></figure><h3 id="d590a745-4d5c-4ecf-8151-289994cfce6f" class="block-color-orange_background">expense object will be send inside the props object
+so we use 
+props.expense.Title</h3><figure id="f9881708-2ad0-4448-9f48-d41702dc66a7" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2046.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2046.png"/></a></figure><h3 id="625b03c5-e83f-429a-bd7f-0dd199297f3f" class="block-color-orange_background">object destructuring </h3><figure id="8b4ee01d-6582-4c75-8761-4a48ce419c68" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2047.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2047.png"/></a></figure><p id="06f0796c-dcba-4cb3-a22c-f25770fdd00e" class="block-color-orange_background">
+</p><h1 id="741963a4-c33b-4c7a-80fc-bcfaef249763" class="block-color-orange_background">50. Adding &quot;normal&quot; JavaScript Logic to Components</h1><figure id="3c7317a6-138d-46d7-86f6-5e3947f9f390" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2048.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2048.png"/></a></figure><p id="06fcd740-ef81-4493-a715-71b6c4045de8" class="block-color-orange_background">
+</p><figure id="2769bbe3-20bd-4e38-a7a8-fdf527cbb935" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2049.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2049.png"/></a></figure><p id="b1015668-e25f-4e46-9ee4-57f4dff71a21" class="block-color-orange_background">
+</p><h1 id="2d828a9a-9d89-4d90-927a-c522b8abb9c7" class="block-color-orange_background">51. Splitting Components Into Multiple Components</h1><figure id="5b66f338-93e3-4b42-938f-d4e97dd4586c" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2050.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2050.png"/></a></figure><p id="95ede8dd-de05-4241-91b9-17dee1373641" class="block-color-orange_background">
+</p><figure id="62d42ea8-5755-4cbb-9470-fdcc653b6c38" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2051.png"><img style="width:1280px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2051.png"/></a></figure><p id="3a215969-0d52-401a-864b-fc09572d4218" class="block-color-orange_background">
+</p><figure id="4b77f389-d349-4929-b17f-ee7166165c9a" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2052.png"><img style="width:1600px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2052.png"/></a></figure><h3 id="ca7ee176-a291-4f16-b82c-0cc1e43271e2" class="block-color-orange_background">Extracting expanse from app.js file </h3><figure id="fc514c81-44a5-4158-a99b-f47c8b92eb7a" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2053.png"><img style="width:1600px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2053.png"/></a></figure><p id="c96aed8d-cc25-48e1-b542-2781391406e0" class="block-color-orange_background">
+</p><h1 id="939c2304-c944-45a3-a222-9b728d185335" class="block-color-orange_background">52. The Concept of &quot;Composition&quot; (&quot;children props&quot;)</h1><h2 id="02f8a50b-ba74-471b-9e1a-c3f36c777d88" class="block-color-orange_background">Composition explained :- 
+
+The way of building a user interface from smaller independent components is called as Composition.
+
+(or)
+
+when we should separate our code into smaller independent components and how to compose{merge} them properly into one component is called Composition</h2><figure id="ddd666c1-7e6b-4bb7-ac6f-cdb27be565cb" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2054.png"><img style="width:800px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2054.png"/></a></figure><h3 id="15c2c000-d4a9-475e-bab0-231ce882349a" class="block-color-orange_background">React is nothing but creating Custom Html elements called as componets that will render in browser  </h3><h2 id="45a8ba4e-f7c5-4b3c-9eba-c29afc80bb38" class="block-color-orange_background">until now 
+we are able to create components 
+we are able to create complex multistage components
+we are able give send props (attributes) from one components to other </h2><figure id="9bce42d7-1c3d-4ee7-a81a-79dc9ef28091" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2055.png"><img style="width:608px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2055.png"/></a></figure><h2 id="238a577e-21b5-4262-a859-75003a448fe6" class="block-color-orange_background">Now we adding <mark class="highlight-red">“content”</mark> into those custom HTML components using props children concepts </h2><h3 id="1e2bd87b-1be0-44e4-86b7-2693f0fa1567" class="block-color-orange_background">Wrapper components or Wrapper custom HTML Tags created in react</h3><figure id="e15ce19a-03f3-4d5d-aac0-eb9ac535bfa7" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2056.png"><img style="width:1280px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2056.png"/></a></figure><h3 id="47c126c3-dcba-4320-9541-e5ebc4aa34a5" class="block-color-orange_background">Wrapper components are used to store styles and other properties and make easy to wrap around other components using the Wrapper component as HTML tag</h3><figure id="d6dd3d70-fed2-4faf-ae67-767e3ffcec6c" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2057.png"><img style="width:544px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2057.png"/></a></figure><h3 id="9ef9d91a-38f5-4310-a5fd-3fd8d5ddaefa" class="block-color-orange_background">Example</h3><figure id="8fbf65f5-a22e-4475-953d-9a284033b7fb" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2058.png"><img style="width:1600px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2058.png"/></a></figure><p id="430280ec-e34d-450b-b8db-377b3e0850d6" class="block-color-orange_background">
+</p><figure id="3aa3bf62-21ad-4ef9-9af9-4279be1db47b" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2059.png"><img style="width:2480px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2059.png"/></a></figure><h3 id="49b59f2b-1053-4adc-9374-813343db3410" class="block-color-orange_background">card wrapper around UserFrom and UserInfo</h3><figure id="75763661-9b2c-43be-bc15-3ec0c08be34d" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2060.png"><img style="width:592px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2060.png"/></a></figure><h3 id="296d14e2-6694-4761-ac61-193cd2540d12" class="block-color-orange_background">creating card component and adding styles</h3><figure id="932ecd07-2e0d-4ad4-8e88-ed1d2b4fc10f" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2061.png"><img style="width:1097px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2061.png"/></a></figure><h3 id="73e0a9bb-ea7b-44dc-b8df-8c9e7a448d03" class="block-color-orange_background">Now we can use card component as a html tag to wrap some content </h3><h3 id="94fe44a4-8520-429d-956f-486487ef5204" class="block-color-orange_background">using Card as a wrapper</h3><figure id="3d15cfd1-691f-4f8d-ac53-b7da14b76954" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2062.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2062.png"/></a></figure><h3 id="95d48b02-830b-4669-8ffb-32687bb32aa9" class="block-color-orange_background">we see blank page because right now card not takes any input arguments now</h3><figure id="33187cde-ba4a-4061-b2af-f74b5d607100" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2063.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2063.png"/></a></figure><h3 id="4bf485f7-90f1-414b-8ed1-c51355bbb467" class="block-color-orange_background">props.children used to make wrapper classes take components into them
+
+Essentially, props.children is <strong>a special prop, automatically passed to every component, that can be used to render the content included between the opening and closing tags when invoking a component</strong>.
+
+just like how “event object” is created case of an event “props.children” will also be created automatically for every custom react component</h3><figure id="26a2ee69-db82-494a-b32c-e082ce85ed1a" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2064.png"><img style="width:1000px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2064.png"/></a></figure><h3 id="ce0dd4d0-6bf1-4efc-a0c9-e5f087fdceab" class="block-color-orange_background">making classes available in custom componets</h3><figure id="d79e1954-b3b5-4d86-8955-e3a957a83627" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2065.png"><img style="width:1571px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2065.png"/></a></figure><p id="777f02ca-66ef-4a9c-ac46-3cacd740bad6" class="block-color-orange_background">
+</p><figure id="2dafc4ba-6a02-42ba-b467-9808ae726b08" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2066.png"><img style="width:1400px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2066.png"/></a></figure><p id="d23a1c6a-c464-46a1-a195-d0c7f0a244a7" class="block-color-orange_background">
+</p><h1 id="f0d130af-52c0-4869-ae9a-c6a7938f20f8" class="block-color-orange_background"><strong>53. A First Summary</strong></h1><figure id="118f8cd0-d772-4e68-89bf-2dd1586f2da2" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2067.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2067.png"/></a></figure><p id="21397207-2792-44a2-9ce7-f83f2b4fe792" class="block-color-orange_background">
+</p><figure id="977a33b6-e5d7-472a-909e-e3c3d6b206f2" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2068.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2068.png"/></a></figure><p id="a0845b52-44b7-4064-b7de-89fc91413fdc" class="block-color-orange_background">
+</p><figure id="652b8f0e-44cd-44b8-9b1f-12f7e701e611" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2069.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2069.png"/></a></figure><p id="9dfb9d20-4d5b-4622-bf42-891fa706547c" class="block-color-orange_background">
+</p><figure id="db73486a-be69-4172-89a8-74f9d5cc07c6" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2070.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2070.png"/></a></figure><p id="28746848-da6f-42e2-8121-af29cc326a29" class="block-color-orange_background">
+</p><h1 id="303c0e17-7dce-43b4-b21d-2e3a24357d20" class="block-color-orange_background"><strong>54. A Closer Look At JSX</strong></h1><h1 id="d1ab6962-49a1-4c58-9eb3-cb527d01bd67" class="">VERY IMPORTANT VIDEO </h1><h1 id="d1bd32e2-bcc4-494f-a81c-84af509f0b9c" class="">WATCH AGAIN TO NOT FORGET</h1><figure id="8b517e0f-9e54-4387-a2fb-3ac11060f694" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2071.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2071.png"/></a></figure><p id="339b7ba8-53a9-44bb-9c0f-ed859a62f41c" class="block-color-orange_background">
+</p><figure id="b54d0ea4-6e9e-49f9-bd93-9eefca5f58c4" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2072.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2072.png"/></a></figure><p id="658df320-27b1-4805-bc36-785d7731d605" class="block-color-orange_background">
+</p><figure id="1632bfbc-5d78-4a0b-8375-44e20a4124f0" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2073.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2073.png"/></a></figure><h2 id="213b5e20-d69c-4b59-b7c0-64dcb7207f21" class="block-color-orange_background">react with out jsx</h2><figure id="bdeceacc-6bea-4734-8140-b0ad1938a158" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2074.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2074.png"/></a></figure><p id="93715745-1171-48c8-a00a-93b931d12ee6" class="block-color-orange_background">
+</p><figure id="2d61a186-d9ca-47a9-94b5-0568d98d35e9" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2075.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2075.png"/></a></figure><p id="5fe8c92b-967d-4dfd-950e-6eec5312b8b7" class="block-color-orange_background">
+</p><figure id="88d02dfe-9a32-454b-9fa3-e32b60aa3db7" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2076.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2076.png"/></a></figure><h2 id="8245d00c-8c69-428d-8658-0a6962260434" class="block-color-orange_background">Jsx code snippet written in HighLevel api 
+in react using React.<strong><strong>createElement function</strong></strong></h2><figure id="bb15f09e-384a-4944-bcf9-aeba81b28c34" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2077.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2077.png"/></a></figure><h2 id="70891c87-6569-413b-805d-47ddcff9f05b" class="block-color-orange_background">React JSX code under the hood transforms to the 
+React.createElement code before compiles to final HTML code</h2><p id="bca52a8f-cd5d-4689-a780-fc25e8948fee" class="block-color-orange_background">
+</p><h1 id="4ff3e55d-b10e-466d-9177-42bdd45a80d3" class="block-color-orange_background"><strong>55. Organizing Component Files</strong></h1><figure id="b1d34eff-e5ba-4cda-9a8d-f4f28f6f0a9e" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2078.png"><img style="width:1919px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2078.png"/></a></figure><p id="26bcc642-6bdc-4533-b00d-deb316a43732" class="block-color-orange_background">
+</p><h1 id="4e769cfd-b2fc-4cba-9e9d-b18232c649a3" class="block-color-orange_background">55 - 01 - <strong><strong>Best React Folder Structures | Beginner - Intermediate - Advanced</strong></strong></h1><figure id="49eb9498-15cb-408a-971e-90957c05d753"><a href="https://youtu.be/XEO3mFvrDx0" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Best React Folder Structures | Beginner - Intermediate - Advanced</div><div class="bookmark-description">In this video I will go over my opinion over the best folder structures in react.
+
+-
+🚀  Learn ReactJS By Building 6 Projects: https://codedamn.com/learn/reactjs-projects
+💻  PedroTech Discord: https://discord.gg/5aaWSRrskg
+-
+
+Social
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+Website: machadopedro.com
+Twitter: https://twitter.com/pedrotech_
+Linkedin: https://www.linkedin.com/in/machadop1407/
+Instagram: https://www.instagram.com/_pedro.machado_
+Github: https://github.com/machadop1407
+Email: machadop1407@gmail.com
+
+Equipments I Use:
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+🌟 Algorithm Book To Pass Coding Interviews: https://amzn.to/2Z2CirS
+🌟 Microphone: https://amzn.to/2MKAm4V
+🌟 Keyboard: https://amzn.to/3tvU6ZR
+🌟 HD Webcam: https://amzn.to/3tMpJPD
+🌟 Room LED Lights: https://amzn.to/3a5mFGp
+
+
+Tags:
+- ReactJS Tutorial
+- ReactJS and MySQL
+- NodeJS Tutorial
+- API Tutorial</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/ba13a6ad/img/favicon_144x144.png" class="icon bookmark-icon"/>https://youtu.be/XEO3mFvrDx0</div></div><img src="https://i.ytimg.com/vi/XEO3mFvrDx0/maxresdefault.jpg" class="bookmark-image"/></a></figure><h3 id="88133e50-a134-4ae4-b386-35b95f6d73f8" class="block-color-orange_background"><strong><strong>Beginner Folder Structure</strong></strong></h3><figure id="d4177aee-2072-408b-a46a-3b07d4322a3c" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2079.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2079.png"/></a></figure><p id="cda47947-8c6f-45b9-be8d-a5384a2240ef" class="block-color-orange_background">
+</p><figure id="4f3339ae-f7da-490e-ae2c-b711fdce71ce" class="image"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2080.png"><img style="width:1920px" src="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37/Untitled%2080.png"/></a></figure><p id="a7bfce6e-e3b1-47c5-8e13-8aa905087147" class="block-color-orange_background">
+</p><h1 id="0a37d257-b76f-448f-a388-ac575b7d20df" class="block-color-orange_background">55 - 02 - <strong><strong>React Architecture: Small vs. Mid vs. Large App Folder Structure</strong></strong></h1><figure id="9390ae79-a40c-4715-b553-4c6b1d68d1b0"><a href="https://youtu.be/QhSXNY8sy_0" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">React Architecture: Small vs. Mid vs. Large App Folder Structure</div><div class="bookmark-description">Best practices of a clean and scalable React component architecture are different depending on project sizes such as large or small React app architectures. Folder structure of the React app with its components, Redux, React Context and etc. adds up to an advanced React architecture that may be hard to get. I&#x27;ll try to explain the React architecture the best way I can even though every approach is subjective.
+
+======⚡⚡⚡======
+Consider supporting the channel by clicking the &quot;Thanks&quot; button ❤️
+
+👉 Get a 20% discount on Brilliant.org (to learn Science, Technology, Engineering, and Math): https://brilliant.sjv.io/kjVO2z
+======⚡⚡⚡======
+
+🙌 Become my Patreon and get exclusive perks: https://patreon.com/softdevdiaries
+💼 Follow me on LinkedIn and drop me a message if you&#x27;d like: https://linkedin.com/in/gusgadirov
+💻 Also, let&#x27;s connect on GitHub: https://github.com/gusgad
+
+🕒 Timestamps:
+(0:00) React architecture overview
+(0:36) Small-size React apps
+(2:50) Mid-size React apps
+(6:13) Large-size React apps
+
+And don&#x27;t forget to subscribe for more videos like this 😊</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/ba13a6ad/img/favicon_144x144.png" class="icon bookmark-icon"/>https://youtu.be/QhSXNY8sy_0</div></div><img src="https://i.ytimg.com/vi/QhSXNY8sy_0/maxresdefault.jpg" class="bookmark-image"/></a></figure><p id="1a8fc045-7534-4990-bcf7-438fb941521c" class="block-color-orange_background">
+</p><figure id="f2243421-4f25-4957-84b8-09bfc1ad20c2" class="link-to-page"><a href="04%20-%20Best%20Practices%20for%20React%20Components%20f22434214f25495784b809bfc1ad20c2.html">04 - Best Practices for React Components </a></figure></div></article></body></html>

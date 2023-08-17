@@ -1,0 +1,725 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>002 - An Introduction to Web Development</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="27102144-b2d8-45ec-9468-6b23a80df9e3" class="page sans"><header><h1 class="page-title">002 - An Introduction to Web Development</h1><p class="page-description"></p></header><div class="page-body"><figure id="3db75cac-e9f4-4a8b-b30f-ca25253f86e9" class="block-color-pink link-to-page"><a href="001%20-%20Course%20Orientation%203db75cace9f44a8bb30fca25253f86e9.html">001 - Course Orientation </a></figure><figure id="9a9f32ce-1d32-4917-aad0-a360b69ff148" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled.png"><img style="width:1760px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled.png"/></a></figure><p id="7c485e7c-5789-4313-b35d-6c4c5a8209f0" class="block-color-orange_background">
+</p><figure id="08a1598c-16b5-4a18-b8d5-58f0615d2220" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%201.png"><img style="width:1920px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%201.png"/></a></figure><h1 id="56bdb329-947f-4279-8e57-adb089353a3d" class="block-color-orange_background">10. The Internet in 5 Minutes</h1><h1 id="bf9c284d-f454-44e6-9542-e9a0ae298b54" class="block-color-orange_background">VERY THEORY VIDEO</h1><h1 id="9ef0c7fe-0ed6-4242-88af-03c7782088ee" class="block-color-orange_background">VERY IMPORTANT VIDEO</h1><figure id="d1622d26-d1dc-4d88-b27f-e91892afb6db" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%202.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%202.png"/></a></figure><p id="de40b238-7082-4e0b-b8b5-345bc6483afa" class="block-color-orange_background">
+</p><figure id="9135cc59-b008-4d10-9924-45962ba78c50" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%203.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%203.png"/></a></figure><p id="f094a72f-a6d8-4af7-8c80-ec7febe1ae36" class="block-color-orange_background">
+</p><figure id="5402c72e-1562-4b35-8730-c931e9e879c9" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%204.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%204.png"/></a></figure><p id="37e34da8-fab4-4516-8dd7-fe2c0bb866c4" class="block-color-orange_background">
+</p><figure id="8b7785cd-2748-410c-b733-f9f982c76cd7" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%205.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%205.png"/></a></figure><p id="74e1a455-51da-4375-b5a2-0252d4441c5c" class="block-color-orange_background">
+</p><figure id="bea7c921-eac7-4b19-be49-419f79f9c486" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%206.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%206.png"/></a></figure><p id="ba3ff70c-ccca-466d-97a9-3da84c42bb74" class="block-color-orange_background">
+</p><figure id="559769d7-5af1-4a3c-8865-dc09d6cb4aff" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%207.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%207.png"/></a></figure><p id="17f327e0-95ab-4bd8-9579-53dfd42e87ab" class="block-color-orange_background">
+</p><figure id="17f3a355-e889-417e-8935-e58660e67487" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%208.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%208.png"/></a></figure><p id="455fa188-ff3b-49fb-a920-24cdf8bf91c1" class="block-color-orange_background">
+</p><figure id="c95c55a7-efe6-48c7-8db5-2c71f65ab5b4" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%209.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%209.png"/></a></figure><p id="370c5a6c-3453-4a7b-a091-6321530cf340" class="block-color-orange_background">
+</p><figure id="7862fe03-d479-4503-8cc4-067b39f6694e" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2010.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2010.png"/></a></figure><p id="33811546-51fa-4067-ac56-8b571757c162" class="block-color-orange_background">
+</p><figure id="19f2652d-4e2c-4ce1-9199-720d06632ce5" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2011.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2011.png"/></a></figure><p id="8d94d1e1-bb0d-4a7b-9f5f-bfa2c83ab836" class="block-color-orange_background">
+</p><figure id="6a59971f-df6f-4e25-97c8-81ef2ed90c2b" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2012.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2012.png"/></a></figure><p id="fbaa2ec3-38ed-4793-a30a-8910dc41389f" class="block-color-orange_background">
+</p><figure id="27c5f3a1-eb35-441c-95df-b3d365968781" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2013.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2013.png"/></a></figure><h1 id="dc2c2302-afc1-4fab-b8e8-0d3b38638201" class="block-color-orange_background">internet in nutshell</h1><figure id="53289798-e0a8-47d5-993b-001da73d96f7" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2014.png"><img style="width:600px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2014.png"/></a></figure><p id="b46cb37c-55b9-4f10-a792-66657515ef7c" class="block-color-orange_background">
+</p><h1 id="33cfcc80-163a-4f56-ab24-cbc8fc20aaa3" class="block-color-orange_background">11. Intro to the Web</h1><h1 id="d6f94f67-4849-4aa1-9873-f5d84f877672" class="block-color-orange_background">VERY THEORY VIDEO</h1><h1 id="565f0c87-9629-4c20-990b-0c0f7d9fa57e" class="block-color-orange_background">VERY IMPORTANT VIDEO</h1><figure id="1de9143a-e42d-461e-8384-d98f91966c61" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2015.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2015.png"/></a></figure><p id="fe528fa4-17ff-4dd3-acf3-afff839c6229" class="block-color-orange_background">
+</p><figure id="13401bf4-e860-4d87-a839-d8c0b4049070" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2016.png"><img style="width:932px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2016.png"/></a></figure><p id="44b05a0b-01be-4850-8473-4da6151ab647" class="block-color-orange_background">
+</p><figure id="ef1f2d7d-883b-4b8b-8830-5f1d8d84a881" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2017.png"><img style="width:600px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2017.png"/></a></figure><p id="aa4f22f1-0a14-4c81-9c6d-8d745e7eea22" class="block-color-orange_background">
+</p><figure id="ed8f5f97-6f87-49a2-b7e7-d6cb9f36b985" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2018.png"><img style="width:800px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2018.png"/></a></figure><p id="60abaf66-6833-4096-a727-c897c91b4252" class="block-color-orange_background">
+</p><h2 id="83ba300e-e655-46f0-b6b8-9ba4a60778fb" class="block-color-orange_background">So the Internet is this network of networks.</h2><h2 id="9a338216-c738-425f-abba-f00b6d1239b5" class="block-color-orange_background">It&#x27;s the infrastructure that enables many things, including the World Wide Web.</h2><h2 id="84ba9a05-3647-4559-bf89-ae03683853ea" class="block-color-orange_background">The World Wide Web, commonly known as the Web, is an information system where we&#x27;re able to share documents and resources over the Internet.</h2><h2 id="9293f5ff-39c5-46b9-92d9-8f898d434e1f" class="block-color-orange_background">And those resources, those documents are identified by URLs, uniform resource locators.</h2><p id="49a26be0-96d4-4f11-ac52-a63b851f70c0" class="block-color-orange_background">
+</p><h3 id="e2dfb23b-0b36-454d-ab1c-951181f95f0d" class="block-color-orange_background">Uniform resource locater</h3><figure id="77f62345-2e0e-4b36-b9e4-481c37a249e5" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2019.png"><img style="width:768px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2019.png"/></a></figure><p id="75419387-a3b0-467a-a1b2-bf5867b9e50c" class="block-color-orange_background">
+</p><figure id="5c9d8329-d835-46bc-b620-ba15b21a82d7" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2020.png"><img style="width:650px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2020.png"/></a></figure><p id="3ff89b20-da86-451f-95fa-db0602b85bc2" class="block-color-orange_background">
+</p><figure id="21b0caa6-8cff-4aa9-9154-53156420d8ce" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2021.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2021.png"/></a></figure><p id="ed6f4ed4-eb6a-460e-95b7-dcb63b4c8d4b" class="block-color-orange_background">
+</p><figure id="0279a84e-5442-4e66-af8f-a4dbffbf3c43" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2022.png"><img style="width:925px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2022.png"/></a></figure><p id="211e626b-20b9-450d-81f6-54af582d3be9" class="block-color-orange_background">
+</p><figure id="12e44f91-f297-45b2-8f5b-6ecf5ce3f38e" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2023.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2023.png"/></a></figure><p id="9363adcf-4351-4782-8fd4-296bd240a43f" class="block-color-orange_background">
+</p><figure id="d884e83d-93a4-422a-8e19-ce8a0462eecf" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2024.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2024.png"/></a></figure><p id="8aa0402c-f910-42cb-8080-f5d61efaa2df" class="block-color-orange_background">
+</p><figure id="a5e20ce1-8d56-4a2b-8b8d-43849ea39bd7" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2025.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2025.png"/></a></figure><p id="3d043132-8a03-4d21-8c1b-34349ecd0d8d" class="block-color-orange_background">
+</p><h1 id="c8c255d0-48d1-48c3-83ea-a9d69737a595" class="block-color-orange_background">12. The Request/Response Cycle</h1><h1 id="96183175-97cf-441d-ac73-4bdaba8c09c6" class="block-color-red">VERY THEORY VIDEO</h1><h1 id="f812f13c-6123-41f4-a124-454a4486268a" class="">VERY IMPORTANT VIDEO</h1><figure id="7c4267ab-709e-41d1-8d2a-ff84e5f7851c" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2026.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2026.png"/></a></figure><p id="632185a3-95c0-455e-8956-f9409519af1d" class="block-color-orange_background">
+</p><figure id="b46df9b6-84ad-451a-aaee-0f18e3533c4b" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2027.png"><img style="width:576px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2027.png"/></a></figure><p id="715ca621-2c3b-4b56-b97a-11f312215aff" class="block-color-orange_background">
+</p><figure id="e8684e3b-5212-4c79-9d1a-269ad7e18e35" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2028.png"><img style="width:900px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2028.png"/></a></figure><p id="a00f82d9-d95e-46fe-bb6c-fc4ae1d11b22" class="block-color-orange_background">
+</p><figure id="e4cb16b6-0e34-4a51-8862-e306bcaac670" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2029.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2029.png"/></a></figure><p id="2fc1dad2-8266-4bd5-a22b-6e99e19ab5cf" class="block-color-orange_background">
+</p><figure id="a8da357f-c3cd-4450-9317-af0ab48a470f" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2030.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2030.png"/></a></figure><p id="487af65b-fcd9-471b-bace-581aca507559" class="block-color-orange_background">
+</p><figure id="93ac7fcb-6ab4-48b1-807f-bacdd78e5240" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2031.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2031.png"/></a></figure><p id="9553a0df-22e2-4646-b39b-9aca64664ef9" class="block-color-orange_background">
+</p><figure id="d0cac47b-bcef-4ea8-8422-26b2b31629f2" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2032.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2032.png"/></a></figure><p id="473383d5-0a9a-4c1e-af84-26ed7d80ca37" class="block-color-orange_background">
+</p><figure id="343c6500-9d1b-498e-94b1-3184958b6aaf" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2033.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2033.png"/></a></figure><p id="12fe5d63-dbae-4e47-bad3-41ebe0abd67e" class="block-color-orange_background">
+</p><h1 id="4f5ff4ac-6bbc-4178-b6ac-d4d1fe09c8cf" class="block-color-orange_background">13. Front-End and Back-End</h1><h1 id="40f8f06c-b4d7-4882-b073-cede92443297" class="block-color-red">VERY THEORY VIDEO</h1><h1 id="8a949ab1-84ba-4396-8894-1b3a1871a52b" class="">VERY IMPORTANT VIDEO</h1><figure id="0cc86b7b-25d4-4e0d-8314-b3221a823abc" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2034.png"><img style="width:1001px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2034.png"/></a></figure><p id="8c231cb6-5af4-4160-83eb-e3d81cb0c945" class="block-color-orange_background">
+</p><figure id="b2facfb6-5fe4-4fda-b2fe-7b2ba2ba1ae7" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2035.png"><img style="width:1379px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2035.png"/></a></figure><p id="3036f4c3-73e1-4085-846c-3a4e30d23201" class="block-color-orange_background">
+</p><figure id="741c8650-2ced-4b35-9fab-bdf80c68fcd6" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2036.png"><img style="width:807px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2036.png"/></a></figure><p id="92293d63-72ed-4eea-b416-055407e2110c" class="block-color-orange_background">
+</p><figure id="f713cf96-8be6-4318-b9e9-62264f7b3866" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2037.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2037.png"/></a></figure><p id="00236809-3b7e-4a20-8092-6c923a368dca" class="block-color-orange_background">
+</p><figure id="ecb7d7ca-3999-41e4-b934-3b8378a8b362" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2038.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2038.png"/></a></figure><p id="3dece1b0-5f90-42eb-b36f-d90be0aa1806" class="block-color-orange_background">
+</p><figure id="d06c60bb-1fa8-4129-bad9-9c1e13be6566" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2039.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2039.png"/></a></figure><p id="c27f7c04-7fb5-4929-beda-0d371ffdf6c8" class=""><mark class="highlight-red"><strong>but there&#x27;s only three tools that every web page is constructed</strong></mark></p><p id="b5273fb0-9dc0-46a5-9d5d-653acc2597c9" class=""><mark class="highlight-red"><strong>of at most three tools HTML, CSS and JavaScript.</strong></mark></p><p id="3867ef1e-ace9-42dc-adb9-ab6ea69157bd" class=""><mark class="highlight-red"><strong>So front end development focuses on these tools.</strong></mark></p><p id="137945c1-0c3d-4a61-a2e6-481b6f7e3916" class=""><mark class="highlight-red"><strong>The stuff that runs in the browser and back end development focuses on the stuff that runs on a server, not in the browser.</strong></mark></p><figure id="41419d7d-e9e9-447d-93c7-dbc7bff1c065" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2040.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2040.png"/></a></figure><p id="d5eab0dd-2502-49cb-b7cf-e474ff53c291" class="block-color-orange_background">
+</p><figure id="9cf73776-9fae-4726-b9a6-8f6a37d16ac2" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2041.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2041.png"/></a></figure><p id="a3dd95ad-4aab-4090-9184-78a57c462865" class="block-color-orange_background">
+</p><h1 id="2ab4df7f-b497-4f91-be51-3a0c86d1179d" class="block-color-orange_background">14. What do HTML/CSS/JS do?</h1><figure id="0a76c5c2-f955-44cb-9070-d117220153ba" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2042.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2042.png"/></a></figure><p id="e1a1b32f-7a39-4d05-88c7-c737aae86bf2" class="block-color-orange_background">
+</p><figure id="34739d60-2dc5-402c-8467-d99b259547ee" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2043.png"><img style="width:1600px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2043.png"/></a></figure><p id="25557871-9532-4f28-ac63-98a472924030" class="block-color-orange_background">
+</p><figure id="4a58b5de-2eb0-46ef-b697-0cbe92df93e8" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2044.png"><img style="width:768px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2044.png"/></a></figure><p id="80d7996d-2ca1-4343-b906-7dce30be384f" class="block-color-orange_background">
+</p><figure id="b433e3c4-34a0-415c-bd43-1336fb87dbe7" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2045.png"><img style="width:1000px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2045.png"/></a></figure><p id="0b2d5bfb-4924-4c89-9657-1733cc3d7210" class="block-color-orange_background">
+</p><figure id="7a4c542e-1299-4c3d-98b8-f2e73275d393" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2046.png"><img style="width:720px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2046.png"/></a></figure><p id="faaf797b-dc10-4c59-867b-e7932dbafee2" class="block-color-orange_background">
+</p><figure id="4976feef-b48f-456a-91b5-0404ccc17d6c" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2047.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2047.png"/></a></figure><h3 id="822bbd5e-8c6d-42eb-9e4c-83bae28e68d8" class="block-color-orange_background">HTML, CSS, and JavaScript do have overlapping roles, but they are designed to serve specific purposes. </h3><h3 id="373face8-6c28-42c8-8a8c-8a714b09ce62" class="">HTML is used for structuring web content, CSS is used for styling and layout, and JavaScript is used for interactivity and dynamic functionality. </h3><blockquote id="4ad46280-f495-48e8-9021-5a526da82064" class="block-color-orange_background">While it is possible to perform certain tasks using different languages, it is generally recommended to follow the <mark class="highlight-red">separation of concerns principle</mark> and use each language for its intended purpose.</blockquote><h3 id="bdfe9242-e638-4413-a5b6-f88876ce1bbe" class="">Over time, coding practices have evolved, and certain methods may have become outdated or replaced by more efficient alternatives. </h3><h3 id="27aeec67-e3d6-4ed0-8938-99661a247cf1" class="block-color-orange_background">It is important to keep up with current best practices in web development.</h3><p id="3f8fee15-6cf5-4f2d-a15e-ed7e5d1d9884" class="block-color-orange_background">
+</p><h1 id="7ac16c11-1edc-41c4-a0d1-a618b85b5663" class="block-color-orange_background">ONLY HTML</h1><figure id="70344908-f8e5-4a2f-ab32-b80d2d1be7d1" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2048.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2048.png"/></a></figure><p id="8b374faa-738f-49fd-a038-5224628c1e48" class="block-color-orange_background">
+</p><h1 id="d7dce754-d420-4e8d-b96f-b4d5e82d275d" class="block-color-orange_background">WITH CSS</h1><figure id="2010f4d1-f4f4-4fbb-8805-c7cfa6f47aef" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2049.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2049.png"/></a></figure><p id="94fc5a67-abf8-4c96-a547-f8232392e1aa" class="block-color-orange_background">
+</p><h1 id="873179ad-01c9-47f2-b7b4-e334d1897a8c" class="block-color-orange_background">With JS</h1><figure id="15767c88-7b33-4f67-a022-6b6e870a524b" class="image"><a href="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2050.png"><img style="width:1280px" src="002%20-%20An%20Introduction%20to%20Web%20Development%2027102144b2d845ec94686b23a80df9e3/Untitled%2050.png"/></a></figure><p id="e9bc0cc1-6414-4acb-9bcb-dda869749792" class="block-color-orange_background">
+</p><figure id="032671ab-b337-42e2-915b-d4e37f0420b0" class="block-color-pink link-to-page"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0.html">003 - HTML the Essentials </a></figure></div></article></body></html>

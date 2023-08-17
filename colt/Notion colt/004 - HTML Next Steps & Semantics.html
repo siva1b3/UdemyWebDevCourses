@@ -1,0 +1,719 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>004 - HTML Next Steps &amp; Semantics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6f48a0d1-1b34-4215-abc4-278b9ec4ce37" class="page sans"><header><h1 class="page-title">004 - HTML Next Steps &amp; Semantics</h1><p class="page-description"></p></header><div class="page-body"><figure id="032671ab-b337-42e2-915b-d4e37f0420b0" class="block-color-pink link-to-page"><a href="003%20-%20HTML%20the%20Essentials%20032671abb33742e2915bd4e37f0420b0.html">003 - HTML the Essentials </a></figure><figure id="ff5501d3-dcd5-4095-a71d-3facd7bf8c99" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled.png"><img style="width:1571px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled.png"/></a></figure><p id="b5da5ee9-eea8-41b5-92a1-ebcfd4d24e28" class="block-color-orange_background">
+</p><figure id="eb236687-623a-41d1-95c3-368b766ccbcc" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%201.png"><img style="width:1920px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%201.png"/></a></figure><p id="d1b43b27-6167-45f3-b35b-6a33aa32eaf5" class="block-color-orange_background">
+</p><h1 id="d607b1ff-e000-4c0a-9e12-9204bbf0a312" class="block-color-orange_background">32. What Exactly Is HTML5?</h1><h1 id="3fe914fa-93b3-400c-bf19-3f9cbf2a7ffe" class="block-color-red">VERY THEORY VIDEO</h1><figure id="5db70e6c-83c1-471d-9b79-17dacfa9b964" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%202.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%202.png"/></a></figure><p id="88bea491-8c2a-4172-93e2-febc8cdc2d0c" class="block-color-orange_background">
+</p><figure id="3e51b646-33e3-40f7-9c57-367298349788" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%203.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%203.png"/></a></figure><p id="3a9a3cac-f4f0-46da-9436-7a23ed50a411" class="">
+</p><p id="be3ac777-91d6-4c19-b15f-9be4f8eb4914" class="block-color-orange_background">So when I say HTML five, I&#x27;m referring to just the latest evolution of the standard that defines HTML.</p><figure id="2a4b14db-9eb0-46e5-ae4c-af12c578b064" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%204.png"><img style="width:1024px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%204.png"/></a></figure><p id="59c702b4-6076-400c-a4e5-48ce9979ed89" class="block-color-orange_background">
+</p><figure id="dc9b819c-78a1-48cd-b26d-a109521c386c" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%205.png"><img style="width:1080px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%205.png"/></a></figure><p id="bab907b3-0b66-4e90-8d4a-a3db35b26555" class="block-color-orange_background">
+</p><figure id="6c44a036-d9c6-406e-bb4b-9490945964c5" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%206.png"><img style="width:600px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%206.png"/></a></figure><p id="6cc1d466-c6d2-45ec-bc33-4dec4c860894" class="block-color-orange_background">
+</p><h1 id="dfffc2c3-7142-4a5d-8e32-310d84500312" class="block-color-orange_background">33. Block vs. Inline Elements - Divs and Spans</h1><h1 id="9903b102-3a59-48bc-b2e9-3502faab4399" class="">VERY IMPORTANT VIDEO</h1><p id="5a2edcd8-9108-4a17-b7a0-ad3017fd079c" class="block-color-orange_background">
+</p><figure id="8159ea6e-0f6f-46bb-a651-7c7f89e82b04" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%207.png"><img style="width:1024px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%207.png"/></a></figure><p id="c7655981-6ce8-49bf-b003-aeeb1b36a6f4" class="block-color-orange_background">
+</p><figure id="d3bac9b7-1c5f-4fd6-a9d7-d366a137f29b" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%208.png"><img style="width:816px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%208.png"/></a></figure><p id="7d4caed4-2ea6-4caa-bb8d-2081bb7442f6" class="block-color-orange_background">
+</p><figure id="1bf3b426-7cec-42ac-8ca9-1a01b076063e" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%209.png"><img style="width:669px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%209.png"/></a></figure><p id="08e3fd21-7b59-4c88-af62-bbcd90f041ff" class="block-color-orange_background">
+</p><figure id="b79a28ba-b3e5-45d2-acc6-d168a8d400af" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2010.png"><img style="width:666px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2010.png"/></a></figure><p id="888a9ba5-803d-442d-a44f-544364b8d4ab" class="block-color-orange_background">
+</p><figure id="3d1b66f0-b2cb-4004-b2a5-430d92ca8993" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2011.png"><img style="width:699px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2011.png"/></a></figure><p id="ddbf8655-6055-4350-8240-5a904a153a6e" class="block-color-orange_background">
+</p><figure id="7e0e4ae4-4b31-4f60-9a60-a4494bff6e30" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2012.png"><img style="width:650px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2012.png"/></a></figure><p id="48f5e5d9-a38c-4e29-8bf6-a892c700beb8" class="block-color-orange_background">
+</p><h1 id="f10df7ad-759e-4af7-9df9-7f356af9b9e6" class="block-color-orange_background">34. An Odd Assortment of Elements: HR, BR, Sup, &amp; Sub</h1><h3 id="afb7a92f-07a5-489d-99ec-af50b3f3bd38" class="block-color-orange_background">hr element</h3><figure id="7f0cbece-dc9b-45dc-8533-20866b2e06a1" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2013.png"><img style="width:3401px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2013.png"/></a></figure><h3 id="7da0c5c0-f121-449f-9b15-a2b524c4d1d2" class="block-color-orange_background">br element</h3><figure id="cf9cac69-8c64-440a-a978-5c8b6dcbe552" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2014.png"><img style="width:600px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2014.png"/></a></figure><h3 id="c9f3a8cd-2fbf-4cad-bccb-de69c7622281" class="block-color-orange_background">sub and sup tag</h3><figure id="e913c30b-12b9-4d9f-b62a-1664d73aebb4" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2015.png"><img style="width:906px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2015.png"/></a></figure><p id="f04ae4e2-2c2d-46ef-a48b-46f419f020a4" class="block-color-orange_background">
+</p><figure id="be8e0f59-f51a-4fc8-98a0-8ce224a961c3" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2016.png"><img style="width:650px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2016.png"/></a></figure><p id="de7ce3e6-69ce-40c7-b121-d2b5116c8eaa" class="block-color-orange_background">
+</p><figure id="01e455cd-1470-4557-b001-a72260ee20cc" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2017.png"><img style="width:661px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2017.png"/></a></figure><p id="d93d5130-62c5-440d-964f-61f76124f124" class="block-color-orange_background">
+</p><figure id="23e8ed71-b2f4-4887-b00d-f189d8c830d5" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2018.png"><img style="width:654px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2018.png"/></a></figure><p id="fdb07cad-1c05-4f6a-876d-5fe4fc3c41be" class="block-color-orange_background">
+</p><figure id="7767cc76-d331-4547-a09b-40e68541b2a5" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2019.png"><img style="width:653px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2019.png"/></a></figure><p id="6454cc2c-b45e-4cf0-b869-42126cc248e5" class="block-color-orange_background">
+</p><h1 id="1641f9c1-1cf7-4476-a3c0-e7fdc9034ad9" class="block-color-orange_background">35. Entity Codes</h1><figure id="c64a7941-41d6-4626-aa61-b8f1642d4a0a" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2020.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2020.png"/></a></figure><p id="e4a56baf-dd48-43c4-9b23-0943bf9c8bca" class="block-color-orange_background">
+</p><figure id="4dd361bd-633d-4f45-82f5-5aa10d697e89" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2021.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2021.png"/></a></figure><p id="da5bb55a-8ab0-49d2-b159-e24b557a4c6d" class="block-color-orange_background">
+</p><figure id="efa5e86f-092c-487e-ae2c-5f0aa6aea50f" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2022.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2022.png"/></a></figure><p id="c906fd36-e83c-44e7-9083-723fdfc14875" class="block-color-orange_background">
+</p><figure id="c31f1aeb-831a-42b1-934c-d844e81aac82" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2023.png"><img style="width:900px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2023.png"/></a></figure><p id="796ec419-af6e-4cb5-8c5a-a9cdf7239a75" class="block-color-orange_background">
+</p><figure id="9d4d2b68-39b7-4438-bc72-22c76decd06f" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2024.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2024.png"/></a></figure><p id="530afb17-06e6-4992-9785-8762b09d0e1c" class="block-color-orange_background">
+</p><h1 id="efe6a634-845b-4bf9-815f-0b9d6ecf5350" class="block-color-orange_background">36. Intro to Semantic Markup</h1><h1 id="e3636c8b-2834-4d89-bc6f-a6d042b4c2f7" class="">VERY THEORY VIDEO(FULL THEORY VIDEO)</h1><h1 id="5cf8e1c3-c4cb-4721-a5f9-1d29c657e4b7" class="">VERY IMPOTANT VIDEO</h1><p id="7b31e357-7bf5-4b1b-933d-4a6951edafac" class="">NO SCREEN SHOTS</p><figure id="d55e6337-5fb2-40ea-ab21-bbef0ba4854d" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2025.png"><img style="width:1280px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2025.png"/></a></figure><p id="e5dc82c1-7a91-463e-8e01-8f2caa4575a5" class="block-color-orange_background">
+</p><figure id="d2b93eea-a143-4d66-9dbf-1e0c265c5781" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2026.png"><img style="width:1400px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2026.png"/></a></figure><p id="32b51794-0c09-4252-a620-b1787a0a4e27" class="block-color-orange_background">
+</p><figure id="03c26881-a32f-4ea4-94d3-7bf01a8d4202" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2027.png"><img style="width:1024px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2027.png"/></a></figure><p id="b2bc8f05-ac64-4465-8c73-c1336f7b3500" class="block-color-orange_background">
+</p><h1 id="d5cb647e-407c-4126-be17-ffd812a259fc" class="block-color-orange_background">37. Playing With Semantic Elements</h1><figure id="13c02c71-c268-4018-b637-737d16cf3983" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2028.png"><img style="width:638px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2028.png"/></a></figure><p id="f210b9e5-283a-49cf-a69e-cfd18b6a5609" class="block-color-orange_background">
+</p><figure id="0639164e-f56e-433a-a5fa-6f90821937f6" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2029.png"><img style="width:1151px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2029.png"/></a></figure><p id="c8998662-b4fa-4583-b843-5549980a3e67" class="block-color-orange_background">
+</p><figure id="81129d1d-7db6-4268-a895-560de170d1e5" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2030.png"><img style="width:1151px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2030.png"/></a></figure><p id="b60b9bb7-e461-41ca-b65c-cff7cb3e3779" class="block-color-orange_background">
+</p><h2 id="ec2e19fd-fb2f-4fbb-9a07-99507173b069" class="">So we&#x27;re going to take a look at some of these semantic elements and try using them. 
+This will be quick, even though we&#x27;re going to talk about quite a few elements, because as I&#x27;ve mentioned earlier, they don&#x27;t really do anything different, they just have different names.</h2><h1 id="59b92583-c29f-40f6-93d1-9bc83169def3" class="">So here are some of the examples of elements you could use in place of a div or just a generic container.</h1><p id="43a7057f-3fd5-4d0f-a60c-adae2f68d8ff" class="block-color-orange_background">
+</p><figure id="efe92948-2d4b-431d-9496-4d469ad777c1" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2031.png"><img style="width:807px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2031.png"/></a></figure><figure id="130d462a-0cbe-47e3-9583-b7f37eaeecb1" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2032.png"><img style="width:821px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2032.png"/></a></figure><figure id="3ae25cbf-fd3b-4daf-9abf-1595d2e40e39" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2033.png"><img style="width:825px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2033.png"/></a></figure><p id="6e29da0e-1de9-4300-ac5d-d5f0a5a44f42" class="block-color-orange_background">
+</p><figure id="c53a18cd-fde4-4d7d-b05b-b50bd1bb3ff0" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2034.png"><img style="width:834px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2034.png"/></a></figure><p id="6824fb0e-2e81-4289-a9a1-142f7569cc30" class="block-color-orange_background">
+</p><figure id="0b4d5256-4369-46d6-96f0-c60f73785f72" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2035.png"><img style="width:806px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2035.png"/></a></figure><p id="a3a703af-7a68-4c2c-9c92-daf86fe6e511" class="block-color-orange_background">
+</p><figure id="c4329705-5706-41a8-8cde-2c3eaf8ba65c" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2036.png"><img style="width:822px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2036.png"/></a></figure><figure id="3b130847-aa6b-4698-8c7b-ec1b63a7fca7" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2037.png"><img style="width:824px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2037.png"/></a></figure><p id="e9059736-0e0a-42e2-97f5-4a8a2e3b94e2" class="block-color-orange_background">
+</p><figure id="f82ba8ab-088f-46f6-9ae7-fbd4a4467c80" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2038.png"><img style="width:823px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2038.png"/></a></figure><p id="03fcc35e-f978-4dd1-9bfe-194a27d20cf5" class="block-color-orange_background">
+</p><figure id="0bfdf2b9-05a7-4c51-9853-461e366ee3fb" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2039.png"><img style="width:864px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2039.png"/></a></figure><p id="12395611-39e3-48d0-9d6e-f8888a1dd9d1" class="block-color-orange_background">
+</p><h1 id="94de7b88-8fef-4c9a-affa-883fc2ab1810" class="block-color-orange_background">40.EMMET</h1><figure id="e765ba19-adc4-4bca-97b8-5b52c0f201fa" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2040.png"><img style="width:715px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2040.png"/></a></figure><p id="07abccb5-3a15-411b-b64c-7dbbe6cc5d90" class="block-color-orange_background">
+</p><figure id="1eae3ce5-febb-4b0f-8a4c-dae10a23ca97" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2041.png"><img style="width:1200px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2041.png"/></a></figure><p id="ed2aafc2-1769-4a7a-a7e7-16b133431390" class="block-color-orange_background">
+</p><figure id="162356dc-1ea4-4493-ad24-e355bddf50d0" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2042.png"><img style="width:1103px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2042.png"/></a></figure><p id="47837a38-440f-47fd-b98f-c01ddfed6fe9" class="block-color-orange_background">
+</p><figure id="9da9f1f1-06f6-4fdc-8ddf-19746e7eb2d6" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2043.png"><img style="width:700px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2043.png"/></a></figure><p id="1ab42f8f-f0a5-407f-befe-4437de51869a" class="block-color-orange_background">
+</p><figure id="6e9c5493-7c5f-4fdd-9f5b-625edf1ed45c" class="image"><a href="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2044.png"><img style="width:2116px" src="004%20-%20HTML%20Next%20Steps%20&amp;%20Semantics%206f48a0d11b344215abc4278b9ec4ce37/Untitled%2044.png"/></a></figure><p id="371fa7f3-028f-447c-b8d5-7a3eb5d867b6" class="block-color-orange_background">
+</p><figure id="515a15b0-caa0-406a-913e-e7a3990905c2" class="block-color-pink link-to-page"><a href="005%20-%2001%20-%20HTML%20Tables%20515a15b0caa0406a913ee7a3990905c2.html">005 - 01 - HTML Tables</a></figure></div></article></body></html>

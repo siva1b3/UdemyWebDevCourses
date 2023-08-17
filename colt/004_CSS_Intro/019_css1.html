@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="019_css1.css">
+  <title>Css Intro</title>
+</head>
+
+<body>
+  <section>
+    <p style="color: brown; font-weight: bolder; font-size: larger;">Inline styles - BAD!</p>
+    <h1 style="color: purple; background-color: aliceblue;">Hello World!</h1>
+    <button style="background-color: blue; color:aliceblue;">I am Button</button>
+    <button style="background-color: blue; color:aliceblue;">Another Button</button>
+  </section>
+  <pre>
+&lt;section&gt;
+  &lt;p style="color: brown; font-weight: bolder; font-size: larger;"&gt;Inline styles - BAD!&lt;/p&gt;
+  &lt;h1 style="color: purple;  background-color: aliceblue;"&gt;Hello World!&lt;/h1&gt;
+  &lt;button style="background-color: blue; color:aliceblue;"&gt;I am Button&lt;/button&gt;
+  &lt;button style="background-color: blue; color:aliceblue;"&gt;Another Button&lt;/button&gt;
+&lt;/section&gt;
+</pre>
+  <section>
+    <p style="color: brown; font-weight: bolder; font-size: larger;">Style element - Not Good</p>
+    <style>
+      h2 {
+        color: rgb(16, 16, 16);
+        background-color: aliceblue;
+      }
+
+      button {
+        color: blue;
+        background-color: blanchedalmond;
+      }
+    </style>
+    <h2>Hello World!</h2>
+    <button>I am Button</button>
+    <button>Another Button</button>
+  </section>
+  <pre>
+    &lt;section&gt;
+      &lt;p style="color: brown; font-weight: bolder; font-size: larger;"&gt;Style element - Not Good&lt;/p&gt;
+      &lt;style&gt;
+        h1 {
+          color: rgb(16, 16, 16);
+          background-color: aliceblue;
+        }
+
+        button {
+          color: blue;
+          background-color: blanchedalmond;
+        }
+      &lt;/style&gt;
+      &lt;h1&gt;Hello World!&lt;/h1&gt;
+      &lt;button&gt;I am Button&lt;/button&gt;
+      &lt;button&gt;Another Button&lt;/button&gt;
+    &lt;/section&gt;
+  </pre>
+  <section>
+    <h1>External style sheet</h1>
+  </section>
+</body>
+
+</html>

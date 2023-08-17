@@ -1,0 +1,742 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>015 - JavaScript Strings and More!</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7691db05-3891-4f64-bcf0-3b9b66d5bb73" class="page sans"><header><h1 class="page-title">015 - JavaScript Strings and More!</h1><p class="page-description"></p></header><div class="page-body"><figure id="7b41ea62-e36e-4ee5-a400-88c29559f936" class="link-to-page"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936.html">014 - JavaScript Basis!</a></figure><figure id="ef7ecab0-7af1-4371-ae20-65f3674b67b1" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled.png"><img style="width:1571px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled.png"/></a></figure><h1 id="aad3c25c-efe6-4a06-a524-af93f8da9eec" class="block-color-orange_background">154. Introducing Strings</h1><figure id="c8c6fcb4-d369-4b54-8da4-4bf259f234cf" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%201.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%201.png"/></a></figure><p id="c65553ed-8eef-4bdd-b12c-c1c6f12cbc87" class="block-color-orange_background">
+</p><figure id="2bd89f36-487e-4612-8067-619d802e77a9" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%202.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%202.png"/></a></figure><p id="b0b4d669-308d-4f11-a688-ba59b88b2216" class="block-color-orange_background">
+</p><figure id="6bcf93ee-4421-4be4-a8a9-5439bb930a9b" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%203.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%203.png"/></a></figure><p id="1a70baf9-cd1c-497e-ab19-34814bc8cef9" class="block-color-orange_background">
+</p><figure id="edcb715c-642c-4dac-ba3f-135a03247a98" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%204.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%204.png"/></a></figure><p id="ace36bef-a09a-4237-88ce-ee72308b2fca" class="block-color-orange_background">
+</p><figure id="9d57d362-614c-4444-8a0d-d6f8776675ed" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%205.png"><img style="width:1200px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%205.png"/></a></figure><p id="b140ccf1-a811-49d8-9abc-d5d795fdff2e" class="block-color-orange_background">
+</p><h1 id="e3064448-9d85-4871-a674-09338710fda6" class="block-color-orange_background">155. Indices &amp; Length</h1><figure id="68f08388-ea0f-4396-b9eb-ea52d7181333" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%206.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%206.png"/></a></figure><p id="38a1fd28-83c5-4897-94a9-0f970f6a1007" class="block-color-orange_background">
+</p><figure id="6a8483e6-c83f-4186-9d40-2afa14a4b4dc" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%207.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%207.png"/></a></figure><div id="ac42619c-cbe3-4719-9de4-c0a5a3d33e63" class="column-list"><div id="61582252-9b14-4f98-91ea-0aee9275c975" style="width:100%" class="column"><blockquote id="d23c53b2-f3bf-494c-83af-c0f3ffb195e6" class="block-color-orange_background">There is no list index out of range only “Undefined” and it is not an error</blockquote></div><div id="550983e0-7be6-4825-937b-5b0852fdfe24" style="width:100%" class="column"><p id="50b26061-82e9-4581-9dd1-2033b54774d8" class="">
+</p></div></div><p id="b19ef8ab-3068-4971-9b51-2150d42de5f0" class="block-color-orange_background">
+</p><h1 id="2c2ec8bd-b7f1-485e-bf17-d9e255a7ef06" class="block-color-orange_background">156. String Methods</h1><figure id="d366d176-f615-4519-b5e9-3e450129f565" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%208.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%208.png"/></a></figure><p id="c48e0690-2deb-44be-b0aa-c0ccb1c240aa" class="block-color-orange_background">
+</p><figure id="0d859f64-0918-49ac-914c-c1415f56d1d7" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%209.png"><img style="width:1200px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%209.png"/></a></figure><p id="d7b73f30-dc2b-4807-b768-a13891fb82f1" class="block-color-orange_background">
+</p><figure id="c62caecd-20e4-493f-91d0-a64647931b4c" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2010.png"><img style="width:836px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2010.png"/></a></figure><p id="f7ec41db-961e-4c23-8591-74872740e42f" class="block-color-orange_background">
+</p><figure id="02e67cfc-2c64-41bd-b935-2ea6cb9f83de" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2011.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2011.png"/></a></figure><p id="b803562a-7ae0-41ac-be66-79d48219950c" class="block-color-orange_background">
+</p><figure id="0e6f5620-6b99-47db-9cde-75eaf7e38b0b" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2012.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2012.png"/></a></figure><p id="fa111e2d-8465-4128-959f-125ce6b04d29" class="block-color-orange_background">
+</p><figure id="d8bcffa7-3349-4549-a55c-e3ddcec5a6e7" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2013.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2013.png"/></a></figure><p id="c2da7318-f586-4939-8670-5cce7224086d" class="block-color-orange_background">
+</p><figure id="271fbeae-d40e-47bf-9de0-c75e7e37bec8" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2014.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2014.png"/></a></figure><p id="01773e58-301d-457f-a6d1-4cfd422403b9" class="block-color-orange_background">
+</p><figure id="7a8b9524-4552-4897-8e7e-cc48eba9bc5e" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2015.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2015.png"/></a></figure><div id="207e9f2c-1275-41d3-84be-fe22e390ac26" class="column-list"><div id="74fddb28-44f6-4c1d-97f4-55e407b1860f" style="width:112.5%" class="column"><p id="cd4d0f45-3afd-4ac3-930a-01c10546e149" class="block-color-orange_background">we can use multiple methods in one line</p></div><div id="7afb36eb-b068-403d-bdc4-b08d41c98d0d" style="width:87.50000000000001%" class="column"><p id="eb8974ad-911d-447b-91ef-2595d0e87b97" class="">
+</p></div></div><h1 id="f8f76784-057e-4baf-ab7b-2e942c340cac" class="block-color-orange_background">157. String Methods With Arguments</h1><figure id="8abaabae-1fd9-4758-bfb0-fa0c380cef95" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2016.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2016.png"/></a></figure><p id="67d25abf-5276-4993-be71-08ddd1f5e4bc" class="block-color-orange_background">
+</p><figure id="6033e48e-a09d-4016-bcc1-7d49f235d3e4" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2017.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2017.png"/></a></figure><p id="48b566b9-c4f4-47aa-8fd2-3bc552f360c6" class="block-color-orange_background">
+</p><figure id="889aad0e-7f3f-4bac-ab85-16091145d9e9" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2018.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2018.png"/></a></figure><p id="a561ff35-b3f7-40e2-b776-20de0e90d285" class="block-color-orange_background">
+</p><figure id="77844678-f23f-41cb-8e04-c2987a258dd2" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2019.png"><img style="width:880px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2019.png"/></a></figure><p id="a388cb49-ad8d-49d7-bd27-56003c12445e" class="block-color-orange_background">
+</p><figure id="a7a0f861-2ecf-44d5-b867-fe4d5b29e3b7" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2020.png"><img style="width:1400px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2020.png"/></a></figure><p id="ac95f8aa-3c0c-483e-9a22-64cb3b261a05" class="block-color-orange_background">
+</p><figure id="4237f91e-48b7-4fac-9b27-670b60044824" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2021.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2021.png"/></a></figure><p id="96029f4a-28e6-48de-ae4b-5a9b6877d108" class="block-color-orange_background">
+</p><figure id="cef49c8c-3897-4d50-9459-f6978dced4af" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2022.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2022.png"/></a></figure><p id="84b504d7-86c3-4611-909b-4b4fc37def26" class="block-color-orange_background">
+</p><figure id="7273f2b1-992a-4eb3-882d-6844fd4890e6" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2023.png"><img style="width:907px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2023.png"/></a></figure><p id="8e0f2d21-e89e-4444-a3d0-c1b43edab959" class="block-color-orange_background">
+</p><figure id="82d992dd-ce87-4ebe-b38b-69fd29e229f1" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2024.png"><img style="width:595px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2024.png"/></a></figure><p id="31798a93-5945-4ddf-a66f-543cb0c1c63a" class="block-color-orange_background">
+</p><figure id="f9132e74-91ee-42fe-ab17-6ef1d1eb51b9" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2025.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2025.png"/></a></figure><p id="6e1a5c89-8f90-4909-b2f7-44e57facc024" class="block-color-orange_background">
+</p><figure class="block-color-orange_background callout" style="white-space:pre-wrap;display:flex" id="39145f09-5aa1-445a-8dc0-1cb563d2c867"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">JavaScript String replace vs replaceAll with example</div></figure><p id="2bffe1ad-79b3-4d51-99c3-271f51d24b6e" class="">In JavaScript, the <code>replace()</code> method and the <code>replaceAll()</code> method are used to replace text within a string. The main difference between these two methods lies in their behavior.</p><ol type="1" id="6e00da78-7b2d-44d9-917e-ad20fc037b51" class="numbered-list" start="1"><li><code>replace()</code> method:
+The <code>replace()</code> method is used to replace the first occurrence of a specified pattern in a string with a replacement value. Here&#x27;s an example:</li></ol><pre id="9ea6b59a-c669-4fac-a0cf-1f63bea689a2" class="code code-wrap"><code>const sentence = &quot;I love JavaScript. JavaScript is amazing!&quot;;
+const replacedSentence = sentence.replace(&quot;JavaScript&quot;, &quot;Python&quot;);
+
+console.log(replacedSentence);
+// Output: &quot;I love Python. JavaScript is amazing!&quot;
+</code></pre><p id="e560530e-297a-495b-bbd8-c00e54f51dfb" class="">In this example, the <code>replace()</code> method replaces the first occurrence of the word &quot;JavaScript&quot; with &quot;Python&quot; in the <code>sentence</code> string.</p><ol type="1" id="61911db1-cca2-4747-85a8-907917b8167b" class="numbered-list" start="1"><li><code>replaceAll()</code> method:
+The <code>replaceAll()</code> method, introduced in ECMAScript 2021, is used to replace all occurrences of a specified pattern in a string with a replacement value. Here&#x27;s an example:</li></ol><pre id="e77e7362-7307-4de1-8855-aeaa4d0e708c" class="code code-wrap"><code>const sentence = &quot;I love JavaScript. JavaScript is amazing!&quot;;
+const replacedSentence = sentence.replaceAll(&quot;JavaScript&quot;, &quot;Python&quot;);
+
+console.log(replacedSentence);
+// Output: &quot;I love Python. Python is amazing!&quot;
+</code></pre><p id="f49c1b4a-b4a0-499e-8f1e-91ed820eb710" class="">In this example, the <code>replaceAll()</code> method replaces all occurrences of the word &quot;JavaScript&quot; with &quot;Python&quot; in the <code>sentence</code> string.</p><p id="969e5f47-0f56-4dbc-9dc9-ebdb12620cdc" class="block-color-teal_background">It&#x27;s important to note that the <code>replaceAll()</code> method was introduced in newer versions of JavaScript and may not be supported in older browsers or environments. In such cases, you can use regular expressions with the <code>replace()</code> method to achieve a similar effect.</p><figure class="block-color-orange_background callout" style="white-space:pre-wrap;display:flex" id="e6997c33-1136-45e3-b41d-609d7b096b76"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">is there any alternative to <code>replaceAll()</code> if I want replace all the occurrences of substring in a string</div></figure><p id="223460ec-5335-4b03-847a-2f6eb0669631" class="">Yes, if you want to replace all occurrences of a substring in a string and the <code>replaceAll()</code> method is not available or supported in your environment, you can use regular expressions with the <code>replace()</code> method along with the global flag (<code>g</code>). Here&#x27;s an example:</p><pre id="d8896869-29b4-41be-b572-51dfa8825908" class="code code-wrap"><code>const sentence = &quot;I love JavaScript. JavaScript is amazing!&quot;;
+const replacedSentence = sentence.replace(/JavaScript/g, &quot;Python&quot;);
+
+console.log(replacedSentence);
+// Output: &quot;I love Python. Python is amazing!&quot;
+</code></pre><p id="17cff942-d0a8-446a-a399-8c7320ecc6fc" class="">In this example, the regular expression <code>/JavaScript/g</code> is used as the pattern in the <code>replace()</code> method. The <code>g</code> flag is added to indicate that the replacement should be done globally (i.e., replace all occurrences). This will achieve the same result as the <code>replaceAll()</code> method.</p><p id="41f4b551-e6bd-447c-aa24-1bd7d45b22f3" class="">Regular expressions provide powerful pattern matching capabilities and can be used for more complex search and replace operations.</p><p id="52e3ced4-8378-40ef-8c49-ea57990f8a3b" class="block-color-orange_background">
+</p><h1 id="5ce8c80c-423e-4c02-8509-9460fc171130" class="block-color-orange_background">158. String Template Literals -SUPER USEFUL</h1><figure id="2079ecc0-996f-4497-81d8-d720f7551ae9" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2026.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2026.png"/></a></figure><div id="f61c6ea2-1a2a-4454-b895-83d7e50b27d5" class="column-list"><div id="73ffbcb3-def2-4090-af38-cab044eb9478" style="width:100%" class="column"><p id="2e63f3ae-6437-452c-ac57-68921a22d016" class="block-color-orange_background">how we use string concatenation to make useful strings</p></div><div id="e8eb29f7-7576-411e-97dc-78fe8124232e" style="width:100%" class="column"><p id="4563008d-51df-4165-b249-d1675b5aec49" class="">
+</p></div></div><figure id="ef8f81a7-c8ab-4980-b1a7-097511360d90" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2027.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2027.png"/></a></figure><p id="4a4cd805-2df7-4341-9b12-61a18f3cc132" class="block-color-orange_background">
+</p><figure id="d4bdf92c-68f9-495a-aa79-ccd5399b0343" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2028.png"><img style="width:1600px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2028.png"/></a></figure><p id="cb193228-5027-4963-8328-a81790017bf5" class="block-color-orange_background">
+</p><figure id="0a33f68b-dd68-4d91-82e0-bd58ac8c986b" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2029.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2029.png"/></a></figure><p id="ead8d85b-9f87-4631-98a6-4a1e85be04df" class="block-color-orange_background">
+</p><figure id="3e8650aa-35c9-4013-838c-13283289b5e2" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2030.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2030.png"/></a></figure><p id="9446d480-956a-414c-a2ef-88a447307e66" class="block-color-orange_background">
+</p><figure id="7f05a095-3bdc-4de4-a664-45135765a284" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2031.png"><img style="width:1200px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2031.png"/></a></figure><p id="1f85f8ed-5c0e-4da5-88a7-77b86e3dc3f0" class="block-color-orange_background">
+</p><figure id="f944adb4-56e8-4fd6-8629-9da13a22d474" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2032.png"><img style="width:1000px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2032.png"/></a></figure><p id="dcc3a727-9e2b-4478-9753-4980c67e39e7" class="block-color-orange_background">
+</p><h1 id="e100d870-f4d9-45f1-aa56-ae7bff131a51" class="block-color-orange_background">159. Undefined &amp; Null</h1><figure id="a0d8f372-9a24-4b9d-a053-7fb390a7c6be" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2033.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2033.png"/></a></figure><p id="e221f7ee-6024-420d-90b6-04050134981b" class="block-color-orange_background">
+</p><figure id="b79f10cc-dea8-42de-a705-2cfdc3e5a356" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2034.png"><img style="width:493px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2034.png"/></a></figure><p id="2296c8ef-dfd8-4e01-b890-2cdf4a4fb8f5" class="block-color-orange_background">
+</p><figure id="a4b6774a-ae5c-40e5-8cb8-f9b73b2f784d" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2035.png"><img style="width:1620px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2035.png"/></a></figure><p id="9175d139-fb8a-4742-9165-dfe3eb53baa4" class="block-color-orange_background">
+</p><figure id="32f9d8ec-e977-449d-a6a8-c633601010d4" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2036.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2036.png"/></a></figure><p id="e6f6b003-4f59-4e6b-bc22-fc2a46baf2af" class="block-color-orange_background">
+</p><figure id="7df76e67-ea15-4dc8-a387-8ee2ad556e55" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2037.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2037.png"/></a></figure><div id="66357712-707e-4cc8-b1cb-88ad5940bf9a" class="column-list"><div id="1181c7ca-5a50-4238-b71e-405920e7826b" style="width:100%" class="column"><p id="3521e91f-1cc7-4851-9ade-d9935ed96194" class="block-color-orange_background">Undefined </p></div><div id="dfb98e83-9dae-4b1f-acaf-d1d50983e219" style="width:100%" class="column"><p id="5222530f-4342-46a3-87d4-f3f5692d0aad" class="">
+</p></div></div><figure id="a7dbfb61-87ff-48bf-8a61-db2102709c5d" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2038.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2038.png"/></a></figure><p id="d506bd89-e2bc-4776-86a4-392fa57ea3e9" class="block-color-orange_background">
+</p><p id="3af18df0-fae6-45e8-a1b8-0366d9f289b8" class="">In JavaScript, <code>undefined</code> and <code>null</code> are both used to represent the absence or lack of a value, but they have slightly different meanings and use cases.</p><ol type="1" id="b6228645-fcc5-493d-8afd-28be63ddddcf" class="numbered-list" start="1"><li><code>undefined</code>:
+The <code>undefined</code> value in JavaScript is used to indicate that a variable has been declared but has not been assigned a value. It represents the absence of any value, including the lack of a defined value. When a variable is declared but not assigned a value, its default value is <code>undefined</code>. Here&#x27;s an example:</li></ol><pre id="813a1214-e835-421d-a6a9-728634084776" class="code code-wrap"><code>let myVariable;
+console.log(myVariable); // Output: undefined</code></pre><p id="ba2c26b3-8a55-4dd3-adf3-0d889dc9f845" class="">In this example, <code>myVariable</code> is declared but not assigned a value, so its value is <code>undefined</code>.</p><p id="b15110f8-8f20-44b4-91cd-b17004c1ccd6" class="">It&#x27;s important to note that <code>undefined</code> is a predefined global variable in JavaScript, and its value is actually the primitive value <code>undefined</code>. You can also explicitly assign <code>undefined</code> to a variable, but it&#x27;s generally not necessary as it&#x27;s the default value for uninitialized variables.</p><ol type="1" id="5277b987-621d-432b-9188-956ce1fe3387" class="numbered-list" start="1"><li><code>null</code>:
+The <code>null</code> value in JavaScript is used to represent the intentional absence or lack of a value. Unlike <code>undefined</code>, <code>null</code> is a deliberate assignment of no value. It is often used to indicate that a variable or object property should have no value or that a value is explicitly cleared. Here&#x27;s an example:</li></ol><pre id="435d1d1d-f8bc-4cbb-becb-3997da927bcd" class="code code-wrap"><code>let myVariable = null;
+console.log(myVariable); // Output: null</code></pre><p id="7f7a2333-3fa3-4d18-80b0-5174d68b3feb" class="">In this example, <code>myVariable</code> is assigned the value <code>null</code>, indicating that it intentionally lacks a value.</p><p id="a991ecb4-7d21-47be-aa2f-26110727a774" class="">It&#x27;s worth noting that <code>null</code> is a primitive value that represents the intentional absence of any object value. It is not an object itself nor does it have any properties or methods.</p><p id="4758e147-2110-44d1-bafb-d66fc862011e" class="">To summarize, <code>undefined</code> is typically used to indicate that a variable is declared but has not been assigned a value, while <code>null</code> is used to explicitly indicate the intentional lack of a value or to clear a variable&#x27;s value.</p><h1 id="1da2acfb-0624-4d78-b4bf-ddc45db2796a" class="block-color-orange_background">160. Random Numbers &amp; The Math Object</h1><figure id="f9b4a9f8-3907-46c5-8644-2797c0692487" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2039.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2039.png"/></a></figure><p id="34538208-f681-40a4-a2b2-2f444f844f9a" class="block-color-orange_background">
+</p><figure id="a7f14e3b-fe86-4283-aeb6-68d190ef0dcb" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2040.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2040.png"/></a></figure><p id="bdd73383-26bf-4f19-a457-67db8ceb6f7b" class="block-color-orange_background">
+</p><figure id="7b358e2e-b1c3-4b2a-92df-d887fa1a556e" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2041.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2041.png"/></a></figure><p id="e807bada-3c17-49b2-9f9d-ed5159c4fb2e" class="block-color-orange_background">
+</p><figure id="9b2d170c-56fa-47db-b0e5-a066e63a9e48" class="image"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2042.png"><img style="width:1585px" src="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73/Untitled%2042.png"/></a></figure><div id="2269b24e-0687-4df7-b08e-cd34162a5bc9" class="column-list"><div id="f73b0b72-2a3e-4a69-8664-8e11d806965c" style="width:87.5%" class="column"><p id="b95a9976-2966-4927-9f42-51de5498d2cb" class="block-color-orange_background"><strong><mark class="highlight-red">how to get random integers
+Math.floor(Math.random() * (max-min))+min</mark></strong></p></div><div id="759dab97-7ebf-47bf-a6db-886a71a930ad" style="width:87.49999999999997%" class="column"><p id="02fe6aa6-4945-4999-8b52-f8fbc7612b3b" class="">
+</p></div></div><figure id="71fd82bd-4e86-4bfb-993c-f08e7b7600e1" class="link-to-page"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1.html">016 - Decision Making with JavaScript</a></figure></div></article></body></html>

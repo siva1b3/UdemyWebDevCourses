@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DROP DOWNS</title>
+</head>
+
+<body>
+  <img src="../images/033.png" alt="">
+  <img src="../images/034.png" alt="">
+  <section>
+    <form action="/do_nothing">
+      <p>Drop Down menu's</p>
+      <p>
+        <label for="meal">Lunch</label>
+        <select name="Lunch" id="meal">
+          <option value="Fish">Fish</option>
+          <option value="Egg">Egg</option>
+          <option value="Vegetarian" selected>Vegetarian</option>
+          <option value="Water">Water Only</option>
+        </select>
+      </p>
+      <button>submit</button>
+    </form>
+  </section>
+
+  <pre>
+  &lt;section&gt;
+    &lt;form action="/do_nothing"&gt;
+      &lt;p&gt;Drop Down menu's&lt;/p&gt;
+      &lt;p&gt;
+        &lt;label for="meal"&gt;Lunch&lt;/label&gt;
+        &lt;select name="Lunch" id="meal"&gt;
+          &lt;option value="Fish"&gt;Fish&lt;/option&gt;
+          &lt;option value="Egg"&gt;Egg&lt;/option&gt;
+          &lt;option value="Vegetarian" selected&gt;Vegetarian&lt;/option&gt;
+          &lt;option value="Water"&gt;Water Only&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/p&gt;
+      &lt;button&gt;submit&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+    </pre>
+
+  <section>
+    <form action="/do_nothing">
+      <p>
+        <label for="cheese">Amount of Cheese:</label>
+        <input type="range" id="cheese" min="1" max="1000" value="75" name="cheese_level">
+      </p>
+      <button>submit</button>
+    </form>
+    <form action="/do_nothing">
+      <p>Updated range slider with JS</p>
+      <label for="cheese">Amount of cheese in kg's </label>
+      <script>
+        function updateTextInput(val) {
+          // document.getElementById('textInput').value = val;
+          document.getElementById('textInput').innerText = val;
+        }
+      </script>
+      <input type="range" name="rangeInput" min="0" max="100" value="75" onchange="updateTextInput(this.value);">
+      <p id="textInput" style="background-color: blue; color: antiquewhite;">0</p>
+      <!-- <input type="text" id="textInput" value="0-100"> -->
+      <button>submit</button>
+    </form>
+  </section>
+
+  <pre>
+      &lt;section&gt;
+        &lt;form action="/do_nothing"&gt;
+          &lt;p&gt;
+            &lt;label for="cheese"&gt;Amount of Cheese:&lt;/label&gt;
+            &lt;input
+            type="range"
+            id="cheese"
+            min="1"
+            max="1000"
+            value="75"
+            name="cheese_level"&gt;
+          &lt;/p&gt;
+          &lt;button&gt;submit&lt;/button&gt;
+        &lt;/form&gt;
+        &lt;form action="/do_nothing"&gt;
+          &lt;p&gt;Updated range slider with JS&lt;/p&gt;
+          &lt;label for="cheese"&gt;Amount of cheese in kg's &lt;/label&gt;
+          &lt;script&gt;
+            function updateTextInput(val) {
+              document.getElementById('textInput').value = val;
+            }
+          &lt;/script&gt;
+          &lt;input type="range" name="rangeInput" min="0" max="100" value="75" onchange="updateTextInput(this.value);"&gt;
+          &lt;input type="text" id="textInput" value="0-100"&gt;
+          &lt;button&gt;submit&lt;/button&gt;
+        &lt;/form&gt;
+      &lt;/section&gt;
+    </pre>
+
+  <section>
+    <form action="/do_nothing">
+      <p>TEXT AREA INPUT TYPE</p>
+      <label for="requests">Any specific Requests?</label>
+      <textarea name="textarea" id="requests" cols="40" rows="10" placeholder="type your requests here"></textarea>
+    </form>
+  </section>
+
+  <pre>
+      &lt;section&gt;
+        &lt;form action="/do_nothing"&gt;
+          &lt;p&gt;TEXT AREA INPUT TYPE&lt;/p&gt;
+          &lt;label for="requests"&gt;Any specific Requests?&lt;/label&gt;
+          &lt;textarea name="textarea" id="requests" cols="40" rows="10" placeholder="type your requests here"&gt;&lt;/textarea&gt;
+        &lt;/form&gt;
+      &lt;/section&gt;
+    </pre>
+</body>
+
+</html>

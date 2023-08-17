@@ -1,0 +1,27 @@
+body {
+  color: purple;
+}
+
+h1 {
+  color: blue;
+}
+
+form {
+  color: green;
+  font-weight: bolder;
+}
+
+button,
+input {
+  color: inherit;
+}
+
+#id001 {
+  background-color: black;
+  color: aliceblue;
+}
+
+p {
+  background-color: brown !important;
+  color: aquamarine !important;
+}

@@ -1,0 +1,727 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>018 - JavaScript Objects</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="58a1cb75-d7b9-41b5-9399-004599d5540b" class="page sans"><header><h1 class="page-title">018 - JavaScript Objects</h1><p class="page-description"></p></header><div class="page-body"><figure id="98737226-3cc9-4f16-8138-04649becc4e0" class="link-to-page"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0.html">017 - JavaScript Arrays </a></figure><h1 id="01f046a3-3d48-4783-a4c1-9e167b310a86" class="block-color-orange_background"><strong>187. What Matters In This Section</strong></h1><figure id="88f8daee-b5b7-43cd-ac56-494e5db5aaab" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled.png"><img style="width:1919px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled.png"/></a></figure><p id="58d88be1-0fd0-4c21-9852-4d10896b4879" class="block-color-orange_background">
+</p><h1 id="3404ac63-8c79-49f9-8100-5e9e3b990a8a" class="block-color-orange_background">188. Introducing Object Literals</h1><figure id="8246f371-bda7-45ad-9cd4-ae6dc12ed1bb" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%201.png"><img style="width:1408px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%201.png"/></a></figure><p id="95da00d1-4bf9-479a-a08f-569e57acce61" class="block-color-orange_background">
+</p><figure id="8af10c98-047f-4593-af1b-2c306c9719bf" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%202.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%202.png"/></a></figure><p id="d9bf0d6b-d6a2-4519-a870-34d745c20f89" class="block-color-orange_background">
+</p><figure id="0bfefdcd-a868-49c7-bb82-7f58d7db9661" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%203.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%203.png"/></a></figure><p id="7a8bef22-2bf2-46ac-8b55-94132cf0f7ea" class="block-color-orange_background">
+</p><figure id="3694211f-8bd0-46e1-8d6c-69f974b3dc41" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%204.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%204.png"/></a></figure><p id="388c277c-b6ba-400c-8fae-98620e48dcdb" class="block-color-orange_background">
+</p><figure id="d6ba5439-2665-4c83-9cdd-7d86a17f1a54" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%205.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%205.png"/></a></figure><p id="5d7e4233-532f-471d-9ba2-8ad50d7eb254" class="block-color-orange_background">
+</p><figure id="a9e388f6-a760-4f14-a2e2-497def48a8e4" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%206.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%206.png"/></a></figure><p id="665a20e8-bc03-4800-9ba5-2fb4e7e85be4" class="block-color-orange_background">
+</p><blockquote id="46fb2d80-a30a-450a-9412-649b1d42da6e" class="block-color-red">When working with keys in JavaScript objects, there are a few important things to remember and cautions to keep in mind:</blockquote><ol type="1" id="e26ad686-337e-49d1-a253-f32662ab4e28" class="block-color-orange_background numbered-list" start="1"><li><span style="border-bottom:0.05em solid"><em><strong>Key Type: </strong></em></span>In JavaScript, object keys are always strings. If you try to use any other data type as a key, it will be automatically converted to a string. For example, if you use a number as a key, it will be implicitly converted to a string.</li></ol><ol type="1" id="2a3f1d47-1421-4494-877a-e0c3a692170d" class="block-color-orange_background numbered-list" start="2"><li><span style="border-bottom:0.05em solid"><em><strong>Key Uniqueness:</strong></em></span> Object keys must be unique within the same object. If you assign a value to an existing key, it will overwrite the previous value associated with that key.</li></ol><ol type="1" id="d57780b9-cd39-41a2-acda-89f2a2e77096" class="block-color-orange_background numbered-list" start="3"><li><span style="border-bottom:0.05em solid"><em><strong>Property Access: </strong></em></span>You can access object properties using either dot notation (e.g., <code>objectName.propertyName</code>) or bracket notation (e.g., <code>objectName[&#x27;propertyName&#x27;]</code>). Bracket notation allows you to use variables or expressions as keys.</li></ol><ol type="1" id="a99a5b2c-bd4a-4518-86b5-4475363a1af2" class="block-color-orange_background numbered-list" start="4"><li><span style="border-bottom:0.05em solid"><em><strong>Reserved Words: </strong></em></span>Avoid using reserved words or special characters as keys. While it&#x27;s possible to use them, it can lead to confusion or unexpected behavior. If you must use a reserved word as a key, you can do so by enclosing it in quotes using bracket notation.</li></ol><ol type="1" id="03dd54cc-888b-41c0-99d9-893c913f0249" class="block-color-orange_background numbered-list" start="5"><li><span style="border-bottom:0.05em solid"><em><strong>Iteration Order:</strong></em></span> The iteration order of object keys in JavaScript is not guaranteed to be consistent across different implementations or versions.<mark class="highlight-teal"><span style="border-bottom:0.05em solid"><em><strong> </strong></em></span></mark><mark class="highlight-blue"><span style="border-bottom:0.05em solid"><em><strong>Therefore, it&#x27;s recommended not to rely on the order of keys when working with objects.</strong></em></span></mark></li></ol><ol type="1" id="3977f764-41c5-452e-b1d5-7a76c3c2b7fe" class="block-color-orange_background numbered-list" start="6"><li><span style="border-bottom:0.05em solid"><em><strong>Object Methods: </strong></em></span>JavaScript objects inherit methods from their prototype, such as <code>toString</code>, <code>hasOwnProperty</code>, and others. Be cautious when using keys that overlap with these method names, as it may lead to unexpected results or conflicts.</li></ol><ol type="1" id="e2c40288-901e-4a81-8eff-061401a301ea" class="block-color-orange_background numbered-list" start="7"><li>Object.defineProperty(): You can use <code>Object.defineProperty()</code> to define object properties with special characteristics, such as non-enumerable properties or properties with getter/setter functions. This allows more control over the behavior of object keys.</li></ol><ol type="1" id="6e0f0f96-551f-403d-8764-a6e7673ed513" class="block-color-orange_background numbered-list" start="8"><li>JSON.stringify(): When serializing objects to JSON using <code>JSON.stringify()</code>, only string keys are included in the resulting JSON string. Non-string keys, such as numbers, are automatically converted to strings.</li></ol><p id="67c6506d-585b-4199-819b-483309a31a32" class="block-color-orange_background">By keeping these considerations in mind, you can work effectively and avoid potential pitfalls when working with keys in JavaScript objects.</p><p id="06fa21cb-beeb-49ff-b299-00c708cf9ea7" class="block-color-orange_background">
+</p><figure id="fe58752b-1f6b-48e4-8004-7c31527de2c4" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%207.png"><img style="width:880px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%207.png"/></a></figure><p id="5762e283-3c1a-44bb-9ade-c38067b1ed74" class="block-color-orange_background">
+</p><h1 id="ce7bda01-bf6b-42d1-ab23-104aea0b6392" class="block-color-orange_background">189. Creating Object Literals</h1><figure id="fe9fb6f2-e982-4337-851d-6040849c752c" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%208.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%208.png"/></a></figure><p id="7a68e65b-bb8d-4802-ab54-82a606a02b06" class="block-color-orange_background">
+</p><figure id="8fe78cb0-c1ed-4eff-bd6e-94c6242042e3" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%209.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%209.png"/></a></figure><div id="78bd33ae-8fb4-4582-a43d-9f6ef69dadd4" class="column-list"><div id="316c2e16-02a3-4910-9f1e-bbcba0e475a1" style="width:100%" class="column"><h3 id="84dcf7da-2847-42a7-bc88-b2dcc727c605" class="block-color-orange_background">we can wrap keys also in double quotes if we want to use a string as key instead of single word</h3></div><div id="66c994f6-d098-4ab0-8ef8-bc05053eee36" style="width:100%" class="column"><p id="f1846e88-2c5c-44f7-b009-68e844599f85" class="">
+</p></div></div><p id="c03e593b-baec-49cf-9356-fa41dae3bea5" class="block-color-orange_background">
+</p><figure id="e491ca98-fc3a-4a68-87f7-2d7203dbf2d2" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2010.png"><img style="width:1439px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2010.png"/></a></figure><p id="ed3d9848-2c13-4baf-96e0-552971612ae9" class="block-color-orange_background">
+</p><h1 id="53be06c3-7bcc-4a5d-a95b-846a46cf1566" class="block-color-orange_background">190. Accessing Data Out Of Objects</h1><figure id="a5745ab8-98d0-41da-92df-b61c2c4933eb" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2010.png"><img style="width:1439px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2010.png"/></a></figure><div id="b1a70d26-be24-41fb-9c04-6518bc5ebf9d" class="column-list"><div id="1876861f-2321-4373-8e9a-c40452bf6cc5" style="width:125%" class="column"><h3 id="73d05c3b-7f78-48a7-9ade-730dd6895ae0" class="block-color-orange_background">if we are using object.key we should not use quotes on both sides</h3></div><div id="60f391c5-2e67-49fb-94c2-09acfc61c80b" style="width:75.00000000000001%" class="column"><p id="d1767deb-b57f-483d-a0ed-2f52fd3b5cc7" class="">
+</p></div></div><figure id="56fa04f3-c5df-445c-94d4-b4f869d01e24" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2011.png"><img style="width:1439px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2011.png"/></a></figure><p id="fba6e9da-f4ea-4dfd-b4f2-74305b62cab1" class="block-color-orange_background">
+</p><figure id="a576706e-4982-4c64-90fd-4ae05c282cc0" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2012.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2012.png"/></a></figure><p id="263de961-317f-4bcc-800b-a3e6eb915f53" class="block-color-orange_background">
+</p><p id="b7b05d0f-d260-43e0-b007-08c446e70ca7" class="">In JavaScript, object keys are implicitly converted to strings. This means that even if you use a non-string value as a key when defining an object, it will be converted to a string internally.</p><p id="a78f12f5-f0c1-4c40-9c37-7e51fefa2c64" class="">For example, consider the following code snippet:</p><pre id="5bdbf146-d15b-4b4c-a9ec-db9fc491a281" class="code code-wrap"><code>const obj = {
+  1: &#x27;One&#x27;,
+  true: &#x27;True&#x27;,
+  [Symbol()]: &#x27;Symbol&#x27;
+};
+
+console.log(obj); // Output: { &#x27;1&#x27;: &#x27;One&#x27;, &#x27;true&#x27;: &#x27;True&#x27;, Symbol(): &#x27;Symbol&#x27; }</code></pre><p id="a9191f98-5e47-4f04-a1c3-a8a3295360a3" class="block-color-orange_background">In this example, we define an object <code>obj</code> with keys <code>1</code>, <code>true</code>, and a <code>Symbol</code>. <mark class="highlight-red"><strong>Despite using a number and a boolean value as keys, the console output shows that they are converted to strings. The keys are displayed as </strong></mark><mark class="highlight-red"><strong><code>&#x27;1&#x27;</code></strong></mark><mark class="highlight-red"><strong> and </strong></mark><mark class="highlight-red"><strong><code>&#x27;true&#x27;</code></strong></mark><mark class="highlight-red"><strong> respectively.</strong></mark></p><p id="0ab58aef-2a3a-4efe-92f3-77b3c194e487" class="">It&#x27;s important to note that when accessing object properties using dot notation, the keys are implicitly converted to strings as well. For example:</p><pre id="1690e793-1b5f-47df-a2ee-5205326be1e1" class="code code-wrap"><code>console.log(obj.1);     // Error: Unexpected number
+console.log(obj[&#x27;1&#x27;]);  // Output: One
+console.log(obj.true);  // Output: True
+console.log(obj[Symbol()]);  // Output: Symbol</code></pre><p id="454af017-5df2-4f88-b99b-5772a5aa55b1" class="block-color-orange_background"><mark class="highlight-teal"><strong>In the example above, </strong></mark><mark class="highlight-teal"><strong><code>obj.1</code></strong></mark><mark class="highlight-teal"><strong> results in an error because the dot notation does not support accessing keys that are not valid JavaScript identifiers. To access the key </strong></mark><mark class="highlight-teal"><strong><code>&#x27;1&#x27;</code></strong></mark><mark class="highlight-teal"><strong>, you need to use bracket notation as shown with </strong></mark><mark class="highlight-teal"><strong><code>obj[&#x27;1&#x27;]</code></strong></mark><mark class="highlight-teal"><strong>.</strong></mark></p><p id="cd9d27b9-1e47-45f5-815b-d7ab9f1f6370" class="">So, although you can use non-string values as keys in JavaScript objects, they are automatically converted to strings when accessed or printed.</p><figure id="b1ebec82-1400-4f4a-9b79-695f57c59aef" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2013.png"><img style="width:1016px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2013.png"/></a></figure><h1 id="28d86fd4-f489-443d-a661-d56365a016de" class="block-color-orange_background">191. Modifying Objects</h1><figure id="bcaa6f9d-efc3-4629-9459-26e690502bc3" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2014.png"><img style="width:1408px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2014.png"/></a></figure><p id="681bd7b2-cfd4-4922-a971-7f0588a813f1" class="">In JavaScript, objects are mutable, which means you can modify their properties and values after they are created. There are various ways to modify objects in JavaScript:</p><ol type="1" id="afd887d9-0442-451f-b776-bc611386d948" class="numbered-list" start="1"><li>Dot notation: You can modify an object&#x27;s property using dot notation by assigning a new value to the property. For example:</li></ol><pre id="d1e3ebac-2499-4ae4-96f6-5917bd7e9f93" class="code code-wrap"><code>const person = {
+  name: &#x27;John&#x27;,
+  age: 25
+};
+
+person.age = 30; // Modifying the &#x27;age&#x27; property
+console.log(person); // Output: { name: &#x27;John&#x27;, age: 30 }</code></pre><ol type="1" id="f9270f43-9b6f-4830-bc5f-f346ae69f042" class="numbered-list" start="1"><li>Bracket notation: Another way to modify object properties is by using bracket notation. This is useful when the property name is stored in a variable or when it contains special characters. Here&#x27;s an example:</li></ol><pre id="3f013d17-e266-4a6d-85d1-1f561e9819e9" class="code code-wrap"><code>const person = {
+  name: &#x27;John&#x27;,
+  age: 25
+};
+
+const propertyName = &#x27;age&#x27;;
+person[propertyName] = 30; // Modifying the &#x27;age&#x27; property using bracket notation
+console.log(person); // Output: { name: &#x27;John&#x27;, age: 30 }</code></pre><ol type="1" id="d86def62-dc09-419b-a1ff-496e05cf0383" class="numbered-list" start="1"><li>Object methods: JavaScript provides built-in methods that allow you to modify objects. Some commonly used methods include <code>Object.assign()</code>, <code>Object.defineProperty()</code>, and <code>Object.setPrototypeOf()</code>. Here&#x27;s an example using <code>Object.assign()</code>:</li></ol><pre id="44b96a58-078f-4d95-83d4-0ac9c3cb0b91" class="code code-wrap"><code>const person = {
+  name: &#x27;John&#x27;,
+  age: 25
+};
+
+const newValues = {
+  age: 30,
+  occupation: &#x27;Developer&#x27;
+};
+
+Object.assign(person, newValues); // Modifying the object using Object.assign()
+console.log(person); // Output: { name: &#x27;John&#x27;, age: 30, occupation: &#x27;Developer&#x27; }</code></pre><p id="cd2cd13c-0db6-4989-9a98-2fc41e3bc7eb" class="">In this example, <code>Object.assign()</code> is used to merge the <code>person</code> object with the <code>newValues</code> object, modifying the <code>age</code> property and adding the <code>occupation</code> property.</p><p id="c0243528-4be1-4ced-9926-5e03116adff6" class="">Remember that objects are passed by reference in JavaScript. So, if you have multiple references to the same object, modifying it through one reference will affect all the references pointing to that object.</p><p id="9ef916cf-fac3-47ce-a798-e0dc8db87cd0" class="">It&#x27;s important to note that modifying an object&#x27;s properties does not change its identity or prototype. It only modifies the values of the properties or adds new properties.</p><h1 id="4d050437-e1f3-48f1-a03c-8c996aa1619e" class="block-color-orange_background">192. Nesting Arrays &amp; Objects</h1><figure id="60c06d50-b691-458f-aead-b55f571b92f4" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2015.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2015.png"/></a></figure><p id="1825add8-2ff2-4991-9073-cc1fa54a5c46" class="block-color-orange_background">
+</p><figure id="a5146b03-12a8-4e8f-bb8a-4bf88d98b77d" class="image"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2016.png"><img style="width:1567px" src="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b/Untitled%2016.png"/></a></figure><p id="f67228e7-5d7f-41c5-9b2f-22355edef178" class="block-color-orange_background">
+</p><figure id="9e46f0e1-8304-4912-8dba-920ed511b402" class="link-to-page"><a href="019%20-%20Repeating%20Stuff%20with%20Loops%209e46f0e1830449128dba920ed511b402.html">019 - Repeating Stuff with Loops</a></figure></div></article></body></html>

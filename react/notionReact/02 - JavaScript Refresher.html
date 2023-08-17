@@ -1,0 +1,716 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>02 - JavaScript Refresher </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7f8f6165-d3e4-4d98-9048-c4d19c599a0f" class="page sans"><header><h1 class="page-title">02 - JavaScript Refresher </h1><p class="page-description"></p></header><div class="page-body"><figure id="f25a9a80-e0fa-45bf-85e6-614d0786d9dd" class="link-to-page"><a href="01%20-%20Getting%20started%20f25a9a80e0fa45bf85e6614d0786d9dd.html">01 - Getting started</a></figure><h1 id="a61df3ae-1fb5-40b7-b997-f43f2c35d0ae" class="block-color-orange_background">13. Module Introduction</h1><figure id="4cc82ef5-cd58-4f25-a990-df05db979e00" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled.png"><img style="width:1568px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled.png"/></a></figure><p id="af01a635-d092-4eb9-b321-4edcb2168460" class="block-color-orange_background">
+</p><figure id="639fc567-f5d7-4493-999c-822285b9a560" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%201.png"><img style="width:1568px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%201.png"/></a></figure><p id="fc3d2fde-86d4-4e34-9c0c-38469307fe15" class="block-color-orange_background">
+</p><figure id="370fcc6d-8cbf-498d-9312-c7945d710976" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%202.png"><img style="width:1568px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%202.png"/></a></figure><p id="7444cd0f-3641-461f-9808-f4ee9327bee3" class="block-color-orange_background">
+</p><figure id="4cc5d110-19d9-49de-a2e5-7581c7c7278d" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%203.png"><img style="width:1568px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%203.png"/></a></figure><p id="a4fd77aa-0d52-418a-aee0-1653fb7d62b9" class="block-color-orange_background">
+</p><h1 id="a7cb90f1-2d77-4272-afaf-25e5d3f2e044" class="block-color-orange_background">15. Adding JavaScript To A Page &amp; How React Projects Differ</h1><figure id="8b30e3b0-27d3-41b2-9599-7fe60cbf5737" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%204.png"><img style="width:1568px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%204.png"/></a></figure><p id="8cd00618-2715-4910-93de-e47824c208e2" class="block-color-orange_background">
+</p><figure id="da5bb44b-19e9-441f-8094-b0a0563961af" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%205.png"><img style="width:1585px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%205.png"/></a></figure><p id="5d8bd9b6-a110-41cb-ae3a-d967d908eac1" class="block-color-orange_background">
+</p><figure id="6734c990-9280-4d73-8a7b-d2f2d65013ca" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%206.png"><img style="width:1568px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%206.png"/></a></figure><p id="99131b53-0877-4ce8-8681-e157c250a8b7" class="block-color-orange_background">
+</p><h1 id="a5c38eda-6661-4797-bfc4-f2f0e531367a" class="block-color-orange_background">16. React Projects Use a Build Process</h1><figure id="6fe8337d-42d1-4844-bf53-70f438af9c62" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%207.png"><img style="width:1760px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%207.png"/></a></figure><p id="486d87f3-0dbf-4a13-aaa4-b81ce4b85d52" class="block-color-orange_background">
+</p><figure id="3a376e74-3e49-4b20-9abc-9939d2824388" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%208.png"><img style="width:1760px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%208.png"/></a></figure><p id="5be9f330-01e5-41f8-bd77-1922c2209d3e" class="block-color-orange_background">
+</p><figure id="8895a792-22c0-4eb1-8929-9aa924253931" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%209.png"><img style="width:1760px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%209.png"/></a></figure><p id="778f1a91-ece0-482e-99bc-77cb219de278" class="block-color-orange_background">
+</p><figure id="90ef49c9-e222-4535-b18c-2b390663e38f" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2010.png"><img style="width:1760px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2010.png"/></a></figure><p id="56923334-8de9-4b78-a25d-2ed4ca01c895" class="block-color-orange_background">
+</p><figure id="8fe09bd4-d580-4a3d-af66-b0a2c46a3b74" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2011.png"><img style="width:1760px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2011.png"/></a></figure><p id="0c6e4a2a-46f9-4ad2-bf1e-e66a7dda4b62" class="block-color-orange_background">
+</p><h1 id="15a5d3d0-6555-4e5d-ab1f-b1b37b8a3f3e" class="block-color-orange_background">17. &quot;import&quot; &amp; &quot;export”</h1><h3 id="35580e8f-142f-47c3-9a65-87570df5b105" class="block-color-orange_background"><mark class="highlight-red"><span style="border-bottom:0.05em solid"><em><strong>default export </strong></em></span></mark>
+if there is one export we can call it default export
+default exports can be imported even the import name is not same
+just like “API_KEY” and “Api” are not same 
+but import still happens</h3><figure id="67f661a5-ac6f-4118-b87c-05f46cb4b299" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2012.png"><img style="width:1920px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2012.png"/></a></figure><h3 id="268195cc-ce39-4ed5-af66-05e6ad928d6e" class="block-color-orange_background">we can also use export default</h3><figure id="862ba83a-4ff6-432f-bfcd-a13296011ae2" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2013.png"><img style="width:1920px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2013.png"/></a></figure><h3 id="42290e6f-ad07-4a71-861b-24de6ca55766" class="block-color-orange_background">we can add other variables but it will not effect default export 
+we can’t have two defaults exports from one file</h3><figure id="cf3307bc-4104-426b-bb2f-482ed6618986" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2014.png"><img style="width:1920px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2014.png"/></a></figure><h3 id="6eb60bd1-4ec6-4a06-b997-94289b842550" class="block-color-orange_background">flower brackets are optional for default exports</h3><figure id="cf261ebf-55b9-4a72-8200-0d9d9fb32ebd" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2015.png"><img style="width:1920px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2015.png"/></a></figure><h1 id="a97f4565-8d70-4048-9357-ddcd4b4a6223" class="block-color-orange_background">Not default or multiple exports from one file</h1><h3 id="a6abea9d-cba3-48a4-857e-30085090fb4d" class="block-color-orange_background">in not default exports we had to specify the name same as the one from import file
+we can use aliases 
+we can also use import * as “somename”</h3><figure id="6dad89df-a38d-4cde-a6c3-a33c8f524831" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2016.png"><img style="width:1920px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2016.png"/></a></figure><p id="90f6f0e4-d174-424b-894d-e9a69647147b" class="block-color-orange_background">
+</p><h1 id="1780709b-6181-4d12-94cf-9f4517d0fc62" class="block-color-orange_background">18. Revisiting Variables &amp; Values</h1><figure id="5a61633a-0f1a-4541-944a-c0b646ceb567" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2017.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2017.png"/></a></figure><p id="848996a7-cae1-4d51-a7e8-1cc8cb868c76" class="block-color-orange_background">
+</p><figure id="09c202cb-dc96-410a-bbf3-86d1f19bc0c4" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2018.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2018.png"/></a></figure><p id="93697e71-f5d7-4fb8-9cab-27207824c96d" class="block-color-orange_background">
+</p><figure id="00efa3e7-09a1-4c04-b893-2f162df9ae80" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2019.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2019.png"/></a></figure><p id="00ffefad-ada9-435b-bc49-07f4e1a9989c" class="block-color-orange_background">
+</p><figure id="e9d938a2-57d6-4a66-91f7-b108b5b5858c" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2020.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2020.png"/></a></figure><p id="31218bb0-5c6b-48be-b63d-803b0cb1c402" class="block-color-orange_background">
+</p><h1 id="af972901-7767-4b4e-bc2b-b7e6665b4521" class="block-color-orange_background">19. Revisiting Operators</h1><p id="5b7c79ab-53ce-4dab-8471-d0a63ded6001" class="block-color-orange_background">
+</p><h1 id="bd3eb948-b0e1-4b20-a2da-0b2ac1a06b5c" class="block-color-orange_background">20. Revisiting Functions &amp; Parameters</h1><figure id="58d9c61f-4559-48db-8afc-b2f2beef297d" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2021.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2021.png"/></a></figure><p id="74132ecf-bbdf-414c-800e-136ecde62f5b" class="block-color-orange_background">
+</p><h1 id="bb8c8c39-1c79-4e64-9f9b-36fb937624f0" class="block-color-orange_background">21. Arrow Functions</h1><figure id="9d3de205-3b0c-48e2-a957-1be5e8aad501" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2022.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2022.png"/></a></figure><p id="44098c7f-6c65-4a59-9333-a22eb29899c5" class="block-color-orange_background">
+</p><h1 id="25abd944-82ad-4444-84f8-c484d9fa3848" class="block-color-orange_background">23. Revisiting Objects &amp; Classes</h1><figure id="d46e961e-d435-4778-902a-8a569207f836" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2023.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2023.png"/></a></figure><p id="9269f455-984f-46fb-b427-e0ff1c94e4e2" class="block-color-orange_background">
+</p><figure id="deed4796-849c-46ae-8092-bf10d5fd561c" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2024.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2024.png"/></a></figure><h1 id="0b0ef22d-131f-4bb6-9360-e2df7a51564c" class="block-color-orange_background">classes</h1><figure id="a36646ed-d746-47c7-8737-7b5f662751b5" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2025.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2025.png"/></a></figure><p id="feec481d-6c24-4f66-8f34-9d8404c20b28" class="block-color-orange_background">
+</p><h1 id="3c325599-fadf-4cb4-9c29-c37da748fc8c" class="block-color-orange_background">24. Arrays &amp; Array Methods like map()</h1><figure id="ea49e842-1980-485f-abe8-da34f52db048" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2026.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2026.png"/></a></figure><p id="b9aabe2b-c171-48e3-81c0-768f9e23f78a" class="block-color-orange_background">
+</p><h1 id="e7c3dbe0-fd49-415f-a529-f6f72bf08522" class="block-color-orange_background">25. Destructuring</h1><figure id="ab458098-b78d-475a-9afd-14454f35ac8b" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2027.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2027.png"/></a></figure><p id="66ac7e45-6e60-4ba1-91bb-47be7e4130f0" class="block-color-orange_background">
+</p><h1 id="bd208d9b-60de-4d3b-9db3-f3d95c248148" class="block-color-orange_background">27. The Spread Operator</h1><figure id="aab85633-0266-4f0b-9259-b26b5cf68e64" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2028.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2028.png"/></a></figure><p id="50d97aec-a399-4130-a584-b691c5d1465b" class="block-color-orange_background">
+</p><figure id="40aabeca-deb0-4ffc-89c1-de6d7542a101" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2029.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2029.png"/></a></figure><p id="2c8bfb52-0583-4fdb-b20a-0fea6cc2b667" class="block-color-orange_background">
+</p><figure id="246501d2-1753-45b7-b44f-78ae29c7657b" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2030.png"><img style="width:2000px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2030.png"/></a></figure><p id="7dc5c832-f9f8-46b4-af13-1819907d970b" class="block-color-orange_background">
+</p><h1 id="74b9e883-bcf1-4441-8965-25836422ca9d" class="block-color-orange_background">28. Revisiting Control Structures</h1><figure id="a5053b87-a028-4db7-9bf1-a97e40ed8755" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2031.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2031.png"/></a></figure><p id="5041ce7c-6b5d-460f-8022-67b2ef9e5067" class="block-color-orange_background">
+</p><h1 id="1599fdc6-d390-457e-b9d7-194a4508ed9c" class="block-color-orange_background">29. Manipulating the DOM - Not With React!</h1><figure id="8de19f49-d683-4ff5-9a4c-4cee8165e7e4" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2032.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2032.png"/></a></figure><p id="44a9e8bb-a238-4037-90f6-f537468a9358" class="block-color-orange_background">
+</p><h1 id="511b4551-73a2-4d16-a4ea-06cd854ec026" class="block-color-orange_background">30. Using Functions as Values</h1><figure id="ad5c5667-afb1-4108-a6c0-a06c11341873" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2033.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2033.png"/></a></figure><p id="c0f33580-3a06-44f6-a081-fc0df18f38ef" class="block-color-orange_background">
+</p><h1 id="88374026-3093-434e-a4e6-449c5effde9a" class="block-color-orange_background">31. Defining Functions Inside Of Functions</h1><figure id="15c2cc27-f446-45ca-b679-a0823304b4a9" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2034.png"><img style="width:1919px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2034.png"/></a></figure><p id="dd5ee15e-ce9b-47f5-a8b1-c0d013df39ce" class="block-color-orange_background">
+</p><h1 id="c1857881-c135-43ac-8715-296c08ced9c7" class="block-color-orange_background">32. Reference vs Primitive Values</h1><figure id="aa643fa4-4dbd-46a3-b4c1-bf8f50a218c1" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2035.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2035.png"/></a></figure><p id="b020d9a9-4513-4977-971a-a446de8c40cd" class="block-color-orange_background">
+</p><figure id="f4e1ef3c-7cf7-4122-b982-fedea7e3d561" class="image"><a href="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2036.png"><img style="width:1571px" src="02%20-%20JavaScript%20Refresher%207f8f6165d3e44d989048c4d19c599a0f/Untitled%2036.png"/></a></figure><p id="a2ea25bd-d344-4b89-8b4c-868569be9246" class="block-color-orange_background">
+</p><figure id="5c828ede-e7b4-4670-8c0b-82584b916a37" class="link-to-page"><a href="03%20-%20React%20Basics%20&amp;%20working%20with%20components%205c828edee7b446708c0b82584b916a37.html">03 - React Basics &amp; working with components</a></figure></div></article></body></html>

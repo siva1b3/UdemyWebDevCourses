@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>EVENTS</h1>
+
+    <div>
+      <h2>inline events</h2>
+      <button onclick="alert('click happend')">Click Me!</button>
+      <button onclick="alert('click happend') ; alert('happednd again')">
+        Click Me too!
+      </button>
+      <button onclick="alert('click happend') ; alert('happednd again')">
+        Click Me THREE!
+      </button>
+      <button ondblclick="alert('click happend') ; alert('happednd again')">
+        double Click Me!
+      </button>
+      <button ondblclick="alert('click happend') ; alert('happednd again')">
+        double Click Me too!
+      </button>
+    </div>
+
+    <div>
+      <h2>inline events with functions</h2>
+      <button onclick="clickHandler()">Click Me!</button>
+      <button ondblclick="doubleClickHandler()">double Click Me!</button>
+    </div>
+
+    <script>
+      function clickHandler() {
+        alert("Click happend");
+      }
+      function doubleClickHandler() {
+        alert("double Click happend");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHECKBOXES AND MORE</title>
+</head>
+
+<body>
+  <p style="color: black; background-color: aqua;">
+    checkbox outside the forms are just like buttons will not do much in the webpage</p>
+  <section>
+    <p>CHECKBOX 1</p>
+    <input type="checkbox" name="box1" id="isownspc">
+    <label for="isownspc">IS OWNS PC</label>
+    <br>
+    
+    <p>CHECKBOX 2</p>
+    <input type="checkbox" name="box2" id="AGREEALL" checked>
+    <label for="AGREEALL">I Agree to all terms and conditions</label>
+  </section>
+  <pre>
+    &lt;section&gt;
+      &lt;p&gt;CHECKBOX 1&lt;/p&gt;
+      &lt;input type="checkbox" name="box1" id="isownspc"&gt;
+      &lt;label for="isownspc"&gt;IS OWNS PC&lt;/label&gt;
+      &lt;br&gt;
+      &lt;p&gt;CHECKBOX 2&lt;/p&gt;
+      &lt;input type="checkbox" name="box2" id="AGREEALL" checked&gt;
+      &lt;label for="AGREEALL"&gt;I Agree to all terms and conditions&lt;/label&gt;
+    &lt;/section&gt;
+  </pre>
+  <section>
+    <h3>checkbox inside the forms</h3>
+    <form action="/do_nothing">
+      <input type="checkbox" name="is_owner" id="isownpc">
+      <label for="isownpc">Is owner of the pc</label>
+      <button>Submit</button>
+    </form>
+  </section>
+  <pre>
+  &lt;section&gt;
+    &lt;h3&gt;checkbox inside the forms&lt;/h3&gt;
+    &lt;form action="/do_nothing"&gt;
+      &lt;input type="checkbox" name="is_owner" id="isownpc"&gt;
+      &lt;label for="isownpc"&gt;Is owner of the pc&lt;/label&gt;
+      &lt;button&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+  </pre>
+  <section>
+    <div>
+      <p>RADIO BUTTIONS</p>
+      <p>
+      <p>Individual radio buttons without name assignment for them will do nothing</p>
+      <input type="radio">
+      <input type="radio">
+      <input type="radio">
+      <input type="radio">
+      </p>
+    </div>
+    <div>
+      <p>Radio button with <strong>common name</strong> are used regularly in the forms as multiple choice questions
+        because.<br> if a set of radio buttons have a common name only one will be selected in the set remaining will be
+        unselected automatically <br> we need to define value in radio buttons to identify then Individually</p>
+      <form action="/do_nothing">
+        <p>
+          <label for="size-small">small size</label>
+          <input type="radio" name="size" value="small" id="size-small">
+          <label for="size-medium">medium size</label>
+          <input type="radio" name="size" value="medium" id="size-medium">
+          <label for="size-large">large size</label>
+          <input type="radio" name="size" value="large" id="size-large">
+          <label for="size-XL">extra large size</label>
+          <input type="radio" name="size" value="XL" id="size-XL">
+        </p>
+        <button>submit</button>
+      </form>
+    </div>
+  </section>
+  <pre>
+  &lt;section&gt;
+    &lt;div&gt;
+      &lt;p&gt;RADIO BUTTIONS&lt;/p&gt;
+      &lt;p&gt;
+        &lt;p&gt;Individual radio buttons without name assignment for them will do nothing&lt;/p&gt;
+        &lt;input type="radio"&gt;
+        &lt;input type="radio"&gt;
+        &lt;input type="radio"&gt;
+        &lt;input type="radio"&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;p&gt;Radio button with &lt;strong&gt;common name&lt;/strong&gt; are used regularly in the forms as multiple choice questions because.&lt;br&gt; 
+      if a set of radio buttons have a common name only one will be selected in the set remaining will be unselected automatically &lt;br&gt; 
+      we need to define value in radio buttons to identify then Individually&lt;/p&gt;
+      &lt;form action="/do_nothing"&gt;
+        &lt;p&gt;
+          &lt;label for="size-small"&gt;small size&lt;/label&gt;
+          &lt;input type="radio" name="size" value="small" id="size-small"&gt;
+          &lt;label for="size-medium"&gt;medium size&lt;/label&gt;
+          &lt;input type="radio" name="size" value="medium" id="size-medium"&gt;
+          &lt;label for="size-large"&gt;large size&lt;/label&gt;
+          &lt;input type="radio" name="size" value="large" id="size-large"&gt;
+          &lt;label for="size-XL"&gt;extra large size&lt;/label&gt;
+          &lt;input type="radio" name="size" value="XL" id="size-XL"&gt;
+        &lt;/p&gt;
+        &lt;button&gt;submit&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  </pre>
+
+</body>
+
+</html>

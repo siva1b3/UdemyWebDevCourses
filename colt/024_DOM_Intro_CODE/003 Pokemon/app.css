@@ -1,0 +1,26 @@
+.pokemon {
+  display: inline-block;
+  text-align: center;
+}
+.pokemon img {
+  display: block;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.containerPeokemon {
+  display: flex;
+  flex-direction: column;
+}
+
+.numberPeokemon {
+  border: 1px solid green;
+  padding: 10px;
+}

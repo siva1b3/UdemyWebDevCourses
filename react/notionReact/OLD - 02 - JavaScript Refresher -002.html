@@ -1,0 +1,807 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>OLD - 02 - JavaScript Refresher -002</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="36bf3591-3eca-4739-8ed0-27e9610df255" class="page sans"><header><h1 class="page-title">OLD - 02 - JavaScript Refresher -002</h1><p class="page-description"></p></header><div class="page-body"><figure id="87be2fc0-f05f-47f1-9f4f-a1826132f5df" class="link-to-page"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%2087be2fc0f05f47f19f4fa1826132f5df.html">OLD - 02 - JavaScript Refresher </a></figure><figure id="8d7c438e-7ac6-4192-8fa3-f936469deac6" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled.png"/></a></figure><p id="cd88b802-f5ca-4200-9bdf-9fa02ae930ec" class="block-color-orange_background">
+</p><figure id="198710b5-bb35-466b-a3a2-1f581cd2db2d" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%201.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%201.png"/></a></figure><p id="dbc4bf07-d203-4936-84b4-4503174c4078" class="">
+</p><figure id="ba58cdd4-d4b3-4549-b347-8b87cf2af1b1" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%202.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%202.png"/></a></figure><p id="dab447aa-cbe4-4ac0-9c8f-77fb180c4400" class="">
+</p><figure id="82ca2287-379e-4df6-8d22-f477312c7d1f" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%203.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%203.png"/></a></figure><div id="6dcf328a-018b-4806-9fb2-60ea9e4875e1" class="column-list"><div id="f1fe0552-434d-481f-aa5c-24fdf19cb6ce" style="width:100%" class="column"><p id="041f6c5b-f683-4582-b95c-363739fe615e" class="block-color-orange_background">We are getting error</p></div><div id="68dbdeef-e197-4c8c-93c7-17055786df06" style="width:100%" class="column"><p id="9195a0d8-55a7-4d00-8b27-6247744ce55d" class="">
+</p></div></div><p id="fa748127-6bff-4385-84d0-88fdceab8426" class="block-color-orange_background">error resolved after adding super(); in code in child class</p><figure id="c4653ea2-b43c-4981-a9b3-6c67f3bbb7cd" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%204.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%204.png"/></a></figure><p id="5bdb9739-3817-4dad-9c96-3a63ed7130d1" class="">
+</p><p id="2c4baabb-aa3b-42df-baef-88718ba64302" class="block-color-orange_background">we can edit parent class attribute in child class</p><figure id="13391765-840b-4dc6-bf25-2fd1f804b262" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%205.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%205.png"/></a></figure><p id="9b2f7c6a-46f4-4ea0-97f9-ce0e9c0742db" class="">
+</p><h1 id="697b4f22-8bbe-4c19-9825-216ae541b408" class=""><strong>16. Classes, Properties and Methods</strong></h1><figure id="97c1c87d-a20a-4380-b4e6-a344487c4cfc" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%206.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%206.png"/></a></figure><p id="dbe769a1-ab22-4142-93a4-6facf7147138" class="">
+</p><figure id="6f1b0425-be85-482f-8467-44f816729697" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%207.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%207.png"/></a></figure><figure id="1ff368fb-73e8-4496-8426-19e7429a54b9" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%208.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%208.png"/></a></figure><p id="8027fb03-42ab-430c-a359-b3320fd6878f" class="block-color-orange_background">
+</p><p id="1e853f7e-b6f5-4ff9-a276-df2a1befc6ad" class="">WE CHOSE ES6/BABEL AND IT WILL WORK</p><figure id="da7d0ce4-5694-4861-9f42-090c5f26a102" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%209.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%209.png"/></a></figure><p id="228f8c0e-96ba-4ecd-9614-88996649844d" class="block-color-orange_background">
+</p><p id="4e52779f-b952-4207-90c1-45459c7475db" class="block-color-orange_background">Tried example 001</p><p id="c0eca8a2-8ed7-494a-811c-73441570c3b0" class="block-color-orange_background">To use parent class property or attribute we need to use this.gender</p><p id="925b0691-4d4a-4000-abf4-4ad268d75419" class="block-color-orange_background">in the same way to use parent class method we can use this.printMyGender()</p><figure id="d483c71b-9f36-421f-95f8-9b31fa5880ff" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2010.png"><img style="width:1920px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2010.png"/></a></figure><p id="6cbb784e-9e65-4f6d-8f79-fc7b78a76362" class="block-color-orange_background">
+</p><h1 id="02272b89-24de-4199-a464-9d9fee98072f" class="block-color-orange_background">7. The Spread &amp; Rest Operator</h1><figure id="1c9167ba-e511-4f73-b1ed-99ab96f4b6da" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2011.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2011.png"/></a></figure><p id="b35cec81-b417-4f52-905d-45c17674abc9" class="block-color-orange_background">
+</p><figure id="0e6927f4-b1ee-4097-bdff-7e2af050b377" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2012.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2012.png"/></a></figure><p id="7141040a-f367-4e72-bde3-3e085f73e2fa" class="block-color-orange_background">
+</p><figure id="81ceaa31-ae7e-4c07-aec2-bde2709ae5d1" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2013.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2013.png"/></a></figure><p id="1383e4f4-26e6-44fe-8437-1e84983e36e9" class="block-color-orange_background">
+</p><figure id="6f4f3a94-fc94-4522-b6c6-6f1ef3b8a8d8" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2014.png"><img style="width:1457px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2014.png"/></a></figure><p id="87941f9f-79e1-4d95-b7a8-46eb49232f5b" class="block-color-orange_background">
+</p><h1 id="e6764ec5-68c8-4785-b2c2-9a09c05b063f" class="block-color-red">CHAT GPT</h1><blockquote id="81eb4cad-0ad4-45e5-b1c2-478f566576df" class="block-color-orange_background">OBJECT VS ARRAY IN JS</blockquote><p id="15df358b-c897-424d-bab8-5644bdcf123a" class="">In JavaScript, both objects and arrays are used to store and organize data, but they have different structures and purposes. Here&#x27;s an overview of objects and arrays in JavaScript:</p><ol type="1" id="41796cd6-e184-4b36-bd26-b09d35db4820" class="numbered-list" start="1"><li>Objects:<ul id="1ba91716-4044-4636-8e20-758e78d7a331" class="bulleted-list"><li style="list-style-type:disc">Objects are collections of key-value pairs, where each value is associated with a unique key (property name).</li></ul><ul id="5a90d437-e9b1-4ef2-ae37-804e1b8a4593" class="bulleted-list"><li style="list-style-type:disc">Property values can be of any data type, including primitive types (e.g., strings, numbers, booleans) and complex types (e.g., arrays, nested objects, functions).</li></ul><ul id="01156bf9-7deb-4588-86f1-9de197014388" class="bulleted-list"><li style="list-style-type:disc">Property names are strings or symbols.</li></ul><ul id="9e2b39c6-e00b-43df-99e4-591509fc2f9a" class="bulleted-list"><li style="list-style-type:disc">Objects provide an unordered data structure, meaning that the order of properties is not guaranteed.</li></ul><ul id="e051b813-7b9c-4b43-bd2f-fb703fd5f7ba" class="bulleted-list"><li style="list-style-type:disc">Properties can be accessed using dot notation (<code>object.property</code>) or bracket notation (<code>object[&#x27;property&#x27;]</code>).</li></ul><ul id="1a0f603b-e1be-46f3-8a08-5a33578892cd" class="bulleted-list"><li style="list-style-type:disc">Objects are typically used when you want to represent a single entity with multiple attributes or when you need to access values based on specific property names.</li></ul><p id="2f893b15-0279-4909-aa2a-9bf5ad4e2714" class="">Example:</p><pre id="b2ddb813-a847-4b72-9dac-134490c67ad8" class="code code-wrap"><code>const person = {
+  name: &#x27;John Doe&#x27;,
+  age: 30,
+  hobbies: [&#x27;reading&#x27;, &#x27;hiking&#x27;],
+  address: {
+    street: &#x27;123 Main St&#x27;,
+    city: &#x27;Exampleville&#x27;
+  }
+};
+</code></pre></li></ol><ol type="1" id="70772a0b-09b7-433d-84a6-37e81bf14550" class="numbered-list" start="2"><li>Arrays:<ul id="2840448e-7051-4ee1-ab7b-822bf5bf2c9a" class="bulleted-list"><li style="list-style-type:disc">Arrays are ordered collections of values, typically of the same type (although JavaScript allows mixed types).</li></ul><ul id="ff1980b5-d367-4533-b023-8686aa70249a" class="bulleted-list"><li style="list-style-type:disc">Array elements are accessed using zero-based indices.</li></ul><ul id="73d70364-5f62-47a0-b5e4-4f0925c14f1f" class="bulleted-list"><li style="list-style-type:disc">Arrays provide various methods for manipulating and iterating over their elements, such as <code>push</code>, <code>pop</code>, <code>forEach</code>, <code>map</code>, etc.</li></ul><ul id="648aadf1-2aaf-4e77-b711-f1531120095f" class="bulleted-list"><li style="list-style-type:disc">Arrays are commonly used when you have a collection of similar values or when you need to maintain a specific order of elements.</li></ul><p id="36eda017-3224-4b59-80e0-ed8bf108f70f" class="">Example:</p><pre id="3e7cf83d-9363-4075-8a9a-d6b50d7deff8" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+const fruits = [&#x27;apple&#x27;, &#x27;banana&#x27;, &#x27;orange&#x27;];
+</code></pre></li></ol><p id="f431c100-69ae-41c6-aea8-d7a3dd461180" class="">It&#x27;s important to note that objects and arrays are not mutually exclusive, and they can be combined to create complex data structures. For example, you can have an array of objects or an object that contains arrays as property values.</p><pre id="1e85e39c-83d5-43d7-b877-2727ccf9f307" class="code code-wrap"><code>const students = [
+  { name: &#x27;Alice&#x27;, age: 20 },
+  { name: &#x27;Bob&#x27;, age: 22 },
+  { name: &#x27;Charlie&#x27;, age: 19 }
+];
+
+const school = {
+  name: &#x27;Example School&#x27;,
+  location: &#x27;Cityville&#x27;,
+  students: [&#x27;Alice&#x27;, &#x27;Bob&#x27;, &#x27;Charlie&#x27;]
+};
+</code></pre><p id="cb62b304-f578-413e-bb65-d6a60ea30644" class="">In summary, objects are used for unordered collections of key-value pairs, while arrays are used for ordered collections of values accessed by indices. Both have their own strengths and are commonly used in JavaScript based on the specific requirements of the data structure and operations you need to perform.</p><h1 id="a9e258a1-7bbc-4f3a-983e-f070f5d4ac2f" class="block-color-orange_background"></h1><blockquote id="83105491-546a-4e42-9734-a51791157255" class="block-color-orange_background">spread and rest operators explain for beginner in js</blockquote><p id="42633a60-6516-41d5-885e-c1060b0f57a3" class="">Certainly! The spread and rest operators are powerful features in JavaScript that allow you to work with arrays and objects more conveniently. Here&#x27;s a beginner-friendly explanation of the spread and rest operators:</p><ol type="1" id="cd2299e1-bf45-481b-b4cd-bc9b7f6cdf3f" class="numbered-list" start="1"><li>Spread Operator (...)<ul id="e0f7cbce-bb87-4980-8f53-a4b478c54d62" class="bulleted-list"><li style="list-style-type:disc">The spread operator is denoted by three dots (...) and is used to expand an iterable (like an array or a string) into individual elements.</li></ul><ul id="7e3f097d-13d2-4b6d-a8b3-ad35c8fe77e2" class="bulleted-list"><li style="list-style-type:disc">When used with an array, it can be used to create a new array by spreading the elements of an existing array.</li></ul><ul id="c34b53bb-7b79-4564-ab3a-347f6a52fe87" class="bulleted-list"><li style="list-style-type:disc">When used with an object, it can be used to create a new object by spreading the properties of an existing object.</li></ul><ul id="efa8c326-5f7c-4577-924e-99e4883643d5" class="bulleted-list"><li style="list-style-type:disc">The spread operator can also be used to combine multiple arrays or objects into a single array or object.</li></ul><p id="0064b152-7857-483c-9c16-2d2c70f80caf" class="">Examples:</p><pre id="172a2f5a-8367-4b96-9e64-b2101b6369f0" class="code code-wrap"><code>const numbers = [1, 2, 3];
+const newArray = [...numbers, 4, 5]; // [1, 2, 3, 4, 5]
+
+const person = { name: &#x27;John&#x27;, age: 30 };
+const newPerson = { ...person, city: &#x27;Exampleville&#x27; };
+// { name: &#x27;John&#x27;, age: 30, city: &#x27;Exampleville&#x27; }
+
+const fruits = [&#x27;apple&#x27;, &#x27;banana&#x27;];
+const vegetables = [&#x27;carrot&#x27;, &#x27;tomato&#x27;];
+const food = [...fruits, ...vegetables]; // [&#x27;apple&#x27;, &#x27;banana&#x27;, &#x27;carrot&#x27;, &#x27;tomato&#x27;]
+</code></pre></li></ol><ol type="1" id="7e6b7c57-9507-4bbb-8d25-1d92751c82fd" class="numbered-list" start="2"><li>Rest Operator (...)<ul id="fdc07bae-a9c4-40b2-aaf6-84ce14c65ad3" class="bulleted-list"><li style="list-style-type:disc">The rest operator is also denoted by three dots (...) and is used in function parameters or array destructuring to gather multiple elements into an array.</li></ul><ul id="bd9be71a-577d-497c-afd3-e6c74276b83d" class="bulleted-list"><li style="list-style-type:disc">When used in function parameters, it allows a function to accept any number of arguments as an array.</li></ul><ul id="6dd3bfca-4efa-414c-be89-70fb14e0f31e" class="bulleted-list"><li style="list-style-type:disc">When used in array destructuring, it allows you to extract the remaining elements into a new array.</li></ul><p id="2c3e66c2-21d5-4171-a9c5-a41ad4e3db87" class="">Examples:</p><pre id="0d3a673f-5400-4f62-9e5f-db7e5f54537f" class="code code-wrap"><code>// Rest operator in function parameters
+function sum(...numbers) {
+  let total = 0;
+  for (let number of numbers) {
+    total += number;
+  }
+  return total;
+}
+sum(1, 2, 3); // 6
+
+// Rest operator in array destructuring
+const [first, second, ...others] = [1, 2, 3, 4, 5];
+console.log(first); // 1
+console.log(second); // 2
+console.log(others); // [3, 4, 5]
+</code></pre></li></ol><p id="3fcaa4cc-e8e1-4502-805f-459f73868588" class="">The spread and rest operators provide a concise and flexible way to work with arrays and objects in JavaScript. They help simplify tasks such as creating new arrays or objects, merging arrays or objects, accepting variable arguments in functions, and extracting elements from arrays. Understanding and utilizing these operators can make your code more expressive and efficient.</p><h1 id="228f280f-70a2-40ce-bcc8-2939f48c54a9" class="block-color-orange_background"></h1><blockquote id="68e3e446-0464-4a63-a85e-6f7b9f37c151" class="block-color-orange_background">how to send json in to function instead of array</blockquote><p id="bcdca1a9-a172-45de-acc9-c75f8bdafcc3" class="">To send JSON data into a function instead of an array, you can pass the JSON object as an argument to the function. JSON (JavaScript Object Notation) is a text-based data format that represents objects as key-value pairs. In JavaScript, you can parse a JSON string into a JavaScript object using the <code>JSON.parse()</code> method. Here&#x27;s an example:</p><pre id="a27902cc-ced8-42e3-9f78-febb20107484" class="code code-wrap"><code>function processJSONData(data) {
+  // Access the properties of the JSON object
+  console.log(data.name);
+  console.log(data.age);
+  console.log(data.city);
+}
+
+// Example JSON string
+const jsonString = &#x27;{&quot;name&quot;: &quot;John Doe&quot;, &quot;age&quot;: 30, &quot;city&quot;: &quot;Exampleville&quot;}&#x27;;
+
+// Parse JSON string into a JavaScript object
+const jsonData = JSON.parse(jsonString);
+
+// Call the function and pass the JSON object as an argument
+processJSONData(jsonData);
+</code></pre><p id="c614d1e3-92d5-4bd3-ac6c-04bfeb93bcc2" class="">In the example above, the <code>processJSONData</code> function takes a single parameter <code>data</code>, which represents the JSON object. Inside the function, you can access the properties of the JSON object (<code>name</code>, <code>age</code>, <code>city</code>) using dot notation (<code>data.property</code>).</p><p id="41f80d77-d132-4582-9e0c-6916c97238cb" class="">Before passing the JSON data to the function, you need to parse the JSON string using <code>JSON.parse()</code> to convert it into a JavaScript object. The parsed object, <code>jsonData</code>, is then passed as an argument to the <code>processJSONData</code> function.</p><p id="766ae5e5-baa8-4836-bdbf-a2836c9ee172" class="">By following this approach, you can send JSON data into a function and work with its properties within the function&#x27;s body.</p><p id="44546ca4-f8e8-4ebf-803a-03f6cf4e9797" class="block-color-orange_background">
+</p><h1 id="72fcb51d-9ef3-4c2c-aad4-9b03bd59379e" class="block-color-orange_background">1<strong>8. Destructuring</strong></h1><figure id="5a40d601-50b9-4aca-9e24-91a202a8b80a" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2015.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2015.png"/></a></figure><p id="eb858d24-e019-4c73-9053-89c89434ec11" class="block-color-orange_background">
+</p><figure id="f8aaaed4-95ef-4088-b88e-233be4119ac6" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2016.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2016.png"/></a></figure><p id="154815cc-850b-42c8-adab-90e7849c99b3" class="block-color-orange_background">
+</p><figure id="478cfb18-d5c8-4996-853f-0dd25ddc4e02" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2017.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2017.png"/></a></figure><p id="6afca051-84bb-4e55-9fa8-7760d59dd0e8" class="block-color-orange_background">
+</p><h1 id="71505cd7-ccce-4738-be59-0f531060600f" class="block-color-orange_background"><strong>19. Reference and Primitive Types Refresher</strong></h1><h1 id="9d294a3b-be31-4fbf-9c44-d9ec6396012b" class="">VERY THEORY VIDEO</h1><h1 id="38073c91-afe8-4286-a23d-a2910193617a" class="">VERY IMPORTANT VIDEO</h1><h1 id="3ff53d3f-c3d4-40ab-b053-9845956550e0" class="block-color-orange_background"></h1><blockquote id="708696c1-b629-4374-916f-1bfd5c60467b" class="block-color-orange_background">copy an array in JavaScript not the copy of reference</blockquote><p id="ce1b660c-b924-49b6-8fdd-2297ab97cc68" class="">To create a copy of an array in JavaScript without copying the reference, you can use various methods. One of the simplest approaches is to use the <code>slice()</code> method. Here&#x27;s an example:</p><pre id="9b65c62d-b1f1-4d7c-8094-849d990a29fe" class="code code-wrap"><code>var originalArray = [1, 2, 3, 4, 5];
+var copiedArray = originalArray.slice();
+
+console.log(originalArray); // [1, 2, 3, 4, 5]
+console.log(copiedArray);   // [1, 2, 3, 4, 5]
+
+// Modify the original array
+originalArray.push(6);
+
+console.log(originalArray); // [1, 2, 3, 4, 5, 6]
+console.log(copiedArray);   // [1, 2, 3, 4, 5]
+</code></pre><p id="0b3b6d15-19a2-44d4-b790-ed28553fb93a" class="">In the example above, <code>slice()</code> is called without any arguments, which creates a copy of the entire original array. The <code>copiedArray</code> variable holds the new array, which is independent of the original array. Modifying the original array does not affect the copied array.</p><p id="d1c1d5c3-8223-4dd6-8c82-685ffa7673fa" class="">Another alternative is to use the spread operator (<code>...</code>) to create a shallow copy of the array:</p><pre id="560ae0a5-c10b-405e-84da-b96679d35e26" class="code code-wrap"><code>var originalArray = [1, 2, 3, 4, 5];
+var copiedArray = [...originalArray];
+
+console.log(originalArray); // [1, 2, 3, 4, 5]
+console.log(copiedArray);   // [1, 2, 3, 4, 5]
+
+// Modify the original array
+originalArray.push(6);
+
+console.log(originalArray); // [1, 2, 3, 4, 5, 6]
+console.log(copiedArray);   // [1, 2, 3, 4, 5]
+</code></pre><p id="5f025255-0705-4e48-b445-d9f83dfed621" class="">In this case, the spread operator <code>...</code> spreads the elements of the original array into a new array, creating a copy. The <code>copiedArray</code> variable holds the new array, which remains unaffected by modifications to the original array.</p><p id="2405ba84-fcc9-45bc-a7e9-534710c30cfc" class="">Both <code>slice()</code> and the spread operator create shallow copies, meaning they duplicate the array structure but do not create deep copies of nested objects or arrays within the original array.</p><p id="e3b9fecd-9547-40a4-b049-d9b7f4100e33" class="block-color-orange_background">
+</p><blockquote id="c55dfc41-4929-40ae-ae47-451017148219" class="block-color-orange_background">copy an OBJECT in JavaScript not the copy of reference</blockquote><p id="6a6b23c0-53b5-4254-b622-a534af391a9c" class="">To create a copy of an object in JavaScript without copying the reference, you can use various methods. One common approach is to use the <code>Object.assign()</code> method or the spread operator (<code>...</code>). Here&#x27;s an example using both methods:</p><pre id="4f132826-d907-4857-b2e4-370e0c79bee8" class="code code-wrap"><code>// Using Object.assign()
+var originalObject = { name: &quot;John&quot;, age: 30 };
+var copiedObject = Object.assign({}, originalObject);
+
+console.log(originalObject); // { name: &quot;John&quot;, age: 30 }
+console.log(copiedObject);   // { name: &quot;John&quot;, age: 30 }
+
+// Modify the original object
+originalObject.age = 31;
+
+console.log(originalObject); // { name: &quot;John&quot;, age: 31 }
+console.log(copiedObject);   // { name: &quot;John&quot;, age: 30 }
+
+
+// Using the spread operator (...)
+var originalObject = { name: &quot;John&quot;, age: 30 };
+var copiedObject = { ...originalObject };
+
+console.log(originalObject); // { name: &quot;John&quot;, age: 30 }
+console.log(copiedObject);   // { name: &quot;John&quot;, age: 30 }
+
+// Modify the original object
+originalObject.age = 31;
+
+console.log(originalObject); // { name: &quot;John&quot;, age: 31 }
+console.log(copiedObject);   // { name: &quot;John&quot;, age: 30 }
+</code></pre><p id="cae2e934-a788-4e30-b5bb-5557c1df1111" class="">In both examples, a new object is created (<code>{}</code> or <code>{ ...originalObject }</code>) and then either <code>Object.assign()</code> or the spread operator (<code>...</code>) is used to copy the properties from the original object to the new object. This creates a new object with the same property values as the original object, but they are not referencing the same memory location.</p><p id="9e86df85-e12a-4967-a85a-c370359a9764" class="">Please note that these methods create a shallow copy, meaning that if the original object contains nested objects or arrays, they will still be referenced and not deeply copied. To create a deep copy of an object with nested structures, you would need to use more advanced techniques, such as recursive cloning or third-party libraries like <code>lodash.cloneDeep()</code>.</p><p id="f233481f-b424-4199-8f6d-ba6df73825ea" class="block-color-orange_background">
+</p><h2 id="e4be8927-2fcb-49a6-aae5-8a845930de1f" class="block-color-orange_background">20. Refreshing Array Methods</h2><figure id="ad3cca76-af17-4b9c-83e0-238541c90d39" class="image"><a href="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2018.png"><img style="width:1585px" src="OLD%20-%2002%20-%20JavaScript%20Refresher%20-002%2036bf35913eca47398ed027e9610df255/Untitled%2018.png"/></a></figure><p id="1bd27b69-7209-4f4f-8a72-2be1e95395d6" class="block-color-orange_background">
+</p></div></article></body></html>

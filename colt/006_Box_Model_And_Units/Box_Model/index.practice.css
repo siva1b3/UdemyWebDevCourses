@@ -1,0 +1,110 @@
+div {
+  width: 400px;
+  height: 200px;
+  background-color: aqua;
+}
+
+h1 {
+  background-color: pink;
+}
+
+.Noelement {
+  /* style */
+  border: solid;
+
+  /* width | style */
+  border: 2px dotted;
+
+  /* style | color */
+  border: outset #f33;
+
+  /* width | style | color */
+  border: medium dashed green;
+}
+
+.Noelement {
+  /* Apply to all four sides */
+  padding: 1em;
+
+  /* top and bottom | left and right */
+  padding: 5% 10%;
+
+  /* top | left and right | bottom */
+  padding: 1em 2em 2em;
+
+  /* top | right | bottom | left */
+  padding: 5px 1em 0 2em;
+
+  /* Global values */
+  padding: inherit;
+  padding: initial;
+  padding: revert;
+  padding: revert-layer;
+  padding: unset;
+}
+
+.Noelement {
+  /* Apply to all four sides */
+  margin: 1em;
+  margin: -3px;
+
+  /* top and bottom | left and right */
+  margin: 5% auto;
+
+  /* top | left and right | bottom */
+  margin: 1em auto 2em;
+
+  /* top | right | bottom | left */
+  margin: 2px 1em 0 auto;
+
+  /* Global values */
+  margin: inherit;
+  margin: initial;
+  margin: revert;
+  margin: revert-layer;
+  margin: unset;
+}
+
+#id001 {
+  background-color: #e63946;
+  /* Basic border propertires */
+  border-width: 10px;
+  border-color: aqua;
+  border-style: dotted;
+  box-sizing: border-box;
+  color: aliceblue;
+  padding: 10px;
+  margin-left: 10em;
+  margin: 40px 30px;
+}
+
+#id002 {
+  background-color: #1d3557;
+  /* Basic border propertires */
+  border-width: 10px;
+  border-color: #3fef05;
+  border-style: groove;
+  box-sizing: border-box;
+  color: antiquewhite;
+  padding: 10px;
+}
+
+#id003 {
+  background-color: #283618;
+  /* Basic border propertires */
+  box-sizing: border-box;
+  border-style: dashed double none;
+  border-radius: 40px;
+  color: bisque;
+  overflow-wrap: normal;
+  padding: 5% 10%;
+}
+
+#id004 {
+  background-color: #006f51;
+  border: 20px double #e76f51;
+  color: aliceblue;
+  box-sizing: border-box;
+  border-radius: 50px;
+  padding: 5px 1em 0 2em;
+}

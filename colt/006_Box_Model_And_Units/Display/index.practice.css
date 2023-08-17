@@ -1,0 +1,55 @@
+/* h1 {
+  background-color: aqua;
+  border: 1px green solid;
+}
+
+span {
+  background-color: chartreuse;
+  border: 1px black solid;
+  margin: 5px;
+}
+
+h1 {
+  display: inline;
+}
+
+span {
+  display: block;
+} */
+/* Et takimata takimata sit sadipscing diam nonumy ipsum vero, est justo lorem at magna takimata ipsum, duo sed erat rebum. */
+
+/* h1 {
+  display: block;
+}
+
+span {
+  display: inline;
+} */
+
+/* Sed at dolores eos consetetur labore dolores lorem amet ipsum. Elitr erat no magna et. Dolores voluptua clita accusam sadipscing. */
+
+/* Width and height are ignored */
+/* span {
+  background-color: palevioletred;
+  border: 3px solid black;
+  width: 500px;
+  height: 500px;
+} */
+
+/* Ut vero nonumy diam justo aliquyam magna sanctus, sit sed eos elitr lorem sanctus dolor eirmod dolor aliquyam, labore magna. */
+
+span {
+  background-color: palevioletred;
+  border: 3px solid black;
+  width: 100px;
+  height: 100px;
+  padding: 40px;
+  margin: 50px;
+  display: inline-block;
+}
+
+h2 {
+  display: none;
+}
+
+/* use ful in js */

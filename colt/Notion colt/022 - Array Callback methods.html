@@ -1,0 +1,794 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>022 -  Array Callback methods</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a84f764f-3b10-4f1e-8a6c-9cd582434a1d" class="page sans"><header><h1 class="page-title">022 -  Array Callback methods</h1><p class="page-description"></p></header><div class="page-body"><figure id="d4f12a28-8775-4779-b577-88055fc793e9" class="link-to-page"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9.html">021 - Levelling Up Our Functions</a></figure><h1 id="a3b5b0d4-cd4e-4f16-b7d9-b4438c637467" class="block-color-orange_background"><strong>223. What Matters In This Section</strong></h1><figure id="4ef492dc-dc7c-4ffd-9b29-2a6ce4fd6638" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled.png"/></a></figure><p id="88247304-3a1b-4fbb-9239-689ba861ac03" class="block-color-orange_background">
+</p><p id="04b34e5a-e9a9-416e-a486-588d66c58288" class="">A <strong>callback function</strong> is a function that is passed <strong>as an argument to another function</strong> and is intended to be executed at a later point in time. In other words, <strong>the callback function is &quot;called back&quot; by the higher-order function</strong> once it completes its task or when a specific condition is met. This mechanism allows for asynchronous programming, event handling, and enables the implementation of various design patterns like callbacks, promises, and async/await.</p><p id="54386b29-7b89-4e6f-8331-1c3bb263b0dc" class="">Here&#x27;s a basic example to illustrate the concept of a callback function:</p><pre id="fd20c4e3-04ce-4fcf-b26d-ee78509d3dda" class="code code-wrap"><code>// The higher-order function takes a callback function as an argument
+function doSomethingAsync(callback) {
+  setTimeout(() =&gt; {
+    console.log(&quot;Async task is done!&quot;);
+    callback(); // The callback function is invoked here
+  }, 1000);
+}
+
+// The callback function definition
+function afterAsyncTask() {
+  console.log(&quot;After the async task!&quot;);
+}
+
+// Calling the higher-order function with the callback function
+doSomethingAsync(afterAsyncTask);</code></pre><p id="0c1a0b54-245a-4cde-a49d-71df8186db71" class="">In this example, <code>doSomethingAsync</code> is a higher-order function that simulates an asynchronous operation using <code>setTimeout</code>. It takes a callback function (<code>afterAsyncTask</code>) as an argument. When <code>doSomethingAsync</code> completes its asynchronous task, it invokes the callback function, allowing you to perform additional actions after the async task is finished.</p><p id="9332081b-64bc-4845-9c21-9d037a22289f" class="">Callback functions are particularly useful in scenarios like:</p><ol type="1" id="17d2787b-a3e6-4660-8a42-5c394568d026" class="numbered-list" start="1"><li><strong>Asynchronous Operations</strong>: When dealing with asynchronous tasks like fetching data from a server, reading files, or making API calls, you can use callbacks to execute code once the task is complete.</li></ol><ol type="1" id="b31abd65-8139-44f3-8586-966565fc8c0a" class="numbered-list" start="2"><li><strong>Event Handling</strong>: In event-driven programming, callbacks are commonly used to respond to events like button clicks, mouse movements, or keyboard inputs.</li></ol><ol type="1" id="6af1e989-85b9-4350-8079-3a9d55a31b3c" class="numbered-list" start="3"><li><strong>Iterative Functions</strong>: Higher-order functions like <code>forEach</code>, <code>map</code>, <code>reduce</code>, and <code>filter</code> in JavaScript allow you to pass callback functions for custom operations on array elements.</li></ol><ol type="1" id="8ad79c93-245b-4089-bc5d-40c139b2c345" class="numbered-list" start="4"><li><strong>Control Flow</strong>: In some cases, callbacks can be used to define the order of execution for multiple asynchronous tasks.</li></ol><p id="397e20fb-8026-4714-877d-6bba895ae4c6" class=""><strong>However, using too many nested callbacks can lead to a phenomenon called &quot;callback hell,&quot; where the code becomes hard to read and maintain.</strong> To mitigate this, modern JavaScript provides solutions like promises and async/await to handle asynchronous operations in a more elegant and structured way.</p><p id="0742870d-fafb-4694-979f-9d893eb5cca9" class="block-color-orange_background">
+</p><p id="99a865df-5aed-400d-871e-568073f6116b" class="block-color-orange_background">
+</p><p id="fe58703e-fdb0-4a20-92f8-41de8f12a88c" class="block-color-teal_background"><strong>Array callback methods are higher-order functions</strong> available in JavaScript that allow you to perform operations on elements of an array in a concise and functional way. These methods take a <strong>callback function as an argument</strong>, which is executed on each element of the array during iteration. Array callback methods are powerful tools that make it easier to work with arrays and avoid traditional for loops.</p><p id="1ab0be47-e658-42bd-95d0-52eb681a5950" class="">Commonly used array callback methods include:</p><ol type="1" id="2ab1e75b-2bdf-4ec9-ae90-ce684dad5bd1" class="numbered-list" start="1"><li><code>forEach</code>: This method iterates through each element of the array and applies the provided callback function to each element. The return value of the callback is ignored. It is mainly used when you want to perform an operation on each element of the array.</li></ol><pre id="d02c6b00-468b-407c-a1dd-27e494437f26" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+numbers.forEach((number) =&gt; {
+  console.log(number * 2); // Prints the doubled value of each element
+});
+</code></pre><ol type="1" id="27b4a601-1c3a-4020-aa1a-ce39e1218f0a" class="numbered-list" start="1"><li><code>map</code>: The <code>map</code> method creates a new array by applying the callback function to each element of the original array. It returns a new array with the results of the callback function applied to each element.</li></ol><pre id="addffda9-cdcd-4371-a113-ad187d6b94dc" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+const doubledNumbers = numbers.map((number) =&gt; number * 2);
+console.log(doubledNumbers); // [2, 4, 6, 8, 10]
+</code></pre><ol type="1" id="414832c7-fb10-4470-a744-f5959e3efc08" class="numbered-list" start="1"><li><code>filter</code>: The <code>filter</code> method returns a new array containing only the elements that pass the condition specified in the callback function. The callback function should return a Boolean value.</li></ol><pre id="bc2a57f5-1900-495a-9392-d5e0c8864558" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.filter((number) =&gt; number % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+</code></pre><ol type="1" id="9e545a1b-cd69-4cd6-abc5-ef8b76735ddb" class="numbered-list" start="1"><li><code>reduce</code>: The <code>reduce</code> method reduces an array to a single value by executing the callback function on each element. The callback function takes two parameters: an accumulator and the current element. The accumulator keeps the intermediate result, and the return value of the callback becomes the new accumulator for the next iteration.</li></ol><pre id="43b26035-7296-4a7b-b4bc-ca4b02fa7812" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((accumulator, number) =&gt; accumulator + number, 0);
+console.log(sum); // 15
+</code></pre><ol type="1" id="2c5677c0-ba78-4da1-980a-245cee794ee1" class="numbered-list" start="1"><li><code>find</code>: The <code>find</code> method returns the first element in the array that satisfies the provided callback function. It stops iterating once the condition is met and returns the element, or <code>undefined</code> if no matching element is found.</li></ol><pre id="f487230d-51b0-44ec-bd8c-1ef2a1d5a287" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+const foundNumber = numbers.find((number) =&gt; number &gt; 3);
+console.log(foundNumber); // 4
+</code></pre><p id="14f957b3-3232-4949-b4ab-dbc344ee6586" class="">These array callback methods promote a functional programming style and help in writing cleaner, more expressive, and less error-prone code when working with arrays.</p><p id="3449eadc-bc60-4f85-8975-5b80a4a6c6f2" class="block-color-orange_background">
+</p><p id="2ee2dde9-c500-4b60-8796-025807c8f4c7" class="block-color-orange_background">
+</p><h1 id="027de908-10a1-40f2-b06b-a58234539829" class="block-color-orange_background"><strong>224. What Is This Section Even About?!</strong></h1><figure id="1e739733-4558-4e99-a534-2fd4b11ecd86" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%201.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%201.png"/></a></figure><p id="9ab3d331-74c1-4c8c-975e-2fbe5917348e" class="block-color-orange_background">
+</p><h1 id="5c453c6d-c43b-41eb-9a07-30a20c831bd7" class="block-color-orange_background"><strong>225. The forEach Method</strong></h1><figure id="0b4904e5-83ef-48bd-8510-d1c80a4ce01e" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%202.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%202.png"/></a></figure><blockquote id="972c2b73-ea12-472e-a661-14846b4be31e" class="block-color-orange_background">callback function is a function that is passed as an argument to another function</blockquote><p id="1ba76026-1f82-4d6a-bc89-af35843c20ea" class="block-color-orange_background">
+</p><figure id="3e1aa070-ade0-488b-a77b-2f51f767216e" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%203.png"><img style="width:1182px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%203.png"/></a></figure><p id="216ce4ad-c11a-4bfc-b445-f2c898ccf51d" class="block-color-orange_background">
+</p><figure id="cfe6fcd3-e5f8-44a9-85da-401dc45e9303" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%204.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%204.png"/></a></figure><p id="6b92d9c0-9b00-41ed-8394-a333c179b59f" class="block-color-orange_background">
+</p><figure id="b2e596e6-5773-43ca-b0bd-6d1f7325a389" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%205.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%205.png"/></a></figure><div id="89ec43e6-9fa4-40d9-a0a5-44acf2f22585" class="column-list"><div id="a61fd514-abe6-44b3-a52a-338eca0b168c" style="width:100%" class="column"><blockquote id="c2afb261-16c2-4f7f-bfcc-3ad455f57222" class="block-color-orange_background">“<mark class="highlight-teal">For of&quot; loop is new </mark>
+previously 
+foreach is the only option to loop arrays easily with out using index</blockquote></div><div id="90d1c2bb-17ec-42d8-bf77-f78312a2f9ac" style="width:100%" class="column"><p id="165dfda6-9028-4d3d-abc8-153379581caa" class="">
+</p></div></div><figure id="3bdd4e33-bc43-458c-b437-df78022c5054" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%206.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%206.png"/></a></figure><p id="410e6a62-6acf-4280-beef-1262ce9ee891" class="block-color-orange_background">
+</p><figure id="83531a86-c956-4784-adc3-fbd94f0860df" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%207.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%207.png"/></a></figure><p id="77ff2cb4-8f4b-46ca-ab9b-2da204a9a961" class="block-color-orange_background">
+</p><figure id="5a40d7ec-97d4-444d-8dab-3613cfdf42c0" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code.png"><img style="width:528px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code.png"/></a></figure><p id="09e1c80b-3968-4cc1-a1fb-c95aea80e72b" class="block-color-orange_background">
+</p><figure id="7671c6f1-9e8e-41e9-a7f2-c15817d885f8" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%208.png"><img style="width:1600px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%208.png"/></a></figure><p id="71dcb9f8-ed89-42bb-9e9d-c996f0551a65" class="block-color-orange_background">
+</p><p id="aa18cd27-7123-4126-889a-c75c6a9a3d78" class="block-color-teal_background">Sure! Here&#x27;s an example of using <code>forEach</code> with the <code>(element, index, array)</code> parameters:</p><pre id="18385a8e-ecdc-4d1a-97dc-2b0fdd1e975d" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+
+numbers.forEach((element, index, array) =&gt; {
+  console.log(`Element: ${element}, Index: ${index}, Array: ${array}`);
+});
+</code></pre><p id="2165fca9-e3a0-4fe1-9ca9-844964d20929" class="">In this example, we&#x27;re using the <code>(element, index, array)</code> parameters in the callback function. When <code>forEach</code> iterates through each element of the <code>numbers</code> array, it will pass the current <code>element</code>, its <code>index</code> in the array, and the whole <code>array</code> itself to the callback function.</p><p id="dc3e857f-944c-43a3-8a07-a8e33d3e00ff" class="">The output will be:</p><pre id="c9971efe-bd31-44dc-92e8-72a87ac4b3d8" class="code code-wrap"><code>Element: 1, Index: 0, Array: 1,2,3,4,5
+Element: 2, Index: 1, Array: 1,2,3,4,5
+Element: 3, Index: 2, Array: 1,2,3,4,5
+Element: 4, Index: 3, Array: 1,2,3,4,5
+Element: 5, Index: 4, Array: 1,2,3,4,5</code></pre><p id="7406392f-4836-4a81-88f4-44ba7db10e60" class="">Each element is printed along with its index in the array, and the entire array is also displayed with each iteration.</p><p id="4650e70a-d5f2-4ee3-8811-62d83219b9bf" class="block-color-orange_background">
+</p><h1 id="78c8ef31-52fe-4185-acee-33c82e1673fe" class="block-color-orange_background"><strong>226. The map Method</strong></h1><figure id="5701686d-bf62-417d-a8aa-3b9b3aced92a" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%209.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%209.png"/></a></figure><p id="f0ed181b-6aff-4e55-8808-6f4923465993" class="block-color-orange_background">
+</p><figure id="ce7d7290-165e-4e6a-8b1c-e72b5b87dbda" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2010.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2010.png"/></a></figure><p id="ba19b446-3d6f-44ba-a3f7-c3b4b0591447" class="block-color-orange_background">
+</p><figure id="667faab6-b374-404d-a1a4-5f4fc1eb7226" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2011.png"><img style="width:720px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2011.png"/></a></figure><p id="251a9ebf-c532-4301-affc-0fd745713696" class="block-color-orange_background">
+</p><p id="a4ad91ca-c2ae-454f-bdab-2b93e2183ee7" class="">In the context of programming, &quot;for each&quot; and &quot;map&quot; are both used for iterating over elements in an array or collection. However, they have different purposes and behaviors. Let&#x27;s compare the two in terms of the factors you&#x27;ve listed:</p><ol type="1" id="f0ceb06b-0f99-42ea-a279-2655cf276e9c" class="numbered-list" start="1"><li><strong>Return value</strong>:<ul id="8ce6d903-9500-40dc-af9a-eafa06b32aa2" class="bulleted-list"><li style="list-style-type:disc">&quot;for each&quot;: In a &quot;for each&quot; loop, there is typically no explicit return value. The loop is used to perform some action on each element of the array or collection. The result is achieved through the actions taken within the loop.</li></ul><ul id="c15efda1-435d-4d79-ac83-692509522494" class="bulleted-list"><li style="list-style-type:disc">&quot;map&quot;: The &quot;map&quot; method returns a new array containing the results of applying a provided function to each element of the original array. It creates a new array without modifying the original array.</li></ul></li></ol><ol type="1" id="0f5f7ba2-70b6-4b09-b7fe-d9eb09e1b7f8" class="numbered-list" start="2"><li><strong>Original array modification</strong>:<ul id="a71946a1-c8a2-443e-ac5b-a41c2ccf66cc" class="bulleted-list"><li style="list-style-type:disc">&quot;for each&quot;: A &quot;for each&quot; loop does not modify the original array directly. It merely allows you to perform operations on each element of the array.</li></ul><ul id="0bcd0278-da82-45a7-a887-e5a2fa53b00e" class="bulleted-list"><li style="list-style-type:disc">&quot;map&quot;: The &quot;map&quot; method does not modify the original array either. It creates a new array with the transformed elements, leaving the original array unchanged.</li></ul></li></ol><ol type="1" id="a82e0ce5-d960-4fbf-a71b-56fb0c211227" class="numbered-list" start="3"><li><strong>What happens after the end of the method call</strong>:<ul id="6e7f15f2-a1e4-472d-8f6a-12acfe14f165" class="bulleted-list"><li style="list-style-type:disc">&quot;for each&quot;: Once the &quot;for each&quot; loop finishes executing, the program continues with the next line of code outside the loop.</li></ul><ul id="7efc915c-d7e8-45fd-9e36-cdcddae29354" class="bulleted-list"><li style="list-style-type:disc">&quot;map&quot;: After calling the &quot;map&quot; method, a new array is returned with the transformed elements. The program continues with the next line of code after the &quot;map&quot; method call.</li></ul></li></ol><ol type="1" id="d57ad377-da9b-42c9-8fa1-a96f0cf4a760" class="numbered-list" start="4"><li><strong>Explain chainable and how it affects</strong>:<ul id="72991641-7931-477c-8ece-7c21e5f102a1" class="bulleted-list"><li style="list-style-type:disc">Both &quot;for each&quot; and &quot;map&quot; are not chainable on their own.</li></ul><ul id="44c1232f-d8f8-45a4-b755-11d9f04e8995" class="bulleted-list"><li style="list-style-type:disc"><strong>Chainable</strong>: In many programming languages, including JavaScript, certain array methods can be chained together, meaning you can call one method after another on the same array without explicitly creating intermediate variables to hold the results. This allows for a more concise and readable code.</li></ul><ul id="c85b029f-a590-439b-a1be-d63ff77da11a" class="bulleted-list"><li style="list-style-type:disc"><strong>How it affects</strong>:<ul id="c25b58af-72aa-47d0-996c-8c917263dc9e" class="bulleted-list"><li style="list-style-type:circle">&quot;for each&quot;: Since &quot;for each&quot; doesn&#x27;t return anything, it cannot be used in a chain. Any subsequent methods need to be called on the array directly or a separate variable that holds the array.</li></ul><ul id="f105db26-8996-43f3-9282-b6a3113ad730" class="bulleted-list"><li style="list-style-type:circle">&quot;map&quot;: Since &quot;map&quot; returns a new array, it can be used in a chain with other array methods. For example, you can call &quot;map&quot; followed by &quot;filter,&quot; &quot;reduce,&quot; or any other array method to perform multiple operations in sequence.</li></ul></li></ul></li></ol><p id="c6dcd158-84dd-402e-9677-7fb75fc31d2e" class="">Example of using &quot;map&quot; in a chain:</p><pre id="87e59d2d-f8ef-4dce-a1f7-940e0747ff56" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+
+const doubledAndSquared = numbers
+  .map((num) =&gt; num * 2) // Doubles each element: [2, 4, 6, 8, 10]
+  .map((num) =&gt; num * num); // Squares each element: [4, 16, 36, 64, 100]
+
+console.log(doubledAndSquared); // Output: [4, 16, 36, 64, 100]</code></pre><p id="fd05c3ea-ba6a-4c99-b19b-160b5e4194ac" class="">In summary, &quot;for each&quot; is used for iterating over elements in an array without modifying it directly, while &quot;map&quot; is used to create a new array with transformed elements based on a provided function. The chainability of &quot;map&quot; allows for more concise and expressive code when combined with other array methods.</p><p id="ce9fdd2d-c9e6-4b3d-a3e5-5beb1fcb5f72" class="block-color-orange_background">
+</p><p id="3f4eedc7-75a3-4947-9bfb-d21b7baf4ab4" class="">Sure! Here&#x27;s an example using the <code>map</code> method with the <code>(element, index, array)</code> parameters:</p><pre id="2b2ccec0-c0e9-4bd9-a5e1-d7e486d55128" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+
+const doubledNumbersWithIndex = numbers.map((number, index, array) =&gt; {
+  console.log(`Index: ${index}, Element: ${number}, Original Array: ${array}`);
+  return number * 2;
+});
+
+console.log(doubledNumbersWithIndex);
+</code></pre><p id="e67b37d5-07ef-4514-9050-d10659dc216e" class="">In this example, the <code>map</code> method iterates through each element of the <code>numbers</code> array. The callback function takes three parameters:</p><ol type="1" id="0a2eacd4-626f-4021-818b-9b4239bd419a" class="numbered-list" start="1"><li><code>number</code>: The current element being processed.</li></ol><ol type="1" id="d4ef8f16-477c-4820-bc73-e588e3b70cd7" class="numbered-list" start="2"><li><code>index</code>: The index of the current element in the array.</li></ol><ol type="1" id="e8c5dec2-0bb5-4e97-9a9a-a93702e0217e" class="numbered-list" start="3"><li><code>array</code>: The original array on which <code>map</code> was called.</li></ol><p id="7202de51-87ea-43cd-8c05-532ec79ee7d2" class="">The callback function logs the <code>index</code>, <code>element</code>, and <code>original array</code> to the console for each iteration. Then, it returns the element multiplied by 2.</p><p id="960b3f9b-dfdb-480c-8da5-5c065169683d" class="">When you run this code, the output will be:</p><pre id="fd91d838-1748-48f8-9d02-2351d9efc485" class="code code-wrap"><code>Index: 0, Element: 1, Original Array: 1,2,3,4,5
+Index: 1, Element: 2, Original Array: 1,2,3,4,5
+Index: 2, Element: 3, Original Array: 1,2,3,4,5
+Index: 3, Element: 4, Original Array: 1,2,3,4,5
+Index: 4, Element: 5, Original Array: 1,2,3,4,5
+[2, 4, 6, 8, 10]
+</code></pre><p id="c0ce8932-7729-4b59-bc32-6c8f27cc4ba0" class="">As you can see, the <code>map</code> method processes each element along with its index and the original array, and the resulting array <code>doubledNumbersWithIndex</code> contains the doubled values of the original elements.</p><p id="f4d448c7-ee53-4969-9cec-f650a00e0e52" class="block-color-orange_background">
+</p><div id="e916cce6-61a5-4aa2-b036-7a9b87fc04be" class="column-list"><div id="fac66672-d8c3-464b-9459-2576c6c91c30" style="width:100%" class="column"><blockquote id="b42e1f5b-a221-4d58-8b2c-bb992d488e1e" class="block-color-orange_background">even it is undefined map will return some thing for every element of an array if used</blockquote></div><div id="400209ce-0670-486b-a57b-4f5702870e2d" style="width:100%" class="column"><p id="0564855b-c7dc-4ae7-91e0-6a2b41b22b02" class="">
+</p></div></div><figure id="6c6adbe6-fd24-4df9-9b35-f05bd111a9ce" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2012.png"><img style="width:1920px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2012.png"/></a></figure><p id="3781dcf9-fe0a-4990-a709-e678c5281b15" class="block-color-orange_background">
+</p><h1 id="20901e3e-fd5b-45dd-8b69-52c47db06a61" class="block-color-orange_background"><strong>227. Intro to Arrow Functions</strong></h1><figure id="1ab1f7af-e19d-491e-b59a-93c1fc66ca93" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2013.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2013.png"/></a></figure><p id="23b34a05-f3ac-43f2-95ee-21cdaf6ec061" class="block-color-orange_background">
+</p><figure id="f33ec133-c3a5-4f47-9d20-8e633e287fdc" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2014.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2014.png"/></a></figure><p id="87d13672-5170-4522-ac8b-7e4d500934e4" class="block-color-orange_background">
+</p><figure id="818df19b-3352-4997-8d78-fc49095a0525" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%201.png"><img style="width:336px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%201.png"/></a></figure><p id="c1fcf770-4715-49d8-a52a-b5db5055c7d8" class="block-color-orange_background">
+</p><figure id="5c0c9e20-8a50-49f3-9310-d70e50cbb3ac" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2015.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2015.png"/></a></figure><p id="e9c037bd-a060-4f23-958d-6a736687a74a" class="block-color-orange_background">
+</p><h1 id="bd59c23c-d87a-452d-80a4-5ac63ce26f87" class="block-color-orange_background"><strong>228. Arrow Function Implicit Returns</strong></h1><figure id="8478e18d-bea4-412a-b86e-0a701aa75e4d" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2016.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2016.png"/></a></figure><p id="2c1c904b-0c57-43e4-a0f1-16ff9ac71eec" class="block-color-orange_background">
+</p><figure id="b05813c3-9190-49cf-9921-c041b8cfcdef" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2017.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2017.png"/></a></figure><p id="52fbba44-f821-4859-b029-843ebeb1614a" class="block-color-orange_background">
+</p><figure id="520019ad-2826-4aab-a2e2-07709eb4930c" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%202.png"><img style="width:1880px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%202.png"/></a></figure><p id="4c5edd96-fc30-436a-adc3-acc6128fcaa5" class="block-color-orange_background">
+</p><h1 id="e3c9afa2-3f0f-409e-b27d-12f302ae56a9" class="block-color-orange_background"><strong>229. Arrow Functions Wrap-up</strong></h1><figure id="9ee76242-8a67-4f2c-b301-c33ee759668f" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2018.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2018.png"/></a></figure><p id="d90d4473-1574-485a-8978-c8b76df2cd88" class="block-color-orange_background">
+</p><figure id="e72e5f04-799d-48af-9021-f693bc3c0cb7" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2019.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2019.png"/></a></figure><p id="f03603bd-b22b-48cb-af25-52ba52536711" class="block-color-orange_background">
+</p><h1 id="c7103209-a11f-4298-a689-bd20d8efd62a" class="block-color-orange_background"><strong>230. setTimeout and setInterval</strong></h1><figure id="7d43798f-63da-45ce-aac5-263921662da3" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%203.png"><img style="width:528px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%203.png"/></a></figure><p id="b045b98a-8213-4101-b488-dd1aa3cd44e4" class="block-color-orange_background">
+</p><figure id="333b9144-b226-4169-b29f-9bee8e480f33" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2020.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2020.png"/></a></figure><p id="32428976-ac9c-41e1-902d-3c4932f09d74" class="block-color-orange_background">
+</p><h1 id="123a5a7b-7edd-4385-9e26-c9b1dadb8a70" class="block-color-orange_background"><strong>231. The filter Method</strong></h1><figure id="b6866ae9-2f30-4790-be46-1931fa929f9f" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2021.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2021.png"/></a></figure><p id="e0a11a8a-91d3-4375-9ec0-ef58abd788cd" class="block-color-orange_background">
+</p><figure id="f3192834-f3d1-4a01-8e2c-423dde72cc0f" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2022.png"><img style="width:880px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2022.png"/></a></figure><p id="9bd5635b-555c-4252-8637-0012222caeb8" class="block-color-orange_background">
+</p><figure id="8ee7d926-5571-47a7-aae4-fc6d8b8c6219" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%204.png"><img style="width:1468px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%204.png"/></a></figure><p id="6c470628-ddcf-4b4e-b8e1-8837eff7d2aa" class="block-color-orange_background">
+</p><h1 id="05a20fc3-4fc0-4c00-b552-2f4f840a8cc4" class="block-color-orange_background"><strong>232. Some &amp; Every Methods</strong></h1><figure id="1d29e4ec-1393-4c33-8358-9456af9a8933" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2023.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2023.png"/></a></figure><p id="a78874ed-d226-4ce7-99b3-71184445ecab" class="block-color-orange_background">
+</p><figure id="44cdb3bd-efd9-4e79-90fc-7f731f5db8e8" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%205.png"><img style="width:1454px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%205.png"/></a></figure><p id="064946c8-1fc5-4766-a4dd-ac989b044b6b" class="block-color-orange_background">
+</p><figure id="066972d2-555b-410f-9103-ca8c088e5dc2" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2024.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2024.png"/></a></figure><p id="174690f8-3f9b-4ccb-ac8b-3a6d868388c5" class="block-color-orange_background">
+</p><figure id="f820720b-6680-4691-9dd7-3fa4f29bb527" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%206.png"><img style="width:1454px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%206.png"/></a></figure><p id="338403d9-291f-4681-9d52-a0537606fc67" class="block-color-orange_background">
+</p><figure id="c5f1e892-aa79-41f4-85ea-d31d73c64e62" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2025.png"><img style="width:1803px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2025.png"/></a></figure><p id="7ab8c294-fa66-4e6a-ba79-30005937504a" class="block-color-orange_background">
+</p><h1 id="50108a79-e18b-4ad1-acc0-8f32ef27bb76" class="block-color-orange_background"><strong>233. The Notorious Reduce Method</strong></h1><figure id="50923395-a1ff-4158-b6a8-bd328153b1db" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2026.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2026.png"/></a></figure><p id="18ab2af6-7cb3-4ecc-88e1-58862dfe6b8a" class="block-color-orange_background">
+</p><figure id="f1d58b95-3b06-429d-bcdd-64dc3076a06c" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2027.png"><img style="width:708px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2027.png"/></a></figure><p id="fa47305a-ef2c-4b7a-8c4d-bb4a4f1e4a55" class="block-color-orange_background">
+</p><figure id="0f374598-356d-4332-990f-0ce3e7581374" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2028.png"><img style="width:1760px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2028.png"/></a></figure><p id="09f6889e-726a-4496-81b5-c430c6a9736d" class="block-color-orange_background">
+</p><figure id="cd844f1c-8a3c-4217-8165-474dd0b72eda" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%207.png"><img style="width:576px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%207.png"/></a></figure><p id="a934a881-caea-4518-a82b-15320a857838" class="block-color-orange_background">
+</p><p id="a2c474a0-140c-4381-9e9a-7576b92c2911" class="block-color-teal_background"><mark class="highlight-red">When the initial value for the accumulator is not explicitly provided in the </mark><mark class="highlight-red"><code>reduce</code></mark><mark class="highlight-red"> function, JavaScript uses the first element of the array as the initial value. The </mark><mark class="highlight-red"><code>reduce</code></mark><mark class="highlight-red"> function then starts its accumulation process from the second element of the array, applying the callback function to each subsequent element.</mark></p><p id="445b89aa-c1c4-4f68-8876-564c40aeee57" class="">Let&#x27;s see an example:</p><pre id="0c98bcdb-16f4-4142-98e1-1ea57c418355" class="code code-wrap"><code>const numbers = [5, 10, 15, 20];
+
+const sumWithoutInitial = numbers.reduce((accumulator, number) =&gt; {
+  return accumulator + number;
+});</code></pre><p id="8bae033d-6316-49eb-a0b4-0edfe2699618" class="">In this example, we didn&#x27;t provide an initial value for the accumulator. The <code>reduce</code> function will start with <code>5</code> as the initial value for the accumulator (the first element of the array). Then, it will add each subsequent number to the accumulator:</p><ul id="08afee74-30b0-4f51-942f-a2a725904345" class="bulleted-list"><li style="list-style-type:disc">Accumulator = 5, Number = 10 ⇒ Accumulator = 5 + 10 = 15</li></ul><ul id="c4ff8e4d-4c52-4cfd-a03a-ec2f020e6f22" class="bulleted-list"><li style="list-style-type:disc">Accumulator = 15, Number = 15 ⇒ Accumulator = 15 + 15 = 30</li></ul><ul id="bdcb8b83-f16a-484e-a975-3d90c4f02d57" class="bulleted-list"><li style="list-style-type:disc">Accumulator = 30, Number = 20 ⇒ Accumulator = 30 + 20 = 50</li></ul><p id="5bdfe77a-e39b-43ce-a770-783999c3b9a6" class="">The result will be <code>50</code>, which is the sum of all the elements in the <code>numbers</code> array.</p><p id="be34d219-6547-4b68-bedc-639d44fbe076" class="block-color-red_background">Remember that if the array is empty and no initial value is provided, the <code>reduce</code> function will throw an error, as there are no elements to start the accumulation process. To avoid this, always ensure that there is at least one element in the array or provide an appropriate initial value.</p><p id="c230b3e1-92ac-4602-8d71-85bc8721dc23" class="block-color-orange_background">
+</p><figure id="6c56527d-ec22-42fa-8df0-7d66959ff8d0" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%208.png"><img style="width:576px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%208.png"/></a></figure><p id="df4c5a18-c753-47b9-bd9d-f03d6d0e5ac9" class="block-color-orange_background">
+</p><figure id="f0f016b8-0a19-42f0-a5eb-f1806653220c" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%209.png"><img style="width:1614px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%209.png"/></a></figure><p id="5ba18370-77c0-47a1-b661-f553c48f6cef" class="block-color-orange_background">
+</p><h1 id="56308354-b578-40cc-9625-3cc85d71aa02" class="block-color-orange_background"><strong>234. Arrow Functions &amp; &#x27;this&#x27;</strong></h1><figure id="8e043a65-1277-4c06-afb5-d29e05064f41" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2029.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2029.png"/></a></figure><p id="c51a790c-83fa-4cd3-8642-81e4c8040441" class="block-color-orange_background">
+</p><figure id="77f4d5ba-c640-4119-a674-976941d77ef1" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2030.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2030.png"/></a></figure><h3 id="7a644590-31cb-4b73-a1fc-df1f6ef03def" class="block-color-orange_background">Arrow function directly will not work as methods
+
+this will not give the expected result</h3><figure id="6e8e311b-03e2-478b-84fa-1b207e51fb68" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2031.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2031.png"/></a></figure><p id="b31dbb72-c23d-4885-b6dc-51430053a393" class="block-color-orange_background">this is not the expected result</p><figure id="f9816dc8-5ab4-4a14-a394-c27e2894bd05" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2032.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2032.png"/></a></figure><h3 id="72df1962-313b-4023-8e76-4d869d9e021a" class="block-color-orange_background">let see what is the object arrow function is referring</h3><figure id="f46294e6-3ba8-46c5-b1df-5c9b7f4880de" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2033.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2033.png"/></a></figure><h3 id="411b3d5e-9cbd-4759-b577-c113efbd4fd7" class="block-color-orange_background">Arrow function is referring to <mark class="highlight-red">window object</mark> even though it is called by using <mark class="highlight-red">person object as a method</mark></h3><figure id="750468b0-a792-4fb4-b1c0-c731a746cc07" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2034.png"><img style="width:1919px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/Untitled%2034.png"/></a></figure><h1 id="c516ff24-a834-4d56-b8cc-a6d1149e469d" class="block-color-orange_background"><mark class="highlight-pink">arrow functions are good for callback functions 
+but </mark>not good to use as methods </h1><figure id="2e70ea0a-44c4-4c9d-864b-2db900a56432" class="image"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%2010.png"><img style="width:576px" src="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d/code%2010.png"/></a></figure><p id="479a310d-dde6-4161-abcc-27a0069db649" class="block-color-orange_background">
+</p><figure id="29a0ce16-de0d-4f16-bdc3-5c7b571a2618" class="link-to-page"><a href="023%20-%20New%20Js%20Features%2029a0ce16de0d4f16bdc35c7b571a2618.html">023 - New Js Features</a></figure></div></article></body></html>

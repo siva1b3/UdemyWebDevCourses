@@ -1,0 +1,745 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>016 - Decision Making with JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="71fd82bd-4e86-4bfb-993c-f08e7b7600e1" class="page sans"><header><h1 class="page-title">016 - Decision Making with JavaScript</h1><p class="page-description"></p></header><div class="page-body"><figure id="7691db05-3891-4f64-bcf0-3b9b66d5bb73" class="link-to-page"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73.html">015 - JavaScript Strings and More!</a></figure><h1 id="015f5d26-c5b4-417b-80c8-a8eb9d90de2a" class="block-color-orange_background"><strong>162. What Matters In This Section</strong></h1><figure id="bb403096-4274-4528-ab1f-72b6435e1c85" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled.png"><img style="width:1919px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled.png"/></a></figure><h1 id="526857e8-9e27-47f4-919e-5b61852d7f49" class="block-color-orange_background">163. Comparison Operators</h1><figure id="8d4bfbc5-fa3a-43fb-9b01-604044633b72" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%201.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%201.png"/></a></figure><p id="49bd0d5a-84a7-47be-bf16-8412b0067d67" class="block-color-orange_background">
+</p><figure id="68427229-d639-418c-b52d-7d4f1ae2b0b1" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%202.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%202.png"/></a></figure><p id="c8341c14-d0a4-4868-8031-38ecfe937e6f" class="block-color-orange_background">
+</p><figure id="abd341f9-57ee-490f-8753-023ff80f0de8" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%203.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%203.png"/></a></figure><p id="b2ddd248-29ac-496e-a149-33c52925f24b" class="block-color-orange_background">
+</p><figure id="80ecb23f-95a7-48e4-b4ba-3bd80a86cede" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%204.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%204.png"/></a></figure><p id="93556dfc-265d-41b7-a977-6475cf048bdc" class="block-color-orange_background">
+</p><p id="f1c3b6f3-c651-4185-a611-f233f328b2ad" class="block-color-orange_background">As we can see </p><pre id="4e9498da-1b5f-4ca0-90f7-c322e0eae800" class="code"><code>&quot;A&quot; &lt; &quot;a&quot;
+# becuse uppercase &quot;a&quot; had loower ASSCI NUMBER comapred to lowered case &quot;a&quot;
+# same with @ &lt; &quot;A&quot; Because of  ASSCI NUMBER </code></pre><figure id="b54e5bfb-4e07-4ae0-a7e9-446f375cbfdf" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%205.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%205.png"/></a></figure><p id="200046d0-c2fe-4d8c-96e7-a8bbf2fa0091" class="block-color-orange_background">
+</p><figure id="7e448a03-a691-4c79-bb9e-2bfcb2d00257" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%206.png"><img style="width:882px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%206.png"/></a></figure><p id="edcd80d6-99ad-4cfd-b749-ec507ac761eb" class="block-color-orange_background">
+</p><figure id="f81d23a0-a28a-4ef7-aa09-10473438828a" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%207.png"><img style="width:1920px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%207.png"/></a></figure><p id="e599817c-846d-4420-b442-c0baa140ee4d" class="block-color-orange_background">
+</p><h1 id="e096b7c0-ffd1-4ec4-b104-dca272600ae8" class="block-color-orange_background">164. Equality: Triple Vs. Double Equals</h1><figure id="5fc278dc-939a-46c5-9c5b-d37096f6667a" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%208.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%208.png"/></a></figure><p id="6eee12dc-f2a7-4411-bd99-3a92602301c2" class="block-color-orange_background">
+</p><figure id="33fa176d-bf27-45ce-b744-34f85ea53171" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%209.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%209.png"/></a></figure><p id="39c67f69-a14c-4dd4-8ecb-94df93e0a36a" class="block-color-orange_background">
+</p><figure id="bab2099b-01c9-4410-b6de-f656706b5627" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2010.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2010.png"/></a></figure><p id="5f2837e7-e201-41f5-912d-c8bed1849b68" class="block-color-orange_background">
+</p><figure id="6bf27838-33dd-4727-b429-ac30bc2e115f" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2011.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2011.png"/></a></figure><p id="602c5165-b3a3-47e8-94a6-a84e24e78d00" class="block-color-orange_background">
+</p><figure id="33c4782d-1cf4-4bb2-a137-2974d5ff3a89" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2012.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2012.png"/></a></figure><p id="7ae8a0b1-338b-4f5a-94ad-92d1afc1ad66" class="block-color-orange_background">
+</p><figure id="2684dbf5-baa8-4afe-9834-7147ad394d8f" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2013.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2013.png"/></a></figure><p id="a73118aa-0887-4cc8-aa50-2e0e168eb18d" class="block-color-orange_background">
+</p><figure id="89292de8-682a-4f04-aaab-146e2fb6079c" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2014.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2014.png"/></a></figure><p id="019ade1c-d254-4b92-93dc-d5959962e3a6" class="block-color-orange_background">
+</p><figure id="e0c55bf3-8ac7-45fc-a9a5-78bf92d776f9" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2015.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2015.png"/></a></figure><p id="20c63944-d095-4627-ac35-0aac278cd280" class="block-color-orange_background">
+</p><figure id="d2121039-207f-4eed-9a18-71943c1f408b" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2016.png"><img style="width:297px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2016.png"/></a></figure><p id="25d3ea91-b189-48ef-9599-75d39fe33e98" class="block-color-orange_background">
+</p><figure id="1dd39658-f67d-4650-942f-a47ff2f1c85e" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2017.png"><img style="width:439px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2017.png"/></a></figure><p id="222942f3-89c8-4448-8d1a-09bd9adbb5f1" class="block-color-orange_background">
+</p><figure id="6cd4ab0b-ba27-4461-8479-9db4f3a97d34" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2018.png"><img style="width:357px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2018.png"/></a></figure><p id="1f0d6d63-7b27-4d90-b353-676edab780f5" class="block-color-orange_background">
+</p><figure id="9f723d8e-5c5b-4ec2-abae-82bbb423f41a" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2019.png"><img style="width:825px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2019.png"/></a></figure><p id="89f2ca41-8e97-4be1-bbe1-f7cee269fcab" class="block-color-orange_background">
+</p><h1 id="2cca96e7-357a-4dcf-980e-44826e40d133" class="block-color-orange_background">165. Console, Alert, &amp; Prompt</h1><figure id="58987a7d-35ab-4c54-98eb-1802fc0360ec" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2020.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2020.png"/></a></figure><h3 id="677a1ce6-2b74-4662-be3e-5302f0e489f5" class="block-color-pink_background">In JavaScript, the &quot;console&quot; is an object that allows you to interact with the browser&#x27;s developer console. It provides various methods for displaying information and debugging your code.</h3><p id="82ddb996-146d-4251-9678-3eb443df25e2" class="block-color-pink_background">Similar to how the &quot;Math&quot; object has different methods like &quot;ceil&quot;, &quot;random&quot;, &quot;floor&quot;, and &quot;pow&quot;, the &quot;console&quot; object also has its own set of methods. Some commonly used methods include:</p><ol type="1" id="3b5fb0ff-1349-4316-b16b-8728dd3ee22d" class="block-color-pink_background numbered-list" start="1"><li>console.clear(): Clears the console window.</li></ol><ol type="1" id="5f97354e-3aeb-4c52-90fd-779a181efe57" class="block-color-pink_background numbered-list" start="2"><li>console.error(): Prints an error message to the console.</li></ol><ol type="1" id="52219242-56e6-47ce-90f9-dc4c8c5c8b56" class="block-color-pink_background numbered-list" start="3"><li>console.warn(): Prints a warning message to the console.</li></ol><ol type="1" id="97365210-476f-4bd7-81fa-844fddde06db" class="block-color-pink_background numbered-list" start="4"><li>console.time(): Starts a timer to measure the duration of an operation.</li></ol><blockquote id="46405dc8-e509-4339-b2b3-d62638a1e547" class="block-color-pink_background">However, the most frequently used method is console.log(). It allows you to log messages or values to the console, which is useful for debugging and understanding how your code is executing. By default, log messages are displayed as regular output in the console.</blockquote><blockquote id="20aabe23-0c57-4a70-8283-225a33ddf66e" class="block-color-pink_background">You can also use console.warn() and console.error() to print warning and error messages respectively. They have a different appearance in the console, making it easier to identify and differentiate them from regular log messages.</blockquote><blockquote id="7948364d-3213-446f-a613-b0a1f9b76a66" class="block-color-pink_background">So, in your JavaScript code, console.log() will be the primary method you&#x27;ll use to output information during development.</blockquote><p id="aa6f5b3e-3e12-4ffd-b6d2-aa2c809d7681" class="block-color-orange_background">
+</p><figure id="160d4bdc-fe14-41d0-8bf6-a94319bf672f" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2021.png"><img style="width:1155px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2021.png"/></a></figure><p id="45b4daed-6095-497e-8a14-64a5461e0662" class="block-color-orange_background">
+</p><figure id="62a27b45-1bfe-41d1-ac9a-7470069f0ee2" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2022.png"><img style="width:1170px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2022.png"/></a></figure><p id="d9848c8b-9409-409a-a4e7-09f65d80b086" class="block-color-orange_background">
+</p><figure id="107fe779-99ac-45c7-be75-992ac57bc3d5" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2023.png"><img style="width:524px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2023.png"/></a></figure><p id="d2fd8e05-0c23-4f9e-9ec2-527377e0638c" class="block-color-orange_background">
+</p><h1 id="00bbf985-d5a9-4a26-b68b-66fdf709c264" class="block-color-orange_background">166. Running JavaScript From A Script!</h1><figure id="1ca7cbac-1de8-4f4a-9631-00e03038abe6" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2024.png"><img style="width:1457px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2024.png"/></a></figure><p id="098925c4-e56d-4e7d-8b2a-2c838a0b4a0f" class="block-color-orange_background">
+</p><h1 id="1fe06869-008c-4ef8-9988-c37b570033e1" class="block-color-orange_background">167. If Statements</h1><figure id="16537312-d367-4680-9bdf-f3a3de1ca19a" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2025.png"><img style="width:1457px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2025.png"/></a></figure><p id="72563860-b8cd-4ece-9780-018b29e753a4" class="block-color-orange_background">
+</p><figure id="4414115c-2b60-4e3c-bdc3-a052f61c7ba5" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2026.png"><img style="width:1457px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2026.png"/></a></figure><p id="fc499c1d-fe6e-4216-bcea-fec966af70ee" class="block-color-orange_background">
+</p><h1 id="8780eaf6-c8bc-4ef6-9eb8-a963f2c40f1b" class="block-color-orange_background">168. Else-If</h1><figure id="a07fc3a6-79cf-459a-9534-beb904e50f18" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2027.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2027.png"/></a></figure><p id="1b8d7bf3-95e3-4b8d-a66f-60821fe958a7" class="block-color-orange_background">
+</p><figure id="5bfa4ff2-58e2-4350-bf3f-6a41c17f5511" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2028.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2028.png"/></a></figure><p id="a7551a5d-a4f3-469d-adf1-a0647536f0fb" class="block-color-orange_background">
+</p><h1 id="1d607713-dbfe-4b4c-aa05-273fc0637c2d" class="block-color-orange_background">169. Else</h1><figure id="c314fed8-452f-4e87-9902-ca6f390f35df" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2029.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2029.png"/></a></figure><p id="57a6edf4-288c-43f4-a718-f1bf6ddaba7f" class="block-color-orange_background">
+</p><h1 id="97e51a68-85e6-46b2-ac00-d25ef128a229" class="block-color-orange_background">170. Nesting Conditionals</h1><figure id="02edaef0-6448-4302-af2e-d18989c8c2e1" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2030.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2030.png"/></a></figure><p id="e12a4c9e-70e5-4369-9566-f2424fad7654" class="block-color-orange_background">
+</p><figure id="ac236056-227f-4ad3-9e4a-344c67a0f3ad" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2031.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2031.png"/></a></figure><p id="fa15138f-1935-4c2a-a2ae-6906db42e0c6" class="block-color-orange_background">
+</p><figure id="9a2a0724-f0cc-4cd4-889c-abcf979070a9" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2032.png"><img style="width:918px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2032.png"/></a></figure><p id="53979d2e-33e0-4164-bf28-346f0bd0fe69" class="block-color-orange_background">
+</p><figure id="8b9af931-a948-4333-97e5-a79389d297a0" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2033.png"><img style="width:708px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2033.png"/></a></figure><p id="151ba385-a8db-4f3b-81e4-2fc31fffca03" class="block-color-orange_background">
+</p><figure id="f266b03f-b806-4a48-b2ee-e0902add2696" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2034.png"><img style="width:992px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2034.png"/></a></figure><p id="c8b470e2-055f-4d74-8e8e-a2424030b136" class="block-color-orange_background">
+</p><figure id="3239c93e-e0af-42aa-9eb5-21645dfc7c10" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2035.png"><img style="width:1280px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2035.png"/></a></figure><p id="75b9f3a2-5b59-4cb0-9258-58c773665170" class="block-color-orange_background">
+</p><h1 id="7027d305-6ead-4258-a03d-1d6d0bc28c17" class="block-color-orange_background">171. Truth-y &amp; False-y Values</h1><figure id="1b50dc7d-8548-4c19-88db-cdf2098bc3e4" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2036.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2036.png"/></a></figure><p id="8dacca66-ef2d-4032-ba07-88aec99b2e3f" class="block-color-orange_background">
+</p><figure id="15f95092-a18f-48be-b425-92101d64f669" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2037.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2037.png"/></a></figure><p id="a81df825-e617-4dec-844c-0cb26cfeb006" class="block-color-orange_background">
+</p><figure id="bff38710-e08d-46c3-8ba2-beb3bc9d49ab" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2038.png"><img style="width:382px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2038.png"/></a></figure><p id="a033d5e1-72e8-478e-bc5c-2c5d9c3d4f83" class="block-color-orange_background">
+</p><h1 id="62372d72-b41b-47c8-b1e3-2bd33eb9cc86" class="block-color-orange_background">172. Logical AND</h1><figure id="23851d59-c268-459c-83dc-1c1af4512fe8" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2039.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2039.png"/></a></figure><p id="f344389a-0db3-4e11-85f2-dec1dcd4fde9" class="block-color-orange_background">
+</p><figure id="0b081fe8-9b86-472c-aef3-6c9cf7d47fe9" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2040.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2040.png"/></a></figure><p id="98ca6808-18fb-4038-885a-299bd51b502b" class="block-color-orange_background">
+</p><figure id="6c456d08-7c0c-49f0-a9c4-9c3ba0d7eaed" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2041.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2041.png"/></a></figure><p id="a9ddd8e7-59ba-419d-ae14-ba5c2a5f9034" class="block-color-orange_background">
+</p><figure id="38651f28-3cd1-40fa-8a2e-454932170b4b" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2042.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2042.png"/></a></figure><p id="7dacd865-dce5-486d-9cd5-23753412ef35" class="block-color-orange_background">
+</p><h1 id="bfec8359-07ed-43ab-b6f4-abd300fb6d60" class="block-color-orange_background">173. Logical OR</h1><figure id="3a2ce0e7-73d2-4c14-a33f-30caf7338566" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2043.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2043.png"/></a></figure><p id="4971fb48-c72d-465d-9f78-345735f8502d" class="block-color-orange_background">
+</p><figure id="81b9cc2d-18ff-443b-be56-fc3f2d4ac6ae" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2044.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2044.png"/></a></figure><p id="376fc9fe-4356-4ed7-aad2-501b28c4a5f6" class="block-color-orange_background">
+</p><figure id="71c5b648-0feb-4774-ac93-97c974c334b7" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2045.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2045.png"/></a></figure><p id="4055c1de-1fea-49bd-b952-7f721ab04c9e" class="block-color-orange_background">
+</p><h1 id="450662f6-6ccb-490f-8d6f-9520773a8a25" class="block-color-orange_background">174. Logical NOT</h1><figure id="d48fc380-6a43-44b3-90d8-540e457e208c" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2046.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2046.png"/></a></figure><p id="c1f3ca94-8f0f-41be-b566-91d87c32d767" class="block-color-orange_background">
+</p><figure id="7adfdcfc-784e-4712-bf9c-5604d637ddee" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2047.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2047.png"/></a></figure><p id="3492e623-1dbf-4856-8712-3a7fe316425d" class="block-color-orange_background">
+</p><figure id="42b8c865-886d-4d4d-8515-85f1b077ca3b" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2048.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2048.png"/></a></figure><p id="471639cf-4e6f-4d1c-b542-1140a9aefc4c" class="block-color-orange_background">
+</p><figure id="6f31a454-67e7-4c31-a4db-96bbfbbc95b1" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2049.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2049.png"/></a></figure><p id="c09fda69-3331-4a24-94d5-123ecaad71f1" class="block-color-orange_background">
+</p><figure id="ef823c68-bf31-44fc-be61-50c6efb7aad3" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2050.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2050.png"/></a></figure><p id="c123d976-eb9a-45c0-aa82-a3c86698d660" class="block-color-orange_background">
+</p><h1 id="757fd095-5686-42c0-a43c-7baf34cd3279" class="block-color-orange_background">175. The Switch Statement Is...A Lot</h1><figure id="89a810b7-1b63-422f-adfc-7acfc2b97a3f" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2051.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2051.png"/></a></figure><p id="40af62f8-b861-4025-834e-b6b6dab10ae8" class="block-color-orange_background">
+</p><figure id="2e697d10-36d4-4969-93f5-5c0dc5c33f55" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2052.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2052.png"/></a></figure><p id="4e18f661-cc0f-48b3-ba91-a5d70eba7797" class="block-color-orange_background">
+</p><figure id="83ef4c1e-8b21-4a9f-a955-4a2d9c42afbb" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2053.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2053.png"/></a></figure><p id="5d029a94-6263-4e06-a17d-f97156affbc1" class="block-color-orange_background">
+</p><figure id="28df2332-44f7-41f1-acb0-dfe8849e7665" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2054.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2054.png"/></a></figure><div id="44ebb048-58f6-4d0d-842e-dcf5d5a866ec" class="column-list"><div id="dcb2abf6-c52e-4bdd-a56b-e1fbfffff83c" style="width:143.75%" class="column"><p id="b69f47f7-0b02-46ec-b1e6-f91d4348f3e9" class="block-color-orange_background">As we can see day = 4
+means it need only to print THURSDAY
+but we can also see FRIDAY IN CONSOLE
+why?</p></div><div id="a249f360-3ec2-4a20-8ec3-81ce9221fbf5" style="width:56.25%" class="column"><p id="748418fd-4ecf-4993-9ef8-a6f9e0190c7d" class="">
+</p></div></div><h3 id="10515d54-a51a-44ed-a5e4-7985d70ffe0c" class="">because we are missing break statement a switch only stops if break was executed or else it will run all the cases when breaks were not executed from point where one case match happened</h3><figure id="9c012279-bdfe-4f30-9391-a83b605fdbce" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2055.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2055.png"/></a></figure><p id="320e4346-dd08-4741-b5ec-39fbcab3d11d" class="block-color-orange_background">
+</p><h3 id="09bd5785-5389-4472-ad75-d5cabd4e4630" class="block-color-orange_background">multiple switch cases can be used for one block 
+and 
+example of default block</h3><figure id="4be42cdc-b273-43e8-a776-536309c34768" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2056.png"><img style="width:1585px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2056.png"/></a></figure><p id="69f6c2d1-bf30-4225-9e69-fb09a42ba70e" class="block-color-orange_background">
+</p><h1 id="985a3903-ae2a-4102-a293-86dcdba383aa" class="block-color-orange_background">ternary operator</h1><figure id="1df8460d-8e3c-43c6-bd1f-cfa7c74469f6" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2057.png"><img style="width:829px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2057.png"/></a></figure><p id="b8fb67fe-aa92-4274-b348-b6a63cda3c20" class="block-color-orange_background">
+</p><figure id="9a081a4a-9b4e-4423-a59e-bbcb8fe821e4" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2058.png"><img style="width:300px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2058.png"/></a></figure><p id="dd107104-7de1-4f94-acea-fd3650a00098" class="block-color-orange_background">
+</p><figure id="92a57901-e7fe-49fe-9dd8-72f28fd68a52" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2059.png"><img style="width:650px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2059.png"/></a></figure><p id="aa55892a-d07a-46b0-aa74-effbbe6af366" class="block-color-orange_background">
+</p><figure id="ff42baab-9953-4cc3-84fa-a6c3eceee773" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2060.png"><img style="width:740px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2060.png"/></a></figure><p id="cf7781af-0f9f-455a-a39e-b8367da7f386" class="block-color-orange_background">
+</p><figure id="2ea48e48-eba0-4ea2-a279-054ff6f193f7" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2061.png"><img style="width:513px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2061.png"/></a></figure><p id="92f8f23f-d7d2-44ad-a011-fc535f020c3f" class="block-color-orange_background">
+</p><figure id="2987182b-caad-47a6-bfe3-9ff6738427bf" class="image"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2062.png"><img style="width:445px" src="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1/Untitled%2062.png"/></a></figure><p id="c530c859-e590-462b-a718-9b7555f3433f" class="block-color-orange_background">
+</p><figure id="98737226-3cc9-4f16-8138-04649becc4e0" class="link-to-page"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0.html">017 - JavaScript Arrays </a></figure></div></article></body></html>

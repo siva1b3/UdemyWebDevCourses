@@ -1,0 +1,185 @@
+/* Universal Selector */
+* {
+  color: brown;
+  background-color: lightcyan;
+}
+
+/* Element Selector */
+button {
+  font-size: larger;
+  font-weight: bolder;
+}
+
+/* Multiple Selectors */
+/* Element Selector */
+h1,
+h2 {
+  color: darkblue;
+}
+
+/* Id selectors  */
+#Id001 {
+  color: crimson;
+  background-color: cadetblue;
+}
+
+/* Class Selector */
+.post {
+  color: blanchedalmond;
+  background-color: blue;
+}
+
+/* All elements with class="spacious" */
+.spacious {
+  margin: 2em;
+}
+
+/* All <li> elements with class="spacious" */
+li.spacious {
+  margin: 2em;
+}
+
+/* All <li> elements with a class list that includes both "spacious" and "elegant" */
+/* For example, class="elegant retro spacious" */
+li.spacious.elegant {
+  margin: 2em;
+}
+
+/* Descendant Selector */
+/* The Descendant Selector selects all matching elements that are descendants 
+(at any level) of a specified parent element. */
+li a {
+  /* it will select all achor tags inside the li tags */
+  color: aqua;
+  background-color: brown;
+}
+
+/* Descendant Selector */
+.post span {
+  /* all spans inside the post class */
+  color: blueviolet;
+  background-color: aqua;
+}
+
+/* Adjacent Sibling Selector */
+/* The Adjacent Sibling Selector in CSS is represented by the + symbol and is used to 
+select an element that immediately follows another specific element. 
+It targets the element that is directly adjacent to the referenced element. */
+span + h2 {
+  color: aqua;
+  background-color: blue;
+}
+
+/* Adjacent Sibling Selector */
+h2 + button {
+  font-size: xx-large;
+}
+
+/* //? Child Selector Or Direct Descendant Selector */
+/* The Child Selector (or Direct Descendant Selector) 
+selects only the direct child elements of a specified parent element, 
+excluding any nested elements beyond the immediate children */
+h1 > section {
+  background-color: aqua;
+  color: black;
+}
+
+span > a {
+  color: antiquewhite;
+  background-color: black;
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
+/* Attribute Selector */
+input {
+  /* Normal tag */
+  color: black;
+}
+
+input[type="password"] {
+  /* Normal tag with attribute specified */
+  color: blue;
+}
+
+/* Attribute Selector */
+section [class="post"] {
+  color: black;
+}
+
+/* Attribute Selector */
+/* Exmaples */
+/* <a> elements with a title attribute */
+a[title] {
+  color: purple;
+}
+
+/* <a> elements with an href matching "https://example.org" */
+a[href="https://example.org"]
+{
+  color: green;
+}
+
+/* <a> elements with an href containing "example" */
+a[href*="example"] {
+  font-size: 2em;
+}
+
+/* <a> elements with an href ending ".org" */
+a[href$=".org"] {
+  font-style: italic;
+}
+
+/* <a> elements whose class attribute contains the word "logo" */
+a[class~="logo"] {
+  padding: 2px;
+}
+
+/* Pseudo-element Selector */
+.class001 {
+  /* Button */
+  width: 10em;
+  height: 5ex;
+  background-image: linear-gradient(135deg, #f34079 40%, #fc894d);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+/* Pseudo-element Selector */
+.class001:active {
+  box-shadow: 20px 20px 40px #fb0c2c;
+}
+
+/* Pseudo-element Selector */
+.class001:hover {
+  background-color: bisque;
+  font-size: xx-large;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+/* Pseudo-element Selector */
+label,
+input[type="submit"] {
+  display: block;
+  margin-top: 1em;
+  font-size: small;
+}
+
+label,
+input[type="radio"] {
+  display: block;
+  margin-top: 1em;
+  font-size: small;
+  border-color: black;
+  border-width: 10px;
+}
+
+input[type="radio"]:checked {
+  border: none;
+  outline: 2px solid deeppink;
+  font-size: xx-large;
+  font-style: italic;
+}

@@ -1,0 +1,753 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>017 - JavaScript Arrays </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="98737226-3cc9-4f16-8138-04649becc4e0" class="page sans"><header><h1 class="page-title">017 - JavaScript Arrays </h1><p class="page-description"></p></header><div class="page-body"><figure id="71fd82bd-4e86-4bfb-993c-f08e7b7600e1" class="link-to-page"><a href="016%20-%20Decision%20Making%20with%20JavaScript%2071fd82bd4e864bfb993cf08e7b7600e1.html">016 - Decision Making with JavaScript</a></figure><h1 id="19a75b80-65ba-4793-a181-81c9c05e5dec" class="block-color-orange_background"><strong>177. What Matters In This Section</strong></h1><figure id="4b37b978-7bf6-4621-ba96-3b8bde0aaa3b" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled.png"><img style="width:1919px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled.png"/></a></figure><h1 id="ccbf110f-8630-420e-8cdc-6724fa33c589" class="block-color-orange_background">178. Introducing Arrays</h1><figure id="be6fc4e0-701c-4610-9aca-fa3e6a8cb6f9" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%201.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%201.png"/></a></figure><p id="2e8038fe-9314-42c5-a839-d937411b7599" class="block-color-orange_background">
+</p><figure id="138fbce3-0709-42ac-af78-057a06cbeac0" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%202.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%202.png"/></a></figure><p id="4df22ea9-0616-4185-bbcc-f70880f391f7" class="block-color-orange_background">
+</p><figure id="8ad10a0d-1799-4ec2-b2da-e4ea0501b29d" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%203.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%203.png"/></a></figure><p id="c70f6fb1-9510-4370-bd2a-744e7bdf94aa" class="block-color-orange_background">
+</p><figure id="2ff9e367-8e83-49bf-8952-eaa6d558261a" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%204.png"><img style="width:1701px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%204.png"/></a></figure><p id="06df93a4-ab8f-48bc-a83d-11a5898d214f" class="block-color-orange_background">
+</p><figure id="632144b0-26cf-4307-a7c2-5cc127964b01" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%205.png"><img style="width:945px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%205.png"/></a></figure><p id="3711eb44-04d3-41bd-9477-9f48e4cdb02d" class="block-color-orange_background">
+</p><figure id="ce578401-bc8d-41e1-89a0-442cf7053401" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%206.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%206.png"/></a></figure><blockquote id="5345ec0a-de3d-4a56-9c58-31a5e0b345cc" class="block-color-orange_background">mixed arrays in js</blockquote><p id="7891cd46-78b4-4ee5-8034-334fac63d41d" class="">In JavaScript, an array is a data structure that allows you to store multiple values in a single variable. Normally, arrays in JavaScript can contain elements of the same type, such as numbers, strings, or objects. <strong>However, JavaScript also allows you to create mixed arrays that can contain different types of values, including numbers, strings, objects, or even other arrays.</strong></p><p id="70621237-7c24-4cb2-a552-6cff5240c671" class="">Here&#x27;s an example of a mixed array in JavaScript:</p><pre id="0b11c618-fa78-4544-8829-8b0f88a8dad4" class="code code-wrap"><code>let mixedArray = [42, &quot;Hello&quot;, {name: &quot;John&quot;}, true];</code></pre><p id="706cffd3-c093-4b02-8391-3d05178f779b" class="">In the above example, the <code>mixedArray</code> contains four elements of different types:</p><ol type="1" id="92c2efad-4085-4c7d-a935-8599764962c5" class="numbered-list" start="1"><li><code>42</code> is a number.</li></ol><ol type="1" id="ee3069e9-5b46-4db8-9afd-3ee684208685" class="numbered-list" start="2"><li><code>&quot;Hello&quot;</code> is a string.</li></ol><ol type="1" id="4f294b40-466b-46f3-a74a-f7b1cb531a32" class="numbered-list" start="3"><li><code>{name: &quot;John&quot;}</code> is an object literal.</li></ol><ol type="1" id="ea1a96cc-91f0-4cfe-8e54-524e7c348d21" class="numbered-list" start="4"><li><code>true</code> is a boolean value.</li></ol><p id="bf420d17-c30a-4fa7-9e94-8deb1edc9f98" class="">You can access individual elements of a mixed array using their index. In JavaScript, arrays are zero-indexed, meaning the first element has an index of 0, the second element has an index of 1, and so on. Here&#x27;s how you can access the elements of the <code>mixedArray</code>:</p><pre id="ad1be587-bd60-49a4-b15c-4647804ee45f" class="code code-wrap"><code>console.log(mixedArray[0]); // Output: 42
+console.log(mixedArray[1]); // Output: &quot;Hello&quot;
+console.log(mixedArray[2]); // Output: {name: &quot;John&quot;}
+console.log(mixedArray[3]); // Output: true</code></pre><p id="78a8b86e-6868-4aa1-bf8a-9ae99219f700" class="">You can also modify elements of a mixed array or add new elements to it using assignment:</p><pre id="8725b129-7d4d-47c7-91ae-0904658b1e15" class="code code-wrap"><code>mixedArray[1] = &quot;World&quot;;
+mixedArray[4] = 3.14;
+
+console.log(mixedArray); // Output: [42, &quot;World&quot;, {name: &quot;John&quot;}, true, 3.14]</code></pre><p id="1c426d4a-c1b6-4bcd-a053-8a5e75a870e1" class="">It&#x27;s worth noting that using mixed arrays with different types can sometimes make code harder to read and maintain. It&#x27;s generally a good practice to use arrays to store elements of the same type or related data. However, in certain situations, mixed arrays can be useful, especially when dealing with data structures where elements have varying types.</p><h1 id="646fa21e-dc26-4ca1-8d2d-308c5ec69907" class="block-color-orange_background">179. Array Random Access</h1><figure id="ff0e3e8b-0a48-4427-8e09-40a7bbaa9b8d" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%207.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%207.png"/></a></figure><p id="e8d0f031-58b9-46f8-a429-65c3f64c0335" class="block-color-orange_background">
+</p><figure id="b08fc4fa-243d-4f17-b0d5-4c4996e6f959" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%206.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%206.png"/></a></figure><p id="a406fac1-6739-463a-99d3-4af250d36020" class="block-color-orange_background">
+</p><figure id="2b754360-9a8e-4dda-904a-9a2981de25df" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%208.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%208.png"/></a></figure><p id="1b1505fb-351b-4898-8b0e-a0a7a0aeed0e" class="block-color-orange_background">
+</p><figure id="46e91d9f-a222-4f3b-8039-0c0ded24ee37" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%209.png"><img style="width:760px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%209.png"/></a></figure><p id="106314e7-c771-4898-a7e1-40a6c0549f60" class="block-color-orange_background">
+</p><figure id="1b6e6cd5-292e-4743-85da-1e2520a1c2db" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2010.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2010.png"/></a></figure><p id="68cefa36-d08a-4ffb-be3b-e57383e7ac0c" class="block-color-orange_background">
+</p><figure id="a65f0d6b-885a-4ac4-8133-56e1ed99858d" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2011.png"><img style="width:1022px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2011.png"/></a></figure><h1 id="a960a6eb-bd2d-45e7-99fb-49c8c9f39b4c" class="block-color-orange_background">let colours = [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;]
+and colours[10] = &quot;yellow&quot;
+how this is working in js</h1><p id="8d784896-7799-4d84-8a73-81f26b623734" class="">In JavaScript, arrays are dynamic data structures, meaning you can add or modify elements even if they go beyond the initial length of the array.</p><p id="783ddba5-f361-436f-8609-a92c5a506f66" class="">In the example you provided:</p><pre id="0043a473-ffc3-4ae6-9563-240d82c11ddc" class="code code-wrap"><code>var colours = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+colours[10] = &quot;yellow&quot;;</code></pre><p id="0f1e1efe-db39-423d-ae23-884a76596505" class="">The <code>colours</code> array is initially defined with three elements: <code>&quot;red&quot;</code>, <code>&quot;blue&quot;</code>, and <code>&quot;green&quot;</code>. However, when you assign a value to <code>colours[10]</code>, <strong>JavaScript automatically adjusts the size of the array to accommodate the new element at the specified index</strong>. In this case, JavaScript will add seven empty elements between the existing elements and the new element.</p><p id="bd466791-06b9-48d2-9eb2-39965cc069e6" class="">If you were to output the <code>colours</code> array after adding the new element, you would get the following:</p><pre id="cb125ab8-8484-424c-9280-3c17b4cbb130" class="code code-wrap"><code>console.log(colours);
+// Output: [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, empty x 7, &quot;yellow&quot;]</code></pre><p id="74753a89-54ce-4975-a1a9-9763c4e639ec" class="">The output shows that the array now has a length of 11, and there are empty elements (<code>undefined</code>) at indices 3 to 9. Finally, at index 10, you have the value <code>&quot;yellow&quot;</code>.</p><p id="35fd214c-2990-4317-a3ec-b458c4e21b82" class="">It&#x27;s important to note that while JavaScript allows you to add or modify elements beyond the array&#x27;s original length, it doesn&#x27;t automatically fill the gaps with meaningful values. In this case, JavaScript simply adds empty elements (<code>undefined</code>) to the array. If you were to access <code>colours[4]</code>, for example, you would get <code>undefined</code> because there is no value assigned at that index.</p><p id="1843f458-8ff2-43b6-b698-c77b923b4808" class="block-color-orange_background">
+</p><h1 id="b8a9b138-2c56-40f8-870a-e64b27dfbe35" class="block-color-orange_background">180. Push &amp; Pop</h1><figure id="ce469d90-5672-4107-8eca-060bbbebd321" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2012.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2012.png"/></a></figure><p id="1e331d51-00f6-4b0d-9c6a-71e8f7c7c293" class="block-color-orange_background">
+</p><figure id="cfc79172-f716-449f-9a2a-ea6fbbdbb1d9" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2013.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2013.png"/></a></figure><p id="727d96e5-0d23-48aa-abd7-eed84e1bd33b" class="block-color-orange_background">
+</p><div id="94d984ce-3f36-402f-8a28-aa801ec4ed2e" class="column-list"><div id="f244403d-763e-47f0-9c7d-1d55bed783d4" style="width:100%" class="column"><p id="c5f22a7e-8fd6-4c15-8478-b059f29b6721" class="block-color-orange_background"><mark class="highlight-red"><strong>Push multiple elements</strong></mark></p></div><div id="a835271a-9639-4ddb-8dac-17abbfae9db5" style="width:100%" class="column"><p id="a53f7608-f9c2-47e9-b698-83ea3e0cd007" class="">
+</p></div></div><figure id="8bc70918-fb52-404d-9713-de1bdfa8440e" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2014.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2014.png"/></a></figure><p id="6441cb76-90a2-4d2a-8fd7-0bdbc39a5c1a" class="block-color-orange_background">
+</p><figure id="aec5b9ee-f2bd-4152-962a-8a9e68eaea40" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2015.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2015.png"/></a></figure><p id="899dcdb6-3f0f-4e85-a13d-f60a589ca37d" class="block-color-orange_background">
+</p><h1 id="c7dfbb77-bc40-4d20-b749-607085424252" class="block-color-orange_background">181. Shift &amp; Unshift</h1><figure id="23b5ba3c-03c8-449e-a096-ee903b15b7aa" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2016.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2016.png"/></a></figure><p id="ad07da36-89bc-4c1c-92f1-95032199fd76" class="block-color-orange_background">
+</p><figure id="ab598ebd-70ab-4cb1-a813-6c8f12eee4d5" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2017.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2017.png"/></a></figure><p id="9159e8d2-ae1e-4415-aa8a-f06c03ff8700" class="block-color-orange_background">
+</p><figure id="a982362c-27f4-4e11-9747-d124e8ebc836" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2018.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2018.png"/></a></figure><p id="450a90c2-a666-4e44-b5cf-b403168111cb" class="block-color-orange_background">
+</p><figure id="6f37f617-1cc2-4e3f-9ea3-7507a50c50a5" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2019.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2019.png"/></a></figure><p id="2585ec87-ab33-463d-a3b3-169ee5c2b14d" class="block-color-orange_background">
+</p><figure id="a33fdcf1-4481-424e-adc2-58c20b57edd9" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2020.png"><img style="width:1024px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2020.png"/></a></figure><p id="af8c5184-8251-454f-8ce8-f48f8148abe0" class="block-color-orange_background">
+</p><figure id="c0bcaed7-f4ef-4a57-95d5-03ae65370d7f" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2021.png"><img style="width:1447px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2021.png"/></a></figure><p id="7158ff3f-657f-4257-947a-4a6dbe6b24cf" class="block-color-orange_background">
+</p><h1 id="7752439a-3d62-433f-965c-2b06f169c055" class="block-color-orange_background">182. Concat, indexOf, includes &amp; reverse</h1><figure id="f0a86836-f8c9-43a7-be22-939f13151042" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2022.png"><img style="width:1056px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2022.png"/></a></figure><p id="70745fe5-fd96-498c-921c-2dd709079e51" class="block-color-orange_background">
+</p><figure id="c1cd8ae4-14c7-4ef2-9809-8c4bd98402b3" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2023.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2023.png"/></a></figure><p id="f9420580-6af5-4c13-8b81-0a266c64aeac" class="block-color-orange_background">
+</p><h1 id="0b732775-69a3-47f9-956b-4e520a3c1600" class="block-color-orange_background">183. Slice &amp; Splice</h1><figure id="d1340cd2-2c66-4ae3-9819-126ced2921db" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2024.png"><img style="width:880px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2024.png"/></a></figure><p id="8c5ab8cd-c2cd-4f72-a066-0cdef0549fad" class="block-color-orange_background">
+</p><figure id="5eeceb8b-fbe0-47c9-b5de-19ff159338e9" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2025.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2025.png"/></a></figure><p id="2a121055-bef5-4a2e-8ef4-999a42330ca7" class="block-color-orange_background">
+</p><figure id="7d678f6d-48df-47c3-a98a-9d4bb101a237" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2026.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2026.png"/></a></figure><div id="65a91b60-500e-4591-902d-04e1cfc3f773" class="column-list"><div id="d99a23f2-bc5b-4d70-bca3-fc3a4ddfb58d" style="width:100%" class="column"><h2 id="8200ff63-8ca3-418e-9c81-7152833301c5" class="block-color-orange_background"><strong>Splice used to delete values</strong></h2></div><div id="24a2da0b-9d24-4499-a995-3441d17f7d9a" style="width:100%" class="column"><p id="e4a3cf36-dee2-49a5-83da-f73114627416" class="">
+</p></div></div><figure id="07a59f59-82dc-4beb-8d14-1f0905bf81e5" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2027.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2027.png"/></a></figure><div id="c44aa4fd-dff7-40e7-bb8d-54af177a6c4a" class="column-list"><div id="07fa5fff-a7f1-4a07-b54d-3f07073398cc" style="width:100%" class="column"><h2 id="7a8f1197-20f8-4aaa-99f0-59d4bc4ea112" class="block-color-orange_background"><strong>Splice used to Insert values</strong></h2></div><div id="de030313-dda1-490f-b026-d098c697ea53" style="width:100%" class="column"><p id="a9df17df-a988-4d85-b85a-5514141321e5" class="">
+</p></div></div><figure id="06483ff2-ef19-42ef-a63d-a4278a9bfcdb" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2028.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2028.png"/></a></figure><div id="1aaa9e18-88a0-42ad-8771-d674d58d5c26" class="column-list"><div id="7db31711-ffac-4174-b0e2-bb6b9699925d" style="width:100%" class="column"><h2 id="ec3b94e6-95d1-4789-97cc-81fcc63cb25d" class="block-color-orange_background"><strong>Splice used to Insert and delete values simultaneously </strong></h2></div><div id="488f6d38-1aa2-49ca-aa78-c723d9de2f66" style="width:100%" class="column"><p id="f36daeaa-b853-4629-aa8b-ba3c5f872e8d" class="">
+</p></div></div><figure id="69850832-0c0b-48c7-8393-2e1a32cf6e1b" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2029.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2029.png"/></a></figure><p id="c2e6d7ca-71ac-445d-84f5-50a19ebc7150" class="block-color-orange_background">
+</p><figure id="1da8cbec-9afd-4f28-bd4c-bc99b7c46fba" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2030.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2030.png"/></a></figure><p id="8aeb2bd1-143a-4b67-bb81-a5aeaffcadd7" class="block-color-orange_background">
+</p><figure id="3c0eb8aa-e8e1-439a-890c-33816ff0aeae" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2031.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2031.png"/></a></figure><p id="14c17519-1b96-4804-99ca-bf7818c7d731" class="block-color-orange_background">
+</p><figure id="88a2d5a6-47ac-4232-aa4f-03b3cc7eb3b8" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2032.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2032.png"/></a></figure><p id="61e62ed0-39b1-4c25-88b0-e9a5e96649a9" class="block-color-orange_background">
+</p><figure id="bcc52843-97ed-4c13-8185-33ce210129c5" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2033.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2033.png"/></a></figure><p id="c9453ee9-beb7-4cb4-81c8-761ce77ba588" class="block-color-orange_background">
+</p><h1 id="f06614cf-067a-47bf-aee5-f98492f060c4" class="block-color-orange_background">184. Reference Types &amp; Equality Testing</h1><figure id="9f589c95-47f8-4691-bc23-a4072b1a362c" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2034.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2034.png"/></a></figure><p id="98655b86-2e95-46f2-b465-502fccc08453" class="block-color-orange_background">
+</p><figure id="90c3ff6a-bee1-46fb-85fe-6bdef4553173" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2035.png"><img style="width:1568px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2035.png"/></a></figure><p id="af192291-ce08-4041-9824-d452253c2920" class="block-color-orange_background">
+</p><figure id="2353fab0-ebfe-498e-800d-50f57c25b35f" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2036.png"><img style="width:1568px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2036.png"/></a></figure><p id="437a1ebf-2b60-4440-8248-c876b1bb283a" class="block-color-orange_background">
+</p><figure id="858d4197-61c2-4fc1-8fb8-e3a0146971ee" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2037.png"><img style="width:761px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2037.png"/></a></figure><p id="f83eafbf-7f73-4183-9128-e143684be1b7" class="block-color-orange_background">
+</p><figure id="7cf78b5b-9223-4742-ad5e-de6868c28aca" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2038.png"><img style="width:1242px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2038.png"/></a></figure><p id="4ead2aaa-0be4-4fdd-b4ed-c187f40cf2f6" class="block-color-orange_background">
+</p><figure id="516c7daa-f44c-4029-a43c-ea59f9169f16" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2039.png"><img style="width:819px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2039.png"/></a></figure><p id="e93ca981-9d23-4bc8-91fa-2613128e1056" class="block-color-orange_background">
+</p><figure id="8e2fadda-c5de-4be4-a26c-8a6b2d79bd9a" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2040.png"><img style="width:1400px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2040.png"/></a></figure><p id="dc97b45e-3f64-43f7-8833-1b368d09dee9" class="block-color-orange_background">
+</p><figure id="c726cc41-dfe1-4e81-bae2-7293e932bf1c" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2041.png"><img style="width:1100px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2041.png"/></a></figure><p id="f72d350b-cda5-47aa-aa21-ab166713fd9b" class="block-color-orange_background">
+</p><h1 id="ff3c0cd5-88bf-42f7-a633-d09bf673d85b" class="block-color-orange_background">185. Arrays + Const</h1><figure id="8128cf06-ee40-4594-9ec3-fa560450170e" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2042.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2042.png"/></a></figure><p id="ecfccf84-af94-4273-b86c-fb4be21e6db8" class="block-color-orange_background">
+</p><figure id="3f0f8042-bc3f-4ee5-b7a0-4699309a54f5" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2043.png"><img style="width:1919px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2043.png"/></a></figure><div id="1bc5115a-6ca1-4f7f-98ed-8aa360d8404b" class="column-list"><div id="f7758d7f-ce08-4fd8-9f5c-4e20f4561274" style="width:131.25%" class="column"><h3 id="1b294210-ae36-4c63-8a31-5b59c6a1c70f" class="block-color-orange_background">means we cannot create the variable array again with in the scope</h3></div><div id="3cd6c9d2-ada9-4631-8e1f-2a368f62e17b" style="width:68.75%" class="column"><p id="529c8280-fcc2-4268-b158-12709fae7098" class="">
+</p></div></div><figure id="fcd02eed-9f65-4f5b-9a52-c451b9b22a4b" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2044.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2044.png"/></a></figure><p id="970cc188-dfdc-4bfd-b2f7-842c043628ea" class="block-color-orange_background">
+</p><figure id="a5207427-8012-4833-8f54-09bee2a09262" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2045.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2045.png"/></a></figure><p id="be6a6286-8027-42b7-9b4a-f62e7e35c68e" class="block-color-orange_background">
+</p><figure id="747c2496-4b95-44b6-bd74-9af5dbe43bdd" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2046.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2046.png"/></a></figure><p id="107bf472-8b6b-4ed1-8423-0c5742163f18" class="block-color-orange_background">
+</p><figure id="f02e27a1-5224-46eb-886b-53a2715f3799" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2047.png"><img style="width:1567px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2047.png"/></a></figure><p id="d1738fae-3258-4342-b644-bfef160aebf6" class="block-color-orange_background">
+</p><p id="06f08ef4-5818-4bc6-88c8-32ce20a171ee" class="">In JavaScript, the <code>const</code> keyword is used to declare a constant variable that cannot be reassigned once it has been assigned a value. This applies to individual variables as well as arrays. While you cannot change the reference of a <code>const</code> variable, you can modify the contents of the variable or array.</p><p id="b142a821-3202-491c-b57c-5c1939b6984d" class="">Let&#x27;s look at some examples:</p><ol type="1" id="2f93904f-46d6-4ac1-9ece-30fbb32b08f3" class="numbered-list" start="1"><li>Const assignment to individual variables:</li></ol><pre id="3a8bc084-7818-422f-8e15-bfcdf629d945" class="code code-wrap"><code>const pi = 3.14159;
+console.log(pi); // Output: 3.14159
+
+pi = 3.14; // Error: Assignment to constant variable</code></pre><p id="8074be45-2fa7-47e8-a09d-0a37b8a4d77b" class="">In this example, we declare a constant variable <code>pi</code> and assign it the value of 3.14159. When we try to reassign a new value to <code>pi</code>, it throws an error because <code>const</code> variables cannot be reassigned.</p><ol type="1" id="ec6da70b-fd9a-481e-83f9-a255dbe596f4" class="numbered-list" start="1"><li>Const assignment to arrays:</li></ol><pre id="33a4f01c-9bf6-4717-b0c8-0862fc4bca02" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+console.log(numbers); // Output: [1, 2, 3, 4, 5]
+
+numbers.push(6);
+console.log(numbers); // Output: [1, 2, 3, 4, 5, 6]
+
+numbers = [7, 8, 9]; // Error: Assignment to constant variable</code></pre><p id="f4c210d0-d85f-473b-90ea-9daba0c8eb65" class="">In this example, we declare a constant variable <code>numbers</code> and assign an array <code>[1, 2, 3, 4, 5]</code> to it. Although we cannot reassign a new array to <code>numbers</code>, we can modify the array itself by using methods like <code>push()</code>. As you can see, we successfully added the number 6 to the array. However, when we attempt to assign a new array <code>[7, 8, 9]</code> to <code>numbers</code>, it throws an error because the reference of a <code>const</code> array cannot be changed.</p><p id="cbc96d5e-ac6f-4e4d-99c0-7d7bdb510a89" class="">To summarize, <code>const</code> in JavaScript allows you to assign a value to a variable or an array that cannot be reassigned to a new value, but you can still modify the contents of the variable or array within certain constraints.</p><pre id="336d17e3-e7c4-4256-967c-673958b505f3" class="code"><code>const numbers = [5, 3, 1, 4, 2];
+numbers.sort();
+console.log(numbers); // Output: [1, 2, 3, 4, 5]</code></pre><p id="bd5d1e31-672f-4ec5-aa30-8aee3fa18a8a" class="block-color-orange_background">In this example, we have an array <code><strong>numbers</strong></code> with unsorted elements. We call the <code><strong>sort()</strong></code> method on the <code><strong>numbers</strong></code> array, and it sorts the elements in ascending order. The sorted array is then printed to the console.</p><p id="963e9107-3b10-4daa-8f0e-c5ed3a802499" class="block-color-orange_background">
+</p><figure class="block-color-brown_background callout" style="white-space:pre-wrap;display:flex" id="31be26c6-6943-4849-9134-0a8474f1f904"><div style="font-size:1.5em"><span class="icon">🔥</span></div><div style="width:100%">Key Points from the Transcript:</div></figure><ol type="1" id="c6cf46c3-d7f3-4320-8510-1d80d4c3a205" class="block-color-orange_background numbered-list" start="1"><li>Lead-in Concept: Const does not allow for reassignment, ensuring constant values like Pi remain unchanged.</li></ol><ol type="1" id="5d9f65f5-3802-4840-8f27-78b31e0591a0" class="block-color-orange_background numbered-list" start="2"><li>Arrays and References: Variables that store arrays hold references to their addresses rather than the contents.</li></ol><ol type="1" id="a729d6df-1482-4d0f-ae78-6426b68453a5" class="block-color-orange_background numbered-list" start="3"><li>Using const with Arrays: Const can be used with arrays, allowing changes to the array&#x27;s contents but not the reference.</li></ol><ol type="1" id="043c393a-dc97-404d-8ff8-fbbbed4e00e9" class="block-color-orange_background numbered-list" start="4"><li>Content Modification: Modifying array contents, such as adding, deleting, or changing elements, is allowed with const.</li></ol><ol type="1" id="ad561c44-01aa-48c0-a103-2ca70ba18c28" class="block-color-orange_background numbered-list" start="5"><li>Reassigning Arrays: Reassigning an array to a different reference or a different array results in an error.</li></ol><ol type="1" id="8677b53c-5eb2-456f-ac54-9ad97792bf2c" class="block-color-orange_background numbered-list" start="6"><li>Importance of Container Stability: Using const with arrays ensures that the container&#x27;s reference remains the same while allowing content changes.</li></ol><ol type="1" id="b8670e00-d895-4ff9-9dc1-97ca4d836439" class="block-color-orange_background numbered-list" start="7"><li>Safer Array Handling: Using const with arrays provides a safer way of working, especially when maintaining specific structures or queues.</li></ol><ol type="1" id="3e8f3c9c-a597-4385-9aad-02ed8e731888" class="block-color-orange_background numbered-list" start="8"><li>Array Behavior vs. Primitive Variables: Arrays behave differently with const compared to primitive variables, allowing content modifications but not reassignment.</li></ol><ol type="1" id="454fe667-a33b-469e-9591-12a4ef934bde" class="block-color-orange_background numbered-list" start="9"><li>Objects and References: Similar behavior applies to objects, where the reference cannot be reassigned but the object&#x27;s properties can be modified.</li></ol><p id="226b067f-ae7d-4a48-8eb9-fc9912a5fad4" class="block-color-orange_background">Note: The transcript provides explanations and examples of how const behaves with arrays and references, emphasizing the importance of maintaining the reference while allowing changes to the contents.</p><p id="176e1bf1-2219-4611-b5bc-b07a957826fd" class="block-color-orange_background">
+</p><h1 id="1f492242-d191-4fdd-b7ed-4792b2a25cda" class="block-color-orange_background">186. Multi-Dimensional Arrays</h1><figure id="4d47a63d-4b17-47a5-aec0-1f7f76734fb0" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2048.png"><img style="width:1408px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2048.png"/></a></figure><p id="9db03d8f-c9cb-47f2-a7eb-9cba1104b070" class="block-color-orange_background">
+</p><figure id="f410d2df-3c3d-4c75-9969-357fa4df92ed" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2049.png"><img style="width:1408px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2049.png"/></a></figure><p id="64a902ed-1f9a-48d7-af56-1724312687f0" class="block-color-orange_background">
+</p><figure id="15f1daf3-a4b8-4aaa-819f-4f119b9384bb" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2050.png"><img style="width:1408px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2050.png"/></a></figure><p id="dffd0ce4-ccfc-4c85-8f15-5328d746edfd" class="block-color-orange_background">
+</p><figure id="2388a6e8-df17-4a76-834b-d2cd4babe9ea" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2051.png"><img style="width:1408px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2051.png"/></a></figure><p id="cf8b2060-012f-495a-8ec4-43e84b241a62" class="block-color-orange_background">
+</p><figure id="ddc29245-f614-4228-8b92-7a8446b543de" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2052.png"><img style="width:1920px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2052.png"/></a></figure><p id="d6c48615-eb5d-4ae3-83b5-3aafe4a083b2" class="block-color-orange_background">
+</p><figure id="fd0cae20-000b-4448-82ad-ef18c0328a05" class="image"><a href="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2053.png"><img style="width:945px" src="017%20-%20JavaScript%20Arrays%20987372263cc94f16813804649becc4e0/Untitled%2053.png"/></a></figure><p id="025942fa-dcf0-4f03-9ce8-1bc757e4c3a1" class="block-color-orange_background">
+</p><figure id="58a1cb75-d7b9-41b5-9399-004599d5540b" class="link-to-page"><a href="018%20-%20JavaScript%20Objects%2058a1cb75d7b941b59399004599d5540b.html">018 - JavaScript Objects</a></figure></div></article></body></html>

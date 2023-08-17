@@ -1,0 +1,813 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>024 - DOM intro</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b6a6dbaf-0e7a-40c5-8f56-9ad1006d3d83" class="page sans"><header><h1 class="page-title">024 - DOM intro</h1><p class="page-description"></p></header><div class="page-body"><figure id="29a0ce16-de0d-4f16-bdc3-5c7b571a2618" class="link-to-page"><a href="023%20-%20New%20Js%20Features%2029a0ce16de0d4f16bdc35c7b571a2618.html">023 - New Js Features</a></figure><h1 id="9c22b7f3-ca58-4308-af5c-0679e3c3b209" class="block-color-orange_background"><strong>244. What Matters In This Section</strong></h1><figure id="8cae728e-9c54-47b6-ba82-f17421752628" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled.png"/></a></figure><p id="5b3df55c-b0aa-4fa0-a14a-9dfb992c7f68" class="block-color-orange_background">
+</p><h1 id="12f1be53-35fa-432c-80b1-880e7c7f0675" class="block-color-orange_background"><strong>245. Introducing the DOM</strong></h1><figure id="b992d218-653a-4056-94fd-e3b5c1ff278e" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%201.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%201.png"/></a></figure><p id="bd90841e-24b6-4183-8186-6d52f4979883" class="block-color-orange_background">
+</p><figure id="ffb2095a-89f7-4bc1-a471-3a2ecaf79a3d" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%202.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%202.png"/></a></figure><p id="e6d33d7b-2ef1-4659-933a-59da34741501" class="block-color-orange_background">
+</p><figure id="e1755bc2-545a-42e0-b5e9-b490607ec565" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%203.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%203.png"/></a></figure><p id="bdfceff5-4213-41da-a1f5-824502aad6b1" class="block-color-orange_background">
+</p><figure id="27e6091c-d645-42da-a8a5-815b03e43b93" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%204.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%204.png"/></a></figure><p id="05308619-646a-44d3-a534-798d84bf8ea7" class="block-color-orange_background">
+</p><h1 id="b1495dca-edeb-402d-929c-448eaede4748" class="block-color-orange_background"><strong>246. The Document Object</strong></h1><h1 id="d2aa72c2-c074-4198-87bc-218fbef3c8b8" class="block-color-orange_background"><mark class="highlight-purple">VERY THEORY VIDEO</mark></h1><h1 id="36559350-6ef9-4a25-b8c0-6a205005a34e" class="block-color-orange_background"><mark class="highlight-purple">VERY IMPOTANT VIDEO</mark></h1><figure id="e6ef0556-c941-4fa6-982a-9f47fe2d508d" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%205.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%205.png"/></a></figure><p id="8e8846c8-6818-4bdb-b2b5-8dc99d2579da" class="block-color-orange_background">
+</p><h2 id="8252d036-2ea3-4c20-9911-c62d4bd40c38" class="block-color-orange_background">Explanation of DOM </h2><p id="b3e8cd41-2d0e-4452-b743-2db71f53f9d1" class="block-color-teal_background">Document Object Model (DOM) is an integral part of web development and it is essential for interacting with the contents of a web page using JavaScript.</p><p id="3a25d70a-f8dc-432e-81e1-568b8fd1d840" class="">Here&#x27;s a breakdown of the key points:</p><ol type="1" id="bec47630-ee7c-474a-bccb-2e6cfe25261c" class="numbered-list" start="1"><li><strong>The DOM is an object:</strong> The DOM is a programming interface that represents a <strong>web page&#x27;s structure and content as objects.</strong> These objects can be manipulated using JavaScript to modify the page dynamically.</li></ol><ol type="1" id="e5244b5c-be55-48e4-928f-2286447fe04b" class="numbered-list" start="2"><li><strong>Created automatically by the browser:</strong> When a web page is loaded in a browser, <strong>the DOM is automatically created based on the HTML structure of the page.</strong> It parses the HTML and creates a tree-like structure, where each element in the HTML is represented as a node in the DOM tree.</li></ol><ol type="1" id="117a1c5f-785e-4a9d-8f3a-a3b8eb16a1a2" class="numbered-list" start="3"><li><strong>Bunch of objects: </strong>The DOM consists of various objects that represent different elements on the web page. For example, each HTML element like headings, paragraphs, images, etc., <strong>is represented as an object in the DOM.</strong></li></ol><ol type="1" id="c6b1053b-5e30-4414-bd0e-86b7ade90520" class="numbered-list" start="4"><li><strong>Methods and properties:</strong> The DOM provides a set of methods and properties that developers can use to interact with and manipulate the content and behavior of the web page. For instance, developers can use <strong>DOM methods to add event listeners to elements,</strong> change CSS styles dynamically, or hide/show elements on the page.</li></ol><ol type="1" id="366fb336-1d54-45db-95e2-8984d3548938" class="numbered-list" start="5"><li><strong>Top-level folder: </strong>The DOM acts as the top-level container for all the objects and elements on the web page. It serves as the entry point to access and modify the entire content of the page.</li></ol><ol type="1" id="a234d544-0c2a-4c75-8f08-29e6ea89376c" class="numbered-list" start="6"><li><strong>Root of the tree:</strong> In computer science terms, the DOM is often compared to a tree data structure, where each element is a node, and the top-most node is known as the root of the tree. The DOM tree represents the hierarchical structure of the HTML document.</li></ol><p id="d79b5a96-2adf-4fe5-b165-153c272ec788" class="">Overall, the DOM plays a crucial role in web development as it allows developers to interact with the web page dynamically and build responsive and interactive web applications. By accessing and manipulating the DOM, developers can create rich user experiences and make their websites more dynamic and engaging.</p><p id="aff8547e-13de-487f-9fb0-28efaf623a05" class="block-color-orange_background">
+</p><figure id="ba61554a-7827-4191-aa20-6261b4f24cd8" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%206.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%206.png"/></a></figure><h3 id="80ef8b3f-841f-4d18-a7e4-dcca1e09fbe5" class="block-color-orange_background">browser will take all html and CSS files make one big js Object call document object  </h3><figure id="d6fd0d64-37da-4288-9dae-40c914c2b108" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%207.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%207.png"/></a></figure><h3 id="62e3954f-fa7b-4f31-8b91-688cee6efe49" class="block-color-orange_background">browser converting html file to js object tree and head of this object tree is Document object </h3><figure id="2e0df0db-44ef-4118-910e-6ecd533990b8" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%208.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%208.png"/></a></figure><p id="c5ec692b-17b7-4c76-8619-e9557fca6c84" class="block-color-orange_background">
+</p><figure id="99d9c47e-cac1-474e-a0b7-bb6316922402" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%209.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%209.png"/></a></figure><h1 id="cfeadf76-6162-441b-955c-c46fbae2cc4e" class="block-color-orange_background">Document object  
+and 
+Window.Document object 
+<mark class="highlight-red">both are same</mark>
+because document object is a part of default Window object </h1><figure id="14a7c00c-90b3-46b9-9715-22dd2376b055" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2010.png"><img style="width:809px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2010.png"/></a></figure><p id="f1be735f-b9a9-4618-8f26-8f52908acabb" class="block-color-orange_background">
+</p><figure id="a868a951-05a4-4798-b71a-1954a0f0e8b1" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2011.png"><img style="width:384px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2011.png"/></a></figure><p id="bf1e53d9-e816-4a16-81cb-cf3d7ae3a919" class="block-color-orange_background">
+</p><figure id="1add66af-b269-48bb-bfa7-5c718028536d" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2012.png"><img style="width:950px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2012.png"/></a></figure><p id="9eae0b1b-dd6d-49d7-93dc-9ed026733b5c" class="block-color-orange_background">
+</p><figure id="c6a4ba85-18f4-4f3a-be4c-848b7825d2dd" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2013.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2013.png"/></a></figure><p id="bafc0a8d-7715-4855-891f-fe7f90706efa" class="block-color-orange_background">
+</p><figure id="a5a6aa6b-c030-4a7e-a5f8-6fdb9b92748e" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2014.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2014.png"/></a></figure><p id="2883c4c3-d229-41e5-93c9-97e47c70cc99" class="block-color-orange_background">
+</p><figure id="0fbffd91-0b30-47ee-bdf3-574207b1cb9c" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2015.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2015.png"/></a></figure><p id="32c2ebd7-4c86-4ec2-9b93-29822144edb6" class="block-color-orange_background">
+</p><figure id="b779eec3-5be0-48b6-8142-0e430c369359" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2016.png"><img style="width:1280px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2016.png"/></a></figure><p id="49da41eb-bf92-44fc-8eb3-3cee24bed157" class="block-color-orange_background">
+</p><figure id="ea564a20-a000-44d4-b182-4235174fb8a6" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2017.png"><img style="width:480px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2017.png"/></a></figure><p id="03b304d2-5903-4351-95f4-a447fc406c4e" class="block-color-orange_background">
+</p><h1 id="807fd142-7db0-4856-96a0-d9b81778d256" class="block-color-orange_background"><strong>247. getElementById</strong></h1><figure id="6d76d5fe-cfa7-44b1-951c-2269496b76da" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2018.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2018.png"/></a></figure><p id="9f4fc6dd-5e2b-442a-a736-bef00e2f397c" class="block-color-orange_background">
+</p><figure id="d9c7b9e5-489b-4678-a626-bc46dd8359e2" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2019.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2019.png"/></a></figure><p id="daaf8792-bb6c-4226-9db6-d43713666ca1" class="block-color-orange_background">
+</p><figure id="c8d82edd-8292-4a01-8aad-ef9d60d8dfb2" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2020.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2020.png"/></a></figure><p id="4903c232-2739-428b-9ff2-77319e2b1308" class="block-color-orange_background">
+</p><figure id="63af6aa0-1d90-486b-8283-82f4beeefd94" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2021.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2021.png"/></a></figure><p id="ca9f240a-240e-41f4-bcc2-c38a0ed2f741" class="block-color-orange_background">
+</p><figure id="2325fbd2-ffa2-4e5b-bfbf-374c63cb5f35" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2022.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2022.png"/></a></figure><p id="8d409935-eed0-40c0-bdad-e603b9ec222d" class="block-color-orange_background">
+</p><figure id="32595dfb-718e-43b2-a48d-e8fd7677a90b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2023.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2023.png"/></a></figure><p id="3b722254-a135-4444-a270-dafa4ecff4dc" class="block-color-orange_background"><strong>getElementById(”chicken”) 
+
+</strong>if document object doesn’t had <strong>“chicken”</strong> key(or) method in it’s {key:value} pair we will get null 
+
+see the example bellow</p><figure id="225b733d-55ee-47ff-8992-96325686bcdb" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2024.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2024.png"/></a></figure><p id="ca4a113a-6ce7-47c5-abd9-e946927a12b1" class="block-color-orange_background"><strong>getElementById(”chicken”) returns a js object from document object tree 
+</strong><mark class="highlight-red"><strong>not a html tag or html string
+
+</strong></mark><strong>it may look like HTML but not</strong><mark class="highlight-red"><strong>
+it is a js object with key value pair or multiple key value pairs</strong></mark></p><figure id="d7e1fc70-0da1-4857-830e-bbbf42e7402e" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2025.png"><img style="width:1760px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2025.png"/></a></figure><h3 id="c7ba381b-427d-4096-98b9-317d86ea2441" class="block-color-orange_background">as we can see banner is an object in js not html element</h3><figure id="fe060fe3-8f4d-4a13-ac0a-ea7d219eb3e7" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2026.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2026.png"/></a></figure><p id="afc872b8-98fb-4c02-ba18-656faa0edde0" class="block-color-orange_background">
+</p><figure id="f1890deb-8b5e-49ab-844f-421ca4fef027" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2027.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2027.png"/></a></figure><p id="79de05d2-c576-4a30-b7e1-f2cfe55ac8d5" class="block-color-orange_background">
+</p><figure id="ac31420a-a711-4780-9b0d-d44904fb219a" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2028.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2028.png"/></a></figure><p id="ef21ee8b-24f8-4b07-a4a8-ae551d97e901" class="block-color-orange_background">
+</p><figure id="d3231758-7854-46ee-a97f-9f555c7401bf" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2029.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2029.png"/></a></figure><blockquote id="c526decf-0066-42df-a413-0642e92ea028" class="">when i used object.keys(banner) i got nothing 
+means banner had no key value pairs
+
+but when i used banner.currentsrc
+i am getting value? how?</blockquote><p id="8ce16d8b-c948-4dfc-b133-2439fd0ca5d6" class="block-color-teal_background">In JavaScript, <code>Object.keys()</code> is a method that is used to retrieve the enumerable property names of an object as an array. However, in your case, it seems that <code>banner</code> is an HTMLImageElement, which is a specific type of object that represents an image element in the DOM (Document Object Model).</p><p id="93dc68ad-2275-45c6-8df1-c2f03092bf36" class="block-color-teal_background"><mark class="highlight-red">In JavaScript, objects can have properties and methods, which are essentially key-value pairs. Some of these properties can be &quot;enumerable,&quot; which means they can be iterated over when using methods like </mark><mark class="highlight-red"><code><strong>Object.keys()</strong></code></mark><mark class="highlight-red"> or </mark><mark class="highlight-red"><code><strong>for...in</strong></code></mark><mark class="highlight-red"> loops. However, not all properties are enumerable by default.</mark></p><p id="e2efccba-c95f-4f28-ad06-d898061d0d54" class="">When you create an object or instance of a class in JavaScript, it can inherit properties and methods from its prototype. The prototype is essentially an object that acts as a blueprint for other objects to follow. Inheritance allows objects to share common properties and methods, reducing redundancy and promoting code reusability.</p><p id="adfad6bd-034f-4a71-86df-e7459973a1a6" class="">The difference in behavior between <code>Object.keys(banner)</code> and <code>banner.currentSrc</code> is due to the nature of the HTMLImageElement object and how its properties are defined.</p><ol type="1" id="62c3d827-61c1-42d0-a05b-a9a797e14700" class="numbered-list" start="1"><li><code>Object.keys(banner)</code> returns an empty array <code>[]</code> because the <code>HTMLImageElement</code> object does not have any enumerable properties of its own. The properties and methods you see (like <code>currentSrc</code>, <code>src</code>, <code>alt</code>, etc.) are inherited from its prototype chain.</li></ol><ol type="1" id="11e7cc26-95ad-4b5c-bb76-704af8ffca67" class="numbered-list" start="2"><li><code>banner.currentSrc</code> returns the value <code>&#x27;&lt;https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Silky_bantam.jpg/440px-Silky_bantam.jpg&#x27;</code>&gt; because <code>currentSrc</code> is a property of the HTMLImageElement object that represents the current source URL of the image.</li></ol><p id="128b885d-5273-4d0b-be77-eea319fd57c1" class="">In the case of <code><strong>banner</strong></code>, when you use <code><strong>Object.keys(banner)</strong></code>, it doesn&#x27;t return any enumerable properties because the <code><strong>HTMLImageElement</strong></code> class and its prototype have defined most of their properties as non-enumerable. This is typically done to prevent certain properties from being accidentally modified or accessed in some scenarios.</p><p id="55754346-d531-4d4a-82c3-ad8802062b69" class="">However, you can still access specific properties like <code><strong>currentSrc</strong></code> directly on the <code><strong>banner</strong></code> object because <code><strong>currentSrc</strong></code> is defined as a property of the <code><strong>HTMLImageElement</strong></code> class and marked as enumerable, allowing you to access it directly without the need for iteration.</p><p id="4e80f179-0cdf-454b-94df-e501c7b9c63c" class="block-color-orange_background">
+</p><figure id="0eee0cf8-e970-4bf6-afbf-b5f8307dfb59" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2030.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2030.png"/></a></figure><blockquote id="dfb6c675-db9d-41bc-8a04-bcf705e753f7" class="">why i am not able to assign new value to banner.currentSrc</blockquote><p id="c771c6f0-c150-442f-9e79-88453294537b" class="block-color-orange_background">In JavaScript, some properties are read-only, meaning you cannot directly assign new values to them. The <code>currentSrc</code> property of an <code>HTMLImageElement</code> object is one such property that is read-only.</p><p id="05c6ffcc-c571-4a7a-9d35-a1131d1491c8" class="">The <code>currentSrc</code> property represents the absolute URL of the image that is currently being displayed in the image element. It is automatically updated by the browser to reflect the actual source URL of the image that is loaded. When you try to set a new value to <code>banner.currentSrc</code>, the assignment is simply ignored by the browser, and the property remains unchanged.</p><p id="ed047b2e-1775-47a8-9d25-846f5069c8f6" class="">This behavior is by design to prevent developers from mistakenly modifying or tampering with the source URL of an image that is currently being displayed. The <code>src</code> property of an <code>HTMLImageElement</code> is the property you should use if you want to change the image displayed, but even then, you should be careful with updating the <code>src</code> attribute dynamically, as it could lead to unintended behavior or loading issues.</p><p id="69459e1e-a240-4cec-9205-1e4a59093d50" class="">If you need to change the image displayed, you should generally create a new <code>HTMLImageElement</code> and set its <code>src</code> attribute to the desired URL, or manipulate the DOM to replace the existing <code>img</code> element with a new one containing the desired image.</p><p id="db1b04e1-324c-4551-91e0-5387dcb016f8" class="block-color-orange_background">
+</p><h1 id="107e1872-a743-4d01-b8f4-c1377c8340d7" class="block-color-orange_background"><strong>248. getElementsByTagName &amp; className</strong></h1><figure id="b445637b-5c99-491f-8091-82b97ea4937c" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2031.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2031.png"/></a></figure><p id="eef3c2de-84ac-4ad1-b7e0-16e9e903265c" class="block-color-orange_background">
+</p><figure id="f3d0350d-82b1-4387-b071-13a2d3e5cc84" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2032.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2032.png"/></a></figure><p id="b916dab9-743f-4ff6-b508-31e7668fcca3" class="block-color-orange_background">
+</p><figure id="d657560f-d083-4676-a061-a3f0504575ee" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2033.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2033.png"/></a></figure><p id="9b1f2f0f-587c-4ea1-bca3-1ae8b1b4e418" class="block-color-orange_background">
+</p><figure id="ae9dbeee-9ecd-4226-ad09-d8cc9f0173c5" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2034.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2034.png"/></a></figure><p id="77e189cb-1970-4c4f-9e0e-18c56ffd996c" class="block-color-orange_background">
+</p><figure id="2d445e40-2ccc-4df3-ac64-3df2a1f4a8b5" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2035.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2035.png"/></a></figure><p id="c80c96f9-f25c-4d39-ac61-1b1f277fd58e" class="block-color-orange_background">
+</p><figure id="385879cc-64f6-4df2-999b-de5adc5c661b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2036.png"><img style="width:1280px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2036.png"/></a></figure><p id="c98ee45e-92b7-49b3-954c-a49ede63bc54" class="block-color-orange_background">
+</p><h1 id="faea1d6e-075f-4e02-9819-ebc3d07b985f" class="block-color-orange_background"><strong>249. querySelector &amp; querySelectorAll</strong></h1><figure id="58c51219-26c8-4901-af46-1539a509e256" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2037.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2037.png"/></a></figure><p id="21a74712-955a-45c1-ab94-369604ad33e0" class="block-color-orange_background">
+</p><figure id="adb94195-f57c-47a0-9efe-480b3f3ce53c" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2038.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2038.png"/></a></figure><p id="5578e42a-25ff-415a-b779-8e4d00c65b7e" class="block-color-orange_background">
+</p><figure id="cbe180c0-c948-4369-8d9c-3b288321ae73" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2039.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2039.png"/></a></figure><p id="5e7b79f0-9312-4c97-95c1-bf5e31aaeca6" class="block-color-orange_background">
+</p><figure id="2b2d17cf-3e19-4686-9052-52c2e38cce5f" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2040.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2040.png"/></a></figure><p id="32309698-f77a-45e2-ba5f-d0ad62c2947c" class="block-color-orange_background">
+</p><figure id="8c9d6abb-a4a1-418f-a540-c0bc61d1aa7d" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2041.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2041.png"/></a></figure><p id="ce0d13df-1f38-4956-939a-b71a955c3950" class="block-color-orange_background">
+</p><figure id="e6e3b834-939c-4925-a1d8-9ed7352a6d4a" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2042.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2042.png"/></a></figure><p id="da54de8b-94bc-4a8c-86c6-430214a29c33" class="block-color-orange_background">
+</p><figure id="5ebdf817-de35-4b33-bec1-b4e825aef50b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2043.png"><img style="width:3401px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2043.png"/></a></figure><p id="edb42838-b989-4ed6-9cdf-ba145ce976a7" class="block-color-orange_background">
+</p><figure id="833f0189-2b90-4480-bcf3-703302de2b94" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2044.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2044.png"/></a></figure><p id="7b976ff2-e89c-4fbd-ac0a-fc8d4fdd0ba6" class="block-color-orange_background">
+</p><figure id="cddbc936-4add-4d85-87c4-339a2e7e746b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2045.png"><img style="width:1920px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2045.png"/></a></figure><p id="434177b3-643e-4e90-ab46-014ac2da3994" class="block-color-orange_background">
+</p><figure id="29071bf2-ab93-4a6d-8bbe-152f7960789e" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2046.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2046.png"/></a></figure><p id="4c8779a4-8269-4a8a-a5a5-5a082fcc785e" class="block-color-orange_background">
+</p><h1 id="11a2e481-0145-4b60-956b-a0a501f511d2" class="block-color-orange_background"><strong>250. innerHTML, textContent, &amp; innerText</strong></h1><figure id="0368385c-6925-44a8-a31f-6fbe1cb4f0df" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2047.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2047.png"/></a></figure><p id="a3dcb820-b2ed-48b1-a42b-1faac21224b9" class="block-color-orange_background">
+</p><figure id="97690f58-0af8-4eb2-a1ea-49fac1e841db" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2048.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2048.png"/></a></figure><p id="2d0eb0ce-07eb-457b-9d61-c52e9eb71723" class="block-color-orange_background">inner text</p><figure id="7d96ae39-b45f-455f-9db5-c4b5c65a367f" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2049.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2049.png"/></a></figure><p id="17386265-defa-4c5f-ba31-89d6382268fd" class="block-color-orange_background">text content</p><figure id="daf8ed16-9abf-4e0d-a60c-b45582d55e03" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2050.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2050.png"/></a></figure><p id="5f7c3360-d2bb-4181-b787-6f422535d105" class="block-color-orange_background">text content data will come same as that of present in source file 
+it is not affected by browser view
+
+inner text is same as what bowser shows to us
+
+if browser hide some things with diaplay:None 
+
+<strong>inner text will not show it</strong> but <strong>text content will show it</strong></p><figure id="c320b7d0-2f30-4db1-be1a-0ffb5eb9c884" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2051.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2051.png"/></a></figure><p id="2b53da31-f24e-4673-a389-cc3c3476c726" class="block-color-orange_background">
+</p><figure id="0ef20235-ccff-49b5-a2ea-7e471621a6a2" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2052.png"><img style="width:1400px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2052.png"/></a></figure><p id="92929a1f-e72b-49f7-b034-7feac604f94a" class="block-color-orange_background">
+</p><figure id="7dfdc0b1-8232-41a4-94e6-62ea157b2f4b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2053.png"><img style="width:406px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2053.png"/></a></figure><p id="2e3b17c8-be25-42bc-aec2-d202409da323" class="block-color-orange_background">
+</p><figure id="7930a9e0-2b55-4bff-a0a4-0c5c715ec147" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2054.png"><img style="width:406px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2054.png"/></a></figure><p id="1bfeab68-f36a-4a53-a8dc-3c281f4c1efc" class="block-color-orange_background">
+</p><figure id="026380d6-eda5-4a1c-8640-a6382c5c36c0" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2055.png"><img style="width:940px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2055.png"/></a></figure><p id="59bbc69c-4e2b-4847-9265-2562bc227b5f" class="block-color-orange_background">
+</p><figure id="1ded851c-407c-4c0e-b2a4-5dc1b322d7d6" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2056.png"><img style="width:817px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2056.png"/></a></figure><p id="af54d73a-fc57-48b5-946e-3a91ef39cc53" class="block-color-orange_background">
+</p><figure id="1d920f5f-b8f9-4f3c-957d-be5318afa06d" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2057.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2057.png"/></a></figure><p id="130a2a6c-f45e-4501-809f-50bba34e5f49" class="block-color-orange_background">
+</p><figure id="fb5cb710-808e-4ce1-9b7d-264e55720e38" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2058.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2058.png"/></a></figure><p id="4cb6f559-85da-4f05-b6d6-c731c750ad46" class="block-color-orange_background">
+</p><figure id="fa8882db-08bf-47c6-acd5-c30d0483349a" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2059.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2059.png"/></a></figure><p id="2c88e433-07f7-4cc1-accb-c7b78f51c226" class="block-color-orange_background">
+</p><h1 id="529af91a-3efa-4162-9ec8-75cccff114bf" class="block-color-orange_background"><strong>251. Attributes</strong></h1><figure id="e379e5e9-5bea-49a3-9fc7-b2e05e8abe84" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2060.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2060.png"/></a></figure><p id="adc5d388-f54c-403d-abe7-398c2c063a48" class="block-color-orange_background">
+</p><figure id="d44725a4-69f5-4ae0-92c0-cda5f6defc05" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2061.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2061.png"/></a></figure><p id="6b26bfa3-6e04-47b6-aebc-ee7b1fc956ee" class="block-color-orange_background">
+</p><figure id="59381920-0702-4912-b1c3-3c4b9f1547e6" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2062.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2062.png"/></a></figure><p id="f6f85f2e-dcad-4728-9f5f-43f2c207a87c" class="block-color-orange_background">
+</p><figure id="5d7ca394-39b3-4eff-a3d1-b2ad4e39456f" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2063.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2063.png"/></a></figure><p id="e0faeffe-1e38-44c5-a2d0-160f9494b2c9" class="block-color-orange_background">
+</p><p id="1ad33689-9fce-4ca4-9eb6-2827d80b0dc8" class="">so let&#x27;s compare <code>link.getAttribute(&quot;href&quot;)</code> with <code>link.href</code> for retrieving the value of the &quot;href&quot; attribute of an anchor element (<code>&lt;a&gt;</code>).</p><ol type="1" id="00c0337d-7ef0-4bfb-bb12-6ebbe356c40f" class="numbered-list" start="1"><li><code>link.getAttribute(&quot;href&quot;)</code>:<ul id="7f377177-e3c2-42b8-ac7e-27da22a26912" class="bulleted-list"><li style="list-style-type:disc">This method is a generic way to retrieve any attribute of an HTML element, including the &quot;href&quot; attribute of an anchor element.</li></ul><ul id="3ffebf05-d21f-4027-b6f3-356d1c03f410" class="bulleted-list"><li style="list-style-type:disc">It works for any attribute and not just predefined properties.</li></ul><ul id="e0ad183d-55ef-4580-a698-e2254f796d89" class="bulleted-list"><li style="list-style-type:disc">It returns the attribute value as a string.</li></ul><p id="0abe49a2-2029-41aa-bb15-a36b21c06c26" class="">Example usage:</p><pre id="c93d3364-eb5c-4b07-9c41-a1502578e39c" class="code code-wrap"><code>const link = document.getElementById(&quot;myLink&quot;);
+const hrefValue = link.getAttribute(&quot;href&quot;);
+console.log(hrefValue); // Output: the value of the &quot;href&quot; attribute as a string</code></pre></li></ol><ol type="1" id="d91e221e-2a1e-4ec3-90db-d86a8ca1f4d7" class="numbered-list" start="2"><li><code>link.href</code>:<ul id="28e3d731-bab1-4fb1-9034-c5c120a0398b" class="bulleted-list"><li style="list-style-type:disc">This property is a direct DOM property that corresponds specifically to the &quot;href&quot; attribute of an anchor element (<code>&lt;a&gt;</code>).</li></ul><ul id="a8f366f7-b670-42e9-8e14-f22dc693d259" class="bulleted-list"><li style="list-style-type:disc">It provides a convenient way to directly access the value of the &quot;href&quot; attribute without using <code>getAttribute</code>.</li></ul><ul id="69bad5cf-4ece-4067-be42-12b34d27ecc9" class="bulleted-list"><li style="list-style-type:disc">When you access <code>link.href</code>, it returns the absolute URL as a string.</li></ul><ul id="d7018b0e-f515-40b1-ba01-c4f0c20f5f96" class="bulleted-list"><li style="list-style-type:disc">If the &quot;href&quot; attribute is relative (e.g., &quot;page.html&quot; or &quot;#section&quot;), <code>link.href</code> will return the resolved absolute URL.</li></ul><p id="07fad47f-3876-4c3d-851e-dc5394491961" class="">Example usage:</p><pre id="6ed30778-c0ea-4f8a-9883-96cf558ab78b" class="code code-wrap"><code>const link = document.getElementById(&quot;myLink&quot;);
+const hrefValue = link.href;
+console.log(hrefValue); // Output: the absolute URL as a string</code></pre></li></ol><p id="e04a3fed-662d-4dd5-8752-65c2b8043f64" class="">In most cases, you can use <code>link.href</code> to access the &quot;href&quot; attribute, as it&#x27;s more concise and specific to anchor elements. However, if you need to retrieve a custom attribute or any attribute that is not natively exposed as a property in the DOM, <code>getAttribute</code> would be the appropriate method to use.</p><p id="946cf25c-8a63-4eb2-9b42-980c32ce0423" class="block-color-orange_background">
+</p><figure id="e6be9b3b-c6ae-487a-b005-836a4b703073" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2064.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2064.png"/></a></figure><p id="103017e9-894c-4133-8275-de628eafe799" class="block-color-orange_background">
+</p><figure id="4f6badc0-3bd5-4391-bb4b-e0641dcb9e6f" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2065.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2065.png"/></a></figure><p id="fb633c62-4935-41ee-a26c-b1170d40255b" class="block-color-orange_background">
+</p><figure id="2e4e89d2-00d2-44fe-8310-f14975c3877e" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2066.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2066.png"/></a></figure><p id="93afe8f8-816e-4c3d-8130-65f331acba84" class="block-color-orange_background">
+</p><figure id="a7fe7c35-61c7-49e2-93a1-a3cdd5b9ec01" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2067.png"><img style="width:480px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2067.png"/></a></figure><p id="201d6583-9d16-4ee1-b449-dcb38f5c4576" class="block-color-orange_background">
+</p><figure id="998bd506-79bf-4109-8f5f-69ed120fccdf" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2068.png"><img style="width:864px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2068.png"/></a></figure><p id="65e4afee-95a2-4481-94e0-e0cf500ce924" class="block-color-orange_background">
+</p><h1 id="77437f36-f0be-4881-86fe-14dd0d90f759" class="block-color-orange_background"><strong>252. Changing Styles</strong></h1><figure id="4540fa9b-bd2e-4839-a4ce-d9ca795074bc" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2069.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2069.png"/></a></figure><p id="33a04a5d-0945-43c5-b9fb-400fae6a75fb" class="block-color-orange_background">
+</p><figure id="0a089287-babb-4808-9f4c-f15baa89bced" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2070.png"><img style="width:582px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2070.png"/></a></figure><p id="961a0111-43a9-4718-baaa-8fac9c6c47dd" class="block-color-orange_background">
+</p><figure id="e29d62b5-520c-4016-b7a2-9dbdd49a4c09" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2071.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2071.png"/></a></figure><p id="6e68cde3-c8d0-450c-b159-4a71abc04290" class="block-color-orange_background">
+</p><figure id="e080c563-9151-42e5-91b8-f19316d19e76" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2072.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2072.png"/></a></figure><p id="40475145-3196-430b-9b68-b36a58582112" class="block-color-orange_background">most properties are “null” even though we can see fontsize of “h1” element it is not showing in styles object 
+
+because element.style only shows inline style not external style sheet styles
+but with element.style we can edit styles and editing styles using [element.style] object will reflect as inline styles</p><figure id="f988d73f-b16c-4151-ab93-432e2a4f3f69" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2073.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2073.png"/></a></figure><p id="f0cd9b68-2fe4-4bee-bff5-34263e76c7ab" class="block-color-orange_background">we can see fontsize of “h1” element it is not showing styles</p><figure id="eca3f34d-ff38-48ce-a5c9-d04f2660892c" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2074.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2074.png"/></a></figure><p id="a45423e2-3e68-4c78-93e6-e7aad3998f55" class="block-color-orange_background">editing styles using [element.style] object it will reflect as inline styles</p><figure id="28dfce98-7d4c-44ae-96b9-3d5b38f4d7df" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2075.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2075.png"/></a></figure><p id="02b4de1d-eb9d-40e0-a53f-954d772f74dd" class="block-color-orange_background">inline styles added </p><figure id="06e02e3c-f854-45c0-bc7f-448f4438b8b9" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2076.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2076.png"/></a></figure><p id="1000946b-1745-4986-ab2c-f0b93c3357f9" class="block-color-orange_background">apply changes from js script file</p><figure id="74bd3e72-d9d0-4c23-920f-10c5c2304ad9" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2077.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2077.png"/></a></figure><p id="9a3ad02b-8d4e-4356-96ae-02f433e323f7" class="block-color-orange_background">
+</p><figure id="1b7a0336-d535-4b20-934e-345a4c13fffa" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2078.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2078.png"/></a></figure><p id="55f4ed59-10ce-4fc0-888d-3103e7d50245" class="block-color-orange_background">
+</p><figure id="b01d5137-d348-4df7-bb18-f9c555d26d9b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2079.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2079.png"/></a></figure><p id="a551cca4-abc4-4e8d-b26f-323509d841c5" class="block-color-orange_background">
+</p><figure id="b05b230e-630f-40db-83db-abdc7f309b70" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2080.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2080.png"/></a></figure><p id="c428b42d-bbbf-4e9d-8395-2052f3a7404f" class="block-color-orange_background">
+</p><figure id="cd369d08-61e6-40a1-a513-20a9d513b464" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2081.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2081.png"/></a></figure><p id="bd0ac331-fc42-4227-9823-e240a1d98926" class="block-color-orange_background">
+</p><figure id="540bfe94-27dc-4d47-b197-1b571019f667" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2082.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2082.png"/></a></figure><p id="09577c98-fc23-4b11-a9e4-37adebfb36cf" class="block-color-orange_background">get computed styles
+
+The <code><strong>Window.getComputedStyle()</strong></code> method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.</p><figure id="71c81760-fe20-4298-bb43-5b07ef4cd404" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2083.png"><img style="width:1280px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2083.png"/></a></figure><p id="08db969a-167c-4a93-a5e9-0c3575c871e8" class="block-color-orange_background">
+</p><figure id="665b4cca-a149-4036-87cc-5670bee727ba" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2084.png"><img style="width:950px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2084.png"/></a></figure><p id="a1b044e2-b161-4abd-8f5a-9df127a9264d" class="block-color-orange_background">
+</p><figure id="48cc737a-cebf-40d8-aa04-f5267034fe1f" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2085.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2085.png"/></a></figure><p id="40f825cd-b7c3-4936-9528-622d8c118868" class="block-color-orange_background">
+</p><figure id="17cee46e-6a4e-4c14-8a6e-dd4692c22f11" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2086.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2086.png"/></a></figure><p id="96a601a8-7fff-42c0-b23a-bef18cbf7fab" class="block-color-orange_background">
+</p><h1 id="6a6a439a-6c0e-496a-93df-969bb446ad43" class="block-color-orange_background"><strong>253. ClassList</strong></h1><figure id="c4fe9b3e-3414-498b-9882-99613d21a305" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2087.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2087.png"/></a></figure><p id="f8abd09f-d2b8-46e4-9cc2-fa293bbc6fcf" class="block-color-orange_background">Using <code>classList</code> is a convenient alternative to accessing an element&#x27;s list of classes as a space-delimited string</p><figure id="f8850e6c-3f72-43a2-acbb-80d577a7c85c" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2088.png"><img style="width:1280px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2088.png"/></a></figure><p id="cb310821-d9d6-4e2a-bbf9-927d4e4f2dfd" class="block-color-orange_background">
+</p><figure id="d45352c9-1ff6-4155-8124-0c4840808c57" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2089.png"><img style="width:384px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2089.png"/></a></figure><p id="79684631-862c-422e-8cc9-99ba559abfc1" class="block-color-orange_background">
+</p><figure id="601f5939-8aeb-441e-8301-26ca164aa596" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2090.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2090.png"/></a></figure><p id="f23ab8bc-fb49-46bc-8535-ec27ae3cf33e" class="block-color-orange_background">
+</p><figure id="fae222d7-efe8-46f8-ada6-ebb679aa14b9" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2091.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2091.png"/></a></figure><p id="b92215e9-f792-477d-8def-290a02907e21" class="block-color-orange_background">
+</p><figure id="0611648f-8336-4e55-b707-5d042db97015" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2092.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2092.png"/></a></figure><p id="1500bb2f-24f4-45a9-bf9d-ea48e66a21e2" class="block-color-orange_background">
+</p><figure id="469e1f15-1600-4433-8f64-a4007618380e" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2093.png"><img style="width:1280px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2093.png"/></a></figure><p id="c1537831-7650-4412-ba21-31c69431cf6c" class="block-color-orange_background">
+</p><h1 id="241444a7-2b5e-428b-b0dc-abd86444a98b" class="block-color-orange_background"><strong>254. Traversing Parent/Child/Sibling</strong></h1><figure id="8a4cc5b0-12cb-4fd5-8336-432c7f974da4" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2094.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2094.png"/></a></figure><p id="c5ea3593-9142-4717-8f0d-f0a145b79905" class="block-color-orange_background">
+</p><figure id="10a2cc12-2249-4d13-b6be-810d6c72a0b1" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2095.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2095.png"/></a></figure><p id="8af4d662-7b4e-43d5-9235-6e18391c62d3" class="block-color-orange_background">
+</p><figure id="288c2760-4032-47b9-af8a-9d40979239c4" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2096.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2096.png"/></a></figure><p id="ee61c88c-4bf5-48f0-a21f-e0381b97d35d" class="block-color-orange_background">
+</p><figure id="0180e423-d7f2-421b-8f39-98f849f652da" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2097.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2097.png"/></a></figure><p id="06504ec3-886e-462b-a40a-740ff83d6f52" class="block-color-orange_background">
+</p><figure id="39185f1d-fc36-4d44-b29d-4db51c2ec5dc" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2098.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2098.png"/></a></figure><p id="b3297b7a-899e-4982-9e10-48d7626ce1ff" class="block-color-orange_background">
+</p><figure id="a82b9c42-389d-4796-ba89-85bfc800129f" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2099.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%2099.png"/></a></figure><p id="fb3a6714-e18a-4d15-8bff-9a9ce34527cf" class="block-color-orange_background">
+</p><h1 id="d27e6c07-a12b-4c4b-bdea-ee81dc1ccff0" class="block-color-orange_background"><strong>255. Append &amp; AppendChild</strong></h1><figure id="74f03496-9464-498e-9128-3f34ccaa872d" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20100.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20100.png"/></a></figure><h3 id="e0a3c950-1a21-465b-9d68-77dadc6e5991" class="block-color-orange_background">appending a newly created element into webpage using append child</h3><figure id="017272f9-bfaf-44e6-bf71-cc572bd25421" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20101.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20101.png"/></a></figure><p id="fc6099b7-99af-41d9-bc78-ee3943155ef8" class="block-color-orange_background">after appending the element will become a native element of the web page
+
+we can add class to it just like a normal html element</p><figure id="70dfb70f-e8c0-487d-a219-2b1de63358d5" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20102.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20102.png"/></a></figure><h3 id="22382906-47a1-4920-92e7-39b5c9b4a2fc" class="block-color-orange_background">another append</h3><figure id="76f0d5ab-bf0d-443b-acbf-cfcd9c9b78dd" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20103.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20103.png"/></a></figure><p id="fe6fe107-e892-48c0-8438-492db5710f88" class="block-color-orange_background">
+</p><figure id="80704113-0daf-4620-8101-e7653e17d445" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20104.png"><img style="width:1068px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20104.png"/></a></figure><p id="23637b80-fb08-4c19-8486-cb67c288a24e" class="block-color-orange_background">
+</p><figure id="0dd441c6-d6a2-4125-8870-2e79776b3d89" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20105.png"><img style="width:1081px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20105.png"/></a></figure><p id="5d93b56d-215e-496c-b034-f3ebc817cfda" class="block-color-orange_background">
+</p><figure id="bcad075e-b3e5-48b0-b00e-cff240fd9003" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20106.png"><img style="width:1087px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20106.png"/></a></figure><p id="99c5892e-db20-426d-a14b-9d9056a7841a" class="block-color-orange_background">
+</p><figure id="575cb871-9f70-4b40-810d-937b55c860dc" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20107.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20107.png"/></a></figure><p id="bb199267-c1f3-4dc8-b6d1-4f684a847cfe" class="block-color-orange_background">
+</p><figure id="5ca7ad99-3585-4927-9936-844c6ab296ce" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20108.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20108.png"/></a></figure><p id="31c6b512-8459-45a1-bd51-41fdce542f45" class="block-color-orange_background">
+</p><figure id="19fdc3e3-0fac-42e3-802d-648bf63400c5" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20109.png"><img style="width:480px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20109.png"/></a></figure><p id="f23f2afd-71af-4a04-ad73-a62983c0646b" class="block-color-orange_background">
+</p><figure id="dd1e3252-6d6e-40d0-97ef-6bf8aa821737" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20110.png"><img style="width:409px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20110.png"/></a></figure><p id="e343034d-0675-431d-b596-0ae9d0965345" class="block-color-orange_background">
+</p><figure id="3c45fba5-1d77-4210-87ef-79e6d978f80b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20111.png"><img style="width:480px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20111.png"/></a></figure><p id="a81a5ae3-d03e-4fec-8737-cefec93c257c" class="block-color-orange_background">
+</p><h1 id="44341144-0b09-44d3-be54-e0fa524c4b9e" class="block-color-orange_background"><strong>256. removeChild &amp; remove</strong></h1><figure id="895fd91e-c0b5-47f6-adc0-f646f0dff0f9" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20112.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20112.png"/></a></figure><p id="11ae8432-6472-4327-af0d-acc62002abf3" class="block-color-orange_background">old method</p><figure id="3fb59fe9-bd5b-42de-a71b-e5bbcb33ee0b" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20113.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20113.png"/></a></figure><p id="368bd5d0-efc7-4852-94ad-44b82eaa4492" class="block-color-orange_background">
+</p><figure id="f00518a1-35a0-4497-bfc0-92717fd62f56" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20114.png"><img style="width:1919px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20114.png"/></a></figure><p id="da4d09fb-bfd2-4b08-acd6-33aba9a9548d" class="block-color-orange_background">
+</p><figure id="6e098376-68ae-4d65-9920-ada59043baf8" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20115.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20115.png"/></a></figure><p id="3faee2ea-2f9d-4e86-9582-f32232c0e753" class="block-color-orange_background">new method</p><figure id="bb974901-a37b-4df7-8df6-f42fe346ae6c" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20116.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20116.png"/></a></figure><p id="e85d9477-77e7-40a1-9a07-106e08c103ac" class="block-color-orange_background">
+</p><figure id="9ad96fb2-7ff5-43b3-a55f-de65e0fdfcd3" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20117.png"><img style="width:1571px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20117.png"/></a></figure><p id="4dab8abd-9875-43d2-930e-3030e0a9d899" class="block-color-orange_background">
+</p><h1 id="e194214e-f1fb-438a-9f08-c4458698f8ae" class="block-color-orange_background"><strong>257. Pokemon Sprites Demo</strong></h1><figure id="11494853-1330-47d3-afb6-33132453f2c8" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20118.png"><img style="width:2156px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20118.png"/></a></figure><p id="a5bad8f6-2bd0-4fcc-86ac-2b0ab5612c03" class="block-color-orange_background">
+</p><figure id="10a628ef-c1c4-4509-9a29-a8153f1df547" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20119.png"><img style="width:2278px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20119.png"/></a></figure><p id="d7a15ccc-1447-4f49-92da-a21b128344ad" class="block-color-orange_background">
+</p><figure id="d21c1c8b-a5b2-40f1-bfc2-d328d527adba" class="image"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20120.png"><img style="width:336px" src="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83/Untitled%20120.png"/></a></figure><p id="790777d4-8eb8-4a0b-b71c-1e348cb3b00f" class="block-color-orange_background">
+</p><figure id="3bc27ce1-c0dd-498d-a103-d02f111c92d5" class="link-to-page"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5.html">025 - The Missing Dom Pieces And Events</a></figure><p id="fc6132fd-24b3-4f8b-b3bc-b68f3f2af61d" class="">
+</p></div></article></body></html>

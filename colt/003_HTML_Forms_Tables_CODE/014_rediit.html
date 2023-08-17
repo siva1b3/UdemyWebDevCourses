@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NAMES IN FORMS</title>
+    <style>
+      section {
+        border-width: 3px;
+        border-color: black;
+        border-style: solid;
+        font-weight: 600;
+        font-size: large;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section>
+      <p>GIVE REDDIT LINK IN THE ACTION ATTRIBUTE OF THE FORM</p>
+      <h3>
+        REDDIT LINK FOR THE SEARCH is <b>https://www.reddit.com/search/?q=?</b>
+      </h3>
+      <form action="https://www.reddit.com/search/">
+        <label for="serach">SEARCH BAR</label>
+        <input type="text" name="q" id="serach" />
+        <button>CLICK ME for reddit search</button>
+      </form>
+    </section>
+    <pre>
+    &lt;section&gt;
+      &lt;p&gt;GIVE REDDIT LINK IN THE ACTION ATTRIBUTE OF THE FORM &lt;/p&gt;
+      &lt;h3&gt;REDDIT LINK FOR THE SEARCH is &lt;b&gt;https://www.reddit.com/search/?q=?&lt;/b&gt;&lt;/h3&gt;
+      &lt;form action="https://www.reddit.com/search/"&gt;
+        &lt;label for="serach"&gt;SEARCH BAR&lt;/label&gt;
+        &lt;input type="text" name="q" id="serach"&gt;
+        &lt;button&gt;CLICK ME for reddit search&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  </pre
+    >
+
+    <section>
+      <p>GIVE GOOGLE LINK IN THE ACTION ATTRIBUTE OF THE FORM</p>
+      <h3>
+        GOOGLE LINK FOR THE SEARCH is <b>https://www.google.com/search?q=?</b>
+      </h3>
+      <form action="https://www.google.com/search">
+        <label for="serach">SEARCH BAR</label>
+        <input type="text" name="q" id="serach" />
+        <button>CLICK ME for google search</button>
+      </form>
+    </section>
+
+    <section>
+      <p>GIVE youtube LINK IN THE ACTION ATTRIBUTE OF THE FORM</p>
+      <h3>
+        youtube LINK FOR THE SEARCH is
+        <b>https://www.youtube.com/results?search_query=?</b>
+      </h3>
+      <form action="https://www.youtube.com/results">
+        <label for="serach">SEARCH BAR</label>
+        <input type="text" name="search_query" id="serach" />
+        <button>CLICK ME for youtube search</button>
+      </form>
+    </section>
+
+    <section>
+      <p>GIVE GOOGLE LINK IN THE ACTION ATTRIBUTE OF THE FORM without button</p>
+      <p><mark>we just need to press enter in this case</mark></p>
+      <h3>
+        GOOGLE LINK FOR THE SEARCH is <b>https://www.google.com/search?q=?</b>
+      </h3>
+      <form action="https://www.google.com/search">
+        <label for="serach">SEARCH BAR</label>
+        <input type="text" name="q" id="serach" />
+      </form>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,770 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>014 - JavaScript Basis!</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7b41ea62-e36e-4ee5-a400-88c29559f936" class="page sans"><header><h1 class="page-title">014 - JavaScript Basis!</h1><p class="page-description"></p></header><div class="page-body"><figure id="ece27c60-c8bc-426b-9c0c-2ba28d4d1eed" class="block-color-orange link-to-page"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed.html">012 - CSS frameworks bootstrap </a></figure><h1 id="7341f1dc-e97a-477c-98da-eff481ab03df" class="block-color-orange_background"><strong>142. What Matters In This Section</strong></h1><figure id="6e5d2acc-7b3a-48a2-a20f-b9998fc2249e" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled.png"><img style="width:1919px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled.png"/></a></figure><h1 id="a1e9a917-d43a-4d01-8869-a3187f8ff0d8" class="block-color-orange_background"><strong>142. Why JavaScript is Awesome</strong></h1><figure id="b65ab489-f3a3-4f7f-beae-bfc604f46c2e" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%201.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%201.png"/></a></figure><p id="459338e2-fbe8-42fa-9d2a-aac2b1a9b01d" class="block-color-orange_background">
+</p><figure id="4bcba991-2f89-41c6-a1fc-4032e2e7f092" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%202.png"><img style="width:668px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%202.png"/></a></figure><p id="7bbf9c20-8bcf-4167-9f6c-f21f088da0d1" class="block-color-orange_background">
+</p><figure id="d3f6c758-5858-46f4-8417-bb620a4c732d" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%203.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%203.png"/></a></figure><p id="608a55af-676d-4dc7-9660-2517a9a36210" class="block-color-orange_background">
+</p><figure id="dcff388a-4091-4bdd-9d45-9a327c9d41be" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%204.png"><img style="width:1457px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%204.png"/></a></figure><p id="9738be07-92fe-4f40-bf30-c371070dc66d" class="block-color-orange_background">
+</p><figure id="45a116f6-7836-4327-a75f-e3e5ef88c81a" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%205.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%205.png"/></a></figure><p id="1ca3904a-f9b5-4876-af9a-4c8c5f0eefbf" class="block-color-orange_background">
+</p><figure id="ff4dfe69-fc0d-4df6-9651-d748771fa5e8" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%206.png"><img style="width:750px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%206.png"/></a></figure><p id="315e5f91-ad04-4b33-92b4-f3ca5777a617" class="block-color-orange_background">
+</p><figure id="701d134f-4dcb-4086-a324-c6c0f9f3082a" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%207.png"><img style="width:1600px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%207.png"/></a></figure><p id="5f064b3a-2a18-4647-b3ee-4b284495f0a7" class="block-color-orange_background">
+</p><figure id="21befb4f-4c77-4aed-9ca4-55778be44277" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%208.png"><img style="width:880px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%208.png"/></a></figure><p id="693fc607-9e2b-4447-abd9-360be58ee0fa" class="block-color-orange_background">
+</p><h1 id="e660cc54-0c3e-4f7e-bfc0-ea5e6dd59e3d" class="block-color-orange_background"><strong>143. Primitives &amp; The Console</strong></h1><figure id="247ce0f2-1f2a-461f-bbaf-6d4743bac177" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%209.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%209.png"/></a></figure><p id="cdf43905-951e-4bdd-8f81-2e9013fb9c73" class="block-color-orange_background">
+</p><figure id="6d9f3636-a68c-4aa0-a611-46eda17d0db4" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2010.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2010.png"/></a></figure><p id="5590c5e4-1ecb-4e42-94ff-f150a8569f42" class="block-color-orange_background">
+</p><figure id="c10e145d-d663-43d9-a454-1f1e4c00a8a3" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2011.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2011.png"/></a></figure><p id="19270bb9-50eb-410f-bef1-c19dccc50964" class="block-color-orange_background">
+</p><figure id="dfdf4be0-2465-4535-829b-168b1ef402cb" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2012.png"><img style="width:987px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2012.png"/></a></figure><p id="4ca680b6-c475-450b-a6c5-74cc5f574f97" class="block-color-orange_background">
+</p><figure id="1da2e292-9e41-40f3-a466-9a5068e76085" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2013.png"><img style="width:1600px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2013.png"/></a></figure><p id="4dcea065-5a73-4f69-aac3-42d6e46e46e1" class="block-color-orange_background">
+</p><figure id="35e61f47-1f9e-4f88-9af2-9a3b52a2cf88" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2014.png"><img style="width:1567px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2014.png"/></a></figure><p id="5efda91e-1f7f-4f6b-9711-fb791234e9c7" class="block-color-orange_background">
+</p><h1 id="8b946f5a-76e6-4642-a9b5-a6005a2fa0b6" class="block-color-orange_background"><strong>144. JavaScript Numbers</strong></h1><figure id="05de4961-ec65-4557-a090-a2c40ad0e8ae" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2015.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2015.png"/></a></figure><p id="1c3dea62-d757-479b-8fe3-28aa91430a76" class="block-color-orange_background">
+</p><figure id="0c62c05b-e547-4cdd-af4e-e86477090230" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2016.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2016.png"/></a></figure><p id="cd397ce3-ad3e-4e3f-a916-fa66e29b5699" class="block-color-orange_background">
+</p><figure id="aceebf48-8407-43c6-8164-7e8a23569766" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2017.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2017.png"/></a></figure><p id="615bd287-144b-4615-ba9b-e70360e9cc7a" class="block-color-orange_background">
+</p><figure id="f3003b6c-b44b-405d-a78c-d5f32c21bd39" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2018.png"><img style="width:1218px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2018.png"/></a></figure><p id="3795e0db-08cb-4591-bce4-fe0c229fb471" class="block-color-orange_background">
+</p><figure id="11268a26-6f43-4976-a039-f53884af49ba" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2019.png"><img style="width:736px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2019.png"/></a></figure><p id="f3569f5d-8491-49af-b63a-8c67c25cd394" class="block-color-orange_background">
+</p><figure id="9b157150-97a0-4391-a318-017e8194e93d" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2020.png"><img style="width:879px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2020.png"/></a></figure><p id="859d64ab-3aab-4d5b-9d3b-f50ade3c7306" class="block-color-orange_background">
+</p><figure id="c516332c-22ba-4bec-badc-bc30d491239a" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2021.png"><img style="width:1024px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2021.png"/></a></figure><p id="f0621221-bccf-410f-891b-1d8ab388c948" class="block-color-orange_background">
+</p><figure id="d4d53790-4a83-42a6-bfa8-ed44ddb5a928" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2022.png"><img style="width:800px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2022.png"/></a></figure><p id="8631a473-81f2-41db-8577-3109fed11094" class="block-color-orange_background">
+</p><h1 id="eeddd49d-8c9b-44dc-b84f-ddbd919e60ce" class="block-color-orange_background">145. WTF is NaN</h1><figure id="eff824e5-1a70-41ff-af90-4d7003e4f594" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2023.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2023.png"/></a></figure><p id="df5b7993-cd7c-40c4-bf6b-4713ff8d3335" class="block-color-orange_background">
+</p><figure id="ced241f5-71ad-43f8-b2eb-98b499533cb0" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2024.png"><img style="width:386px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2024.png"/></a></figure><p id="92e87a8a-448c-4565-82a9-91f9fe004c24" class="block-color-orange_background">
+</p><figure id="352dde12-7f9f-4f9c-8815-35408968babc" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2025.png"><img style="width:382px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2025.png"/></a></figure><p id="a1f74338-14c1-4f73-a812-c725249e9a5e" class="block-color-orange_background">
+</p><figure id="b5d08843-4614-4b39-b3a8-348d2901253c" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2026.png"><img style="width:1200px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2026.png"/></a></figure><p id="f926970f-0f1a-4e21-ba19-5acafada7520" class="block-color-orange_background">
+</p><figure id="4fe00f81-34e8-4cb4-b07d-7eee0ed9588d" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2027.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2027.png"/></a></figure><p id="6f82b346-282d-48cf-9a75-1f20db42948c" class="block-color-orange_background">
+</p><figure id="90eb2b47-02b8-4246-9d1a-66481cfe5623" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2028.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2028.png"/></a></figure><p id="7b0e1b9f-79b7-4b59-8b99-6017e54757d6" class="block-color-orange_background">
+</p><figure id="97241ef5-ddfc-496b-8987-e9896ef5e71b" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2029.png"><img style="width:1110px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2029.png"/></a></figure><p id="bef735dc-cca4-4036-bb11-0ac0fc3f8f20" class="block-color-orange_background">
+</p><figure id="eb5a07f1-dae0-4546-b7be-50c1e6852216" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2030.png"><img style="width:667px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2030.png"/></a></figure><p id="38081f74-de2d-4bbe-856a-604be883078c" class="block-color-orange_background">
+</p><figure id="c2fea287-436a-4ce8-9acf-fe6524090f68" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2031.png"><img style="width:704px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2031.png"/></a></figure><p id="08a592cd-6c06-4e30-8d01-c1a769d9fe25" class="block-color-orange_background">
+</p><figure id="8d92aabd-b3d1-47c8-9c8c-a9f5892ff1be" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2032.png"><img style="width:1732px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2032.png"/></a></figure><p id="34444afc-766f-4037-9990-a4b3f75d7028" class="block-color-orange_background">
+</p><figure id="8aecff06-64de-4c94-b65f-7cae8ff3d195" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2033.png"><img style="width:828px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2033.png"/></a></figure><p id="16be8e49-6c42-4b8e-a81b-db05e8a5d9bb" class="block-color-orange_background">
+</p><h1 id="5e50cce9-565f-4b3d-9fae-b059c43cb60c" class="block-color-orange_background">146. Quick Numbers Quiz</h1><figure id="09a3bbf7-ccda-48e5-8e10-a7ec6bb60396" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2034.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2034.png"/></a></figure><p id="5efb185a-ffac-406a-bfe3-79ab410d717d" class="block-color-orange_background">
+</p><figure id="5a1920f2-5f94-4f8d-bf01-a68adfa81d1b" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2035.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2035.png"/></a></figure><p id="7e4eb41f-05d2-4a23-af18-0aaaced11aed" class="block-color-orange_background">
+</p><figure id="eccad94f-805e-4b8a-9769-cd85f2faa228" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2036.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2036.png"/></a></figure><p id="a1587ec6-dc73-4631-8eb8-5e9059096120" class="block-color-orange_background">
+</p><h1 id="ac1eb213-3ba9-4279-ab5a-5f8a7f5b540d" class="block-color-orange_background">147. Variables &amp; Let</h1><figure id="2fda80dc-ccef-45b7-9d55-7c61bd443ba8" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2037.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2037.png"/></a></figure><p id="9ad55eda-35c6-42b6-9f4a-3c625db8ae0b" class="block-color-orange_background">
+</p><figure id="1d1e91fe-f3a2-45a1-937e-ae1bbd9e78a4" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2038.png"><img style="width:864px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2038.png"/></a></figure><p id="895e7b3a-0b16-4da6-b019-dee2e0e00628" class="block-color-orange_background">
+</p><figure id="624af81a-e715-4362-afb2-05f81e61dd90" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2039.png"><img style="width:500px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2039.png"/></a></figure><p id="0d80169e-25ef-4a78-8076-7b57c955821f" class="block-color-orange_background">
+</p><figure id="84a147b8-0a4c-4203-9739-014f068dbdcd" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2040.png"><img style="width:920px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2040.png"/></a></figure><p id="f147e213-9339-4916-8d70-4c9158e464a1" class="block-color-orange_background">
+</p><figure id="0d210720-7bdc-46cc-99f9-131a9d18bbcb" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2041.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2041.png"/></a></figure><p id="af4818f3-ea75-4524-afb7-256f173611d3" class="block-color-orange_background">
+</p><figure id="e4b4c74b-40b1-42c2-a692-3e2264b0bf2e" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2042.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2042.png"/></a></figure><p id="acbd2dbc-306d-45d5-9966-765808db8173" class="block-color-orange_background">
+</p><figure id="3246c3b2-be7f-4a1a-994c-93055c614462" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2043.png"><img style="width:1760px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2043.png"/></a></figure><p id="e08810a4-9ce8-42cf-940a-c8e47cd8bd44" class="block-color-orange_background">
+</p><figure id="644512ce-0c2f-492a-884c-763c171473e4" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2044.png"><img style="width:1760px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2044.png"/></a></figure><p id="c6469f39-304b-49db-a998-9523c7b5e11a" class="block-color-orange_background">
+</p><figure id="0e11eb09-3966-4f18-a294-f3afe8c4ad2c" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2040.png"><img style="width:920px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2040.png"/></a></figure><p id="6b498a54-d8a0-442e-bfdd-db1584af388f" class="block-color-orange_background">
+</p><figure id="90ccbd27-8b40-4676-8381-93855adf8d0d" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2045.png"><img style="width:1701px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2045.png"/></a></figure><p id="bef40400-28f6-459d-b594-3161ee5c261b" class="block-color-orange_background">
+</p><h1 id="7d0c56c9-be77-425f-9054-8f8abc6324e9" class="block-color-orange_background">148. Updating Variables</h1><figure id="2976f294-3690-4ee3-879b-191a6cf8c631" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2046.png"><img style="width:1760px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2046.png"/></a></figure><p id="076e1876-bf9e-489c-92c6-77c2e341f7a7" class="block-color-orange_background">
+</p><h1 id="33293784-1a82-4cef-a378-4a0f911f6690" class="block-color-orange_background">149. Increment Operator Explanation: i++ vs ++i</h1><h1 id="8e55f33a-ac3b-4655-996b-00feeb27337a" class="block-color-teal_background"><mark class="highlight-red">VERY IMP</mark></h1><figure id="5bb80609-3728-41c1-b040-970ee72026a8" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2047.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2047.png"/></a></figure><p id="4778d2d2-c97a-4a9b-bbaa-9f5899a48034" class="block-color-orange_background">
+</p><figure id="ac5f453c-1225-4304-ab7f-4c1a34394954" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2048.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2048.png"/></a></figure><p id="2a9f4de0-a609-49dc-a5cb-dada4e86f7c0" class="block-color-orange_background">
+</p><p id="220b4ffa-f0a3-419d-b9b7-8ca8cf37f305" class="">In JavaScript, <code>i++</code> and <code>++i</code> are both increment operators used to increase the value of a variable by 1. However, they have slight differences in behavior.</p><ol type="1" id="a45082e5-08a6-4f53-8ff1-083b53326d9f" class="numbered-list" start="1"><li><code>i++</code> (Post-increment):<ul id="34b083f0-9a1f-4dbb-b762-bc149cdbda2a" class="bulleted-list"><li style="list-style-type:disc">This operator is also known as post-increment because it increments the value of <code>i</code> after it has been used in the expression.</li></ul><ul id="dcac79d3-5140-449b-8398-71e99cd6cb1a" class="bulleted-list"><li style="list-style-type:disc">When you use <code>i++</code>, the current value of <code>i</code> is returned, and then the value of <code>i</code> is incremented by 1.</li></ul><ul id="c7100041-037c-4885-a7d0-1cbb08b8eeb7" class="bulleted-list"><li style="list-style-type:disc">Here&#x27;s an example:<pre id="8b8a0a17-acd6-4fc6-840e-45c99fea617a" class="code code-wrap"><code>let i = 1;
+let result = i++;  // result is assigned the value of i (1) and then i is incremented
+console.log(result);  // Output: 1
+console.log(i);  // Output: 2
+</code></pre></li></ul><ul id="cf56e6f3-6469-4330-8c67-9e26e0ef8b4a" class="bulleted-list"><li style="list-style-type:disc"><code>i++</code> (Post-increment):<pre id="20ac3235-80da-490f-ad9a-635f77f34008" class="code code-wrap"><code>let i = 1;
+let result = i++ + 2;  // i is incremented after it is used in the expression
+console.log(result);  // Output: 3
+console.log(i);  // Output: 2</code></pre><p id="c4d363d4-ea7a-4806-8883-b2d58c084a3e" class="">In this example, <code>i</code> is initially 1. The expression <code>i++ + 2</code> is evaluated as <code>1 + 2</code>, resulting in <code>3</code>. After the expression is evaluated, <code>i</code> is incremented to <code>2</code>.</p></li></ul></li></ol><ol type="1" id="e0cb13de-c15d-4015-81e7-f0054b606eba" class="numbered-list" start="2"><li><code>++i</code> (Pre-increment):<ul id="6b0630c3-c266-40e1-8123-5ac136477448" class="bulleted-list"><li style="list-style-type:disc">This operator is also known as pre-increment because it increments the value of <code>i</code> before it is used in the expression.</li></ul><ul id="0f7670c2-13ba-4fa0-a57f-8dd463ae5bba" class="bulleted-list"><li style="list-style-type:disc">When you use <code>++i</code>, the value of <code>i</code> is incremented by 1, and then the updated value of <code>i</code> is returned.</li></ul><ul id="9350d548-1992-45c7-ba3a-1da2cc2a5390" class="bulleted-list"><li style="list-style-type:disc">Here&#x27;s an example:<pre id="a0e09864-c5ff-46c4-8bb9-340a4adb5d3e" class="code code-wrap"><code>let i = 1;
+let result = ++i;  // i is incremented and then assigned to result
+console.log(result);  // Output: 2
+console.log(i);  // Output: 2
+</code></pre></li></ul><ul id="d5acf527-e3a1-4c2b-b65b-f34fe4329db0" class="bulleted-list"><li style="list-style-type:disc"><code>++i</code> (Pre-increment):<pre id="272294af-16c3-4e9c-a830-1fa151c45cf7" class="code code-wrap"><code>let i = 1;
+let result = ++i + 2;  // i is incremented before it is used in the expression
+console.log(result);  // Output: 4
+console.log(i);  // Output: 2</code></pre><p id="b65e1a8b-5b46-4e68-b1d0-20432ee9e6cd" class="">In this example, <code>i</code> is initially 1. The expression <code>++i + 2</code> is evaluated as <code>2 + 2</code>, resulting in <code>4</code>. The value of <code>i</code> is incremented to <code>2</code> before it is used in the expression.</p></li></ul></li></ol><p id="048cc64b-6e90-4d91-927a-97921b306690" class="">In most cases, the choice between <code>i++</code> and <code>++i</code> depends on how you want to use the value of <code>i</code> in your code. If you want to use the current value of <code>i</code> and then increment it, use <code>i++</code>. If you want to increment <code>i</code> and then use the updated value, use <code>++i</code>.</p><p id="6a090001-3ef6-4bd0-885c-5f7c1dd2f7d0" class="">In both cases, the final value of <code>i</code> is <code>2</code>. However, the difference lies in when the increment occurs. With <code>i++</code>, the increment happens after the expression is evaluated, whereas with <code>++i</code>, the increment occurs before the expression is evaluated.</p><h1 id="943b5721-140a-4de2-956f-1e2ed040724f" class="block-color-orange_background">150. Const &amp; Var</h1><figure id="23708078-56a9-46bf-992e-e9e0f7dc2ac6" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2049.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2049.png"/></a></figure><p id="7e047054-f687-4d3c-9cc4-2121fa8e4f74" class="block-color-orange_background">
+</p><figure id="83c427f4-f003-486f-940a-d9bff6125309" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2050.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2050.png"/></a></figure><p id="1b6a71f0-c25c-4689-83ac-6a888f821b4b" class="block-color-orange_background">
+</p><figure id="3049c307-9459-425b-9d6d-0e551e19e4ee" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2051.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2051.png"/></a></figure><p id="1fb83a9f-e0d9-4466-b146-615427936e7a" class="block-color-orange_background">
+</p><figure id="6bb590ac-96a0-4230-a14e-76aacf70fd4a" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2052.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2052.png"/></a></figure><p id="98e25133-84a6-4d25-a508-277d81e510a4" class="block-color-orange_background">
+</p><figure id="573a556e-b6ac-4bce-992e-542408f67d7f" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2053.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2053.png"/></a></figure><p id="751637dd-367b-4fdc-b0fd-fb2580f92af2" class="block-color-orange_background">
+</p><figure id="d2c4ebb9-5dba-46ef-aa37-e5c682582eee" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2054.png"><img style="width:1024px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2054.png"/></a></figure><p id="ad3cbf22-1180-435c-a4df-936e8df2e342" class="block-color-orange_background">
+</p><figure id="aa81fe48-0caf-4d1b-8806-33849173dfea" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2039.png"><img style="width:500px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2039.png"/></a></figure><p id="0d97938d-1ca6-43a9-a9a4-4a78cb47d910" class="block-color-orange_background">
+</p><figure id="8bdef46d-1a57-4be3-8875-a99b8b82b91d" class="image"><a href="https://dmitripavlutin.com/static/112c5cd0c5bdd2897944d81c384a648f/76e9a/2.jpg"><img src="https://dmitripavlutin.com/static/112c5cd0c5bdd2897944d81c384a648f/76e9a/2.jpg"/></a></figure><p id="520547c3-7bcd-43de-8303-6e03b7ac7c97" class="block-color-orange_background">
+</p><figure id="5204c1ba-a136-4313-8878-f65b98a21389" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2055.png"><img style="width:3743px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2055.png"/></a></figure><p id="891e2fb3-37b6-4f8a-872e-29d72df5a645" class="block-color-orange_background"><strong>Temporal Dead Zone (TDZ)
+
+</strong><strong><code>Temporal Dead Zone</code></strong><strong> </strong>and <code><strong>Hoisting</strong></code><strong> </strong>are two essential terms in JavaScript. But understanding how they work can easily confuse you if you don&#x27;t approach them properly.</p><figure id="2f5fe604-b167-4b12-9ffa-564ba8ec9bb5" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2056.png"><img style="width:1200px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2056.png"/></a></figure><p id="71fe458d-f32e-4885-bcda-624ac93759e5" class="block-color-orange_background">
+</p><figure id="b5cc974d-e805-461c-96ea-a13bba18b126" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2057.png"><img style="width:554px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2057.png"/></a></figure><p id="8c098670-44c2-4995-ab74-e5aefc03f7b8" class="block-color-orange_background">
+</p><figure id="5d109b2e-d7f8-4d3b-b481-693c9f82176f" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2058.png"><img style="width:1000px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2058.png"/></a></figure><p id="1002a495-5fc4-4459-b9f9-56fdb18f1d8b" class="block-color-orange_background">
+</p><figure id="d49455a8-2b9b-48fa-8db6-b2b1d33f01b8" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2059.png"><img style="width:1000px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2059.png"/></a></figure><p id="2b964ee4-f481-49c9-be91-5ed008fbf25c" class="block-color-orange_background">
+</p><figure id="14ecd146-2d56-4f0e-89f1-bf4ba4b5c7e0" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2060.png"><img style="width:1688px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2060.png"/></a></figure><p id="7d7957f5-ab48-41cc-bb2f-366c7c007c70" class="block-color-orange_background">
+</p><figure id="c081bb91-a175-40b3-b7ec-55e6c7cfbb7f" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2061.png"><img style="width:1272px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2061.png"/></a></figure><p id="4d7b1ffd-e4b4-4422-abf2-39b037e97856" class="block-color-orange_background">
+</p><figure id="49aa1eb7-0f0b-4d07-83b4-054d5a8027f9"><a href="https://www.freecodecamp.org/news/javascript-temporal-dead-zone-and-hoisting-explained/" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Temporal Dead Zone (TDZ) and Hoisting in JavaScript – Explained with Examples</div><div class="bookmark-description">Temporal Dead Zone and Hoisting are two essential terms in JavaScript. But understanding how they work can easily confuse you if you don&#x27;t approach them properly. But don&#x27;t fret! This article is here to help you get a good grasp of the two terms. So relax, grab your favorite cup</div></div><div class="bookmark-href"><img src="https://cdn.freecodecamp.org/universal/favicons/favicon.ico" class="icon bookmark-icon"/>https://www.freecodecamp.org/news/javascript-temporal-dead-zone-and-hoisting-explained/</div></div><img src="https://www.freecodecamp.org/news/content/images/2022/01/javascript-temporal-dead-zone-and-hoisting-explained-codesweetly-image-by-bronis-aw-dr--ka-from-pixabay.jpg" class="bookmark-image"/></a></figure><figure id="6a6d118f-80f0-4b5c-9558-51e25f6612fe" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2062.png"><img style="width:2500px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2062.png"/></a></figure><p id="32369f65-b618-4aec-887a-c68978e52829" class="block-color-orange_background">
+</p><figure id="96f8519b-382a-4079-a7bb-0b98d8ddf7d6" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2063.png"><img style="width:1400px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2063.png"/></a></figure><p id="131208d7-e401-4b15-b8cc-63e677c64195" class="block-color-orange_background">
+</p><figure id="3c5b8dd4-a1f5-4a40-ad9e-c1b90b700dc1" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2064.png"><img style="width:1701px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2064.png"/></a></figure><p id="83571512-d416-4f77-b795-09cf7504e6a0" class="block-color-orange_background">
+</p><figure id="8c800ac7-e9c2-461d-a461-17d4124cc11a" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2065.png"><img style="width:1701px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2065.png"/></a></figure><p id="ab83cbb9-9a41-43f0-b10d-a027d6d7002c" class="block-color-orange_background">
+</p><figure id="21c6266b-6c6f-4180-9aad-733a5df87745" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2066.png"><img style="width:1701px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2066.png"/></a></figure><p id="38ad4c10-21ab-48cc-9551-40b8d2628981" class="block-color-orange_background">
+</p><h2 id="45b56c4b-2f73-406f-a27e-45dfdcdbbee2" class="block-color-orange_background">Very IMPORTANT</h2><figure id="3f483b3b-b7f5-4483-ad29-576a26541d88"><a href="https://carlogino.com/blog/javascript-hoisting" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How JavaScript hoisting actually works</div><div class="bookmark-description">You probably do not know what really is happening</div></div><div class="bookmark-href"><img src="https://carlogino.com/favicon.ico" class="icon bookmark-icon"/>https://carlogino.com/blog/javascript-hoisting</div></div><img src="https://images.ctfassets.net/ya6sinucrmpl/1vCFjsPPN7WKRVgOfDDtVi/6c49188c275bb876cb1e3047b0a13ca7/489332_hoist.jpeg" class="bookmark-image"/></a></figure><p id="06500435-01a5-4baa-93d0-990b56d93dd3" class="block-color-orange_background">
+</p><figure id="82c3c42c-940e-4c9e-ada9-2226c239644d" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2067.png"><img style="width:1920px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2067.png"/></a></figure><p id="528db655-f73b-4c16-8cde-3bfd2e8d4cf0" class="block-color-orange_background">the code written like this</p><figure id="ae77fde0-aa7c-416f-b5d7-334949ec0cb7" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2068.png"><img style="width:1920px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2068.png"/></a></figure><p id="5d11b1da-c25e-4db1-ac42-91043d5d1a75" class="block-color-orange_background">changes to this while execution</p><figure id="20f07e18-995a-4314-a7fe-6ee8c07ca0da" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2069.png"><img style="width:1920px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2069.png"/></a></figure><p id="d7116f0d-d6c4-4160-a783-edea8f727354" class="block-color-orange_background">
+</p><h1 id="374dd778-2ca9-4a68-a6f4-b95e7b0d05b8" class="block-color-orange_background">151. Booleans</h1><figure id="2b310b6c-4508-4ded-ab6f-815beacd5eee" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2070.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2070.png"/></a></figure><p id="b6b88b3d-e110-44ac-bc58-d9316a75431b" class="block-color-orange_background">
+</p><figure id="12684f3a-8ad9-4dc1-9b48-b5dde45da5bf" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2071.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2071.png"/></a></figure><p id="2a56657e-6e5e-4485-81b6-eaa02f4df20c" class="block-color-orange_background">
+</p><figure id="4d179919-9f5b-4442-9cf5-7995ed1888f0" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2072.png"><img style="width:1585px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2072.png"/></a></figure><p id="93cdc442-fb3e-4dee-bfae-8c6d3c578020" class="block-color-orange_background">
+</p><figure id="b5f3ecec-fe0c-428e-8ff1-633f5df591ba" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2073.png"><img style="width:550px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2073.png"/></a></figure><p id="45bbbad0-7aef-4de4-9761-055325763e9a" class="block-color-orange_background">
+</p><figure id="e16a98bd-0c00-464e-ad0a-5fd9a50a167b" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2074.png"><img style="width:550px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2074.png"/></a></figure><p id="a1b4deb2-0b0d-4019-bff0-6d0b2094174b" class="block-color-orange_background">
+</p><figure id="30c8fe7d-2dff-4b10-87fd-36126ed339e5" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2075.png"><img style="width:689px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2075.png"/></a></figure><p id="3ae1b67a-52fe-4abe-ada3-9d97c03eff5a" class="block-color-orange_background">
+</p><figure id="6260f123-cc02-4339-96bf-f9be413d6534" class="image"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2076.png"><img style="width:1760px" src="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936/Untitled%2076.png"/></a></figure><p id="415c8573-2a04-44de-984b-f4446c92f9f7" class="block-color-orange_background">
+</p><h1 id="f76d9109-9980-4658-9b28-d0f697727815" class="block-color-orange_background">152. Variable Naming and Conventions</h1><p id="d68485bb-c1fb-4a9b-9a7c-3010f7e935ca" class="">In JavaScript, there are some common conventions for variable naming that are widely followed by developers. Here are the general rules and guidelines for naming variables in JavaScript:</p><ol type="1" id="eb4442ef-bd2e-47d6-a4aa-b3aff47939f9" class="numbered-list" start="1"><li><strong>Use descriptive names:</strong> Choose names that accurately describe the purpose or meaning of the variable. This helps improve code readability and maintainability.</li></ol><ol type="1" id="4f99222b-725f-46eb-958e-e75c079f4f51" class="numbered-list" start="2"><li><strong>Camel case:</strong> Start variable names with a lowercase letter and use uppercase letters for the beginning of subsequent words. For example: <code>myVariable</code>, <code>firstName</code>, <code>totalAmount</code>, <code>isRunning</code>.</li></ol><ol type="1" id="a9215449-3669-4a4c-8679-de28e3ed52f2" class="numbered-list" start="3"><li><strong>Avoid reserved keywords:</strong> JavaScript has a set of reserved keywords that have special meanings in the language. You cannot use these keywords as variable names. Examples of reserved keywords include <code>if</code>, <code>for</code>, <code>while</code>, <code>function</code>, and <code>let</code>.</li></ol><ol type="1" id="98507895-72ae-47b0-bfa5-be0e94ec5784" class="numbered-list" start="4"><li><strong>Use meaningful abbreviations:</strong> While descriptive names are encouraged, it&#x27;s also acceptable to use common abbreviations or acronyms that are widely understood in the context of the problem domain. For example: <code>num</code>, <code>maxVal</code>, <code>elem</code>, <code>URL</code>.</li></ol><ol type="1" id="c3a204a2-1a3a-4563-b711-6f3a2f0ca148" class="numbered-list" start="5"><li><strong>Avoid single-letter names:</strong> Unless it&#x27;s a well-known convention or widely used as an iterator (e.g., <code>i</code> for a loop), it&#x27;s generally recommended to avoid using single-letter variable names. Using meaningful names improves code readability.</li></ol><ol type="1" id="1ef39269-7870-4500-89a5-baa46e3babc6" class="numbered-list" start="6"><li><strong>Consistency in naming:</strong> Maintain consistency in your naming conventions throughout your codebase. If you use camel case for variable names, stick to that style consistently.</li></ol><ol type="1" id="596aed71-94e9-4a10-9b5c-b44658990eb2" class="numbered-list" start="7"><li><strong>Constants:</strong> For variables that are intended to be constant (i.e., their value should not be changed after initialization), use uppercase letters with underscores to separate words. For example: <code>MAX_SIZE</code>, <code>PI</code>, <code>API_KEY</code>.</li></ol><ol type="1" id="39070b0b-64c0-494a-905e-9e199e5326e9" class="numbered-list" start="8"><li><strong>Global variables:</strong> Avoid creating global variables unless necessary. If you need to define a global variable, consider using a namespace or prefix to avoid naming conflicts with other variables.</li></ol><p id="e99f3a09-a2ac-40c0-adc5-149215360cd7" class=""><strong>Remember that these are conventions and guidelines, not strict rules enforced by the JavaScript language itself. </strong>Following these practices can greatly improve code readability and make your codebase more maintainable.</p><p id="e4b0ad73-f976-46c8-a479-56efb1839f53" class="block-color-orange_background">
+</p><figure id="7691db05-3891-4f64-bcf0-3b9b66d5bb73" class="link-to-page"><a href="015%20-%20JavaScript%20Strings%20and%20More!%207691db0538914f64bcf03b9b66d5bb73.html">015 - JavaScript Strings and More!</a></figure></div></article></body></html>

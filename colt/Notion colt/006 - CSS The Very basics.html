@@ -1,0 +1,870 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>006 - CSS The Very basics</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="aa6bf232-fd51-4a24-b002-cea394c0c39b" class="page sans"><header><h1 class="page-title">006 - CSS The Very basics</h1><p class="page-description"></p></header><div class="page-body"><figure id="a60dd8bc-c191-4455-935c-628cf5ff46e0" class="block-color-pink link-to-page"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0.html">005 - 02 - HTML Forms</a></figure><h1 id="91a0fd11-2709-4541-8e7d-5b6c4d94ca78" class="block-color-orange_background">58. What is CSS?</h1><figure id="1f34a19c-3480-424f-b5e4-143a85008149" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled.png"/></a></figure><p id="6634df32-9803-41de-85da-097c0da766a4" class="block-color-orange_background">
+</p><figure id="7bea692f-7f33-4d32-bf0d-47017e9fef64" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%201.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%201.png"/></a></figure><p id="5581e43b-bb20-4185-a94a-1b332ecfc53b" class="block-color-orange_background">
+</p><figure id="2815e200-d92a-45bd-95c5-ea6264628b76" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%202.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%202.png"/></a></figure><p id="fa7358cb-0262-4445-b82e-ac381e1da4b4" class="block-color-orange_background">
+</p><figure id="daa9f151-397d-4f61-a889-d6e5055d4afd" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%203.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%203.png"/></a></figure><p id="c42124b1-1e7d-4d29-a5c8-524d99c04635" class="">
+</p><figure id="b499957d-cbc4-423b-8a7f-acfb52aad54d" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%204.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%204.png"/></a></figure><p id="6d178233-f84d-4fa8-a4cc-be4672b5c66f" class="">
+</p><figure id="d16ea9b5-afd8-4078-9f5e-e09d6a62e265" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%205.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%205.png"/></a></figure><p id="bb7c1d56-a56e-4c62-a907-6d0a19ba6e06" class="block-color-orange_background">
+</p><figure id="274f1188-37c3-4aec-8164-ffe7f645899a" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%206.png"><img style="width:528px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%206.png"/></a></figure><p id="9e65a581-bf04-4b35-85eb-d381da463cfd" class="block-color-orange_background">
+</p><figure id="97358601-272f-4022-90e0-de938381549f" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%207.png"><img style="width:583px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%207.png"/></a></figure><p id="d7c03d90-ef43-40ee-b38e-d243a107755d" class="block-color-orange_background">
+</p><figure id="a524bfc8-bf97-4822-8b85-663bcb003c07" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%208.png"><img style="width:825px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%208.png"/></a></figure><h1 id="4d8792ec-d054-49bc-a1b8-9fd123e3f7cb" class="block-color-orange_background">59. CSS is Huge, Don&#x27;t Panic!</h1><figure id="eeeba135-86e1-4587-9ced-6034b33ad991" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%209.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%209.png"/></a></figure><p id="f2bb4591-0935-4e63-934b-a7673a62b932" class="">
+</p><figure id="e650c945-6dc4-4c9b-a248-f8ff4f273420" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2010.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2010.png"/></a></figure><p id="739fe82f-7eae-4bae-b120-11739e5d4f3e" class="">
+</p><figure id="2da26ecd-3b3a-430b-b041-5b5840700a47" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2011.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2011.png"/></a></figure><p id="e18dea6d-7710-4fe5-9637-8b017674c14e" class="">
+</p><figure id="c8e6417b-57f4-4464-ac9f-c8559c826a8f" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2012.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2012.png"/></a></figure><p id="969c39e2-5526-4348-8371-2d3d11b078a0" class="">
+</p><figure id="2c9bf8a3-2e5b-4f3b-ad03-c959d0a459f4" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2013.png"><img style="width:1920px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2013.png"/></a></figure><p id="86672a91-31c7-4b48-b499-472a0f187943" class="">
+</p><figure id="2ff0bcd8-02ea-4ea7-ad7a-5713fafe7d4d" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2014.png"><img style="width:1920px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2014.png"/></a></figure><p id="fd9f201f-8631-45af-b12a-9c8f3a55ece0" class="">
+</p><h1 id="599c86ba-ae00-4f9d-9aa7-0b01f77556e7" class="block-color-orange_background">60. Including Styles Correctly</h1><figure id="50612c77-e20e-479f-911c-372459c40ca8" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2015.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2015.png"/></a></figure><p id="47e2ad4d-8438-4eed-a93c-078a9cd91796" class="">
+</p><figure id="a1dcd6be-292a-4908-b042-9165a5ed9ee6" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2016.png"><img style="width:500px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2016.png"/></a></figure><p id="60e027c4-af20-41e7-a7c9-a5c343fa888f" class="">
+</p><figure id="ecc28ef5-bba5-4aeb-a262-0ee894e69b6b" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2017.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2017.png"/></a></figure><p id="cec98964-3a67-402f-abef-2f227c58b50e" class="">
+</p><figure id="7356c5aa-3a07-4ec4-8e25-ced6426361bc" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2018.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2018.png"/></a></figure><p id="895eea0c-f9c2-4f83-bcec-5cb6b580005a" class="">
+</p><figure id="975298dd-cd6d-4077-b7f4-e63864964f10" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2019.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2019.png"/></a></figure><p id="3d84cb00-32d8-4200-88b4-a58b6ecb9923" class="">
+</p><figure id="f91b5fc3-e364-490e-ae5c-461700a91744" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2020.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2020.png"/></a></figure><p id="b19c7def-d0d3-40cc-bbbc-373ebf101190" class="">
+</p><p id="fc71f08d-6c25-4220-bffe-ca223a9499ec" class="block-color-orange_background">
+</p><h1 id="7b6493d8-d19b-4f0e-81d0-e3370c83eae5" class="block-color-orange_background">62. Colors Systems: RGB &amp; Named Colors</h1><figure id="0e54078e-2798-4eaf-a1c0-b7a5c28e2308" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2021.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2021.png"/></a></figure><p id="d23b22e5-6e4a-4f46-bff9-a3296e9b2770" class="">
+</p><figure id="af6d5928-306a-4433-9f8c-cea4a4f21df9" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2022.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2022.png"/></a></figure><p id="da7e3b85-e3f6-491b-93ce-aea3d4aa52ca" class="">
+</p><figure id="ef22148c-41fa-48fc-8d6d-596596b3f7fe" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2023.png"><img style="width:800px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2023.png"/></a></figure><p id="dd1a4448-a213-4c28-80a0-47ad09d4d458" class="">
+</p><figure id="34996140-8bd3-4af7-812c-7b1a74a205e0" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2024.png"><img style="width:540px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2024.png"/></a></figure><p id="8edf3ed7-8d31-40ac-a2d4-729553a7a509" class="">
+</p><figure id="0475c95f-561a-4c45-a660-d9a8cc4c5384"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color" class="block-color-orange_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">color - CSS: Cascading Style Sheets | MDN</div><div class="bookmark-description">The color CSS property sets the foreground color value of an element&#x27;s text and text decorations, and sets the currentcolor value. currentcolor may be used as an indirect value on other properties and is the default for other color properties, such as border-color.</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.cbbd161b.png" class="icon bookmark-icon"/>https://developer.mozilla.org/en-US/docs/Web/CSS/color</div></div><img src="https://developer.mozilla.org/mdn-social-share.cd6c4a5a.png" class="bookmark-image"/></a></figure><p id="57a024b6-8502-4f16-bb82-3fc13e0c8b78" class="">
+</p><figure id="401ad0d3-0218-484c-853c-07d4c605e967" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2025.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2025.png"/></a></figure><p id="ecd03d76-d41f-40a5-93e7-d84c040b9cbd" class="">
+</p><figure id="5374291d-a305-4600-9cbc-4947ca4bd664" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2026.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2026.png"/></a></figure><p id="7493ee64-d218-455b-8e12-66c6f4d1e62a" class="">
+</p><figure id="e7ba5093-2fcb-4e8b-8d41-ac96652606cd" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2027.png"><img style="width:640px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2027.png"/></a></figure><p id="eccc017b-c16d-452a-b906-74692f398cc0" class="">
+</p><figure id="fcd9516b-cf22-416d-8fca-3ad32ceb3429" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2028.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2028.png"/></a></figure><p id="d19aac01-2f47-4b19-8f12-973ad7b8e31f" class="">
+</p><figure id="fc272c90-56e4-441d-80fd-5a547bbb7253" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2029.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2029.png"/></a></figure><p id="b36b6153-1d90-4d3f-8982-21ee1d2cb592" class="">
+</p><figure id="2677cc04-862e-4f4c-9198-afdbe5449ee4" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2030.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2030.png"/></a></figure><p id="4a782568-670a-4d18-87eb-416ff10b4f56" class="">
+</p><figure id="7dae4a5b-6cac-4e87-8b15-72f69c756e03" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2031.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2031.png"/></a></figure><p id="c0281f0e-79ae-46f3-9fd5-01000f7368ef" class="">
+</p><figure id="1f13dea1-9504-49d9-975c-9706d1e82ab8" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2032.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2032.png"/></a></figure><h1 id="506b3f99-fc37-4617-94da-b83290e6d0bd" class="block-color-orange_background">63. Colors Systems: Hexadecimal</h1><figure id="863b1444-88e0-46a4-921f-6f3c3076799b" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2033.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2033.png"/></a></figure><p id="dc8c39cc-79b8-48c6-b6e9-ccbafbd774d2" class="">
+</p><figure id="d2d997e5-3bc8-4c01-b68a-e1637a7fa799" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2034.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2034.png"/></a></figure><p id="18c78c96-0aff-4345-a4b6-0ef4d6c63acd" class="">
+</p><figure id="709e0ae8-0c78-4fd4-8b7d-0c45db2eb425" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2035.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2035.png"/></a></figure><p id="c8290b10-0efe-4ec6-b9b9-30b5ea0b4c85" class="">
+</p><figure id="dcb0583e-8b17-4175-a7d3-cb5796569a94" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2036.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2036.png"/></a></figure><p id="ab0cabf8-6a4d-4071-97d0-0af4b5954b11" class="">
+</p><figure id="339f937f-2332-489c-b48b-0adc67b0370b" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2037.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2037.png"/></a></figure><p id="1c9a7c18-fef4-46fa-b76b-1f11b043eb01" class="">
+</p><figure id="5f4c182d-58bf-4cac-bfa9-7bb7fe26b71a" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2038.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2038.png"/></a></figure><p id="5faa9604-1254-45fd-8306-b048b75708a0" class="">
+</p><figure id="0416429d-e152-4c6d-9a9a-d944d7b19f6e" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2039.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2039.png"/></a></figure><p id="97f37a92-88a2-4c88-92a3-bf50a592825f" class="">
+</p><h1 id="550ade41-c6b4-4803-8056-2ef321632354" class="block-color-orange_background"><strong>65. A Reminder On Semicolons &amp; CSS</strong></h1><figure id="6217efea-54e5-4d2a-9276-7b55f8499e12" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2040.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2040.png"/></a></figure><p id="532c1252-998c-488b-87b5-4d6ff363f832" class="block-color-orange_background">
+</p><h1 id="65c6c6c8-6302-4fe3-80ba-c918afa3073d" class="block-color-orange_background">6<strong>5. Common Text Properties</strong></h1><figure id="ab55ba7c-125e-47fb-92b7-f2eebb591c33" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2041.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2041.png"/></a></figure><p id="523eb3d1-f567-43d3-92f7-6aa6c01052f6" class="">
+</p><figure id="cbd92803-5751-4613-bd12-dade6497b464" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2042.png"><img style="width:336px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2042.png"/></a></figure><p id="edc8dcc0-f03c-42a0-8810-2a4efe451799" class="">
+</p><figure id="f85f7ce1-3b28-4a4a-9acf-ba6c665a4515" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2043.png"><img style="width:1109px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2043.png"/></a></figure><p id="073b9368-606f-4537-bd48-95e23d1a389c" class="">
+</p><figure id="7dbe9252-f947-4ace-88db-998e523403da" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2044.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2044.png"/></a></figure><h3 id="e10aed5c-9e85-449e-9e17-d80839c6dc52" class="">for cuttlefish width = 100% and align-center </h3><figure id="a9fb7be1-61ff-44da-91fe-67e7e7c053c7" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2045.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2045.png"/></a></figure><p id="52b119e1-741d-4920-abb6-d8ea6591841e" class="">
+</p><h3 id="6fd6aba5-33e9-41f3-803e-78f8e5519c25" class="">for cuttlefish width = 100% and align-right</h3><figure id="022dc628-2df5-496a-8286-e6ce0a4cf248" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2046.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2046.png"/></a></figure><p id="9b2c2f92-235b-49a6-a16a-e883378035ef" class="">
+</p><figure id="7c3a8e9e-1a1d-4618-abf5-d329711b5a28" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2047.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2047.png"/></a></figure><p id="e64bccc8-1a75-499d-863a-f15020ed918a" class="">
+</p><h3 id="fd7fbcd2-cbaf-4d6b-81ba-60d8ebd89a19" class="">for cuttlefish width = 50% and align-right which is looking like center because cuttlefish aligned right but the total width of the content is 50% of the parent width because of that we are able to see cuttlefish in middle</h3><figure id="526a1572-3aac-47fc-9b72-5599413d3665" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2048.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2048.png"/></a></figure><p id="67d7a1c8-5653-4b79-b550-7f026d548e5a" class="">
+</p><figure id="35a80d0f-833c-4e0f-8f24-0dbf3d7a8f64" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2049.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2049.png"/></a></figure><p id="2fa9b579-019c-4e1e-9ca0-c2443bc045a9" class="block-color-orange_background">
+</p><pre id="9221c69e-9e8e-48c5-8747-f3c474b0f016" class="code"><code>text-decoration: underline;
+text-decoration: overline red;
+text-decoration: none;
+
+/* Global values */
+text-decoration: inherit;
+text-decoration: initial;
+text-decoration: revert;
+text-decoration: revert-layer;
+text-decoration: unset;</code></pre><p id="a2320ed3-453f-44bd-9ded-a814124c3970" class="block-color-orange_background">
+</p><pre id="b73499f5-97f9-46b8-94ce-08d17df62304" class="code"><code>.under {
+  text-decoration: underline red;
+}
+
+.over {
+  text-decoration: wavy overline lime;
+}
+
+.line {
+  text-decoration: line-through;
+}
+
+.plain {
+  text-decoration: none;
+}
+
+.underover {
+  text-decoration: dashed underline overline;
+}
+
+.thick {
+  text-decoration: solid underline purple 4px;
+}
+
+.blink {
+  text-decoration: blink;
+}</code></pre><p id="8822cf00-dfac-4aa2-8e1a-948877239f44" class="block-color-orange_background">
+</p><pre id="d4219387-19aa-437f-a3cc-1e0185f7a436" class="code"><code>.normal {
+letter-spacing: normal;
+}
+.em-wide {
+letter-spacing: 0.4em;
+}
+.em-wider {
+letter-spacing: 1em;
+}
+.em-tight {
+letter-spacing: -0.05em;
+}
+.px-wide {
+letter-spacing: 6px;
+}</code></pre><pre id="346c045c-b61b-47eb-aab4-ba28c6e6b6e7" class="code"><code>/* Keyword value */
+line-height: normal;
+
+/* Unitless values: use this number multiplied
+by the element&#x27;s font size */
+line-height: 3.5;
+
+/* &lt;length&gt; values */
+line-height: 3em;
+
+/* &lt;percentage&gt; values */
+line-height: 34%;
+
+/* Global values */
+line-height: inherit;
+line-height: initial;
+line-height: revert;
+line-height: revert-layer;
+line-height: unset;</code></pre><p id="e47b5a28-f255-46d7-9911-07c9babb0cd1" class="block-color-orange_background">
+</p><figure id="b84d1aaf-e8a2-4a5b-8956-ef508612d179" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2050.png"><img style="width:750px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2050.png"/></a></figure><p id="360036cf-bb19-47dc-b48d-98ef6bd6773e" class="block-color-orange_background">
+</p><figure id="23d2945e-be12-4c1c-85de-ce7740f57f6b" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2051.png"><img style="width:750px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2051.png"/></a></figure><p id="b8a44f58-32f2-4eba-a61f-dfaf297541d0" class="block-color-orange_background">
+</p><h1 id="b90dde29-537b-468b-95cc-155b1a39efed" class="block-color-orange_background"><strong>66. Font Size Basics With Pixels</strong></h1><figure id="5eb5c45d-552f-4e88-b7b6-0483cf6c5043" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2052.png"><img style="width:1760px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2052.png"/></a></figure><p id="a830829f-db01-46c7-bd7a-d3d942930f31" class="">
+</p><figure id="8c4ef7b9-e068-4fc2-a7e6-cf9b2d41adb3" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2053.png"><img style="width:1440px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2053.png"/></a></figure><p id="ef611ae3-c146-4f0d-ba4c-24156ad28b0c" class="block-color-orange_background">
+</p><figure id="8192dcd6-89b0-4814-99e3-778c8e865681" class="image"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2054.png"><img style="width:816px" src="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b/Untitled%2054.png"/></a></figure><p id="a3407331-dfc3-4068-a1c8-c55b9342b9df" class="block-color-orange_background">
+</p><p id="76ca4ca2-0ad0-47c6-b438-da543b937e14" class="">Sure. In CSS, there are two types of units: absolute and relative.</p><p id="b9f92f3d-b2f0-48e2-ac9c-9b22362600ac" class=""><strong>Absolute units</strong> are fixed in size and do not change, regardless of the size of the viewport or the font size of the element. Some examples of absolute units are:</p><ul id="0ed063a3-3730-4a4e-8aea-047336842aba" class="bulleted-list"><li style="list-style-type:disc"><strong>Pixels (px)</strong>: This is the most common absolute unit. 1px is equal to one pixel on the screen.</li></ul><ul id="ec0343eb-e1c4-4028-9761-335754fee8be" class="bulleted-list"><li style="list-style-type:disc"><strong>Inches (in)</strong>: This unit is used to measure the size of an element in inches.</li></ul><ul id="45700d76-4bb4-41d2-96fe-3baa16bfef9f" class="bulleted-list"><li style="list-style-type:disc"><strong>Centimeters (cm)</strong>: This unit is used to measure the size of an element in centimeters.</li></ul><ul id="fdacb26b-055a-4470-9587-9b0c771da7ee" class="bulleted-list"><li style="list-style-type:disc"><strong>Millimeters (mm)</strong>: This unit is used to measure the size of an element in millimeters.</li></ul><ul id="e77aca22-080f-411b-9969-6004a275b3e8" class="bulleted-list"><li style="list-style-type:disc"><strong>Points (pt)</strong>: This unit is used to measure the size of an element in points. One point is equal to 1/72 inch.</li></ul><ul id="812f8d2e-167f-4066-a41c-6359b98fac89" class="bulleted-list"><li style="list-style-type:disc"><strong>Picas (pc)</strong>: This unit is used to measure the size of an element in picas. One pica is equal to 12 points.</li></ul><p id="a0781565-d7bd-4fe2-beaa-2cfe25e6963d" class=""><strong>Relative units</strong> are based on the size of another element, such as the parent element, the viewport, or the root element. Some examples of relative units are:</p><ul id="c33eef8a-3b29-41bd-a5d6-3fbf2a198820" class="bulleted-list"><li style="list-style-type:disc"><strong>Percentages (%):</strong> This unit represents a percentage of the size of the parent element. For example, <code>width: 50%</code> will make the element 50% as wide as its parent element.</li></ul><ul id="af752217-f9c9-46a2-9322-edaf2bcca246" class="bulleted-list"><li style="list-style-type:disc"><strong>Ems:</strong> This unit represents the size of the element&#x27;s font. For example, <code>font-size: 1.5em</code> will make the element&#x27;s font 1.5 times as large as the font size of its parent element.</li></ul><ul id="16b1f1a1-3231-4f3b-a62e-6d9cf20cca1c" class="bulleted-list"><li style="list-style-type:disc"><strong>Rems:</strong> This unit is similar to ems, but it is based on the font size of the root element. For example, <code>font-size: 1.5rem</code> will make the element&#x27;s font 1.5 times as large as the font size of the root element.</li></ul><ul id="e5511d56-1b77-406c-9947-cfb0e703c3d8" class="bulleted-list"><li style="list-style-type:disc"><strong>Viewport units:</strong> These units are based on the size of the viewport. For example, <code>width: 100vw</code> will make the element 100% as wide as the viewport.</li></ul><p id="9813fbbc-6cdf-4d8c-ae32-75332d910bc1" class=""><strong>Which type of unit should you use?</strong></p><p id="2e8fb5b0-b5d3-4963-bac9-3d58636f5b3e" class="">The type of unit you should use depends on the specific situation. If you need an element to have a fixed size, then you should use an absolute unit. If you need an element to scale with the size of the viewport or the font size of the element, then you should use a relative unit.</p><p id="9cfb8edc-9cf8-4555-ab3c-2de3acff0afe" class="">Here is a table that summarizes the differences between absolute and relative units:</p><table id="97050cac-abaf-43a4-9e20-a3504d922612" class="simple-table"><tbody><tr id="48716ef1-24de-4e08-a57b-15b15e025bea"><td id=";YP@" class=""><strong>Feature</strong></td><td id="O~TQ" class=""><strong>Absolute Units</strong></td><td id="[eMZ" class=""><strong>Relative Units</strong></td></tr><tr id="6000e4bf-45cd-43b1-a993-4783b207058b"><td id=";YP@" class="">Size</td><td id="O~TQ" class="">Fixed</td><td id="[eMZ" class="">Relative to another element</td></tr><tr id="29ad2dad-ec82-4842-b3ac-a24711366a0a"><td id=";YP@" class="">Scaling</td><td id="O~TQ" class="">Does not scale</td><td id="[eMZ" class="">Scales with the size of the viewport or the font size</td></tr><tr id="90adf4ea-d7d9-4750-bb6d-f616514d360f"><td id=";YP@" class="">Use cases</td><td id="O~TQ" class="">Print layout, fixed-width elements</td><td id="[eMZ" class="">Responsive web design, scalable layouts</td></tr></tbody></table><table id="633d738e-c036-4512-8967-31782ab7ad64" class="simple-table"><tbody><tr id="d9f504b0-2219-4878-9a2e-59e633043737"><td id=";wBv" class=""><strong>Property</strong></td><td id="fzz^" class=""><strong>Absolute units</strong></td><td id="bKIv" class=""><strong>Relative units</strong></td></tr><tr id="370f1f61-1242-4b55-8c4d-351eaa20016d"><td id=";wBv" class="">Size</td><td id="fzz^" class="">Fixed</td><td id="bKIv" class="">Responsive</td></tr><tr id="5451be00-926b-475c-8b14-208a426d5082"><td id=";wBv" class="">Examples</td><td id="fzz^" class="">px, in, cm, mm, pt</td><td id="bKIv" class="">%, em, rem</td></tr><tr id="0c2cfd3f-ec56-48f4-93fa-8487715593c2"><td id=";wBv" class="">Use cases</td><td id="fzz^" class="">Exact sizes, print layouts</td><td id="bKIv" class="">Responsive layouts</td></tr></tbody></table><h1 id="c80aebb4-65af-492a-bb58-62079a34a43d" class="block-color-orange_background"><strong>68. The Font Family Property</strong></h1><p id="be0d4b6b-69eb-4684-9064-9c2d0abda4c2" class="block-color-orange_background">
+</p><pre id="8cbb034b-22d4-47fe-814c-94193e8e9045" class="code"><code>/* A font family name and a generic family name */
+font-family: &quot;Gill Sans Extrabold&quot;, sans-serif;
+font-family: &quot;Goudy Bookletter 1911&quot;, sans-serif;
+
+/* A generic family name only */
+font-family: serif;
+font-family: sans-serif;
+font-family: monospace;
+font-family: cursive;
+font-family: fantasy;
+font-family: system-ui;
+font-family: ui-serif;
+font-family: ui-sans-serif;
+font-family: ui-monospace;
+font-family: ui-rounded;
+font-family: emoji;
+font-family: math;
+font-family: fangsong;
+
+/* Global values */
+font-family: inherit;
+font-family: initial;
+font-family: revert;
+font-family: revert-layer;
+font-family: unset;</code></pre><pre id="e1054040-095d-4084-ac03-1bb9ea659c80" class="code"><code>.serif {
+  font-family: Times, &quot;Times New Roman&quot;, Georgia, serif;
+}
+
+.sansserif {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.monospace {
+  font-family: &quot;Lucida Console&quot;, Courier, monospace;
+}
+
+.cursive {
+  font-family: cursive;
+}
+
+.fantasy {
+  font-family: fantasy;
+}
+
+.emoji {
+  font-family: emoji;
+}
+
+.math {
+  font-family: math;
+}
+
+.fangsong {
+  font-family: fangsong;
+}</code></pre><p id="b7337f8c-b8a3-4bad-bcd7-6496b9e6e520" class="block-color-orange_background">
+</p><p id="9c7d77d9-8de5-4284-8c2f-983add8a01fe" class="block-color-orange_background">
+</p><p id="a17dad2a-1e57-481b-b02d-286c607ead94" class="">Sure. The <strong>font-family</strong> property in CSS specifies the font for an element. It can hold a prioritized list of one or more font family names and/or generic family names. The browser will try to use the first font in the list that it has installed, and if it doesn&#x27;t have the first font, it will try the next font, and so on.</p><p id="eb8081b1-af60-479b-9b19-8b231fdab600" class="">Here is an example of how to use the <strong>font-family</strong> property:</p><p id="e847936b-24a6-4b7c-a1ba-cfa9ef115a75" class=""><strong>CSS</strong></p><pre id="5cc7db12-aae6-4186-bd8e-691a90842914" class="code code-wrap"><code>body {
+  font-family: &quot;Helvetica Neue&quot;, Arial, sans-serif;
+}
+</code></pre><p id="9f77c539-5b16-4509-972d-8b7e977c5c2e" class="">In this example, the browser will try to use the font &quot;Helvetica Neue&quot; first. If it doesn&#x27;t have that font installed, it will try the font &quot;Arial&quot;. If it doesn&#x27;t have that font installed either, it will try a sans-serif font.</p><p id="6542aba0-7050-412e-9aff-16d0c7083714" class="">The <strong>font-family</strong> property can also be used to specify generic font families. The following are the five generic font families:</p><ul id="e3a37b84-e961-4b39-8563-bc075fa761c6" class="bulleted-list"><li style="list-style-type:disc"><strong>Serif:</strong> These fonts have small strokes at the edges of each letter. They create a sense of formality and elegance.</li></ul><ul id="b819fa75-b234-4c3e-8e8a-69cbf16ba729" class="bulleted-list"><li style="list-style-type:disc"><strong>Sans-serif:</strong> These fonts have clean lines (no small strokes attached). They create a modern and minimalistic look.</li></ul><ul id="b62d0dd3-057d-4631-9c98-219de07328a4" class="bulleted-list"><li style="list-style-type:disc"><strong>Monospace:</strong> These fonts have all the letters have the same fixed width. They create a mechanical look.</li></ul><ul id="359d03a2-996c-4cd7-bc20-fd3b11559739" class="bulleted-list"><li style="list-style-type:disc"><strong>Cursive:</strong> These fonts imitate human handwriting.</li></ul><ul id="6a3de0e6-ec42-41ae-ba8f-6f87355ecee5" class="bulleted-list"><li style="list-style-type:disc"><strong>Fantasy:</strong> These fonts are decorative/playful fonts.</li></ul><p id="90a9351b-2699-4391-b219-ddc0b7d4689c" class="">Here is an example of how to use a generic font family:</p><p id="7cedec98-c8cb-429b-8625-6c2444ec9313" class=""><strong>CSS</strong></p><pre id="601ab95d-7398-46a7-9f4d-18298cb62333" class="code code-wrap"><code>body {
+  font-family: sans-serif;
+}
+</code></pre><p id="34ca7514-bd9b-4d16-8f7d-fb33a49417a4" class="">In this example, the browser will try to use any sans-serif font that it has installed.</p><p id="cbc7ca75-c60b-4b58-96b6-a99bf2892d61" class="">The <strong>font-family</strong> property is a very important property in CSS, and it can be used to control the look and feel of your web pages. By using the <strong>font-family</strong> property, you can ensure that your web pages look good on all devices and browsers.</p><p id="826f59d8-8232-416d-9041-470ae6d4b3a8" class="">Here are some additional tips for using the <strong>font-family</strong> property:</p><ul id="c893bd95-1ab5-4ca4-bea9-04f75b30a71d" class="bulleted-list"><li style="list-style-type:disc">Start with the font you want, and end with a generic family. This will ensure that the browser will always be able to find a font to use.</li></ul><ul id="9504da03-0b52-4061-bf51-1138f8b844f7" class="bulleted-list"><li style="list-style-type:disc">Use a comma to separate each font family name in the list.</li></ul><ul id="1b590352-1111-40a2-803e-ef2db3f03f4f" class="bulleted-list"><li style="list-style-type:disc">If a font name contains white space, you must quote it.</li></ul><ul id="8313f82d-ba29-42da-8ced-a6360cfb9d81" class="bulleted-list"><li style="list-style-type:disc">You can use the <code>!important</code> keyword to make the <strong>font-family</strong> property override other CSS rules.</li></ul><p id="0db80287-8da8-4b36-8151-b4e33e2e3e23" class="">I hope this helps! Let me know if you have any other questions.</p><p id="59ceb172-1892-4539-a0b7-c43e41644746" class=""><strong>Code snippet</strong></p><pre id="288623fd-a679-42f3-904f-ce2d49f64f58" class="code code-wrap"><code>h1 {
+  font-family: &quot;Helvetica Neue&quot;, Arial, sans-serif;
+}
+</code></pre><p id="101e5b00-d083-4580-ae3f-ffe0c510d03d" class="">This code tells the browser to use the <code>Helvetica Neue</code> font if it is available. If not, the browser will use the <code>Arial</code> font. If the <code>Arial</code> font is also not available, the browser will use a sans-serif font.</p><p id="157eb442-8ac0-41e3-bfa2-0a408c02a901" class="">Here is a table of some common font families:</p><table id="15f523e2-03cc-4f56-a259-e8a2feec2661" class="simple-table"><tbody><tr id="58a8b335-e31b-4fb3-9263-ef25564fdbae"><td id="}I?T" class=""><strong>Font Family</strong></td><td id="`UQD" class=""><strong>Description</strong></td></tr><tr id="42aec2ae-b4f6-4fa3-bbe8-a01c90d58b82"><td id="}I?T" class="">Arial</td><td id="`UQD" class="">A sans-serif font that is widely used on the web.</td></tr><tr id="e5424be1-0a39-4fcb-beab-7c4e8a15d48b"><td id="}I?T" class="">Times New Roman</td><td id="`UQD" class="">A serif font that is often used for formal documents.</td></tr><tr id="14491930-42d5-420e-bc1a-c9ace8e0ed43"><td id="}I?T" class="">Georgia</td><td id="`UQD" class="">A serif font that is similar to Times New Roman, but with a slightly wider letter spacing.</td></tr><tr id="3aa5d37a-322a-4c7b-ab5b-1ea7576dfb06"><td id="}I?T" class="">Garamond</td><td id="`UQD" class="">A serif font that is often used for classic books and magazines.</td></tr><tr id="6b22d2c3-b049-456a-8442-93b8b99ca9ca"><td id="}I?T" class="">Courier New</td><td id="`UQD" class="">A monospace font that is often used for code and tables.</td></tr></tbody></table><p id="9f591361-cab4-4e15-9061-8f4ffe238513" class="">You can also use generic font families with the <code>font-family</code> property. The following table lists the five generic font families:</p><table id="b7c78534-f91a-4e51-ba08-9de6f35d39d3" class="simple-table"><tbody><tr id="832f4ad7-7928-4c22-bc54-10fafe89f96d"><td id="GrPm" class=""><strong>Generic Font Family</strong></td><td id="[OQa" class=""><strong>Description</strong></td></tr><tr id="83459b96-f94a-40ba-9b0d-60a2cb261c26"><td id="GrPm" class="">serif</td><td id="[OQa" class="">A font with serifs, which are small strokes that are attached to the ends of the letters.</td></tr><tr id="a9213114-26ba-4b7e-9525-ab226c431a59"><td id="GrPm" class="">sans-serif</td><td id="[OQa" class="">A font without serifs.</td></tr><tr id="259e9011-104b-4ea1-9369-d41255cdb36a"><td id="GrPm" class="">monospace</td><td id="[OQa" class="">A font where all the letters have the same width.</td></tr><tr id="574e6658-3577-46fd-86c8-2402e1ddd183"><td id="GrPm" class="">cursive</td><td id="[OQa" class="">A font that imitates human handwriting.</td></tr><tr id="ecacfa56-ae27-4ffd-a45b-5275e295a692"><td id="GrPm" class="">fantasy</td><td id="[OQa" class="">A decorative font.</td></tr></tbody></table><p id="a3a6d294-e93d-46e5-a567-ead2d85d51e8" class="">For example, the following CSS code specifies the <code>font-family</code> for the <code>p</code> element to be a sans-serif font:</p><p id="73520e4f-6e19-4f55-944f-8c2760dfe310" class=""><strong>Code snippet</strong></p><pre id="8cd7b9d1-d02e-4e0b-bab9-ffa4686ad3fd" class="code code-wrap"><code>p {
+  font-family: sans-serif;
+}
+</code></pre><p id="246a8704-5b03-4693-be42-fc8876271b91" class="">This code tells the browser to use any sans-serif font that is available.</p><p id="98639cfc-e51f-4ef8-a0be-dce922678774" class="">The <code>font-family</code> property is a very powerful tool that can be used to control the typography of your web pages. By carefully choosing the fonts that you use, you can create a visually appealing and readable user experience.</p><p id="42f30c38-aa4a-4dd4-8e8b-f66c14519959" class="block-color-orange_background">
+</p><figure id="133995ca-635f-4bf3-adae-1ee6f53f157f" class="block-color-orange link-to-page"><a href="007%20-%20The%20World%20Of%20CSS%20Selectors%20133995ca635f4bf3adae1ee6f53f157f.html">007 - The World Of CSS Selectors</a></figure></div></article></body></html>

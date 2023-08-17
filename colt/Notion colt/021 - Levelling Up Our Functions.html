@@ -1,0 +1,886 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>021 - Levelling Up Our Functions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d4f12a28-8775-4779-b577-88055fc793e9" class="page sans"><header><h1 class="page-title">021 - Levelling Up Our Functions</h1><p class="page-description"></p></header><div class="page-body"><figure id="27c9578c-785f-471b-8092-38762a3c1b7c" class="link-to-page"><a href="020%20-%20New%20Introduction%20Functions%2027c9578c785f471b809238762a3c1b7c.html">020 - New Introduction Functions</a></figure><h1 id="1b730c4a-9616-4bb4-8e72-ec2ab792ad39" class="block-color-teal_background"><mark class="highlight-red">VERT IMPORTANT MODULE
+VERY THEORY MODULE</mark></h1><h1 id="2ffafe1d-b20f-4c76-be7b-9d5fb02e788e" class="block-color-orange_background"><strong>213. What Matters In This Section</strong></h1><figure id="13fae9e6-b051-4c1f-958c-fcdf0dd547a0" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled.png"/></a></figure><p id="ee787b70-b09a-4743-aeee-2061316746aa" class="block-color-orange_background">
+</p><h1 id="97ecc358-b6a7-4c89-b8e4-7ef05b98daee" class="block-color-orange_background"><strong>214. Function Scope</strong></h1><figure id="295e442d-7b13-4a5f-9b8b-7dcec5acf2e5" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%201.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%201.png"/></a></figure><p id="9d1923ee-0c1e-4166-82ad-b804f5b23918" class="block-color-orange_background">
+</p><figure id="d2327b8a-b2ac-42df-bdda-bcf9e571b127" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%202.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%202.png"/></a></figure><p id="ff7fc0d7-d4fb-4ae1-ba04-b45ec02ec58d" class="block-color-orange_background">
+</p><figure id="6a269710-15c4-419d-99ca-53d7d875cbe7" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%203.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%203.png"/></a></figure><p id="28bf9db3-ae5c-4656-bd36-eb3de920c6a3" class="block-color-orange_background">
+</p><figure id="6fd6559b-2ade-4c57-8ce1-f809ccf204f6" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%204.png"><img style="width:1000px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%204.png"/></a></figure><p id="019479e1-fef9-487a-80a3-2ffc1fe133e9" class="block-color-orange_background">
+</p><figure id="d661e91a-d297-47f1-9354-761ea197c41d" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%205.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%205.png"/></a></figure><p id="c6cea3b5-4e9c-4324-ab7b-8de25deaf2d3" class="block-color-orange_background">
+</p><figure id="715c18b0-a8c2-49ac-bd20-aa34487430b3" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%206.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%206.png"/></a></figure><p id="a07ff7f0-9ab4-446c-8e5c-dd96b200e36f" class="block-color-orange_background">
+</p><figure id="500e2694-95d0-4029-9742-ce506f816406" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%207.png"><img style="width:1600px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%207.png"/></a></figure><p id="6aa88f2c-f117-4a1a-abb9-21a99df76257" class="block-color-orange_background">
+</p><h1 id="d101647d-ac2e-4b01-9873-794552bebd6b" class="block-color-orange_background"><strong>215. Block Scope</strong></h1><figure id="b5ab66ce-46b0-4532-bc48-8fa094d46649" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%208.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%208.png"/></a></figure><p id="a9dd3fd2-d969-4265-8ef8-ef1a756cbaec" class="block-color-orange_background">
+</p><figure id="945f54d3-b7dd-42bf-a970-9f72fdd2ae1a" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%209.png"><img style="width:1879px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%209.png"/></a></figure><p id="54e3cdcd-8ed8-4cf7-807c-803f9e949f3c" class="block-color-orange_background">
+</p><figure id="92315534-29f3-4b18-9725-f591a9e505d8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2010.png"><img style="width:724px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2010.png"/></a></figure><p id="faf64b4a-0814-4c88-803c-3b80423ef87b" class="block-color-orange_background">
+</p><h1 id="e439420f-1619-4526-9454-4228ad746c2d" class="block-color-orange_background"><strong>216. Lexical Scope</strong></h1><figure id="015bf27c-225f-4ed9-b48c-9f6be31d75da" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2011.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2011.png"/></a></figure><p id="8fca6f94-f2cb-4d63-9e81-a4f51ebc4f81" class="block-color-orange_background">
+</p><figure id="dd16e9d4-c4a9-4e4c-95d1-4defed4931ca" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2012.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2012.png"/></a></figure><p id="846b6b6e-09ea-4a0c-9769-379c35aa8958" class="block-color-orange_background">
+</p><figure id="9c1f09a7-830d-46eb-b667-6b4b651cffa8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2013.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2013.png"/></a></figure><p id="bb77523a-792d-4b0a-874a-fa6cc20802d0" class="block-color-orange_background">
+</p><figure id="0d5748c3-7842-4ccf-8a2f-e5e14444eb92" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2014.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2014.png"/></a></figure><p id="350b18ea-f1cc-4f71-9081-77c9491a0d14" class="block-color-orange_background">
+</p><figure id="8ba1e242-b6b4-423c-b2b8-f72018021fab" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2013.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2013.png"/></a></figure><p id="ddbd28a8-4a6b-4fa2-bdba-3c3cc62b9eb2" class="block-color-orange_background">
+</p><figure id="38280c3a-6a2e-4152-ac8e-371344fbc6da" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2015.png"><img style="width:811px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2015.png"/></a></figure><p id="c1b83f44-9d8b-4c56-ad9b-12f5020a08f5" class="block-color-orange_background">
+</p><figure id="06262098-d20d-4063-aab7-5b005b9e368f" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2016.png"><img style="width:1200px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2016.png"/></a></figure><p id="fc2cc019-002d-427c-b3d1-2cbcea7dc30c" class="block-color-orange_background">
+</p><h1 id="812e6f2d-1c8a-4cfe-af27-200fe422fa65" class="block-color-orange_background"><strong>217. Function Expressions</strong></h1><div id="843e7ae4-d89c-4a79-944a-df165a8300d5" class="column-list"><div id="08d3ab81-c2a9-466f-9977-64ff5a9108da" style="width:100%" class="column"><blockquote id="1eb256af-6d80-49b2-b6a0-3cfb6c1fa1f5" class="block-color-orange_background">regular Function statement</blockquote></div><div id="c3206b8d-e5f5-4213-96ac-2410a19f2bb1" style="width:100%" class="column"><p id="dac5bb21-dac0-4c77-b8bb-cb7c2d7dd0e2" class="">
+</p></div></div><figure id="097bd8d4-457f-404b-bd37-c1048b45c9fd" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2017.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2017.png"/></a></figure><div id="20d5dc65-46fd-45e8-b670-10d870356d50" class="column-list"><div id="6fdfc6e8-ffda-487d-b27a-c635fdaa288b" style="width:100%" class="column"><blockquote id="11d2b625-8949-4d3a-8964-d79db6fee776" class="block-color-orange_background">regular function execution</blockquote></div><div id="5f4512fd-e7c0-46ac-9c03-ee511abba5e1" style="width:100%" class="column"><p id="d3789deb-4c18-450b-88a0-590fafcc07a3" class="">
+</p></div></div><figure id="364a2023-e198-4790-81a0-52f2b92bac80" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2018.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2018.png"/></a></figure><p id="c227ca73-b8f9-43e6-b278-6daed87b9c30" class="block-color-orange_background">
+</p><figure id="6439943f-d809-427a-995d-32fedd4e09f0" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2019.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2019.png"/></a></figure><p id="4d79bade-cd2e-4d56-9f09-3b32cdf7224f" class="block-color-orange_background">
+</p><figure id="05c43f3b-7a31-4b4c-891f-cd373ce6ba9b" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2020.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2020.png"/></a></figure><p id="91c06d22-be74-4897-8c30-7cd38f2b8e77" class="block-color-orange_background">
+</p><figure id="d351973d-4ea6-4107-8a96-0dcda26999c8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2021.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2021.png"/></a></figure><p id="b56d5008-1e5a-4b38-aa03-1bc51de03aa6" class="block-color-orange_background">
+</p><figure id="379b0976-855f-40e1-8cdb-f2cabb91d943" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2022.png"><img style="width:1400px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2022.png"/></a></figure><p id="f38002c3-eec0-443d-9a20-1064181d7b33" class="block-color-orange_background">
+</p><h1 id="ac573c1c-deb0-4bec-9110-c484c894be1b" class="block-color-orange_background"><strong>218. Higher Order Functions</strong></h1><h1 id="5af41caa-8377-4cc6-aae9-edc8a245f7db" class="block-color-teal_background"><mark class="highlight-red">VERT IMPORTANT TOPIC</mark></h1><figure id="0df38d1e-a642-43c1-af60-5ec993be12a0" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2023.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2023.png"/></a></figure><p id="7a2f3852-fbac-458e-821e-67c94c3dd3fe" class="block-color-orange_background">
+</p><figure id="671efa5c-a3ab-4556-9ce1-992f6bf39852" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2024.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2024.png"/></a></figure><p id="7128e305-6e37-4a50-8a19-e12b65871f82" class="block-color-orange_background">
+</p><figure id="dc859b03-cf39-4590-b8a2-a7f2dcebb8cf" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2025.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2025.png"/></a></figure><p id="bb3e78eb-cb30-4af1-a5e4-03aedf8d14e3" class="block-color-orange_background">
+</p><figure id="1db5b4d0-8393-41c0-b0af-c81bee758c6f" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2026.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2026.png"/></a></figure><p id="9f04776b-2d48-4320-b716-31c396e5cc6d" class="block-color-orange_background">
+</p><figure id="5b2a7485-734a-429f-9e5a-97370b296913" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2027.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2027.png"/></a></figure><p id="05340dae-ab1b-4ff4-b0db-83eda6f485d5" class="block-color-orange_background">
+</p><p id="87d4d1dc-277b-49fd-8a3f-f2e728cbb971" class="block-color-teal_background">Passing functions as arguments to other functions is a powerful feature in JavaScript known as &quot;<strong>Higher-order functions.</strong>&quot; Higher-order functions can accept other functions as arguments and also return functions as their output.</p><p id="96cdec11-ac2a-403b-ac01-8af17250f428" class="">Here&#x27;s an example of passing a function as an argument to another function:</p><pre id="58b41cb9-e9f0-4fd2-97e9-117e9d4c47cb" class="code code-wrap"><code>// Function that accepts another function as an argument
+function performOperation(operation, a, b) {
+  return operation(a, b);
+}
+
+// Example functions to be used as arguments
+function add(a, b) {
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+// Using the performOperation function with different operations
+const result1 = performOperation(add, 5, 3);
+console.log(result1); // Output: 8
+
+const result2 = performOperation(subtract, 10, 4);
+console.log(result2); // Output: 6
+
+const result3 = performOperation(multiply, 2, 6);
+console.log(result3); // Output: 12</code></pre><p id="18a88aac-520f-4107-a04b-95805cb4a9da" class="">In this example, we have a higher-order function <code>performOperation</code> that takes three arguments: an <code>operation</code> (which is a function), and two numbers <code>a</code> and <code>b</code>. The <code>performOperation</code> function then calls the <code>operation</code> function with the provided arguments <code>a</code> and <code>b</code> and returns the result.</p><p id="327a9545-faaa-4c18-836a-c27da143bd6b" class="">We then define three functions (<code>add</code>, <code>subtract</code>, and <code>multiply</code>), which will be used as operations in the <code>performOperation</code> function. When we call <code>performOperation</code> with different operations and number arguments, it executes the appropriate operation and returns the result.</p><p id="07ad9d11-95e4-4e26-91c1-94490f4c69e3" class="">This technique is especially useful when you want to pass different behavior to a function, making it more flexible and reusable. Higher-order functions are commonly used in functional programming and various design patterns in JavaScript.</p><p id="e74dde50-7f12-4181-a421-48c7c4f5b601" class="block-color-orange_background">
+</p><p id="6e99dec5-f925-47d6-8bc2-8c7a9d3fe91a" class="block-color-orange_background">
+</p><p id="f506acc1-039a-4222-857e-695eb78aea9c" class="block-color-teal_background">Sure! Let&#x27;s create a slightly more complex example using a higher-order function to filter an array based on a custom filtering function.</p><p id="65bad082-1ace-4d86-8582-9e72a4de751e" class="">Suppose we have an array of numbers, and we want to filter out the even numbers from the array using a custom filtering function.</p><pre id="88074e42-c487-4940-afff-3b34a220100a" class="code code-wrap"><code>// Higher-order function that filters an array based on a custom filter function
+function customFilter(array, filterFunction) {
+  const filteredArray = [];
+  for (let i = 0; i &lt; array.length; i++) {
+    if (filterFunction(array[i])) {
+      filteredArray.push(array[i]);
+    }
+  }
+  return filteredArray;
+}
+
+// Custom filtering function to filter even numbers
+function isEven(number) {
+  return number % 2 === 0;
+}
+
+// Custom filtering function to filter odd numbers
+function isOdd(number) {
+  return number % 2 !== 0;
+}
+
+// Sample array of numbers
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Using the customFilter function with the isEven function as the filter
+const evenNumbers = customFilter(numbers, isEven);
+console.log(evenNumbers); // Output: [2, 4, 6, 8, 10]
+
+// Using the customFilter function with the isOdd function as the filter
+const oddNumbers = customFilter(numbers, isOdd);
+console.log(oddNumbers); // Output: [1, 3, 5, 7, 9]</code></pre><p id="a18dca99-78b7-49bb-8552-c11641e08182" class="">In this example, we have a higher-order function <code>customFilter</code>, which takes an array and a <code>filterFunction</code> as arguments. The <code>filterFunction</code> is a callback function that determines whether an element should be included in the filtered array or not. If the <code>filterFunction</code> returns <code>true</code> for an element, it is added to the <code>filteredArray</code>.</p><p id="52d65104-0def-4592-ac72-1c0fb0ee825f" class="">We also define a custom filtering function <code>isEven</code>, which checks whether a number is even or not by returning <code>true</code> if it is even, and <code>false</code> otherwise.</p><p id="7bc1f61d-401e-4b47-a54d-c61899764869" class="">Finally, we have a sample array of numbers. When we call the <code>customFilter</code> function with the <code>numbers</code> array and the <code>isEven</code> function, it filters out the even numbers from the array and stores the result in <code>evenNumbers</code>. The <code>evenNumbers</code> array contains only the even numbers from the original array.</p><p id="714d1535-a8e0-4416-a824-fb5f76708ac0" class="">This example demonstrates how we can create more complex logic by passing functions as arguments to higher-order functions, enabling us to have a reusable and flexible solution for various filtering scenarios.</p><p id="689c7829-5b58-4ee8-ade4-93724c266554" class="block-color-orange_background">
+</p><figure id="e2f2dcc0-04f3-419e-8c4c-d85ee7e9e9f8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2028.png"><img style="width:708px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2028.png"/></a></figure><p id="9f860791-8cba-4551-99cd-e8aa84b4fd38" class="block-color-orange_background">
+</p><figure id="40d55760-bd92-48aa-a401-8ab80456eba7" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2029.png"><img style="width:1280px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2029.png"/></a></figure><p id="3411840e-0882-42ba-8cee-dbb68bcf5e5c" class="block-color-orange_background">
+</p><figure id="175a1e4a-1ae7-497b-95e0-12771d468d70" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2030.png"><img style="width:1280px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2030.png"/></a></figure><p id="d30165aa-74bc-44bc-a6da-ac39bf3425c2" class="block-color-orange_background">
+</p><h1 id="36decfcb-0c4f-47bf-b139-cbaf889d5f44" class="block-color-orange_background"><strong>219. Returning Functions (Higher Order Functions that Returns functions)</strong></h1><h1 id="dde5715c-1c5a-43d5-a8b4-0e7b007ad5cf" class="block-color-teal_background"><mark class="highlight-red">VERT IMPORTANT TOPIC</mark></h1><figure id="42d9e05d-3a75-42d8-915a-d02a479aaa8b" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2031.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2031.png"/></a></figure><p id="48e6c07d-00cb-45f0-ac51-158f6918930b" class="block-color-orange_background">
+</p><figure id="d08d314f-0bc7-4dc6-8522-cadcc8324b25" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2032.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2032.png"/></a></figure><p id="dbed0da2-499f-4041-b626-0009e631a52d" class="block-color-orange_background">
+</p><figure id="352cb894-1c39-4905-91fa-1880ee719099" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2033.png"><img style="width:1280px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2033.png"/></a></figure><p id="bc3c7270-7e6d-4d02-a7ae-3fdce18171e1" class="block-color-orange_background">
+</p><figure id="bb74984f-9d57-4ed3-9add-65c118ced8fb" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2034.png"><img style="width:956px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2034.png"/></a></figure><p id="55a73832-ff35-4ccb-9d77-0d4f8dd3f657" class="block-color-orange_background">
+</p><figure id="7fb04e10-5932-47cf-8687-2cc1cdfff3ba" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/code.png"><img style="width:1710px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/code.png"/></a></figure><p id="43ab80f9-2dbe-4f71-8210-6d29eeb120d7" class="block-color-orange_background">
+</p><figure id="9fa714e4-36f9-4576-9a9a-97f69fe075b8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2035.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2035.png"/></a></figure><p id="377d2934-227b-4c92-97a5-372bc4e0d1c3" class="block-color-orange_background">
+</p><figure id="0fc11553-d965-4855-986a-bff4f7358e20" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2036.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2036.png"/></a></figure><p id="35193820-2001-420d-a3bf-8838d2016eec" class="block-color-orange_background">
+</p><figure id="a81e2635-5d56-42f3-b02f-ee20344bb896" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2037.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2037.png"/></a></figure><p id="6c4c8d5d-2b21-4998-aaa2-4dd445225f2b" class="block-color-orange_background">closures example </p><figure id="2ef0e33b-8d32-4844-8f4f-c422e772da31" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2038.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2038.png"/></a></figure><p id="c8b9c6de-d9b3-49af-99df-3fb5e65502ac" class="block-color-orange_background">
+</p><figure id="b2e9de8a-40f5-47f8-9a64-7e85072fd9f7" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2039.png"><img style="width:1919px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2039.png"/></a></figure><h1 id="298fb970-ba2c-449e-bf04-086832ed6c66" class="block-color-orange_background">Very important video explanation</h1><p id="dba0480e-f3d4-4c3f-8c44-5437d7f59a54" class="block-color-teal_background"><mark class="highlight-red">In JavaScript, functions can be used as templates to create closures. </mark>Closures are functions that &quot;remember&quot; the environment in which they were created, including the variables that were in scope at that time. <mark class="highlight-red">The concept of closures is fundamental in understanding the behavior of the three functions you mentioned.</mark></p><p id="b2276307-a540-4ee5-a5bd-d3211ab361a3" class="block-color-teal_background"><mark class="highlight-red">Let&#x27;s break down the statement &quot;The reason you are getting the same output for all three functions is because they are essentially the same function template with different closure values&quot; in the context of JavaScript functions and closures:</mark></p><ol type="1" id="601e5220-c540-4c3b-845a-1554f91651f9" class="block-color-teal_background numbered-list" start="1"><li><mark class="highlight-red">Function Templates:
+A function template is a blueprint or a template for creating functions with similar functionality. It defines the structure and behavior of a function without specifying specific values for variables or parameters.</mark></li></ol><ol type="1" id="4a47af05-2746-44e8-a865-0f1b47dcff32" class="block-color-teal_background numbered-list" start="2"><li><mark class="highlight-red">Closure:
+A closure is created when a function is defined within another function, and the inner function retains access to the variables and parameters of its outer function, even after the outer function has finished executing. This allows the inner function to &quot;close over&quot; or capture the state of its surrounding environment.</mark></li></ol><p id="2a9c5b7d-68fd-42fd-8958-679016b4a9e6" class="block-color-teal_background"><mark class="highlight-red">Now, let&#x27;s consider the three functions:</mark></p><pre id="ea0db766-e64c-4b02-97cc-33fb9e80d7e8" class="code code-wrap"><code>function createFunction(x) {
+  return function() {
+    return x;
+  };
+}</code></pre><p id="b2fb0ece-dc0c-43e7-9543-0c9844abc1ad" class="">Here, <code>createFunction</code> is a function template. It takes a parameter <code>x</code> and returns an inner function that doesn&#x27;t take any parameters. The inner function simply returns the value of <code>x</code>, which is captured in its closure.</p><p id="199349da-0ee5-4760-9a09-80e929d2a4e4" class="">Now, let&#x27;s create instances of the function using the template:</p><pre id="c88463df-1a56-49e2-b77c-86657d28f007" class="code code-wrap"><code>const func1 = createFunction(1);
+const func2 = createFunction(2);
+const func3 = createFunction(3);</code></pre><p id="7eeb1c86-6bcd-4f32-bdb3-d0243690bc5d" class="">In this case, <code>func1</code>, <code>func2</code>, and <code>func3</code> are three separate functions, each created from the <code>createFunction</code> template with different values for <code>x</code>.</p><p id="6f9273f4-09dc-45f9-a092-1bb2a508374a" class="">However, even though these functions were created with different <code>x</code> values, their inner functions are still the same, and they are referencing their own respective closure values for <code>x</code>. So, when you call these functions, they all return the value of <code>x</code> from their closure.</p><p id="dcb163c3-a6ff-4d22-8921-2223aac6b81f" class="">Example:</p><pre id="d132ea66-870e-443a-8a88-4a18f4b338c5" class="code code-wrap"><code>console.log(func1()); // Output: 1
+console.log(func2()); // Output: 2
+console.log(func3()); // Output: 3</code></pre><p id="744a4370-a549-4c40-847d-5ca742cf2ef2" class="">In each case, the inner function uses its closure to &quot;remember&quot; the value of <code>x</code> that was passed during its creation, hence the consistent output for all three functions.</p><p id="d7c89665-d46d-45f3-ba79-61731eed6eaf" class="">To summarize, the functions created from the same template share the same inner function structure but have different closure values due to different <code>x</code> values passed to them during their creation. As a result, they produce different outputs based on their individual closure values.</p><p id="ee12d039-e6d1-4645-ab7f-4fd20a7f01ba" class="block-color-orange_background">
+</p><figure id="90220901-fc0c-4764-afb1-fe04edc8259e" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2040.png"><img style="width:620px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2040.png"/></a></figure><p id="36f00ce2-a89f-4096-a255-1b33aa1cbae1" class="block-color-orange_background">
+</p><figure id="f369e827-d25a-4676-8a7a-e0248e70e42e" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2041.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2041.png"/></a></figure><p id="6663baa7-3db6-435a-8675-e45b19e6ad9b" class="block-color-orange_background">in closures we can use and update variables that are created in the parent function.</p><p id="e78bfaae-532c-44e3-a573-4c3d2c5df17e" class="block-color-orange_background">
+</p><h1 id="556976d9-e309-4158-a2c7-673b635972fd" class="block-color-orange_background"><strong>220. Defining Methods</strong></h1><h1 id="36113c54-595f-4592-b235-d08557944b82" class="block-color-teal_background"><mark class="highlight-red">VERT IMPORTANT TOPIC</mark></h1><figure id="7f18f7e3-8788-4f1e-a5d6-ae2f0f02410d" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2042.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2042.png"/></a></figure><p id="966e476d-9fff-42ef-bfeb-9fa0300b6633" class="block-color-orange_background">
+</p><figure id="328fa997-3b65-4b2d-a5b8-97c061cb8c09" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2043.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2043.png"/></a></figure><p id="62f26c5d-8ebe-4e1e-aa5d-47ad41f0a483" class="block-color-orange_background">
+</p><figure id="44d34092-8b9e-4660-a9c7-0b60191297ca" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2044.png"><img style="width:602px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2044.png"/></a></figure><p id="5a9b1c93-e20a-49e2-8be7-9008348a1443" class="block-color-orange_background">
+</p><figure id="63f58c23-ccb4-4557-8239-a8d6907e50e6" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2045.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2045.png"/></a></figure><p id="7edf695b-8ce4-49b8-a01d-f26e0d41d971" class="block-color-orange_background">
+</p><figure id="cdb39a8b-59e6-4ef4-af29-db0792e7ef6f" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/code%201.png"><img style="width:480px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/code%201.png"/></a></figure><p id="e2651e68-576e-4c31-9cd2-14a8fabb3369" class="block-color-orange_background">
+</p><figure id="41c876a2-70cd-4bea-a198-fa9478f1a16d" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2046.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2046.png"/></a></figure><p id="d40126b4-e04f-40cc-a507-80fc45392ed0" class="block-color-orange_background">
+</p><figure id="b28aba8a-151f-41b9-9ffc-c1c8c50910f2" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2047.png"><img style="width:528px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2047.png"/></a></figure><p id="0934d6c2-d0d8-42d1-9948-dbf73bf19ecf" class="block-color-orange_background">
+</p><figure id="8a0d4757-01ef-498e-af7d-0e65b5bb10f1" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2048.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2048.png"/></a></figure><p id="fdfca90a-90ad-488f-b19b-943a7e28d0da" class="block-color-orange_background">
+</p><figure id="2372dec4-2864-4094-84f6-7bd905315b9f" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2049.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2049.png"/></a></figure><p id="b9f3ba50-7f84-4bb7-97b3-1979b2359cab" class="block-color-orange_background">
+</p><figure id="45b123d2-1081-4a9e-9b71-0f92bc9af440" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2050.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2050.png"/></a></figure><p id="38773b60-9a5c-45b1-80f6-e97c7c06182c" class="block-color-orange_background">
+</p><figure id="bab8a270-9575-46c3-865d-e7fb2a15388e" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/code%202.png"><img style="width:432px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/code%202.png"/></a></figure><p id="529c2c48-f543-4ea7-8d17-5803ecd0a942" class="block-color-orange_background">
+</p><figure id="34985883-7696-4b33-ad3e-f7b33f99a6f2" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2051.png"><img style="width:896px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2051.png"/></a></figure><p id="fa42eafe-3cb3-40e0-9ba0-b19432a76241" class="block-color-orange_background">
+</p><h1 id="3c4b2a80-98e9-42f0-bda3-2448bb086a68" class="block-color-orange_background">2<strong>21. The Mysterious Keyword &#x27;this&#x27;</strong></h1><h1 id="32c3d5b4-33be-4ae9-baa7-de6bc38bfa98" class="block-color-teal_background"><mark class="highlight-red">VERT IMPORTANT TOPIC
+VERY THEORY VIDEO</mark></h1><figure id="ef40380a-373a-4239-be9c-cf4387096d2d" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2052.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2052.png"/></a></figure><div id="38b39d80-a898-428e-80f5-843130ab68c2" class="column-list"><div id="3891ff1e-d423-466b-b3eb-981db46123c2" style="width:100%" class="column"><blockquote id="3f1b2d2a-4c4a-47bd-b6ae-450048bc8776" class="block-color-orange_background">This will not work without this keyword and it will give error</blockquote></div><div id="29fb53ab-b269-4172-bd33-040146e73e5c" style="width:100%" class="column"><p id="8d4351dc-92fd-4dd2-84ac-7b8573e12223" class="">
+</p></div></div><figure id="0f67dc9a-4159-4caf-86b7-fa3b937cc6d2" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2053.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2053.png"/></a></figure><p id="4b8ece27-c95a-4448-a332-e4acc1407a2f" class="block-color-orange_background">
+</p><figure id="40092b9b-37ff-4349-875e-5ae215e96024" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2054.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2054.png"/></a></figure><p id="0e067efa-81b4-45f3-9308-26772cd1f812" class="block-color-orange_background">
+</p><figure id="cbbe71ec-beff-4e8a-9eb6-086519751d70" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2055.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2055.png"/></a></figure><p id="398e0463-e996-4ac4-9eb4-c4c691167018" class="block-color-orange_background">
+</p><figure id="44b43046-4bab-49b0-aa8b-43c96460d533" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2056.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2056.png"/></a></figure><p id="590e1c3d-a551-49ea-8f32-71a0138c801b" class="block-color-orange_background">
+</p><figure id="8c349f80-1b23-4dfe-9dea-a0650671c3f0" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2057.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2057.png"/></a></figure><p id="7fa04a51-d88c-4b9f-9997-34e65ea6f8b5" class="block-color-orange_background">as we can see in cat.meow() ‘This’ refers to cat object but that is not the case alaways</p><p id="8b74c497-9248-4759-bd59-bb9a2905ca07" class="block-color-orange_background">
+</p><div id="2e7d2c95-fd65-4b52-9928-fd86ba064afa" class="column-list"><div id="f4f2d3d4-2ee1-4058-b7fb-5dc3f11d72f9" style="width:100%" class="column"><blockquote id="ea725977-ff07-4cfd-8587-e554d96a40a0" class="block-color-orange_background"><strong><mark class="highlight-red">Understanding this key word’s invocation context with example</mark></strong>
+
+let us Assign meow() Method to new variable meow2
+
+const meow2 = cat.meow()</blockquote></div><div id="4b4723d7-cda3-4524-948d-05461557a967" style="width:100%" class="column"><p id="694535f4-2bf9-4a66-a6a8-b24776d05b8e" class="">
+</p></div></div><figure id="433fa090-7d0d-4307-bc13-1c520418aa8b" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2058.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2058.png"/></a></figure><div id="c253a542-df60-4b3c-b6b7-1189da2745af" class="column-list"><div id="1ed192e8-403c-4e3a-ae9b-4785ee647b01" style="width:100%" class="column"><blockquote id="7e06a47b-780a-4678-b857-c3d75f60988f" class="block-color-orange_background">Run the code</blockquote></div><div id="72ddadc1-4c26-4dd9-8ded-18bb232d8cab" style="width:100%" class="column"><p id="a51c9fd2-5d00-40d5-a157-7c9cb8c569c8" class="">
+</p></div></div><figure id="87bd2f8d-6081-446c-bec5-9c869698b8e0" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2059.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2059.png"/></a></figure><div id="3a886741-a73f-4151-8ced-eb9741e6e569" class="column-list"><div id="afc21388-345e-41c8-859c-9a0dbd19503f" style="width:125%" class="column"><p id="c89b2ae6-900c-4c9b-859a-91b608d06897" class="block-color-orange_background">Cat.meow() refers to cat object to fetch 
+this.name
+but 
+meow2() is not referring to Cat so the variable
+this.name does not exist</p></div><div id="761df389-ec99-4b27-94d1-39cbfb73032e" style="width:74.99999999999999%" class="column"><p id="00df7028-430a-47c2-a9ce-17cef5b7ccb4" class="">
+</p></div></div><figure id="9e624c55-0aab-49da-8ac3-6d4aa2eea4b3" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2060.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2060.png"/></a></figure><div id="a182555f-fbea-4fab-afa6-7c979ea343c3" class="column-list"><div id="f61e94bd-6a42-48cd-9688-aff62d4cf189" style="width:100%" class="column"><h3 id="a6d4d627-056c-4d02-9670-8e1aa309e75a" class="block-color-orange_background">Window object 
+
+it is the default object in js which takes in all the functions as its methods
+
+that means:- 
+all the functions are methods of Window Object 
+
+all the Global variables are properties of Window Object</h3></div><div id="9747496a-907a-416e-9968-d93a20d3d500" style="width:100%" class="column"><p id="f88d2a8f-581c-43ae-ab1b-2c054f74bb99" class="">
+</p></div></div><p id="6cf92dbb-b917-458e-8ef3-4a2785ecbad5" class="block-color-orange_background">
+</p><figure id="55f435ef-92ab-45c2-b7ba-d9fa0648f7c8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2061.png"><img style="width:450px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2061.png"/></a></figure><p id="e0a0b3cc-caa1-4039-822d-efd50d89e6cf" class="block-color-orange_background">
+</p><figure id="7d5cd599-71fa-49bb-8397-7541fbe5d1f6" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2062.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2062.png"/></a></figure><div id="d05ae96b-4e27-4f9d-b75c-390a6c3a5911" class="column-list"><div id="da042950-5f5f-4d56-8862-b488cf5f6bf4" style="width:100%" class="column"><p id="4f58f7aa-4ee7-4001-855c-6ffc283a77d4" class="block-color-orange_background">We also call it by using default <em><strong>this keyword
+
+</strong></em>as the console is referring to window object <em><strong>this in console will return Window Object</strong></em></p></div><div id="b3df4262-f08b-4c09-a6f1-3ff4e7093dba" style="width:100%" class="column"><p id="03b12030-d41d-419d-a4e7-0e595f711ad3" class="">
+</p></div></div><figure id="ec13f734-80af-40e9-bca1-038f71b4e1db" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2063.png"><img style="width:1920px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2063.png"/></a></figure><div id="21568c46-fa40-4c78-b4b7-14bd238909ca" class="column-list"><div id="a2e76c46-9318-4fb3-a92d-639e6e3518d1" style="width:93.75%" class="column"><h3 id="1ed0d194-a602-46cd-917d-426888d8bb92" class="block-color-orange_background">All the user functions are belong to window object by default that why 
+
+meow2() by default equal to window.meow2() and 
+it fetches {this.name} from window object
+
+see the bellow example</h3></div><div id="502fb52d-6b99-42c3-bdae-7ba9ebac9876" style="width:31.25%" class="column"><p id="1ab015e8-404f-45d8-bdda-6749bf57e007" class="">
+</p></div></div><figure id="db283a60-e4ed-462d-a5e5-eb64f1ecb91e" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2064.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2064.png"/></a></figure><div id="4205efb2-4b2f-4d6f-bcc4-7d4fa8efe267" class="column-list"><div id="759933e5-96d8-47c4-9d6a-10fa4b5f58a8" style="width:106.25%" class="column"><h3 id="c9d4e61d-6530-4257-a974-b9cfc95f9da2" class="block-color-orange_background"><em><strong><mark class="highlight-red">we can check it by console.log(this) in that function
+to find which object was being referred for a method or function</mark></strong></em></h3></div><div id="dc1772d9-3e8a-46d0-91e3-1f25294bb676" style="width:12.499999999999991%" class="column"><p id="bec87dfa-456d-4b03-ad4d-d98d701d7bce" class="">
+</p></div></div><figure id="89d0b876-8592-4e00-a798-1b8945249dda" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2065.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2065.png"/></a></figure><div id="479ed7ac-b766-42ff-b334-2679d1742cfc" class="column-list"><div id="739ea024-78e1-4adc-8291-192324aa126c" style="width:100%" class="column"><p id="33503153-e729-4a5a-bc89-cd068b88adff" class="block-color-orange_background"><strong>Cat.meow() refers to cat</strong></p></div><div id="d71a694c-369c-4c71-9a1e-06c1458d2b2f" style="width:100%" class="column"><p id="fbfbdc2e-0f17-4aff-8c6e-c9825f4a6580" class="">
+</p></div></div><figure id="fe4a7757-c93a-4dc6-96f1-ac213fc9a20f" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2066.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2066.png"/></a></figure><div id="818ac2b4-c00e-494d-a646-520cd60d0605" class="column-list"><div id="5909dcba-aadd-4176-b0ac-2b5258bc81a6" style="width:100%" class="column"><p id="5e010355-8e0b-4459-9eb2-07491819a556" class="block-color-orange_background"><strong>meow2() refers to window</strong></p></div><div id="56a25e44-e104-4bf6-bd2d-54cb93756e15" style="width:100%" class="column"><p id="6e86465c-edd0-4f92-b3f1-61ea36a7da8f" class="">
+</p></div></div><figure id="782e9110-b598-49a7-aea7-5461f417ad79" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2067.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2067.png"/></a></figure><p id="8844a280-cf5e-425d-b904-9530df2c2d23" class="block-color-orange_background">
+</p><figure id="1de3d250-2a55-4f69-9087-ea57532d3de7" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2068.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2068.png"/></a></figure><p id="e08cfe23-e61c-4179-ae70-d2843c753683" class="block-color-orange_background">
+</p><p id="683564d1-08f0-4492-aa89-4626b3b77d20" class="block-color-red_background">In JavaScript, the &quot;this&quot; keyword refers to the context in which a function is executed. The value of &quot;this&quot; can vary depending on how the function is called. Understanding the invocation context of &quot;this&quot; is crucial for proper function behavior and avoiding unexpected results.</p><p id="59c6d9bd-7c5a-49e1-93ce-60af4dbc43a0" class="">There are four main ways that &quot;this&quot; can be determined in JavaScript:</p><ol type="1" id="586e3543-6efd-4d9a-96b2-13a4e15a64f5" class="block-color-orange_background numbered-list" start="1"><li>Global context:
+When &quot;this&quot; is used outside any function or object, it refers to the global object, which is usually the window object in the browser (or global in Node.js).</li></ol><p id="0400b8d3-6392-44ae-8c92-bb5700c4a0a4" class="">Example:</p><pre id="ed133336-7e4c-4ab9-be5f-e08bbb6f2514" class="code code-wrap"><code>console.log(this); // In a browser, it will refer to the window object</code></pre><ol type="1" id="03e7ddcf-3d1c-4948-b6db-9f10b7b4583f" class="block-color-orange_background numbered-list" start="1"><li>Function context:
+When &quot;this&quot; is used inside a regular function, its value depends on how the function is called. It can be set explicitly using the &quot;call,&quot; &quot;apply,&quot; or &quot;bind&quot; methods or set implicitly based on the invocation context.</li></ol><p id="e85277a1-23e5-49b4-a3ea-5457341e04ee" class="">Example:</p><pre id="a1bc8adf-23e1-41c7-9eae-cdc0da145feb" class="code code-wrap"><code>function sayHello() {
+  console.log(this);
+}
+
+const person = {
+  name: &quot;John&quot;,
+  greet: sayHello,
+};
+
+sayHello(); // Here, &quot;this&quot; will refer to the global object (window in the browser)
+person.greet(); // Here, &quot;this&quot; will refer to the &quot;person&quot; object</code></pre><ol type="1" id="756d42f3-9838-4b60-883d-dc6e42537928" class="block-color-orange_background numbered-list" start="1"><li>Method context:
+When &quot;this&quot; is used inside a method of an object, it refers to the object itself.</li></ol><p id="34856f31-3a88-4556-9c7b-7fea0e1e3f62" class="">Example:</p><pre id="92decf73-7c46-4dc7-8564-aec0195a7c3f" class="code code-wrap"><code>const person = {
+  name: &quot;John&quot;,
+  greet: function () {
+    console.log(this.name);
+  },
+};
+
+person.greet(); // &quot;this&quot; will refer to the &quot;person&quot; object, so it will print &quot;John&quot;</code></pre><ol type="1" id="2f3d62f9-bf03-49d7-a735-7858018813a5" class="block-color-orange_background numbered-list" start="1"><li>Arrow function context:
+Arrow functions do not have their own &quot;this&quot; context. Instead, they inherit &quot;this&quot; from the enclosing lexical context (the nearest non-arrow function).</li></ol><p id="b84db8e3-e565-42c9-898d-76bc1e2c2720" class="">Example:</p><pre id="e1cd740e-b03d-4f21-8a6a-8f5aa7319955" class="code code-wrap"><code>const person = {
+  name: &quot;John&quot;,
+  greet: function () {
+    const innerArrow = () =&gt; {
+      console.log(this.name);
+    };
+    innerArrow();
+  },
+};
+
+person.greet(); // &quot;this&quot; inside innerArrow will still refer to the &quot;person&quot; object, so it will print &quot;John&quot;</code></pre><p id="dba82a26-2752-4975-aa5a-8e486db69b89" class="block-color-red_background">using a regular function as a method is preferable when you need access to the object&#x27;s properties (like in the first example), while using an arrow function as a method is not suitable for scenarios where you rely on the value of &quot;this&quot; referring to the object itself (like in the second example).</p><p id="511171ba-48b5-458a-8197-6e059e80d39f" class="">It&#x27;s important to be mindful of how &quot;this&quot; is used and how functions are invoked to ensure that the correct context is applied. Using arrow functions in certain cases can help maintain the expected &quot;this&quot; context.</p><p id="3fae7165-8c8b-4d72-adfa-4ef00d2a8496" class="block-color-orange_background">
+</p><figure id="6cf2e985-92a2-4502-9763-002f4f43f456" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2069.png"><img style="width:528px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2069.png"/></a></figure><p id="20793de5-8e3e-4f53-b91f-e64615480268" class="block-color-orange_background">
+</p><h1 id="f4c46e78-720e-4eb2-8ef0-382c05c80fcc" class="block-color-orange_background"><strong>222. Using Try/Catch</strong></h1><figure id="a578dfa6-721f-4028-975e-a9afda1161e8" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2070.png"><img style="width:514px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2070.png"/></a></figure><p id="125940a7-ff47-48b8-8d73-345830e62a10" class="block-color-orange_background">
+</p><figure id="b9d054ae-663f-46a3-9ae9-572835305660" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2071.png"><img style="width:1024px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2071.png"/></a></figure><p id="1ad6d5e7-426e-4607-b05b-b953cfca3442" class="block-color-orange_background">
+</p><figure id="d99de31e-85d2-4aa4-8114-cd0c61119585" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2072.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2072.png"/></a></figure><p id="0533d671-65ee-483a-a54d-f4ae4f8d2e93" class="block-color-orange_background">
+</p><figure id="9e092482-e799-497d-8880-c82a51af6859" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2073.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2073.png"/></a></figure><p id="38e16c5e-0b83-46b3-8335-b1c66c326142" class="block-color-orange_background">
+</p><figure id="341aac7d-ac3b-47fa-90b6-dcb254a57e8f" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2074.png"><img style="width:1760px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2074.png"/></a></figure><p id="dfc5610a-43d7-45e8-a5bb-4d45390d8e64" class="block-color-orange_background">
+</p><p id="987bfb64-367f-4563-ad04-4e6bb2c4264d" class="block-color-orange_background">
+</p><h1 id="2d898ff7-b624-4964-bf30-4a199d0b0bee" class="block-color-orange_background">001 Oconstructor function</h1><figure id="bad9214a-fd6b-4292-b19d-28b76348eb51" class="image"><a href="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2075.png"><img style="width:1402px" src="021%20-%20Levelling%20Up%20Our%20Functions%20d4f12a2887754779b57788055fc793e9/Untitled%2075.png"/></a></figure><p id="819aaae6-0016-4e09-b598-f5f0a2c3410b" class="block-color-orange_background">
+</p><p id="03d6f144-2599-4bd7-b195-1a523f991ea8" class="block-color-orange_background">
+</p><figure id="a84f764f-3b10-4f1e-8a6c-9cd582434a1d" class="link-to-page"><a href="022%20-%20Array%20Callback%20methods%20a84f764f3b104f1e8a6c9cd582434a1d.html">022 -  Array Callback methods</a></figure></div></article></body></html>

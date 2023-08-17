@@ -1,0 +1,770 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>05 - React State And Working With Events</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3009a24e-ac59-451b-b0d5-6c487d127530" class="page sans"><header><h1 class="page-title">05 - React State And Working With Events</h1><p class="page-description"></p></header><div class="page-body"><figure id="f2243421-4f25-4957-84b8-09bfc1ad20c2" class="link-to-page"><a href="04%20-%20Best%20Practices%20for%20React%20Components%20f22434214f25495784b809bfc1ad20c2.html">04 - Best Practices for React Components </a></figure><h1 id="ad282287-5bfe-4182-bed8-08ce4f02efd0" class="block-color-orange_background"><strong>66. Module Introduction</strong></h1><figure id="ee05a200-001d-4a30-bafc-6807460a26e9" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled.png"><img style="width:1919px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled.png"/></a></figure><p id="3dbd6f7f-b0f3-4504-8452-b7d849ddeb73" class="block-color-orange_background">
+</p><figure id="c8dade19-c1e3-4869-982e-ef4701666569" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%201.png"><img style="width:1919px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%201.png"/></a></figure><p id="506f4f8b-bf6b-4c14-a980-b7d5bbd395b4" class="block-color-orange_background">
+</p><figure id="37d14ec5-c0c3-4dfb-8baf-8b35658add4d" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%202.png"><img style="width:1919px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%202.png"/></a></figure><p id="c4c5230f-1e14-413d-b868-6ee87c6cbc2e" class="block-color-orange_background">
+</p><figure id="6b11efd4-5549-48bb-916a-67bbeb20090c" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%203.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%203.png"/></a></figure><p id="62294f2f-f2f9-49b7-b4f2-fce192aae9bc" class="block-color-orange_background">
+</p><h1 id="a1ceb78f-ba3f-42e4-b091-a27235650b6a" class="block-color-orange_background">67. Listening to Events &amp; Working with Event Handlers</h1><figure id="b4d7bfb3-5a01-424f-8316-41996342439e" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%204.png"><img style="width:686px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%204.png"/></a></figure><p id="9a0be1cf-740a-442e-81f6-8ce3e558fe7a" class="">
+</p><figure id="07fe776f-e652-420c-9080-dbe9298ca920" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%205.png"><img style="width:1600px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%205.png"/></a></figure><p id="6a96782e-1d42-4496-9afa-8d4855bf3217" class="">
+</p><figure id="ce46f338-d411-4eb0-8200-6f618292004c" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%206.png"><img style="width:1278px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%206.png"/></a></figure><p id="62a65b24-39ed-4212-b247-b1a7ecab8a01" class="">
+</p><figure id="e62464f6-8433-477d-b609-ecc3aa8296a4" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%207.png"><img style="width:550px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%207.png"/></a></figure><p id="7d3db91a-3ca9-42d4-84c1-c96d36e7f0af" class="">
+</p><figure id="6a069672-701d-4ce1-902b-3f9538cdffdc" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%208.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%208.png"/></a></figure><p id="06b692da-cf84-4369-ad8e-a77ff0bcdd86" class="block-color-orange_background">
+</p><figure id="a9ec360d-19d5-432c-a59d-a63b9900442b" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%209.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%209.png"/></a></figure><p id="93cf209d-0e34-42f1-b8a7-2fdab5d58916" class="block-color-orange_background">
+</p><figure id="2be2f4d4-483e-477f-bacc-20d6db27e550" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2010.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2010.png"/></a></figure><p id="e828f7ed-6f41-4364-9f96-079a12fb365e" class="block-color-orange_background">
+</p><figure id="3df9e4b1-be14-4de5-899f-ccb049ad5f07" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2011.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2011.png"/></a></figure><p id="b947a9dc-5525-4238-8f9c-5f774f90f496" class="block-color-orange_background">
+</p><h1 id="14933862-765a-4d1a-bfcd-5eb576ed5567" class="block-color-orange_background">68. How Component Functions Are Executed</h1><figure id="df4c9ae1-24ef-48b9-bc9d-c3f6dbd41820" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2012.png"><img style="width:1412px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2012.png"/></a></figure><ol type="1" id="cb0d7e95-2489-45ad-bcb2-6c3d0c8265ec" class="block-color-orange_background numbered-list" start="1"><li>as we can see clickHandler change the title but it will not refresh the react component</li></ol><ol type="1" id="ffad4871-a5e5-45c0-8bcc-1046628dd51f" class="block-color-orange_background numbered-list" start="2"><li>we need to use “<mark class="highlight-red"><strong>useState</strong></mark>” to refresh this instance of that component</li></ol><p id="bbbf25be-5752-4838-b6fe-d04126a7a312" class="block-color-orange_background">
+</p><h1 id="266d7924-c76b-437b-a813-de0b86ff9d40" class="block-color-orange_background">69. Working with &quot;State”</h1><figure id="79e3d7ee-0596-4e2a-a5b8-3b79a74ffe52" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2013.png"><img style="width:671px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2013.png"/></a></figure><p id="af014a28-84fc-443b-8fbd-54f5fe487b93" class="">
+</p><figure id="9d48c17d-ea7e-4411-a8cb-7b957b5ed45f" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2014.png"><img style="width:624px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2014.png"/></a></figure><p id="e306d987-767a-40a5-9325-0e30dea15901" class="">
+</p><figure id="a37e9eb8-1308-4d4a-8f8c-cf6c839ad857"><a href="https://www.youtube.com/watch?v=4pO-HcG2igk" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Full React Tutorial #8 - Using State (useState hook)</div><div class="bookmark-description">Hey gang, in this React tutorial we&#x27;ll see how to use state (data) in our components using the useState hook.
+
+🐱‍💻 🐱‍💻 Course Files:
++ https://github.com/iamshaunjp/Complete-React-Tutorial
+
+🐱‍👤🐱‍👤 JOIN THE GANG - 
+https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg/join
+
+🐱‍💻 🐱‍💻 My Udemy Courses:
++ Modern JavaScript - https://www.thenetninja.co.uk/udemy/modern-javascript
++ Vue JS  &amp; Firebase - https://www.thenetninja.co.uk/udemy/vue-and-firebase
++ D3.js &amp; Firebase - https://www.thenetninja.co.uk/udemy/d3-and-firebase
+
+🐱‍💻 🐱‍💻 Helpful Links:
++ HTML &amp; CSS Course - https://www.youtube.com/watch?v=hu-q2zYwEYs&amp;list=PL4cUxeGkcC9ivBf_eKCPIAYXWzLlPAm6G
++ Modern JavaScript course - https://www.youtube.com/watch?v=iWOYAxlnaww&amp;list=PL4cUxeGkcC9haFPT7J25Q9GRB_ZkFrQAc
++ Get VS Code - https://code.visualstudio.com/
+
+🐱‍💻 🐱‍💻 Social Links:
+Facebook - https://www.facebook.com/thenetninjauk
+Twitter - https://twitter.com/thenetninjauk
+Instagram - https://www.instagram.com/thenetninja/</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/ed992ba3/img/favicon_144x144.png" class="icon bookmark-icon"/>https://www.youtube.com/watch?v=4pO-HcG2igk</div></div><img src="https://i.ytimg.com/vi/4pO-HcG2igk/maxresdefault.jpg" class="bookmark-image"/></a></figure><p id="267674f1-e78b-4697-ae31-17c93e576df6" class="">
+</p><figure id="89409101-e130-44a4-b023-8bf31993c379"><a href="https://youtu.be/TNhaISOUy6Q" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">10 React Hooks Explained // Plus Build your own from Scratch</div><div class="bookmark-description">React hooks provide a highly-efficient was to tap into framework features and organize reactive logic. Learn how use every built-in React hook https://fireship.io/courses/react-next-firebase/
+
+00:00 Why React Hooks?
+02:20 useState
+03:50 useEffect
+05:55 useContext
+06:58 useRef
+07:58 useReducer
+09:27 useMemo
+10:12 useCallback
+10:40 useImperativeHandle
+11:18 useLayoutEffect
+11:43 useDebugValue &amp; Custom Hooks
+
+#webdev #js #react
+
+Install the quiz app 🤓
+
+iOS https://itunes.apple.com/us/app/fireship/id1462592372?mt=8
+Android https://play.google.com/store/apps/details?id=io.fireship.quizapp
+
+Upgrade to Fireship PRO at https://fireship.io/pro
+Use code lORhwXd2 for 25% off your first payment. 
+
+My VS Code Theme
+
+- Atom One Dark 
+- vscode-icons
+- Fira Code Font</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/83a619e0/img/favicon_144x144.png" class="icon bookmark-icon"/>https://youtu.be/TNhaISOUy6Q</div></div><img src="https://i.ytimg.com/vi/TNhaISOUy6Q/maxresdefault.jpg" class="bookmark-image"/></a></figure><p id="7bc110a3-f9f6-4475-af9c-26f0038e2a98" class="">
+</p><figure id="f80182ff-d265-48a4-bed7-395a2d3fcf50" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2015.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2015.png"/></a></figure><p id="3144cce0-9590-4f9a-800a-fd7310fb82d5" class="">
+</p><figure id="6650bb4e-a1d5-49ec-ae16-35362566ca00" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2016.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2016.png"/></a></figure><p id="aa0de1ba-3e92-4076-b409-6a84facc7922" class="">
+</p><figure id="64230933-7fe4-433f-b412-e615eecf91c2" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2017.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2017.png"/></a></figure><p id="10c427a4-59cd-4508-80fa-ab70369ad03c" class="">
+</p><figure id="87aba028-6d8a-4335-b9b9-1b16c24760d4" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2018.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2018.png"/></a></figure><p id="5aded350-c9d9-486f-8b67-120aa9a8d8ca" class="">
+</p><figure id="0a888978-7779-41c8-a25e-0c85b7da2ab6" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2019.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2019.png"/></a></figure><p id="d0b1461a-f41f-4dbf-b8d9-48d5de02b429" class="">
+</p><figure id="84da3cb4-d780-4a71-b93b-70cafd0265ea" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2020.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2020.png"/></a></figure><p id="2a9206f0-1336-4022-8b29-e15a61bb38c3" class="">
+</p><figure id="94c79917-973d-4c8a-b16a-d1eee68b7bbc" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2021.png"><img style="width:1280px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2021.png"/></a></figure><p id="de4a6d46-9f47-4d0e-a210-5c4e9b73fa6a" class="">
+</p><p id="4256ffa3-b7d1-48ed-9c57-01fd1959fa08" class="">
+</p><p id="c47c7697-9b49-462b-b294-1683c3c89528" class="">
+</p><figure id="a00e86e9-83f8-44c4-92ca-1eff1b1e3b6f" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2022.png"><img style="width:1291px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2022.png"/></a></figure><p id="a54b87af-b3bf-4f50-ac84-2ec7f08f66c5" class="">
+</p><figure id="4ed4ba36-875b-486f-a70b-2b474bbffd3d" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2023.png"><img style="width:2492px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2023.png"/></a></figure><p id="cb2c1d62-ef80-4b15-9183-41446a899388" class="">
+</p><figure id="5be39edf-f6cf-4a0b-8e5a-e0121957423d" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2024.png"><img style="width:1410px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2024.png"/></a></figure><p id="95d075cc-2d46-450a-9879-c4eb7e6d9b98" class="block-color-orange_background">before state </p><figure id="9de905f0-6514-44ba-8c53-92ab02873287" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2025.png"><img style="width:1920px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2025.png"/></a></figure><p id="4fc4042a-ac12-42ed-a860-08fbc4ccfa93" class="block-color-orange_background">after</p><figure id="2438cd79-5349-46fa-9ed3-31c6587b36c7" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2026.png"><img style="width:1920px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2026.png"/></a></figure><p id="f11a6c45-a033-4671-bc6c-18401d5e4fea" class="block-color-orange_background">
+</p><h1 id="667d0cef-6307-41a7-b1c9-0ce941e42d63" class="block-color-orange_background"><strong>70. A Closer Look at the &quot;useState&quot; Hook</strong></h1><h1 id="80a9cf0c-a81e-43b5-a8ef-998d8fd53f1d" class="block-color-teal_background">Very theory video </h1><h1 id="2001159c-7b81-40cf-9f7b-97f8e49e579c" class="block-color-orange_background">very important video</h1><p id="b77d94c0-159f-415d-851b-9a985524e6b2" class="block-color-orange_background">
+</p><h1 id="84425e89-08d8-45ec-8b47-fee1a2af17da" class="block-color-orange_background">72. Adding Form Inputs</h1><figure id="9d398b31-4ea9-42e2-8fd6-fd62ab375332" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2027.png"><img style="width:1366px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2027.png"/></a></figure><p id="890117e1-57f7-43f4-8f0a-fb58b9b3704b" class="block-color-orange_background">
+</p><figure id="3b97c995-1e64-4236-adba-0c1cc22805b5" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2028.png"><img style="width:836px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2028.png"/></a></figure><p id="8140e774-d1b1-42ea-9762-b6d273f07d42" class="block-color-orange_background">
+</p><h1 id="663c70b3-2777-40b4-83b9-0ff0b9ba4601" class="block-color-orange_background">73. Listening to User Input</h1><figure id="e8d882e7-90a2-4855-a213-9f4713939539" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2029.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2029.png"/></a></figure><ol type="1" id="5b6ef993-c819-4cc1-9f6a-6bf0a134e75e" class="block-color-orange_background numbered-list" start="1"><li>event creator crates event on every keystroke change in input</li></ol><ol type="1" id="73398686-0fbe-4c8a-aa17-299f5c25b3e0" class="block-color-orange_background numbered-list" start="2"><li>event handler print at event trigger</li></ol><figure id="7960d93a-5bb4-45c4-b822-6840fb034b4c" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2030.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2030.png"/></a></figure><p id="562977d8-11bf-4a88-beec-0611beb8d277" class="block-color-orange_background">tittle change happens at every key stroke</p><figure id="84d3269a-7977-4d27-a4e1-15d1510abbcd" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2031.png"><img style="width:3401px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2031.png"/></a></figure><p id="cbfb1466-36be-43ac-bd3d-5e29c6a0286a" class="block-color-orange_background">
+</p><figure id="084d32b2-1e44-4d72-8392-b6c801f40b8e" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2032.png"><img style="width:1220px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2032.png"/></a></figure><p id="99d3eb11-0fbd-4f58-a165-6b890a17e735" class="block-color-orange_background">
+</p><figure id="5d2039f8-2f8e-4c28-93be-0c360734ee1d" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2033.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2033.png"/></a></figure><ol type="1" id="9301e561-befb-4c7d-b30c-bc67e9a0f5a0" class="block-color-orange_background numbered-list" start="1"><li>starts change event </li></ol><ol type="1" id="ca0630e2-de74-4ebd-9f58-cc41b63fab71" class="block-color-orange_background numbered-list" start="2"><li>event object by default was created and it’s name is “event“</li></ol><ol type="1" id="322d0200-e26e-4f8b-b98c-1e4f1b9703d3" class="block-color-orange_background numbered-list" start="3"><li>some js code will run in eventhandler function</li></ol><figure id="81afc4ef-f594-45ff-93fb-78524660d170" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2034.png"><img style="width:1571px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2034.png"/></a></figure><ol type="1" id="f6f07f0a-e4d4-4b3a-80f8-1f82e0cf872e" class="block-color-orange_background numbered-list" start="1"><li>event.target.value — place where updated values is stored in event object</li></ol><h1 id="931ff05a-2b3a-4f7b-a87a-624332e232c2" class="block-color-orange_background">74. Working with Multiple States</h1><figure id="1841e4f1-fbb3-4199-95ad-f6d98255cdf5" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2035.png"><img style="width:1410px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2035.png"/></a></figure><ol type="1" id="fe7d3086-a134-40f6-b7f5-ede758b4e8c5" class="block-color-orange_background numbered-list" start="1"><li>event creators </li></ol><ol type="1" id="9f2135ba-e0f3-458e-9ad5-8fa59ad24978" class="block-color-orange_background numbered-list" start="2"><li>does nothing</li></ol><ol type="1" id="5bd48e7d-2991-4797-8a8e-601d70b07267" class="block-color-orange_background numbered-list" start="3"><li>change state</li></ol><h1 id="e12118a4-dc63-45db-88b1-b61ba049b7cf" class="block-color-orange_background">75. Using One State Instead (And What&#x27;s Better)</h1><figure id="2aaa3f48-f0e9-4efb-9f56-486801e224f4" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2036.png"><img style="width:1410px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2036.png"/></a></figure><p id="87503e8f-cee4-48f3-a694-f2bbf7fa4b56" class="block-color-orange_background">a. using one “useState” to update all variables new method</p><p id="1bae6349-27e2-4d55-b6aa-8beb7484c7d5" class="block-color-orange_background">b. using 3 “useState” to update three variables old method</p><p id="0bb22a4e-62be-4c2e-906b-07e3e01124e2" class="block-color-orange_background">
+</p><ol type="1" id="210c127c-1e26-408c-a4e2-c1801226ff33" class="block-color-orange_background numbered-list" start="1"><li>event creator</li></ol><ol type="1" id="a2099045-f065-46a1-a39c-f93172c8e5a1" class="block-color-orange_background numbered-list" start="2"><li>event handler</li></ol><h1 id="7623b6ab-6a7c-4565-834f-09a2f7ffec3a" class="block-color-orange_background">76. Updating State That Depends On The Previous State</h1><figure id="552c109a-b179-48ce-a82c-ee82d832ee19"><a href="https://ogzhanolguncu.com/blog/how-does-prevstate-works-under-the-hood" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How does prevState in React work under the hood?</div><div class="bookmark-description">We take a look at React to see how prevState works under the hood to access the latest state.</div></div><div class="bookmark-href"><img src="https://ogzhanolguncu.com/static/favicons/favicon-32x32.png" class="icon bookmark-icon"/>https://ogzhanolguncu.com/blog/how-does-prevstate-works-under-the-hood</div></div><img src="https://ogzhanolguncu.com/static/images/how-does-prevstate-works/prevstate.webp" class="bookmark-image"/></a></figure><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">from blog</summary><div class="indented"><p id="9734451b-d990-4698-9f36-54e70c069c4d" class="">We have always been told to use <strong>prevState</strong> when dealing with <strong>useState</strong> but not really why we need it in the first place. Today, we will deep dive and see how it works under the hood to retrieve the latest state without the need of render cycle - render cycle refers to VDOM updates, not actual browser refresh. But before going forward, first, we need to see how the real problem occurs when the <strong>state</strong> is used instead of <strong>prevState</strong>.</p><figure id="803cb667-71fc-4ca3-90c2-c41108dabc4f" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2037.png"><img style="width:1400px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2037.png"/></a></figure><p id="b92383e9-9374-4e58-9494-40e7d1a0e978" class="block-color-orange_background">In reality, this should increase the <strong>Counter</strong> by six each time we click, but it&#x27;s only taking the last one to account. </p><p id="c6df378f-0929-4b0f-ac30-99b0aea17235" class="block-color-orange_background">So what&#x27;s the reasoning behind this? Is this working incorrectly, or is this the intended behaviour? It turns out it&#x27;s not falsy or incorrect; </p><p id="3df0ff1e-06c5-4e94-bafe-57ebfea1ebfa" class="block-color-orange_background">It is working as expected programmatically, at least. Because for React to access the <code><strong>counter</strong></code> state, it should complete its rendering cycle. But, since we force React to read the <code><strong>counter</strong></code> state before the cycle completion, it&#x27;s only referring to the last one.</p><p id="50cd59de-1279-48d6-9232-9dca3eaf4707" class="block-color-orange_background">Okay, let&#x27;s see how it behaves when we introduce <strong>prevState</strong>.</p><figure id="7a1bf5a9-d4cd-427d-9366-3e2503a13cc2" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2038.png"><img style="width:1400px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2038.png"/></a></figure><p id="414a6419-e85e-488a-88fe-1bf7950bc86f" class="block-color-orange_background">now at each <code><strong>setCounter</strong></code><strong> it will use prevState instead of original value </strong></p></div></details><p id="a1e12a77-4c4b-42ca-bb7a-bd0ad3d98f4c" class="">
+</p><figure id="3b614dde-ee7f-48d6-831c-d544a0bd2a2f" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2039.png"><img style="width:1410px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2039.png"/></a></figure><p id="c48e2893-74a4-4624-ba88-d47cedeaba9e" class="block-color-orange_background">
+</p><h1 id="443904c5-61fa-43fb-bd9e-70b66649968a" class="block-color-orange_background"><strong>77. Alternative: Creating A Shared Handler Function</strong></h1><figure id="63521504-72f8-418c-b61b-5e93f181ff4c" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2040.png"><img style="width:1410px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2040.png"/></a></figure><ol type="1" id="db76819b-fd2a-4566-886c-b8a94c1d8225" class="block-color-orange_background numbered-list" start="1"><li>three states </li></ol><ol type="1" id="a6941aad-43bc-4f85-b96e-1ddcb158f19f" class="block-color-orange_background numbered-list" start="2"><li>three event creators </li></ol><ol type="1" id="3ba7ecec-b80b-47ae-9c78-0eef20353eb4" class="block-color-orange_background numbered-list" start="3"><li>three event handlers separately </li></ol><h3 id="72de15ea-8937-492b-86ec-c64f19526ee6" class="block-color-orange_background">Now we are changing it to one event handler</h3><figure id="d8b56aa1-4d55-469d-991d-8d97e9dd8629" class="image"><a href="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2041.png"><img style="width:1410px" src="05%20-%20React%20State%20And%20Working%20With%20Events%203009a24eac59451bb0d56c487d127530/Untitled%2041.png"/></a></figure><ol type="1" id="3f9b9225-9e45-4547-a3f1-906ebd730e64" class="block-color-orange_background numbered-list" start="1"><li>three states </li></ol><ol type="1" id="ca7b2958-bc10-43bd-8fbb-6cc453f32a79" class="block-color-orange_background numbered-list" start="2"><li>three event creators — each event change will automatically create an “event” object</li></ol><ol type="1" id="dbf9284f-0bf5-46ce-b503-5053ecf644ef" class="block-color-orange_background numbered-list" start="3"><li>three event handlers combined as one Handler</li></ol><ol type="1" id="2d0fdee2-8627-4197-93db-755e7dfa2f7d" class="block-color-orange_background numbered-list" start="4"><li>old method using three handlers to Handle three events </li></ol><p id="aa7240c5-0638-4131-a852-ed34e3c379dc" class="block-color-orange_background">
+</p><p id="ff0cfc8b-05a9-4e65-8901-a70593781517" class="block-color-orange_background">
+</p><p id="3d7f08d2-3a92-44a9-a420-851efa5af2de" class="block-color-orange_background">
+</p><p id="fc8e38e3-7132-4ee4-b50b-ab3e1b17c8dd" class="block-color-orange_background">
+</p><p id="a5afa8a5-1ec7-43bb-81d1-4c8d73ede55d" class="block-color-orange_background">
+</p><p id="6278cf00-ad22-458c-8007-a2a4273b283d" class="block-color-orange_background">
+</p><p id="f93b87f0-cd66-478b-a4af-b702461c6241" class="block-color-orange_background">
+</p><p id="02a4a48d-1c97-4309-8326-e3dd95d9d8be" class="block-color-orange_background">
+</p></div></article></body></html>

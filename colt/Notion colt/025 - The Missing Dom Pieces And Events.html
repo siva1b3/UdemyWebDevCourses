@@ -1,0 +1,723 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>025 - The Missing Dom Pieces And Events</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3bc27ce1-c0dd-498d-a103-d02f111c92d5" class="page sans"><header><h1 class="page-title">025 - The Missing Dom Pieces And Events</h1><p class="page-description"></p></header><div class="page-body"><figure id="b6a6dbaf-0e7a-40c5-8f56-9ad1006d3d83" class="link-to-page"><a href="024%20-%20DOM%20intro%20b6a6dbaf0e7a40c58f569ad1006d3d83.html">024 - DOM intro</a></figure><h1 id="cc81b1ba-8248-4fc5-a2e5-32bbaa8e4e11" class="block-color-orange_background"><strong>258. What Matters In This Section</strong></h1><figure id="83feb413-8529-43bc-8ebd-b9a4be55a077" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled.png"/></a></figure><p id="dee0bb72-8356-42eb-8f9f-f666eb030410" class="block-color-orange_background">
+</p><h1 id="e44bdb50-7177-4594-ba57-1634cef5fa2e" class="block-color-orange_background"><strong>259. Intro to Events</strong></h1><figure id="f36d543e-9f1d-42fc-9cbd-05b073cb83af" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%201.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%201.png"/></a></figure><p id="d2fa9b70-eccb-4d5f-870e-d6d5b7c11df4" class="block-color-orange_background">
+</p><figure id="9f652cd7-f4ea-47ac-a937-5d6e9e9218ee" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%202.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%202.png"/></a></figure><p id="3b9b6383-e35a-46ba-aaff-4b45feb42a15" class="block-color-orange_background">
+</p><figure id="c168403c-6149-4065-aea6-6bd25f760a50" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%203.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%203.png"/></a></figure><p id="850691e0-2384-4dec-9673-070d2f02163b" class="block-color-orange_background">
+</p><figure id="6c348653-b599-48e3-908c-22958b61f638" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%204.png"><img style="width:800px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%204.png"/></a></figure><p id="36e281c2-f8e0-4a8a-a681-0fe34226b600" class="block-color-orange_background">
+</p><figure id="2711c99b-0f75-4c41-8cfe-4beb04348912" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%205.png"><img style="width:960px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%205.png"/></a></figure><p id="fd4383dd-ad45-4f59-a5ee-0990101d22ec" class="block-color-orange_background">
+</p><figure id="68b79950-966d-4798-8cb2-b3edb19aef08" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%206.png"><img style="width:1024px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%206.png"/></a></figure><p id="45164126-7c45-4f02-8155-5acbea54bdd5" class="block-color-orange_background">
+</p><figure id="df338269-edfe-48a5-b39f-282978026abd" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%207.png"><img style="width:310px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%207.png"/></a></figure><p id="394e4922-422c-4cda-8af4-6b82e96a1045" class="block-color-orange_background">
+</p><h1 id="fdebb6b5-1c73-4a32-b631-53c97d26940e" class="block-color-orange_background"><strong>260. Inline Events</strong></h1><figure id="3cecda5d-3f45-422d-848c-9e86aaf0127f" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%208.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%208.png"/></a></figure><h3 id="619744f1-9568-4c79-94f5-6401a017100f" class="block-color-orange_background">inline events</h3><figure id="2444207b-db5c-4a70-9ada-ca42bcdb1e4f" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%209.png"><img style="width:2156px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%209.png"/></a></figure><p id="0f6ea28e-ef0b-4f3f-bfea-ad2d458b83f8" class="block-color-orange_background">
+</p><figure id="8e85d4c9-fc4d-459b-bbe3-2a73e73c1118" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2010.png"><img style="width:1920px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2010.png"/></a></figure><p id="3f4bc7cc-1bf4-4b92-a2fc-a4f9203fdf45" class="block-color-orange_background">
+</p><h1 id="20d014e3-6d8a-4607-a02e-8f546a4fcd67" class="block-color-orange_background"><strong>261. The Onclick Property</strong></h1><figure id="4b05bc8f-3589-405b-9329-c02c3998220c" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2011.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2011.png"/></a></figure><p id="dfb1cee0-6d50-44b1-9a21-66b6017a14fd" class="block-color-orange_background">
+</p><figure id="51862f8d-9820-468a-816f-0c17e283317c" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2012.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2012.png"/></a></figure><p id="e3b46717-0c07-412c-ab09-dfcf133f4bb5" class="block-color-orange_background">
+</p><h1 id="e40f85e5-ea4f-4762-bdcf-7a2de72e5ea4" class="block-color-orange_background"><strong>262. addEventListener</strong></h1><figure id="2238eabc-22d0-45b8-8dcf-2c1a84a8d4d9" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2013.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2013.png"/></a></figure><p id="91f1e847-077d-4974-a332-363a003cdf9a" class="block-color-orange_background">
+</p><figure id="6f1bdd9d-572b-4bdc-8b05-9c08ec6aeff3" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2014.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2014.png"/></a></figure><p id="cd8353c1-5fe2-4692-a538-898bc5df7ba7" class="block-color-orange_background">
+</p><figure id="db9ba89c-121b-48f1-9ad8-11e17d6a4783" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2015.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2015.png"/></a></figure><p id="95544b3f-08cc-49da-8d5e-86a583fb7289" class="block-color-orange_background">
+</p><figure id="1beb5571-cef0-47c5-9385-b003bac857de" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2016.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2016.png"/></a></figure><p id="5521acac-59ee-4bb8-bfd4-3c2dd0d4efa6" class="block-color-orange_background">
+</p><figure id="072089e7-9ce3-4391-a289-70b5db878a00" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2017.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2017.png"/></a></figure><p id="492f05f2-088a-469a-9f15-1e9fd73a4860" class="block-color-orange_background">
+</p><h1 id="6b72cafe-a612-4b15-9513-d208cb22aaa8" class="block-color-orange_background"><strong>264. Events &amp; The Keyword This</strong></h1><h2 id="e8c80e0c-ec50-4933-a04b-c00edb492095" class="block-color-orange_background">adding random bg color to each button without “this” keyword</h2><figure id="eb3e69b0-e326-4a40-867c-b69b3717b6d1" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2018.png"><img style="width:1382px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2018.png"/></a></figure><h2 id="908ad21b-abd9-4145-ba26-147cdb779630" class="block-color-orange_background">adding random bg color to each button with “this” keyword</h2><figure id="f739d93b-6d8a-44fa-abfb-566b3285a9bd" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2019.png"><img style="width:1362px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2019.png"/></a></figure><p id="941c0c76-8cb1-4360-9677-51c378c5600e" class="block-color-orange_background">
+</p><h1 id="60610f0b-5afb-4c5b-a19f-3e14ad96d682" class="block-color-orange_background"><strong>265. Keyboard Events &amp; Event Objects</strong></h1><figure id="7e6ae705-4dff-46bc-addc-b60aa2bd37d2" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2020.png"><img style="width:678px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2020.png"/></a></figure><p id="15b6d00e-9c27-4e20-96d2-004553be51c7" class="block-color-orange_background">
+</p><figure id="0b2cd314-6430-4a55-b7c1-85a543e6d71c" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2021.png"><img style="width:1600px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2021.png"/></a></figure><p id="343df2a2-54b2-41c3-9fed-6af63659a1bc" class="block-color-orange_background">
+</p><figure id="9c16ee05-bab3-48ce-8ba7-fec906d58ca6" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2022.png"><img style="width:1362px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2022.png"/></a></figure><p id="5d73a7f4-f60d-44d2-9616-d8598eccf2bb" class="block-color-orange_background">
+</p><h1 id="f74936d7-ed93-44c7-ad82-c40fb4553992" class="block-color-orange_background"><strong>266. NEW VERSION: Form Events &amp; Prevent Default</strong></h1><figure id="e00e10a3-8ac6-4925-b4e9-3938f7463dd5" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2023.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2023.png"/></a></figure><p id="5c213e69-04a5-4b1f-90c2-51716c078a67" class="block-color-orange_background">
+</p><figure id="6a63f7b2-539c-4cfc-b145-ac9c99fdc27a" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2024.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2024.png"/></a></figure><p id="aebca4f6-63d8-4f6a-95a4-e863f61bc55a" class="block-color-orange_background">
+</p><figure id="f400745c-f84f-4dd0-98a1-4ead67876ff8" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2025.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2025.png"/></a></figure><p id="c397c44b-9b94-4fc2-88b2-1edb53c7a1e1" class="block-color-orange_background">
+</p><h1 id="afe8f54a-7fb6-4d94-af13-f6a714f52280" class="block-color-orange_background"><strong>269. Input &amp; Change Events</strong></h1><ul id="864d92d0-4ae1-499e-93b0-f8f5152ac48f" class="bulleted-list"><li style="list-style-type:disc"><code><em>input</em></code>: any change made in the text content</li></ul><ul id="01dab06b-7ed7-44c8-93f9-2c555defcbc5" class="bulleted-list"><li style="list-style-type:disc"><code><em>change</em></code>:<ul id="ba6425f3-68a2-419e-be6e-d53809a70c96" class="bulleted-list"><li style="list-style-type:circle">If it is an <code>&lt;input /&gt;</code>: change + lose focus</li></ul><ul id="c1a9df2b-bf68-4ad9-a446-3ac4e1e43115" class="bulleted-list"><li style="list-style-type:circle">If it is a <code>&lt;select&gt;</code>: change option</li></ul></li></ul><p id="f663cd39-da1a-4aa6-aa51-004bf0c03f78" class="block-color-orange_background">
+</p><ul id="a89d97ac-f525-4170-8054-3b4ed81efa35" class="bulleted-list"><li style="list-style-type:disc">The <code>change</code> <code>event</code> fires in most browsers when content is changed and the element loses <code>focus</code>. It&#x27;s basically an aggregate of changes. It will not fire for every single change as in the case <code>input</code> <code>event</code>.</li></ul><ul id="2396911a-6805-40c0-8f53-4292bfd44e54" class="bulleted-list"><li style="list-style-type:disc">The <code>input</code> <code>event</code> fires synchronously on change of the content for the element. As such, the event listener tends to fire more frequently.</li></ul><p id="6e5120a0-ee90-4864-bbaf-28bd957d63c2" class="block-color-orange_background">
+</p><figure id="f7742255-bd03-4a5d-9896-f2684affd997" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2026.png"><img style="width:1308px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2026.png"/></a></figure><p id="fd0a0308-33f4-4d14-8b5a-219d3d0d7cad" class="block-color-orange_background">
+</p><figure id="2f5c8f38-3de3-49e1-92dc-ac1510e4225b"><a href="https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Where should I put &lt;script&gt; tags in HTML markup?</div><div class="bookmark-description">When embedding JavaScript in an HTML document, where is the proper place to put the &amp;lt;script&amp;gt; tags and included JavaScript? I seem to recall that you are not supposed to place these in the &amp;lt...</div></div><div class="bookmark-href"><img src="https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon.png?v=c78bd457575a" class="icon bookmark-icon"/>https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup</div></div><img src="https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon@2.png?v=73d79a89bded" class="bookmark-image"/></a></figure><p id="177d28ea-ba9a-4b20-9c20-70993e024215" class="block-color-orange_background">
+</p><p id="c7ec1dcc-61f5-40ba-bccc-46916582e31b" class="">When a browser loads a website containing a <code>&lt;script&gt;</code> tag, several steps occur to ensure proper rendering and execution of the webpage&#x27;s content. The process involves parsing HTML, handling script downloads, and ensuring optimal user experience. Here&#x27;s a detailed breakdown of what happens:</p><ol type="1" id="971c09f3-fa91-439b-b47e-ef5407cc2eac" class="numbered-list" start="1"><li><strong>Fetch the HTML Page:</strong>
+When you enter a URL or click on a link, the browser sends a request to the web server hosting the website. The server responds with the HTML file of the webpage, often referred to as &quot;index.html.&quot;</li></ol><ol type="1" id="874fb7b1-bb54-4dd9-a836-669268c95013" class="numbered-list" start="2"><li><strong>Parsing the HTML:</strong>
+Once the HTML file is received, the browser starts parsing it. Parsing is the process of analyzing the HTML code to create a structured representation of the webpage called the Document Object Model (DOM). The DOM is a hierarchical tree-like structure that represents the elements, attributes, and relationships within the HTML.</li></ol><ol type="1" id="4b1dece9-ba9c-4f52-ac98-dd2200da053e" class="numbered-list" start="3"><li><strong>Encounter a </strong><code><strong>&lt;script&gt;</strong></code><strong> Tag:</strong>
+During the parsing process, if the browser encounters a <code>&lt;script&gt;</code> tag in the HTML, it indicates that an external script file needs to be loaded and executed. The script tag contains the <code>src</code> attribute pointing to the location of the script file.</li></ol><ol type="1" id="7bb1e33e-689d-453e-a99b-45d6bd7a2307" class="numbered-list" start="4"><li><strong>Requesting the Script File:</strong>
+As soon as the browser identifies a <code>&lt;script&gt;</code> tag with the <code>src</code> attribute, it initiates a separate HTTP request to fetch the script file from the specified location. This request is made synchronously, allowing other tasks to wait while waiting for the script file to be downloaded.</li></ol><ol type="1" id="e928a2d4-f365-42f8-acdb-0c0b55fa496e" class="numbered-list" start="5"><li><strong>Parser Blocking:</strong>
+At this point, a critical aspect comes into play. The parsing of HTML is halted while the browser waits for the script file to be downloaded and executed. This is because the script could potentially manipulate the DOM using functions like <code>document.write()</code>, which would require the parser to wait until the script&#x27;s effects are accounted for in the DOM structure.</li></ol><ol type="1" id="d8c618ae-616c-40ef-a89b-d73a1cc598ab" class="numbered-list" start="6"><li><strong>Script Download and Execution:</strong>
+The browser retrieves the script file from the server. Once the file is downloaded, the browser executes the JavaScript code within the script. This may involve actions like modifying the DOM, interacting with server APIs, or setting up event listeners.</li></ol><ol type="1" id="107574d0-7aa5-4574-8333-2098c1fec200" class="numbered-list" start="7"><li><strong>Resuming HTML Parsing:</strong>
+After the script has been executed, the browser resumes parsing the HTML document from where it left off. It continues building the DOM tree, processing other elements, and rendering content.</li></ol><ol type="1" id="fbd63757-6339-4bb6-ae7c-f529da5cdb15" class="numbered-list" start="8"><li><strong>Modern Approaches to Script Loading:</strong>
+In the past, developers used to place <code>&lt;script&gt;</code> tags at the bottom of the <code>&lt;body&gt;</code> element to prevent parser blocking. However, this approach delayed script execution and hindered performance. Modern solutions have emerged to address this issue:<ul id="04461d5d-d726-4179-a54b-2d4252ee9103" class="bulleted-list"><li style="list-style-type:disc"><strong>Async Attribute (</strong><code><strong>async</strong></code><strong>):</strong> Adding the <code>async</code> attribute to a <code>&lt;script&gt;</code> tag indicates that the script can be fetched asynchronously while allowing HTML parsing to continue. Scripts with the <code>async</code> attribute are executed as soon as they&#x27;re downloaded, potentially out of order.</li></ul><ul id="565e6217-0a48-497e-8ee1-4c58e23b9b45" class="bulleted-list"><li style="list-style-type:disc"><strong>Defer Attribute (</strong><code><strong>defer</strong></code><strong>):</strong> Adding the <code>defer</code> attribute to a <code>&lt;script&gt;</code> tag also allows asynchronous loading of the script. However, scripts with the <code>defer</code> attribute are executed in the order they appear in the HTML. Importantly, they are executed only after the entire HTML document has been parsed.</li></ul></li></ol><ol type="1" id="577d88e0-101f-45a2-88a6-67b3592fa090" class="numbered-list" start="9"><li><strong>Choosing Async or Defer:</strong>
+Developers can choose between the <code>async</code> and <code>defer</code> attributes based on their requirements. If scripts need to be executed in a specific order and depend on the DOM, <code>defer</code> is a better choice. On the other hand, if scripts are independent and can run concurrently, <code>async</code> can improve page load times.</li></ol><ol type="1" id="9e1deb9d-41a7-4c70-bb14-6f6f42f621ba" class="numbered-list" start="10"><li><strong>Optimal Solution for Performance:</strong>
+The current best practice is to place scripts in the <code>&lt;head&gt;</code> tag of the HTML and use the <code>async</code> or <code>defer</code> attributes. This approach enables scripts to start downloading as soon as possible without blocking the browser&#x27;s rendering of the webpage. This strategy balances the need for timely script execution with maintaining a smooth user experience.</li></ol><p id="e59900b7-96ee-4949-ad80-56cd4dbaef7b" class="">By adopting these modern loading techniques, websites can provide faster loading times and improved user satisfaction, while still accommodating the small percentage of browsers that might not support these attributes. This practice helps strike a balance between script execution and overall webpage rendering.</p><p id="f086d058-5900-4ff4-8ba6-f804e4699385" class="block-color-orange_background">
+</p><h1 id="1ee39aa8-12f2-40bd-8976-53e3bb68042a" class="block-color-orange_background"><strong>270. Event Bubbling</strong></h1><figure id="e03b0f49-a3e5-48f1-9b7f-c0c5edbea540" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2027.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2027.png"/></a></figure><p id="4c02fdd7-086f-4e65-8ec9-a73590e4d3ac" class="block-color-orange_background">
+</p><figure id="bbe5925d-a40a-44df-8397-25ecb68f0e75" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2028.png"><img style="width:353px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2028.png"/></a></figure><p id="2264f3fe-f92b-4c18-a44f-4d3399ece9c1" class="block-color-orange_background">
+</p><figure id="37cb989b-fbb2-4375-bb70-681cedcdf65e" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2029.png"><img style="width:1919px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2029.png"/></a></figure><p id="7f306ae2-cc41-4de0-b6c2-48cafcbf60ee" class="block-color-orange_background">
+</p><h1 id="2caa6c83-cabd-45a0-9413-863bdef7b57d" class="block-color-orange_background"><strong>271. Event Delegation</strong></h1><figure id="dddbda69-6bc1-40e6-8de9-19f7e0d11d15" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2030.png"><img style="width:660px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2030.png"/></a></figure><p id="da88becd-965e-4977-9262-b68ccf2c9381" class="block-color-orange_background">
+</p><figure id="1d3a6120-b94d-4357-854d-1700c04d59af" class="image"><a href="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2031.png"><img style="width:624px" src="025%20-%20The%20Missing%20Dom%20Pieces%20And%20Events%203bc27ce1c0dd498da103d02f111c92d5/Untitled%2031.png"/></a></figure><p id="9f81c838-da22-4c33-9e71-709f3efa1043" class="block-color-orange_background">
+</p><p id="6d5edd58-e0be-46b8-a2b3-b71e26768ffb" class="block-color-orange_background">
+</p><p id="459e5e3a-9e14-4420-ac0e-2e7c657ab496" class="block-color-orange_background">
+</p><p id="ff440d9c-cecc-4fae-ae36-085d50c31b11" class="block-color-orange_background">
+</p></div></article></body></html>

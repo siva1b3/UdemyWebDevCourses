@@ -1,0 +1,747 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>010 - Responsive CSS &amp; Flexbox</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dcb5e24b-e022-432f-b14c-181353f5cae1" class="page sans"><header><h1 class="page-title">010 - Responsive CSS &amp; Flexbox</h1><p class="page-description"></p></header><div class="page-body"><p id="d53d90f7-fb6b-424f-9bcd-40fbaa97511b" class="">powershell -ExecutionPolicy Bypass -Command &quot;tsc j.ts”</p><figure id="739ec912-ebd3-4c2b-8e3b-b80987edec33" class="block-color-orange link-to-page"><a href="009%20-%20Other%20Assorted%20Useful%20CSS%20Properties%20739ec912ebd34c2b8e3bb80987edec33.html">009 - Other Assorted Useful CSS Properties</a></figure><h1 id="a90be626-d3ce-4243-9190-89e63097104c" class="block-color-orange_background">103. What Matters In This Section</h1><figure id="03dd41be-ae35-49b4-87eb-222b2cd954b5" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled.png"><img style="width:1760px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled.png"/></a></figure><p id="5fd5aeea-eef6-4183-b555-58ff07f3249d" class="block-color-orange_background">
+</p><h1 id="1c821848-d830-4778-b6a8-e7a6d7f1a648" class="block-color-orange_background"><strong>104. What on Earth Is Flexbox?</strong></h1><figure id="34028e39-5808-4843-bcb7-aca5788f5234" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%201.png"><img style="width:1760px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%201.png"/></a></figure><p id="64ff2bae-349c-4503-96e1-e282eb7625f8" class="block-color-orange_background">
+</p><figure id="d6122a91-eeb3-41e6-8be6-5412ca917ff4" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%202.png"><img style="width:1760px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%202.png"/></a></figure><p id="e3c5a2a4-6c0a-4127-9d79-7c04af2d8b76" class="block-color-orange_background">
+</p><figure id="d7cad38e-1bb5-4d63-afb7-614de08b8c67" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%203.png"><img style="width:999px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%203.png"/></a></figure><p id="57434920-8aee-42cc-b05e-ba6c06e07feb" class="block-color-orange_background">
+</p><h1 id="bfc0a191-15e3-4e59-8c80-bc5f3c62a023" class="block-color-orange_background"><strong>105. Flex-Direction</strong></h1><figure id="82d7d081-2c50-4c45-9bc0-5f29b24f54c4" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%204.png"><img style="width:1760px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%204.png"/></a></figure><p id="02ae3ff2-67d6-4d19-ac55-7723dda6be7b" class="block-color-orange_background">
+</p><figure id="762e1258-0b27-4f1a-b1cb-a9f1d12e3d94" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%205.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%205.png"/></a></figure><blockquote id="d0ce8611-5b1d-4761-a334-731c27307140" class="block-color-orange_background">over flow happens when container display is not flex</blockquote><figure id="a55fc0f6-2531-4b56-ab19-a6e7467eae7f" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%206.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%206.png"/></a></figure><p id="741f1405-6ff5-4baf-896f-6867bc1a8edb" class="block-color-orange_background">display : flex added to container </p><figure id="d4530e85-4c41-444f-b46e-29ebe223e553" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%207.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%207.png"/></a></figure><p id="f7b89914-c972-4432-8b17-655b96e04ac9" class="block-color-orange_background">
+</p><figure id="8241e81f-dcad-4a9a-bc33-2c08bc55fcd7" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%208.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%208.png"/></a></figure><p id="5a0d92d7-515b-4fcf-88c7-3b3d162e2a2a" class="block-color-orange_background">
+</p><figure id="1e33474c-c40d-4407-b502-fff55a8a5504" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%209.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%209.png"/></a></figure><blockquote id="7983549a-95d9-42a3-8fe1-393644decca6" class="block-color-orange_background">default values is the main axis that goes from left to right</blockquote><figure id="e7562c14-0418-4948-bcf6-51a42017c82b" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2010.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2010.png"/></a></figure><p id="ca26261d-0fe4-4cfd-a91e-d620adfb934d" class="block-color-orange_background">
+</p><figure id="b4755c72-21aa-411d-a291-448886c98f62" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2011.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2011.png"/></a></figure><p id="1534b014-8dd9-497b-8a8b-f0acdba6e588" class="block-color-orange_background">
+</p><figure id="b59b592d-bcdf-4e74-ab2e-02998d2942a1" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2012.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2012.png"/></a></figure><p id="333afc6b-9ef4-4679-9cf8-a989fd0785bf" class="block-color-orange_background">
+</p><figure id="e4c9be0e-db24-4ded-b382-790ad74e9c11" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2013.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2013.png"/></a></figure><blockquote id="f0335413-899b-43b0-962a-b95d0ef905e1" class="block-color-orange_background">in flex overflow will not happen</blockquote><figure id="adfe7d26-bb27-4681-b53f-c6a132b948de" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2014.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2014.png"/></a></figure><p id="f8df7268-f3b6-4c6a-a66c-7ba32df6b8a4" class="block-color-orange_background">
+</p><figure id="754d6ac0-abe7-431e-be4a-015452e30c44" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%203.png"><img style="width:999px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%203.png"/></a></figure><p id="a7821cff-2653-49f7-82c5-114e6b8a89f8" class="block-color-orange_background">
+</p><figure id="f3a7bff8-767a-4244-891c-ae1cb6f53208" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2015.png"><img style="width:423px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2015.png"/></a></figure><p id="c30db629-be24-487f-bbe0-b5824f9ed0fc" class="block-color-orange_background">
+</p><figure id="aec5b0e5-9a5e-4006-bdc4-78a6cafaa171" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2016.png"><img style="width:1520px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2016.png"/></a></figure><p id="438d51b1-f494-4e19-8acb-bdf8d51c4df1" class="block-color-orange_background">
+</p><figure id="082cf924-8b6e-4db2-9ea0-f640ac2a3e4f" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2017.png"><img style="width:1785px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2017.png"/></a></figure><p id="75b05a88-1742-42fc-837f-73622e4b4d3d" class="block-color-orange_background">
+</p><figure id="4b566531-1d75-4a13-9a3e-e84cc7dda21b" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2018.png"><img style="width:687px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2018.png"/></a></figure><p id="94311a7c-f225-4909-bbb0-6f5ad5f7c267" class="block-color-orange_background">
+</p><h1 id="ed6b2499-b117-4264-9c48-bd0e03ed8ea3" class="block-color-orange_background"><strong>106. Justify-Content</strong></h1><figure id="1c47d205-cb89-40c5-8b55-7587c2c40adf" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2019.png"><img style="width:1121px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2019.png"/></a></figure><p id="ab413fa1-aab8-47d3-b00d-9885dc0cb05f" class="block-color-orange_background">
+</p><figure id="3d7ff44b-3a29-43f2-afb2-c45ffcd54daf" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2020.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2020.png"/></a></figure><p id="3908999a-d2f8-435d-ab1e-d509a03e2305" class="block-color-orange_background">
+</p><figure id="0087ddb6-4695-4126-a023-9132cecee8ee" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2021.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2021.png"/></a></figure><p id="f7098250-5f53-408a-abc6-8e512d44c807" class="block-color-orange_background">
+</p><figure id="948fe509-c34b-40ab-98c6-ed1da4d7de7c" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2022.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2022.png"/></a></figure><p id="e6ff9d5c-3d69-4c8e-8382-f39773e0ef20" class="block-color-orange_background">
+</p><figure id="246170bc-a244-4a60-a383-9c86c6ebcf24" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2023.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2023.png"/></a></figure><p id="8e5bc6de-db34-487c-8573-d1940e9b1c89" class="block-color-orange_background">
+</p><figure id="d9279375-4d85-4622-af92-496a2344bb7e" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2024.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2024.png"/></a></figure><h1 id="4842374d-367d-404c-8cc7-3da7675e0c8b" class="block-color-orange_background">space evenly</h1><figure id="8367e030-960a-4218-a847-82663f985202" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2025.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2025.png"/></a></figure><p id="18b32ecc-ec2f-439d-a72d-73b26c036b5f" class="block-color-orange_background">
+</p><h1 id="0bba0dd5-cc72-4106-b46d-9417c50ee81c" class="block-color-orange_background"><strong>107. Flex-Wrap</strong></h1><figure id="7a25156b-3291-46dd-b46f-2bdcd81cd4c2" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2026.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2026.png"/></a></figure><p id="5fae79b9-a358-4dab-84d5-0e3a49da967c" class="block-color-orange_background">
+</p><figure id="ecd0974d-5b61-4395-bb10-31a360cbebe7" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2027.png"><img style="width:1024px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2027.png"/></a></figure><p id="58ec9fbb-35ed-48ea-87a8-4be2b8a6cc61" class="block-color-orange_background">
+</p><figure id="988c865b-99f2-414e-a349-e68e54331c52" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2028.png"><img style="width:700px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2028.png"/></a></figure><p id="dbaa8138-1c4b-4387-859b-6050e66f9135" class="block-color-orange_background">
+</p><figure id="d60daac7-15b2-4539-9063-25e19e6a56d0" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2029.png"><img style="width:890px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2029.png"/></a></figure><p id="2a8b9a61-e74b-43f4-bfbe-d7bcd07c39eb" class="block-color-orange_background">
+</p><figure id="056b9f06-8e6a-4f9d-b8b5-378d9cf22970" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2030.png"><img style="width:880px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2030.png"/></a></figure><p id="1c9a9321-dcc0-45a4-b368-15e8210750bb" class="block-color-orange_background">
+</p><h1 id="0276faad-3c6a-4e1f-a9fd-74db181ce7d7" class="block-color-orange_background"><strong>108. Align-Items</strong></h1><figure id="d8ba4338-f0df-435f-8343-931764c59e77" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2031.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2031.png"/></a></figure><p id="802b6f33-3b2f-49b6-b897-930a9d719ea0" class="block-color-orange_background">
+</p><figure id="de3d4ab9-b96c-40f4-832a-5e7f07f26b07" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2032.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2032.png"/></a></figure><p id="7389d6bf-5b67-4b60-bc73-3de205d69593" class="block-color-orange_background">
+</p><figure id="c58712a1-1718-4eb7-97a7-d469f7c43bdd" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2033.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2033.png"/></a></figure><p id="5c3c3dfa-3d54-43ad-9a7a-0ffe389ac7d9" class="block-color-orange_background">
+</p><figure id="faa999a8-70a8-496c-8b7b-d6eb0fb15831" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2034.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2034.png"/></a></figure><blockquote id="fa282921-ee35-4db5-af08-b68c88dcd735" class="block-color-orange_background">align items to base line - will align items to text base line</blockquote><figure id="82065b00-059a-460c-92de-58c8fceef63c" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2035.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2035.png"/></a></figure><p id="1470e22b-b195-4059-8666-01e138bd5c70" class="block-color-orange_background">
+</p><figure id="b28c20af-0dad-4d5e-a099-e9fbad403b18" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2036.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2036.png"/></a></figure><p id="016388b7-27d7-46dc-b87d-0516998abbc9" class="block-color-orange_background">
+</p><figure id="a77dab60-2ea4-414f-a5c4-eb68ee915bd8" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2037.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2037.png"/></a></figure><p id="bf05a0af-aa28-4954-b16e-c43aba8cbd54" class="block-color-orange_background">
+</p><figure id="4785d2a5-de4d-4b77-bc92-52750f70d2e0" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2038.png"><img style="width:426px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2038.png"/></a></figure><p id="34587ec0-bf69-4ea5-9456-0a0e77f7db63" class="block-color-orange_background">
+</p><h1 id="d1cad54b-a298-44f8-ae8b-e248c4671961" class="block-color-orange_background"><strong>109. Align-Content &amp; Align-Self</strong></h1><figure id="a522c076-d2cc-4e66-b358-d8eeb4079c1c" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2039.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2039.png"/></a></figure><figure class="block-color-orange_background callout" style="white-space:pre-wrap;display:flex" id="ec1e049f-3cbe-4db0-8d97-a2e0ec4dc2e0"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">it is used to control the space between wrapped elements or wrapped columns in css flex box </div></figure><figure id="8faa9efd-be0b-4dbc-9cd7-95c47c3f325f" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2040.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2040.png"/></a></figure><p id="44afec31-ac41-4552-9a16-c1478a93a7df" class="block-color-orange_background">
+</p><figure id="ba203af8-7bac-47d9-bcc2-e3a0592bf3ff" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2041.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2041.png"/></a></figure><p id="f9c15759-7adc-428a-8228-8983594e372b" class="block-color-orange_background">
+</p><figure id="c0d3053e-3800-40cf-9f6d-2df3e58ffed6" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2042.png"><img style="width:1920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2042.png"/></a></figure><p id="cbe8274f-9b86-4536-902a-29ed73b1f495" class="block-color-orange_background">
+</p><figure id="3f13c0b1-5d27-4d37-87fd-4227cb08f135" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2043.png"><img style="width:600px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2043.png"/></a></figure><p id="3e93791b-df5c-4539-a262-16d597a9dddc" class="block-color-orange_background">
+</p><figure id="a07227f6-3610-410a-8654-a072a0b222cf" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2044.png"><img style="width:1547px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2044.png"/></a></figure><p id="29c9f4cc-8be8-49f0-9bd4-f0479619ab98" class="block-color-orange_background">
+</p><figure id="7066b6bf-e129-4639-b011-93a8d9f19ad6" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2045.png"><img style="width:1335px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2045.png"/></a></figure><p id="d58ea584-4769-4192-a0e1-d6be542f7cec" class="block-color-orange_background">
+</p><figure id="e6604815-fc49-4ed2-82c2-f95f69c099ce" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2046.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2046.png"/></a></figure><p id="4e18df98-bc94-4a92-b319-7cd9f3882deb" class="block-color-orange_background">
+</p><figure id="dc495635-c781-4fc2-9c32-1937f00b30f9" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2047.png"><img style="width:738px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2047.png"/></a></figure><p id="b340a51d-ce3e-4ea7-88ca-378a28a7311b" class="block-color-orange_background">
+</p><figure id="64aa122b-8773-4d2c-905a-689126284aad" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2048.png"><img style="width:450px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2048.png"/></a></figure><p id="481ac616-40d6-4b83-a751-fcd2fb4b49fd" class="block-color-orange_background">
+</p><h1 id="0e52d7f0-52ce-4b27-b60c-b61e1144c081" class="block-color-orange_background"><strong>110. Flex-Basis, Grow, &amp; Shrink</strong></h1><figure id="36c72d44-446d-4afa-a684-e1b9d715d917" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2049.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2049.png"/></a></figure><p id="e78f8423-7c89-4432-8ace-4a90236eb981" class="block-color-orange_background">
+</p><figure id="4f30d98b-244c-4a40-b6a3-6d532fe8a643" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2050.png"><img style="width:600px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2050.png"/></a></figure><p id="b99645e6-ab90-44bb-b640-901dfc9b6a9e" class="block-color-orange_background">
+</p><figure id="a9fb7e2b-0731-4c69-b151-dbc555d49128" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2051.png"><img style="width:600px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2051.png"/></a></figure><p id="ce22cb2f-2f57-4ed6-bd1f-2dbe499cf80a" class="block-color-orange_background">
+</p><figure id="91bd7090-d6e7-4a89-8247-65fca52bb52c" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2052.png"><img style="width:800px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2052.png"/></a></figure><p id="aa0bebe1-dc99-4d55-82c2-20725adb97b9" class="block-color-orange_background">
+</p><figure id="06a88c11-be82-4592-b853-ed1c814af7ea" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2053.png"><img style="width:868px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2053.png"/></a></figure><p id="9c13e6ac-7003-41e7-a85f-ea88b13fbd37" class="block-color-orange_background">
+</p><figure id="0d7ab3ae-1550-4f0c-9cda-338befa65261" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2054.png"><img style="width:1800px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2054.png"/></a></figure><p id="b0460353-2fa0-4837-95f4-4eb56d959e80" class="block-color-orange_background">
+</p><figure id="9c13878e-8bb2-4f4a-8993-e245e6de541b" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2055.png"><img style="width:811px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2055.png"/></a></figure><p id="dc04338b-811c-4a9f-a549-0131e414c892" class="block-color-orange_background">
+</p><figure id="ded9b55a-7cd8-46ae-b014-d050aad13819" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2056.png"><img style="width:920px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2056.png"/></a></figure><p id="80f280c4-5b9f-4056-9c9f-9e70d74aed6e" class="block-color-orange_background">
+</p><figure id="540d24fa-6a19-4e0b-9cdd-1bd769bced9a" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2057.png"><img style="width:880px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2057.png"/></a></figure><p id="53bb44b6-7aec-4de2-a543-be9df7d1c555" class="block-color-orange_background">
+</p><figure id="774ebd67-0124-4d1d-9c3b-694cc7209aea" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2058.png"><img style="width:1342px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2058.png"/></a></figure><p id="e9664d82-e756-46e8-aaba-dfa53a236fa1" class="block-color-orange_background">
+</p><figure id="2830d066-c45f-426a-a1e1-99c477381063" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2059.png"><img style="width:600px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2059.png"/></a></figure><p id="eca908b5-f1c0-455f-b7ee-4837cf0c3245" class="block-color-orange_background">
+</p><h1 id="425cd928-dc53-446a-9fcc-426b993db94b" class="block-color-orange_background"><strong>111. Flex Shorthand</strong></h1><figure id="95ba7b4a-d709-4252-b06e-e2cfc84fd3ff"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex" class="block-color-red_background bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">flex - CSS: Cascading Style Sheets | MDN</div><div class="bookmark-description">The flex CSS shorthand property sets how a flex item will grow or shrink to fit the space available in its flex container.</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.cbbd161b.png" class="icon bookmark-icon"/>https://developer.mozilla.org/en-US/docs/Web/CSS/flex</div></div><img src="https://developer.mozilla.org/mdn-social-share.cd6c4a5a.png" class="bookmark-image"/></a></figure><p id="887edb09-4c0e-4beb-9621-29e868730654" class="block-color-orange_background">
+</p><figure id="7d1abb8b-c3d5-46f7-acf8-20f6e790b57e" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2060.png"><img style="width:1000px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2060.png"/></a></figure><p id="b6a3d6bc-8ca3-4aa1-a07b-c620918e6588" class="block-color-orange_background">
+</p><figure id="8b3843e4-66ce-46f5-9c6c-737b8a1a7026" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2061.png"><img style="width:1200px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2061.png"/></a></figure><p id="9cd19692-9d34-4465-bc30-61e68e417f19" class="block-color-orange_background">
+</p><figure id="c2726216-e4da-48b3-9c10-4f2420519029" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2062.png"><img style="width:2858px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2062.png"/></a></figure><p id="e5842db2-73f4-4209-9f81-68c9cb784ff9" class="block-color-orange_background">
+</p><figure id="79000ce6-d54b-4239-8d64-1f446fa1265e" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2063.png"><img style="width:1092px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2063.png"/></a></figure><p id="a159b4fa-ea80-4354-bea7-6c0ea29d0a89" class="block-color-orange_background">
+</p><h1 id="d700c85b-4164-465e-9fba-9cabdcd6864b" class="block-color-orange_background"><strong>112. Responsive Design &amp; Media Queries Intro</strong></h1><figure id="2ccadbfe-f8b3-4dc2-be9a-22a29942b42e" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2064.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2064.png"/></a></figure><p id="ef97b229-d4f8-45a5-9a40-16dd6e317948" class="block-color-orange_background">
+</p><figure id="d20956b0-b86d-4b7f-8dd7-f3614e290cd2" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2065.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2065.png"/></a></figure><p id="1dd51787-7d64-4edb-bc79-c46be3f992a7" class="block-color-orange_background">
+</p><figure id="193c455d-1e45-4574-b2ac-45fcde7c937b" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2066.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2066.png"/></a></figure><p id="d4f79415-10fe-4011-bce7-2f6a1bfdc5cb" class="block-color-orange_background">
+</p><h1 id="808973cc-76da-4106-8e6a-eddf424f75e4" class="block-color-orange_background"><strong>113. The Power of Media Queries</strong></h1><figure id="621c06df-f8d4-4ec9-856a-44c0660ff7ee" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2067.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2067.png"/></a></figure><p id="ad518bba-87ad-45f7-878b-ddce872f8c57" class="block-color-orange_background">
+</p><figure id="3f3a334b-3602-467e-a0bd-65841c95f624" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2068.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2068.png"/></a></figure><p id="2f5ffc99-9470-4bdd-bc74-5ce460a48135" class="block-color-orange_background">
+</p><figure id="fd129673-4685-48f0-9597-55fbcaba645d" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2069.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2069.png"/></a></figure><p id="85f3e90a-e352-48a9-914f-ecc016018609" class="block-color-orange_background">
+</p><figure id="6c4f2984-8ea7-4cad-a8ba-1a7a881661ea" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2070.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2070.png"/></a></figure><p id="753dd729-c929-404f-bfb4-14aef1691288" class="block-color-orange_background">
+</p><figure id="90a2a04e-154b-4266-9ca0-d2e20208b323" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2071.png"><img style="width:1919px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2071.png"/></a></figure><p id="f972a816-80cb-40f0-9e14-a4e62e060400" class="block-color-orange_background">
+</p><figure id="7ae7bf93-5104-4ff6-9ced-4b241feb4125" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2072.png"><img style="width:900px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2072.png"/></a></figure><p id="5f116e71-9b41-4fa7-80df-c7d4edc5c9c3" class="block-color-orange_background">
+</p><figure id="86b812ba-5e13-4536-aa3f-fa804eab9c3b" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2073.png"><img style="width:666px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2073.png"/></a></figure><p id="da10b614-aaef-400d-aa25-52f36542ce53" class="block-color-orange_background">
+</p><figure id="aadf01bc-8b91-4ea6-9487-b1a339bf7496" class="image"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2074.png"><img style="width:397px" src="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1/Untitled%2074.png"/></a></figure><p id="049a0b00-14b7-4d01-aac6-2dc92a09a737" class="block-color-orange_background">
+</p><h1 id="d2860fa2-3dd5-4b45-ac8f-13db1859397b" class="block-color-orange_background"><strong>114. Building a Responsive Nav</strong></h1><p id="593f6f9d-93a2-4a35-86f7-6a51010de7d7" class="block-color-orange_background">
+</p><figure id="ece27c60-c8bc-426b-9c0c-2ba28d4d1eed" class="block-color-orange link-to-page"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed.html">012 - CSS frameworks bootstrap </a></figure></div></article></body></html>

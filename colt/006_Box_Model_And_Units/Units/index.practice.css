@@ -1,0 +1,54 @@
+h1 {
+  background-color: #025248;
+  color: aliceblue;
+}
+
+section {
+  background-color: #2a9d8f;
+  height: 900px;
+  width: 900px;
+}
+
+.class001 {
+  background-color: antiquewhite;
+  width: 20%;
+  height: 50%;
+}
+
+.class002 {
+  background-color: rgb(25, 219, 80);
+  width: 40%;
+  height: 30%;
+}
+
+h1 {
+  font-size: large;
+  line-height: 200%;
+  border: 5px blanchedalmond dotted;
+}
+/* Wklelue keseruen iumhumnok yg uiraga buabeleul nequem keseruen eggedum ere ne, buol kynzathul wyzeul mezuul ulud fyomnok volek fyodum hioll.  */
+
+article {
+  font-size: 60px;
+}
+
+h2 {
+  font-size: 2em;
+  margin-left: 1em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+p {
+  font-size: 0.8em;
+}
+
+button {
+  font-size: 1.5em;
+  padding: 0 0.4em;
+  margin: 0 0.4em;
+  border-radius: 0.4em;
+  background-color: aqua;
+}

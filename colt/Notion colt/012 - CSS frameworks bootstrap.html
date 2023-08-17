@@ -1,0 +1,712 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>012 - CSS frameworks bootstrap </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ece27c60-c8bc-426b-9c0c-2ba28d4d1eed" class="page sans"><header><h1 class="page-title">012 - CSS frameworks bootstrap </h1><p class="page-description"></p></header><div class="page-body"><figure id="dcb5e24b-e022-432f-b14c-181353f5cae1" class="block-color-orange link-to-page"><a href="010%20-%20Responsive%20CSS%20&amp;%20Flexbox%20dcb5e24be022432fb14c181353f5cae1.html">010 - Responsive CSS &amp; Flexbox</a></figure><h1 id="c719ce6d-c8d5-46cd-aab0-9506ff6c1c4d" class="block-color-orange_background"><strong>121. What Matters In This Section</strong></h1><figure id="983e2945-6226-4f40-913f-b8275b486188" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled.png"/></a></figure><p id="ae120f38-7e07-499f-926b-04756495ab6b" class="block-color-orange_background">
+</p><h1 id="ce830414-8d0d-4db5-a1d5-ec736c0dfcf9" class="block-color-orange_background"><strong>122. WTF Is Bootstrap</strong></h1><figure id="040f6bc5-a0e8-4ce5-b756-bdd777ea4fba" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%201.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%201.png"/></a></figure><p id="75347dc5-a559-4f42-899b-43e80ef58b4c" class="block-color-orange_background">
+</p><figure id="a0d179af-9367-4f59-96bb-f96fc5cf21b5" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%202.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%202.png"/></a></figure><p id="90a75695-749a-471c-b444-09d80599affc" class="block-color-orange_background">
+</p><figure id="51308804-8ac0-4c95-9cb5-e27b93ed3f3f" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%203.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%203.png"/></a></figure><p id="5f57b3a4-8238-4724-98e8-d96f1e4a5aaf" class="block-color-orange_background">
+</p><figure id="e40f61d0-5f48-4639-8950-9e1fd02ba971" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%204.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%204.png"/></a></figure><p id="7cf7c53a-dd1b-4a38-b283-f5c7fb2910ed" class="block-color-orange_background">
+</p><figure id="aefd1537-33b2-4a4c-85bf-dba9d1a997f3" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%205.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%205.png"/></a></figure><p id="e448bf71-910f-498c-9558-eb1f1e9fdd09" class="block-color-orange_background">
+</p><h1 id="4e320a47-c6c8-4d02-ba48-d306c087acae" class="block-color-orange_background"><strong>123. Including Bootstrap &amp; Containers</strong></h1><figure id="a3bf8c6b-0d0f-4b2a-8322-5371904334c3" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%206.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%206.png"/></a></figure><p id="79a60eb4-4667-4173-bcc4-d0d0afcd796f" class="block-color-orange_background">
+</p><table id="cc6446e6-5f9d-445e-8d8e-bbe37583b0e7" class="simple-table"><thead class="simple-table-header"><tr id="c3a7698c-d437-415d-ade2-72e3efd9ba71"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px"><strong>Breakpoint</strong></th><th id="Y&gt;?o" class="simple-table-header-color simple-table-header" style="width:349px"><strong>Min-width</strong></th></tr></thead><tbody><tr id="4f3b1e2f-7778-40cd-99d9-4007f53deabf"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">xs</th><td id="Y&gt;?o" class="" style="width:349px">&lt;576px</td></tr><tr id="0a581a46-1098-4b2b-ba0a-d94f21f8c631"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">sm</th><td id="Y&gt;?o" class="" style="width:349px">576px</td></tr><tr id="63658d0b-29cd-4d3d-9303-ad121018b627"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">md</th><td id="Y&gt;?o" class="" style="width:349px">768px</td></tr><tr id="8cc0ecc6-9614-455a-8d5d-1066a6a09915"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">lg</th><td id="Y&gt;?o" class="" style="width:349px">992px</td></tr><tr id="58d3ce40-d392-497b-8c27-47f8a2ed2da1"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">xl</th><td id="Y&gt;?o" class="" style="width:349px">1200px</td></tr><tr id="720e3271-b9a5-4302-a209-8b47dcea16cf"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">xxl</th><td id="Y&gt;?o" class="" style="width:349px">1440px</td></tr></tbody></table><p id="3dd59f98-3b4b-4293-9915-1cf3028e9477" class="block-color-orange_background">
+</p><figure id="ee85e1bc-aca0-4263-ae21-78256b590683" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%207.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%207.png"/></a></figure><p id="717ee670-2692-4f43-b7e0-4734ed239787" class="block-color-orange_background">
+</p><figure id="df1fc79e-79d8-44d8-a24a-7be16df27acd" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%208.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%208.png"/></a></figure><p id="7751f5f1-414d-44a3-b46d-de24c3ca5c89" class="block-color-orange_background">
+</p><figure id="954025c8-87be-449e-8b95-943cd41ccc2a" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%209.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%209.png"/></a></figure><p id="00ed0eaa-bdf1-4690-a496-77a2b43b1d44" class="block-color-orange_background">
+</p><h1 id="cde16a73-b8d6-4f72-933a-f5d4cdab097c" class="block-color-orange_background"><strong>124. Bootstrap Buttons</strong></h1><figure id="c9bf5abe-e438-4192-b23b-df364731f1a0" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2010.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2010.png"/></a></figure><p id="bfb76d5c-e42e-4516-a29b-33fc9b6efec9" class="block-color-orange_background">
+</p><figure id="673cf1bb-3c2f-4915-a87c-8378bcbf0588" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2011.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2011.png"/></a></figure><p id="51137c3e-1b55-4750-91b4-7add66f36a3b" class="block-color-orange_background">
+</p><h1 id="bfb9ed21-94f8-4677-9477-6d9df10e966c" class="block-color-orange_background">1<strong>25. Bootstrap Typography &amp; Utilities</strong></h1><figure id="bfbd129e-8568-448f-9b8b-40e2f278ca44" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2012.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2012.png"/></a></figure><p id="e45f9b01-113e-44ec-8342-983059b1f93c" class="block-color-orange_background">
+</p><figure id="96a47202-da75-4f9a-bb18-8f582c06caaf" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2013.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2013.png"/></a></figure><p id="d06a14ca-4742-45c4-8065-da1b9c8df650" class="block-color-orange_background">
+</p><figure id="4226409a-cf55-4df5-96fc-02c57a9c28c5" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2014.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2014.png"/></a></figure><p id="dfee36d5-7897-4743-b14b-5f03c2efd7da" class="block-color-orange_background">
+</p><h1 id="f7947321-e34e-4dea-84f8-a69299747f41" class="block-color-orange_background"><strong>126. Badges, Alerts, &amp; Button Groups</strong></h1><figure id="f11aca21-cbb7-4429-94e1-9c0198442d07" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2015.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2015.png"/></a></figure><p id="9a0542bf-1f4f-4074-8e84-8c7dfc8b6c5a" class="block-color-orange_background">
+</p><figure id="65c31ec8-90fc-43e4-82e4-f9e2e21ff3a4" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2016.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2016.png"/></a></figure><p id="88aafc8f-f0d4-48fb-8db7-31f2349ba486" class="block-color-orange_background">
+</p><figure id="de771c8d-14c4-49c9-9504-f644122b0b52" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2017.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2017.png"/></a></figure><p id="4d504021-20e4-4740-a199-71783d354cde" class="block-color-orange_background">
+</p><figure id="7049e617-ffd0-443b-af3b-7c787461ee6d" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2018.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2018.png"/></a></figure><p id="f07db2d9-3ae8-4962-932b-8fb5dde633ae" class="block-color-orange_background">
+</p><figure id="3a9ea3f9-5b8b-4d02-902f-2cd2e6306312" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2019.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2019.png"/></a></figure><p id="da0fd3a6-5cfe-492c-8fee-301e0466d433" class="block-color-orange_background">
+</p><figure id="751e7181-83ea-4596-9a69-a8201660505e" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2020.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2020.png"/></a></figure><p id="3234c3b0-3eda-43fc-b33b-a0c7d7132ed5" class="block-color-orange_background">
+</p><h1 id="96b6975d-2713-4a5c-aa70-196dff857990" class="block-color-orange_background">127. Intro to the Bootstrap Grid</h1><figure id="0b0cd351-5357-4a5a-af80-edb90d05636a" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2021.png"><img style="width:1567px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2021.png"/></a></figure><p id="481c558e-bb3e-44ea-9b48-33e9d9fecad8" class="block-color-orange_background">
+</p><figure id="5b9611e2-1291-472e-a392-420f1fd5314e" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2022.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2022.png"/></a></figure><p id="2bd1addd-7c25-4679-9320-a627f3ba0a17" class="block-color-orange_background">
+</p><figure id="e4a51139-019d-4b46-9f3b-6e0afd8279ec" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2023.png"><img style="width:1920px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2023.png"/></a></figure><p id="ff6a3741-9276-4f52-8355-e1d6b66418ba" class="block-color-orange_background">
+</p><figure id="95aa1634-8f9b-4d29-98c3-b7275dc8fee7" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2024.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2024.png"/></a></figure><p id="e1819721-a2ee-4fc1-93ec-64df68c53d22" class="block-color-orange_background">
+</p><figure id="7d9205f6-5a02-45ee-947f-f5d7506039db" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2025.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2025.png"/></a></figure><p id="807a8e2b-3661-41ea-8038-729d7890fefb" class="block-color-orange_background">
+</p><h1 id="615aef19-586f-4cc3-9ccc-2a16657dfed3" class="block-color-orange_background"><strong>128. Responsive Bootstrap Grids</strong></h1><figure id="cbdab89b-e338-40ae-8059-88626616dc51" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2026.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2026.png"/></a></figure><p id="eec54b5f-7532-4a2f-9bf9-ce74a5cf4d45" class="block-color-orange_background">
+</p><table id="c2e7c2e2-9db2-4442-85ef-f474bf6f4022" class="simple-table"><thead class="simple-table-header"><tr id="c01ed44a-d7ce-4329-9254-3d674f629327"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px"><strong>Breakpoint</strong></th><th id="Y&gt;?o" class="simple-table-header-color simple-table-header" style="width:349px"><strong>Min-width</strong></th></tr></thead><tbody><tr id="4faf8fd8-5608-41aa-adc6-806760098086"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">xs</th><td id="Y&gt;?o" class="" style="width:349px">&lt;576px</td></tr><tr id="1a778370-7233-43e6-936d-5292c76ab6ee"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">sm</th><td id="Y&gt;?o" class="" style="width:349px">576px</td></tr><tr id="144829e4-f707-4196-a470-51c3b0b341ec"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">md</th><td id="Y&gt;?o" class="" style="width:349px">768px</td></tr><tr id="c701a6b4-c795-4d0f-9186-be41c8229c56"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">lg</th><td id="Y&gt;?o" class="" style="width:349px">992px</td></tr><tr id="3ea4200e-2c53-4075-bc36-26b57fdab04f"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">xl</th><td id="Y&gt;?o" class="" style="width:349px">1200px</td></tr><tr id="40f736bf-c1ea-477a-ba12-2599a407ff9e"><th id="i:en" class="simple-table-header-color simple-table-header" style="width:349px">xxl</th><td id="Y&gt;?o" class="" style="width:349px">1440px</td></tr></tbody></table><p id="a4c10434-673d-49bb-979f-27b2fe8d8470" class="block-color-orange_background">
+</p><figure id="cbd88393-8abf-4f0f-bbc8-545b3f226785" class="image"><a href="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2027.png"><img style="width:1919px" src="012%20-%20CSS%20frameworks%20bootstrap%20ece27c60c8bc426b9c0c2ba28d4d1eed/Untitled%2027.png"/></a></figure><p id="86eaa3d8-d8fa-4dab-b513-7a57edebe7a6" class="block-color-orange_background">
+</p><h1 id="ce4d2136-eaaa-479c-b831-f94086fbfd3d" class="block-color-orange_background"><strong>129. Useful Grid Utilities</strong></h1><p id="0d4f7c5b-3b76-4449-bca7-cce1947e5cff" class="block-color-orange_background">
+</p><h1 id="38e17fd9-07a5-424d-8ecd-1bc0cab1a6b2" class="block-color-orange_background"><strong>130. Bootstrap &amp; Forms</strong></h1><p id="7c2f3f40-8c2a-4c60-a0d2-a3f9189c3679" class="block-color-orange_background">
+</p><h1 id="0a6a210b-3085-4bf9-a1f7-4e437bfe3cc6" class="block-color-orange_background"><strong>131. Bootstrap Navbars</strong></h1><p id="ccc967d8-b6f6-4847-848f-6daf7cbb4413" class="block-color-orange_background">
+</p><h1 id="7abf0c8c-fab2-4197-a9c6-75e5f4e08986" class="block-color-orange_background"><strong>132. Bootstrap Icons!</strong></h1><p id="f3ab9982-280e-445f-89f2-3879e1790f60" class="block-color-orange_background">
+</p><h1 id="b7f8c424-4e3a-46a9-8e0d-4a45bc020a65" class="block-color-orange_background"><strong>133. Other Bootstrap Utilities</strong></h1><p id="246aec2b-e576-4e83-ba41-bac2f876367a" class="block-color-orange_background">
+</p><h1 id="e5625096-2ac4-4de1-9ea6-3b26a77a20fb" class="block-color-orange_background"><strong>134. A Mixed Bag of Other Bootstrap Stuff</strong></h1><p id="3fab27a3-95b1-443c-90b2-378d7c115d3a" class="block-color-orange_background">
+</p><figure id="7b41ea62-e36e-4ee5-a400-88c29559f936" class="link-to-page"><a href="014%20-%20JavaScript%20Basis!%207b41ea62e36e4ee5a40088c29559f936.html">014 - JavaScript Basis!</a></figure></div></article></body></html>

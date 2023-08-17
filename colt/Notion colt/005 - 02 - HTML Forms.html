@@ -1,0 +1,737 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>005 - 02 - HTML Forms</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a60dd8bc-c191-4455-935c-628cf5ff46e0" class="page sans"><header><h1 class="page-title">005 - 02 - HTML Forms</h1><p class="page-description"></p></header><div class="page-body"><figure id="515a15b0-caa0-406a-913e-e7a3990905c2" class="block-color-pink link-to-page"><a href="005%20-%2001%20-%20HTML%20Tables%20515a15b0caa0406a913ee7a3990905c2.html">005 - 01 - HTML Tables</a></figure><figure id="901f32eb-d38b-4bf8-9eb5-56a3d3d3a760" class="image"><a href="005%20-%2001%20-%20HTML%20Tables%20515a15b0caa0406a913ee7a3990905c2/Untitled.png"><img style="width:1571px" src="005%20-%2001%20-%20HTML%20Tables%20515a15b0caa0406a913ee7a3990905c2/Untitled.png"/></a></figure><p id="686fceb3-e649-4c69-81f3-0a0a906841f9" class="block-color-orange_background">
+</p><figure id="1a024718-b5b9-4111-9b70-f2f35193800d" class="image"><a href="005%20-%2001%20-%20HTML%20Tables%20515a15b0caa0406a913ee7a3990905c2/Untitled%201.png"><img style="width:1920px" src="005%20-%2001%20-%20HTML%20Tables%20515a15b0caa0406a913ee7a3990905c2/Untitled%201.png"/></a></figure><h1 id="d57889a2-64ca-4a49-a93b-75e743fdc2ac" class="block-color-orange_background">46. The Form Element</h1><figure id="791c73b6-6d59-4bda-9598-60684a8d2433" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled.png"><img style="width:1151px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled.png"/></a></figure><p id="03cfec47-f591-4b5d-85e9-aafc3cbbb8b5" class="block-color-orange_background">
+</p><figure id="6711a862-a0dd-4567-92b4-c3a8d8a7b30c" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%201.png"><img style="width:284px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%201.png"/></a></figure><p id="80fd166d-23ee-447f-95b1-487ae92784fe" class="block-color-orange_background">
+</p><figure id="b1e671f2-a616-4120-a524-121960ca46bf" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%202.png"><img style="width:592px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%202.png"/></a></figure><p id="254ca441-922e-4492-8f75-cbc46128bd2b" class="block-color-orange_background">
+</p><figure id="352d374f-cf41-4ed5-8e53-fe14402169a9" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%203.png"><img style="width:900px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%203.png"/></a></figure><p id="d5fac574-33ba-45d1-827c-34f1edeb502d" class="block-color-orange_background">
+</p><figure id="6eaa9d2a-7ebb-47a1-a14d-05dd09281897" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%204.png"><img style="width:1151px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%204.png"/></a></figure><p id="4368868c-0a50-48a1-ba59-27acb4e2cf13" class="">we&#x27;re going to focus on the form element.</p><p id="60e49a53-6fe9-47e6-9f00-e58cb56090dd" class="">So the form element itself doesn&#x27;t really show up as anything at all.</p><p id="18f568c9-5b2c-4ee5-8286-c9f1f9102158" class="">It&#x27;s more of a shell or a <strong>container</strong> that will <span style="border-bottom:0.05em solid"><strong>contain a bunch of individual form controls</strong></span>, like text inputs and password, inputs and buttons and checkboxes. But we group them together is called as a form</p><p id="5ee1cad5-139f-4303-a1e8-88dfabecd2b6" class="block-color-orange_background">
+</p><figure id="0de01630-f011-4991-b820-3501d1049a5f" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%205.png"><img style="width:1151px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%205.png"/></a></figure><p id="1e9ce52b-e239-4450-9d89-29007399ed34" class="block-color-orange_background">
+</p><p id="b3d23742-0cd7-481f-8376-d08dbecca36c" class="">
+</p><figure id="c4e92de4-f01c-4f82-8108-df604711e673" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%206.png"><img style="width:1151px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%206.png"/></a></figure><p id="bf637d14-cab0-4598-ab69-9d5b24497f9a" class="block-color-orange_background">
+</p><figure id="9bf9ea1c-a4fe-4ee7-9db5-d4b6ca212094" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%207.png"><img style="width:1151px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%207.png"/></a></figure><p id="0709195e-b157-441a-a2da-b9ba81396443" class="block-color-orange_background">
+</p><h1 id="8c9d1b0a-f211-4982-b925-7966954955a4" class="block-color-orange_background">47. Common Input Types</h1><figure id="b5c165e3-1c82-42e3-bf79-c72ebac4c9c8" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%208.png"><img style="width:1056px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%208.png"/></a></figure><p id="cfb8fecf-0d3b-427f-b272-48bd4a7e8c57" class="block-color-orange_background">
+</p><figure id="684c8412-1ca0-4fc8-ab20-f282178ddf1a" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%209.png"><img style="width:1151px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%209.png"/></a></figure><p id="5d63e9f0-3016-4b54-a9d1-51f442638741" class="block-color-orange_background">
+</p><figure id="a04dd2bb-e37f-4fc1-afc4-07795a17e5e1" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2010.png"><img style="width:800px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2010.png"/></a></figure><p id="f0b3e307-2901-40c4-9aba-769bf745966b" class="block-color-orange_background">
+</p><figure id="793d1403-33bc-45d6-b45a-cb103758490e" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2011.png"><img style="width:756px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2011.png"/></a></figure><p id="5398e095-43f8-4c2b-bb8d-49b9393ce831" class="block-color-orange_background">
+</p><h1 id="4c8bfcab-9554-4695-becc-93b61c3fd2fe" class="block-color-orange_background">48. The All-Important Label</h1><figure id="3b684810-e861-40ef-8878-0b83393bdd17" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2012.png"><img style="width:720px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2012.png"/></a></figure><p id="d7e82961-fda7-48c2-83c7-3dc106001b47" class="block-color-orange_background">
+</p><figure id="8ae84881-ba7f-4392-baca-f1934fbc9d25" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2013.png"><img style="width:434px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2013.png"/></a></figure><p id="e29e215a-9d0d-48e1-af5d-1f753fd2baa0" class="block-color-orange_background">
+</p><pre id="3e85ea74-7852-4ae8-823e-999657cb7692" class="code code-wrap"><code>&lt;form&gt;
+	&lt;label for=&quot;name&quot;&gt; Name: &lt;/label&gt;
+	&lt;input type=&quot;text&quot; id=&quot;name&quot; /&gt;
+&lt;/form&gt;</code></pre><figure id="baf8a817-6f1e-46ff-b57d-a83316a9e089" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2014.png"><img style="width:600px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2014.png"/></a></figure><p id="344a36b2-fd47-4f68-a5cb-0bd739ad3bc6" class="block-color-orange_background">
+</p><h1 id="47c37614-df72-4570-92e4-55b749cf515a" class="block-color-orange_background">49. HTML Buttons</h1><figure id="af93b656-9786-47c4-a007-16dc65d7bf64" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2015.png"><img style="width:300px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2015.png"/></a></figure><p id="0b41f455-72e8-4dc3-a159-6f9fede93851" class="block-color-orange_background">
+</p><p id="5237cf3d-851c-4075-a49e-e2b8daf03c7c" class="">
+</p><figure id="62999655-db0c-4175-a46c-60f1a35cf53c" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2016.png"><img style="width:754px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2016.png"/></a></figure><p id="03f847ce-301e-409e-be69-41adb264fab4" class="block-color-orange_background">
+</p><figure id="ddf9b2c0-fcd7-4433-b8df-3c9d249ad33b" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2017.png"><img style="width:505px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2017.png"/></a></figure><p id="bb89794c-2d01-423f-af02-ef980dd0dbc6" class="block-color-orange_background">
+</p><h1 id="ea7f11f4-a92c-475e-add5-4736a013e053" class="block-color-orange_background">51.The name attribute</h1><pre id="870130bb-eee2-4713-bdd0-10d257d0f35e" class="code"><code>&lt;form&gt; 
+	&lt;label for=&quot;name&quot; id=&quot;name&quot;&gt;Name&lt;/label&gt;
+	&lt;br/&gt; &lt;input name=&quot;name&quot; id=&quot;name&quot;&gt; 
+&lt;/form&gt;</code></pre><p id="1fcb03a0-a81e-4c24-a772-29c25aea7833" class="block-color-orange_background">
+</p><pre id="9efc494c-04dd-4c7e-9de8-38615e1808d7" class="code"><code>&lt;form action=&quot;/tutorial/action.html&quot;&gt;
+
+  &lt;label for=&quot;firstname&quot;&gt;Firstname:&lt;/label&gt;&lt;br /&gt;
+  &lt;input type=&quot;text&quot; id=&quot;firstname&quot; name=&quot;firstname&quot;&gt;&lt;br /&gt;
+
+  &lt;label for=&quot;lastname&quot;&gt;Lastname:&lt;/label&gt;&lt;br /&gt;
+  &lt;input type=&quot;text&quot; id=&quot;lastname&quot; name=&quot;lastname&quot;&gt;&lt;br /&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+&lt;/form&gt;</code></pre><p id="5555944d-2a0f-4045-9cd4-482e56401112" class="block-color-orange_background">
+</p><h1 id="4b7b12d5-3c6f-4ac4-abd0-b69f3ca77b86" class="block-color-orange_background">52. Radio Buttons, Checkboxes, &amp; Selects</h1><h3 id="f216ab74-676d-4536-8982-1f97f0427f56" class="block-color-orange_background">Radio buttons</h3><figure id="61a8d0ef-702a-4db5-a88f-d79bb657a676" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2018.png"><img style="width:528px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2018.png"/></a></figure><p id="fbff6783-f00c-4b87-9012-8da828b32e9f" class="block-color-orange_background">
+</p><figure id="24904a6f-ef2f-47ef-8395-eb538f3e0bad" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2019.png"><img style="width:1280px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2019.png"/></a></figure><h3 id="81264b90-8e18-4c74-b98f-3a874fbcc827" class="block-color-orange_background">Checkboxes</h3><figure id="0cbb1cfd-e3d5-4188-b5c1-6dedca8b960a" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2020.png"><img style="width:480px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2020.png"/></a></figure><p id="7b3f38bd-a95d-4f99-a138-0891cc4c379e" class="block-color-orange_background">
+</p><figure id="08713067-d35e-42af-a66a-e8893f5e237d" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2021.png"><img style="width:952px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2021.png"/></a></figure><p id="092617e9-eb59-445d-8d6a-781ac94d1643" class="block-color-orange_background">
+</p><figure id="09f137b5-221b-4c0f-bca4-5a616a2f923e" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2022.png"><img style="width:407px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2022.png"/></a></figure><p id="9d33fabe-97ea-4177-aa55-82df47a0b164" class="block-color-orange_background">SELECT tag </p><figure id="0d267579-a477-45a3-acd3-a6abb23b971e" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2023.png"><img style="width:1280px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2023.png"/></a></figure><p id="4ea84776-8917-4e8c-92ca-b3e9c09ecd5f" class="block-color-orange_background">
+</p><figure id="3d2ae462-3e60-429f-990f-c48a8a863d52" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2024.png"><img style="width:1010px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2024.png"/></a></figure><p id="d8593999-07dc-4530-954d-08eb087b2e94" class="block-color-orange_background">
+</p><figure id="1197d4ad-8701-4b30-b892-3a6303754c54" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2025.png"><img style="width:1016px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2025.png"/></a></figure><p id="275477f1-eca8-47e7-b29a-ca6bdbc9c966" class="block-color-orange_background">
+</p><h1 id="74679e50-aa83-4142-a3ce-9b957b9775ef" class="block-color-orange_background">54.Range and Text area</h1><figure id="5d612091-b052-44d2-9741-db2729d1b0db" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2026.png"><img style="width:528px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2026.png"/></a></figure><p id="acdffa36-33a6-4007-9d00-48a71b20c697" class="block-color-orange_background">
+</p><figure id="61a9c374-d822-4d62-9dec-8f39d3f48464" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2027.png"><img style="width:1200px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2027.png"/></a></figure><p id="c2d3d754-1087-4369-a271-134e44b686f2" class="block-color-orange_background">
+</p><figure id="48fb85c2-8734-40ca-926f-5f70a0b2bb51" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2028.png"><img style="width:1200px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2028.png"/></a></figure><p id="ef8e0059-f5d0-47d7-a317-abd3052a42b2" class="block-color-orange_background">
+</p><figure id="acc0f2a6-eac0-4620-8530-fda8f2a68a86" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2029.png"><img style="width:788px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2029.png"/></a></figure><p id="096cc9dd-de5c-4961-a27f-a9350ea5b273" class="block-color-orange_background">
+</p><h1 id="6771910f-c8a3-4c23-8b95-8eb21c448cdb" class="block-color-orange_background">54. HTML5 Form Validations</h1><figure id="e21ef2d2-98fe-4f30-a171-1c737956a2e3" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2030.png"><img style="width:731px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2030.png"/></a></figure><p id="f5253544-c833-4b67-bd9a-0b2767e2fc76" class="block-color-orange_background">
+</p><figure id="1c0bd021-19ec-4dab-bc61-2f8f2dcbfb30" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2031.png"><img style="width:1280px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2031.png"/></a></figure><p id="a13465e4-0d22-4979-bafc-16f334c9bad5" class="block-color-orange_background">
+</p><figure id="a4d19919-994e-49cc-bcdd-6e89a0b06f44" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2032.png"><img style="width:1440px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2032.png"/></a></figure><p id="e889c5a4-c4b5-4fa4-b470-c21ffec1d987" class="block-color-orange_background">
+</p><figure id="35b59c68-3d9c-4e5b-98a0-fb4755d8b0ab" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2033.png"><img style="width:995px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2033.png"/></a></figure><p id="ec607cbe-9090-4789-ac02-d82e3ecd9816" class="block-color-orange_background">
+</p><figure id="e91a0954-8ddc-4ea1-8a8c-7b2ac913ad40" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2034.png"><img style="width:802px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2034.png"/></a></figure><p id="2711dfad-ea81-4871-bbb5-dcc48558a1cf" class="block-color-orange_background">
+</p><figure id="5d9bd182-2597-406c-b3bb-8cc295d8b042" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2035.png"><img style="width:828px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2035.png"/></a></figure><p id="426321da-8bdf-42e3-ac3e-5e665da5250b" class="block-color-orange_background">
+</p><figure id="e98dc3c3-6621-4274-b3a2-0e944e87a316" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2036.png"><img style="width:550px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2036.png"/></a></figure><p id="37cabc59-f2a3-4631-aa28-ee3da200988e" class="block-color-orange_background">
+</p><figure id="0a095866-f6de-4190-b5d2-47ee94f324c4" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2037.png"><img style="width:767px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2037.png"/></a></figure><p id="a9c1ac64-5db6-4da7-82f1-2a0c95f97f5e" class="block-color-orange_background">
+</p><figure id="70516381-6b6c-493f-ade0-904234815862" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2038.png"><img style="width:624px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2038.png"/></a></figure><p id="4780b732-9e0f-4bd8-83e4-460519b35d2f" class="block-color-orange_background">
+</p><figure id="62d3ca9f-3200-4f85-8317-b016e79b828b" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2039.png"><img style="width:1015px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2039.png"/></a></figure><p id="aaab8626-179c-42ee-b4d9-7ef11e3bc2bb" class="block-color-orange_background">
+</p><figure id="2fb0a80f-c26b-4a86-a517-cbd367159c94" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2040.png"><img style="width:1027px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2040.png"/></a></figure><p id="2359f462-b465-4d6b-baad-576c9948a4b8" class="block-color-orange_background">
+</p><figure id="e6e4733b-1f96-426d-bd52-bd28406e4511" class="image"><a href="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2041.png"><img style="width:1017px" src="005%20-%2002%20-%20HTML%20Forms%20a60dd8bcc1914455935c628cf5ff46e0/Untitled%2041.png"/></a></figure><p id="6d508e12-79c4-4c7c-bb13-427ad38210ca" class="block-color-orange_background">
+</p><figure id="aa6bf232-fd51-4a24-b002-cea394c0c39b" class="block-color-orange link-to-page"><a href="006%20-%20CSS%20The%20Very%20basics%20aa6bf232fd514a24b002cea394c0c39b.html">006 - CSS The Very basics</a></figure><p id="a36e4a6c-e5fb-41fe-9e11-33d2d879ac9a" class="">
+</p></div></article></body></html>
