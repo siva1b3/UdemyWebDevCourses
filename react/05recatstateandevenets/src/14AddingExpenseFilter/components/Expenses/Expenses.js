@@ -1,18 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import ExpenseItem from './ExpenseItem';
-import Card from '../UI/Card';
-import './Expenses.css';
+import ExpenseItem from "./ExpenseItem";
+import Card from "../UI/Card";
+import ExpensesFilter from "./ExpensesFilter";
+import "./Expenses.css";
 
 const Expenses = (props) => {
+  function onYearChange(yearSelected) {
+    console.log(`seleted year ${yearSelected}`);
+  }
+
   return (
     <Card className="expenses">
+      <ExpensesFilter onYearChange={onYearChange} />
       <ExpenseItem
         title={props.items[0].title}
         amount={props.items[0].amount}
         date={props.items[0].date}
       />
-      <ExpenseItem
+      {/* <ExpenseItem
         title={props.items[1].title}
         amount={props.items[1].amount}
         date={props.items[1].date}
@@ -26,9 +32,9 @@ const Expenses = (props) => {
         title={props.items[3].title}
         amount={props.items[3].amount}
         date={props.items[3].date}
-      />
+      /> */}
     </Card>
   );
-}
+};
 
 export default Expenses;

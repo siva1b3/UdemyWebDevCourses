@@ -17,7 +17,8 @@ import "./styles.css";
 // import App10 from "./10TwoWayBinding/App";
 // import App11 from "./11ChildToParentDataSendingOneLevelOnly/App";
 // import App12 from "./12MultiLevelChildToParentDataSending/App";
-import App13 from "./13MultilvelChildToParentdataUdemylecture/App";
+// import App13 from "./13MultilvelChildToParentdataUdemylecture/App";
+import App14 from "./14AddingExpenseFilter/App";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -74,6 +75,9 @@ root.render(
     {/* sending data from child to parent */}
     {/* Multi level */}
     {/* just like udemy lecture */}
-    <App13 />
+    {/* <App13 /> */}
+
+    {/* Adding Expense Filter */}
+    <App14 />
   </StrictMode>
 );
