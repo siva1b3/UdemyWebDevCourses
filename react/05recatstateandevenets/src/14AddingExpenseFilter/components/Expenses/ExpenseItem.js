@@ -8,6 +8,8 @@ const ExpenseItem = (props) => {
   // function clickHandler() {}
   const [title, setTitle] = useState(props.title);
   console.log("ExpenseItem evaluated by React");
+  const var1 = 23;
+  console.log(var1);
 
   const clickHandler = () => {
     setTitle("Updated!");

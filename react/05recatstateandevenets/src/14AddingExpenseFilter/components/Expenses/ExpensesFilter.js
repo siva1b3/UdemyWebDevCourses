@@ -14,9 +14,21 @@ const ExpensesFilter = (props) => {
   // ? the first option is selected as a default.
 
   const yearValues = ["2022", "2021", "2020", "2019", "2018"];
+  const numberList = [];
+  for (let i = 0; i < yearValues.length; i++) {
+    numberList.push(i);
+  }
+  const dataObject = {};
+  for (let i = 0; i < numberList.length; i++) {
+    dataObject[numberList[i]] = yearValues[i];
+  }
   const yearValueOptionsJsx = [];
-  for (let yearValue of yearValues) {
-    const k = <option value={yearValue}>{yearValue}</option>;
+  for (const [id, yearValue] of Object.entries(dataObject)) {
+    const k = (
+      <option id={id} value={yearValue}>
+        {yearValue}
+      </option>
+    );
     yearValueOptionsJsx.push(k);
   }
 
