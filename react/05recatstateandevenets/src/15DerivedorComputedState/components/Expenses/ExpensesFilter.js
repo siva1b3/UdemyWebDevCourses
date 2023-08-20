@@ -9,6 +9,7 @@ const ExpensesFilter = (props) => {
   // ^ the selectedYear state is an empty string "" ,
   // * which doesn't match any of the <option> values.
   // ? This doesn't cause an error,
+
   // ! but it results in the first option being selected by default.
   // ^ In our case, the first option is "2022".
   // * This is because, when no option matches the value attribute,

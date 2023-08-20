@@ -13,9 +13,16 @@ const Expenses = (props) => {
     setYearSelected(yearSelected);
   }
 
-  let arrayReverse = props.yearsList.reverse();
-  let filterText = props.yearsList.join(", ");
-  let filterTextStyle = {
+  const yearsList = props.yearsList;
+  const reversedYearsList = [];
+
+  for (let i = yearsList.length - 1; i >= 0; i--) {
+    if (yearsList[i] !== yearSelected) {
+      reversedYearsList.push(yearsList[i]);
+    }
+  }
+
+  const filterTextStyle = {
     color: "white",
   };
 
@@ -23,8 +30,7 @@ const Expenses = (props) => {
     <Card className="expenses">
       <ExpensesFilter onYearChange={onYearChange} yearsList={props.yearsList} />
       <div style={filterTextStyle}>
-        Data From {props.yearsList} hi {arrayReverse}
-        hi {arrayReverse.join(", ")} hi {props.yearsList.join(", ")}is Hidden{" "}
+        Data From years {reversedYearsList.join(", ")} is Hidden
       </div>
       <ExpenseItem
         title={props.items[0].title}
