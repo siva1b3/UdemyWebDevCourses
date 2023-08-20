@@ -14,7 +14,7 @@ const ExpensesFilter = (props) => {
   // * This is because, when no option matches the value attribute,
   // ? the first option is selected as a default.
 
-  const yearValues = ["2022", "2021", "2020", "2019", "2018"];
+  const yearValues = props.yearsList;
 
   const yearValueOptionsJsx = yearValues.map((yearValue, index) => (
     <option key={index} value={yearValue}>

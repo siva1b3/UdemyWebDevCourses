@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
@@ -6,13 +6,26 @@ import ExpensesFilter from "./ExpensesFilter";
 import "./Expenses.css";
 
 const Expenses = (props) => {
+  const [yearSelected, setYearSelected] = useState("2022");
+
   function onYearChange(yearSelected) {
     console.log(`seleted year ${yearSelected}`);
+    setYearSelected(yearSelected);
   }
+
+  let arrayReverse = props.yearsList.reverse();
+  let filterText = props.yearsList.join(", ");
+  let filterTextStyle = {
+    color: "white",
+  };
 
   return (
     <Card className="expenses">
-      <ExpensesFilter onYearChange={onYearChange} />
+      <ExpensesFilter onYearChange={onYearChange} yearsList={props.yearsList} />
+      <div style={filterTextStyle}>
+        Data From {props.yearsList} hi {arrayReverse}
+        hi {arrayReverse.join(", ")} hi {props.yearsList.join(", ")}is Hidden{" "}
+      </div>
       <ExpenseItem
         title={props.items[0].title}
         amount={props.items[0].amount}

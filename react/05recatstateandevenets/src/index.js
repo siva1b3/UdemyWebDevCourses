@@ -18,7 +18,8 @@ import "./styles.css";
 // import App11 from "./11ChildToParentDataSendingOneLevelOnly/App";
 // import App12 from "./12MultiLevelChildToParentDataSending/App";
 // import App13 from "./13MultilvelChildToParentdataUdemylecture/App";
-import App14 from "./14AddingExpenseFilter/App";
+// import App14 from "./14AddingExpenseFilter/App";
+import App15 from "./15DerivedorComputedState/App";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -78,6 +79,9 @@ root.render(
     {/* <App13 /> */}
 
     {/* Adding Expense Filter */}
-    <App14 />
+    {/* <App14 /> */}
+
+    {/* Derived or computed state */}
+    <App15 />
   </StrictMode>
 );
