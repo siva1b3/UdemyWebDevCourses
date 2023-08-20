@@ -14,7 +14,7 @@ import { StrictMode } from "react";
 // import App03 from "./03AddCsstoreact/App";
 // import App0302 from "./0302InlineStylesinJsx/App";
 // import App04 from "./04DynamicdatainJSX/App";
-import App05 from "./05-SendingDataViaProps/App";
+// import App05 from "./05-SendingDataViaProps/App";
 // import App06 from "./06SendingDataViaPropsMethod2/App";
 // import App07 from "./07SendingDataViaPropsMethod3/App";
 // import App08 from "./08addingJsMethodsToJSXElements/App";
@@ -25,7 +25,7 @@ import App05 from "./05-SendingDataViaProps/App";
 // import App13 from "./13CreateComponentsUsingForOf/App";
 // import App14 from "./14CreateComponentsUsingMap/App";
 // import App15 from "./15porpsChildAndChildClasses/App";
-// import App16 from "./16CreateReactElementManually/App";
+import App16 from "./16CreateReactElementManually/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -56,7 +56,7 @@ root.render(
         as mitiple individual objects 
         that were reassined to variables in component
         Method 01*/}
-    <App05 />
+    {/* <App05 /> */}
 
     {/* Sending dynamic data into components vaiables or components
         from parent components
@@ -105,6 +105,6 @@ root.render(
 
     {/* CreateReactElementManually */}
     {/* using React.createElement() */}
-    {/* <App16 /> */}
+    <App16 />
   </StrictMode>
 );
