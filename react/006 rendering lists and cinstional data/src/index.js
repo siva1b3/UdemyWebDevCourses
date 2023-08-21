@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App01 from "./01LastModuleCode/App";
 // import App02 from "./02RenderingListsusingmap/App";
-import App03 from "./03AddingnewExpenses/App";
+import App03 from "./03AddingNewExpenseIntoExistingList/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
