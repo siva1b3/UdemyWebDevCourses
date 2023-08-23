@@ -6,11 +6,15 @@ import ExpensesFilter from "./ExpensesFilter";
 import "./Expenses.css";
 
 const Expenses = (props) => {
-  const [filteredYear, setFilteredYear] = useState("2020");
+  const [filteredYear, setFilteredYear] = useState("2021");
 
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
+
+  const dataINSpecifiedYear = props.items.filter((item) => {
+    return item.date.getFullYear() === Number(filteredYear);
+  });
 
   return (
     <div>
@@ -19,7 +23,7 @@ const Expenses = (props) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {props.items.map((item) => {
+        {dataINSpecifiedYear.map((item) => {
           return (
             <ExpenseItem
               // ! by adding unique id we can avoid dulicates
