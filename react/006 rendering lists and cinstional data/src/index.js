@@ -5,7 +5,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 // import App01 from "./01LastModuleCode/App";
 // import App02 from "./02RenderingListsusingmap/App";
-import App03 from "./03AddingNewExpenseIntoExistingList/App";
+// import App03 from "./03AddingNewExpenseIntoExistingList/App";
+import App04 from "./04AddingUniqueKeys/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,10 @@ root.render(
     {/* <App02 /> */}
 
     {/* Adding new expenses to the exiting list of expenses */}
-    <App03 />
+    {/* unpdating ui based on new expenses  */}
+    {/* <App03 /> */}
+
+    {/* Adding unique keys to components that will render dynamically*/}
+    <App04 />
   </StrictMode>
 );
