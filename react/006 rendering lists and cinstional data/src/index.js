@@ -9,7 +9,8 @@ import "./index.css";
 // import App04 from "./04AddingUniqueKeys/App";
 // import App05 from "./05MakingFilterWork/App";
 // import App06 from "./06ConditionalRenderingMyOwnCode/App";
-import App07 from "./07ConditionalRenderingAsPerVideo/App";
+// import App07 from "./07ConditionalRenderingAsPerVideoMethod1/App";
+import App08 from "./08ConditionalRenderingAsPerVideoMethod2/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -36,6 +37,12 @@ root.render(
 
     {/* condetional rendering */}
     {/* as per video */}
-    <App07 />
+    {/* method 1 using ternary operator */}
+    {/* <App07 /> */}
+
+    {/* condetional rendering */}
+    {/* as per video */}
+    {/* method 1 using Short circuting */}
+    <App08 />
   </StrictMode>
 );
