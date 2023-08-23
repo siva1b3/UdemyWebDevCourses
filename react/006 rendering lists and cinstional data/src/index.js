@@ -8,7 +8,8 @@ import "./index.css";
 // import App03 from "./03AddingNewExpenseIntoExistingList/App";
 // import App04 from "./04AddingUniqueKeys/App";
 // import App05 from "./05MakingFilterWork/App";
-import App06 from "./06ConditionalRendering/App";
+// import App06 from "./06ConditionalRenderingMyOwnCode/App";
+import App07 from "./07ConditionalRenderingAsPerVideo/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -30,6 +31,11 @@ root.render(
     {/* <App05 /> */}
 
     {/* condetional rendering */}
-    <App06 />
+    {/* on my own */}
+    {/* <App06 /> */}
+
+    {/* condetional rendering */}
+    {/* as per video */}
+    <App07 />
   </StrictMode>
 );
