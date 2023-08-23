@@ -10,7 +10,8 @@ import "./index.css";
 // import App05 from "./05MakingFilterWork/App";
 // import App06 from "./06ConditionalRenderingMyOwnCode/App";
 // import App07 from "./07ConditionalRenderingAsPerVideoMethod1/App";
-import App08 from "./08ConditionalRenderingAsPerVideoMethod2/App";
+// import App08 from "./08ConditionalRenderingAsPerVideoMethod2/App";
+import App09 from "./09ConditionalRenderingAsPerVideoMethod3/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -42,7 +43,14 @@ root.render(
 
     {/* condetional rendering */}
     {/* as per video */}
-    {/* method 1 using Short circuting */}
-    <App08 />
+    {/* method 2 using Short circuting */}
+    {/* <App08 /> */}
+
+    {/* condetional rendering */}
+    {/* as per video */}
+    {/* method 3 simple and clean */}
+    {/* using Jsx varibles same as my own code */}
+    {/* but more simple and clean */}
+    <App09 />
   </StrictMode>
 );
