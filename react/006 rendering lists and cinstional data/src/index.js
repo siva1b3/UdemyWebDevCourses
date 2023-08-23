@@ -7,7 +7,8 @@ import "./index.css";
 // import App02 from "./02RenderingListsusingmap/App";
 // import App03 from "./03AddingNewExpenseIntoExistingList/App";
 // import App04 from "./04AddingUniqueKeys/App";
-import App05 from "./05MakingFilterWork/App";
+// import App05 from "./05MakingFilterWork/App";
+import App06 from "./06ConditionalRendering/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,7 +26,10 @@ root.render(
     {/* Adding unique keys to components that will render dynamically*/}
     {/* <App04 /> */}
 
-    {/* Making filter work */}
-    <App05 />
+    {/* Making year wise filter work */}
+    {/* <App05 /> */}
+
+    {/* condetional rendering */}
+    <App06 />
   </StrictMode>
 );

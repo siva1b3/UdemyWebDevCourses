@@ -16,6 +16,15 @@ const Expenses = (props) => {
     return item.date.getFullYear() === Number(filteredYear);
   });
 
+  let emptyData = undefined;
+  if (dataINSpecifiedYear.length <= 0) {
+    emptyData = (
+      <div style={{ color: "white", "font-size": "x-large" }}>
+        there is no data in specified year
+      </div>
+    );
+  }
+
   return (
     <div>
       <Card className="expenses">
@@ -23,6 +32,7 @@ const Expenses = (props) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
+        {emptyData}
         {dataINSpecifiedYear.map((item) => {
           return (
             <ExpenseItem
