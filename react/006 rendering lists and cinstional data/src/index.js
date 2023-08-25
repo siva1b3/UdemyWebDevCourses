@@ -12,7 +12,8 @@ import "./index.css";
 // import App07 from "./07ConditionalRenderingAsPerVideoMethod1/App";
 // import App08 from "./08ConditionalRenderingAsPerVideoMethod2/App";
 // import App09 from "./09ConditionalRenderingAsPerVideoMethod3/App";
-import App10 from "./10MakingExpensesComponetSmallerAgain/App";
+// import App10 from "./10MakingExpensesComponetSmallerAgain/App";
+import App102 from "./10-2-AddingConditinalReturnStatements/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -56,6 +57,11 @@ root.render(
 
     {/* Making Expenses component smaller */}
     {/* by extracting Expenses List */}
-    <App10 />
+    {/* <App10 /> */}
+
+    {/* Making Expenses component smaller */}
+    {/* by extracting Expenses List */}
+    {/* and using conditinal retrun statemets */}
+    <App102 />
   </StrictMode>
 );
