@@ -14,7 +14,7 @@ const Expenses = (props) => {
   const ExpenseItemArray = [ExpenseItem0, ExpenseItem1];
   const ExpenseItemObject = {
     ExpenseItem2: ExpenseItem2,
-    ExpenseItem3: ExpenseItem3
+    ExpenseItem3: ExpenseItem3,
   };
   // objects are not valiid as JSX
 
@@ -38,6 +38,7 @@ const Expenses = (props) => {
         </h1>
         {/* {ExpenseItemObject} */}
         {/* we cannot use objects like arrays in jsx */}
+        {/* We need specify as individual items */}
         {ExpenseItemObject.ExpenseItem2}
         {ExpenseItemObject.ExpenseItem3}
       </div>

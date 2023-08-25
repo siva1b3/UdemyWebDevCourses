@@ -17,7 +17,7 @@ import { StrictMode } from "react";
 // import App05 from "./05-SendingDataViaProps/App";
 // import App06 from "./06SendingDataViaPropsMethod2/App";
 // import App07 from "./07SendingDataViaPropsMethod3/App";
-// import App08 from "./08addingJsMethodsToJSXElements/App";
+import App08 from "./08addingJsMethodsToJSXElements/App";
 // import App09 from "./09SplittingIntoSamllComponents/App";
 // import App10 from "./10ExpensesJsxExtracedFromApp/App";
 // import App11 from "./11CreateComponentsUsingVariables/App";
@@ -25,7 +25,7 @@ import { StrictMode } from "react";
 // import App13 from "./13CreateComponentsUsingForOf/App";
 // import App14 from "./14CreateComponentsUsingMap/App";
 // import App15 from "./15porpsChildAndChildClasses/App";
-import App16 from "./16CreateReactElementManually/App";
+// import App16 from "./16CreateReactElementManually/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -74,7 +74,7 @@ root.render(
     {/* <App07 /> */}
 
     {/* Adding plain js code in react */}
-    {/* <App08 /> */}
+    <App08 />
 
     {/* Splitting Into Samll Components */}
     {/* <App09 /> */}
@@ -105,6 +105,6 @@ root.render(
 
     {/* CreateReactElementManually */}
     {/* using React.createElement() */}
-    <App16 />
+    {/* <App16 /> */}
   </StrictMode>
 );

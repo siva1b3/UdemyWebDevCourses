@@ -11,7 +11,8 @@ import "./index.css";
 // import App06 from "./06ConditionalRenderingMyOwnCode/App";
 // import App07 from "./07ConditionalRenderingAsPerVideoMethod1/App";
 // import App08 from "./08ConditionalRenderingAsPerVideoMethod2/App";
-import App09 from "./09ConditionalRenderingAsPerVideoMethod3/App";
+// import App09 from "./09ConditionalRenderingAsPerVideoMethod3/App";
+import App10 from "./10MakingExpensesComponetSmallerAgain/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -51,6 +52,10 @@ root.render(
     {/* method 3 simple and clean */}
     {/* using Jsx varibles same as my own code */}
     {/* but more simple and clean */}
-    <App09 />
+    {/* <App09 /> */}
+
+    {/* Making Expenses component smaller */}
+    {/* by extracting Expenses List */}
+    <App10 />
   </StrictMode>
 );
