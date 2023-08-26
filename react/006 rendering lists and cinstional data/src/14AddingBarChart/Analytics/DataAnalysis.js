@@ -74,7 +74,7 @@ function dataStatistics(data) {
     data[key].maxExpense = maxExpense;
     data[key].minExpense = minExpense;
     data[key].sumExpense = sumExpense;
-    data[key].avgExpense = avgExpense;
+    data[key].avgExpense = parseInt(avgExpense);
     data[key].expenseLength = expenses.length;
 
     delete data[key].expenses;

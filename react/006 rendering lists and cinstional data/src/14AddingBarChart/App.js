@@ -4,6 +4,7 @@ import MultipleTubes from "./components/Chart/MultipleTubes";
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
 import DUMMY_EXPENSES from "./Analytics/DataCreate";
+import * as data from "./Analytics/DataAnalysis";
 
 const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
