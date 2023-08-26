@@ -1,6 +1,10 @@
 .multiple-tubes-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  justify-content: space-evenly;
+  align-items: center;
   margin: 20px;
+  width: 50rem;
+  margin: auto;
+  max-width: 95%;
+  background-color: rgb(31, 31, 31);
 }
