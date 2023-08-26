@@ -14,7 +14,9 @@ import "./index.css";
 // import App09 from "./09ConditionalRenderingAsPerVideoMethod3/App";
 // import App10 from "./10MakingExpensesComponetSmallerAgain/App";
 // import App11 from "./11ReturningConditinalStatements/App";
-import App12 from "./12ChangingFormState/App";
+// import App12 from "./12ChangingFormState/App";
+// import App13 from "./13ChangingFormStateAsperVideo/App";
+import App14 from "./14AddingBarChart/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -64,6 +66,13 @@ root.render(
     {/* <App11 /> */}
 
     {/* Changing state of the form */}
-    <App12 />
+    {/* <App12 /> */}
+
+    {/* Changing state of the form */}
+    {/* As per video */}
+    {/* <App13 /> */}
+
+    {/* Adding barchart */}
+    <App14 />
   </StrictMode>
 );
