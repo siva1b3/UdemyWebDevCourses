@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import TitleInput from "./FormStates/inputsForExpenseForm/TitleInput";
-import AmountInput from "./FormStates/inputsForExpenseForm/AmountInput";
-import DateInput from "./FormStates/inputsForExpenseForm/DateInput";
+import OpenFormExpanded from "./FormStates/OpenFrom";
+import ClosedForm from "./FormStates/ClosedFrom";
 
 import "./ExpenseForm.css";
 
@@ -52,28 +51,19 @@ const ExpenseForm = (props) => {
   };
 
   const expandedForm = (
-    <form onSubmit={submitHandler}>
-      <div className="new-expense__controls">
-        <TitleInput value={enteredTitle} onChange={titleChangeHandler} />
-        <AmountInput value={enteredAmount} onChange={amountChangeHandler} />
-        <DateInput value={enteredDate} onChange={dateChangeHandler} />
-      </div>
-      <div className="new-expense__actions" style={{ textAlign: "right" }}>
-        <button type="button" onClick={closeForm}>
-          Cancel
-        </button>
-        <button type="submit">Add Expense</button>
-      </div>
-    </form>
+    <OpenFormExpanded
+      submitHandler={submitHandler}
+      enteredTitle={enteredTitle}
+      titleChangeHandler={titleChangeHandler}
+      enteredAmount={enteredAmount}
+      amountChangeHandler={amountChangeHandler}
+      enteredDate={enteredDate}
+      dateChangeHandler={dateChangeHandler}
+      closeForm={closeForm}
+    />
   );
 
-  const AddNewExpenseButton = (
-    <div className="new-expense__actions" style={{ textAlign: "center" }}>
-      <button type="submit" onClick={openForm}>
-        Add New Expense
-      </button>
-    </div>
-  );
+  const AddNewExpenseButton = <ClosedForm openForm={openForm} />;
 
   function formStateHandler(state) {
     setFormComponentState(state);

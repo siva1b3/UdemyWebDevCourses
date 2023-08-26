@@ -1,9 +1,9 @@
 import React from "react";
-import TitleInput from "./inputsForExpenseForm/TitleInput";
-import AmountInput from "./inputsForExpenseForm/AmountInput";
-import DateInput from "./inputsForExpenseForm/DateInput";
+import TitleInput from "./inputsInOpenForm/TitleInput";
+import AmountInput from "./inputsInOpenForm/AmountInput";
+import DateInput from "./inputsInOpenForm/DateInput";
 
-export default function OpenForm(props) {
+function OpenFormExpanded(props) {
   return (
     <form onSubmit={props.submitHandler}>
       <div className="new-expense__controls">
@@ -29,3 +29,5 @@ export default function OpenForm(props) {
     </form>
   );
 }
+
+export default OpenFormExpanded;
