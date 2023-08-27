@@ -16,7 +16,8 @@ import "./index.css";
 // import App11 from "./11ReturningConditinalStatements/App";
 // import App12 from "./12ChangingFormState/App";
 // import App13 from "./13ChangingFormStateAsperVideo/App";
-import App14 from "./14AddingBarChartAndDataAnalysis/App";
+// import App14 from "./14AddingBarChartAndDataAnalysis/App";
+import App15 from "./15BarsAddedAsPerVideo/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -73,6 +74,9 @@ root.render(
     {/* <App13 /> */}
 
     {/* Adding barchart */}
-    <App14 />
+    {/* <App14 /> */}
+
+    {/* Adding bar chart as per video */}
+    <App15 />
   </StrictMode>
 );
