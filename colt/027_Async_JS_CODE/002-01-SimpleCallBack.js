@@ -1,4 +1,4 @@
-function fetchData(url, displaycallback, expandCallBack) {
+function HigerOrderFunction(url, displaycallback, expandCallBack) {
   const data = { name: "John Doe", age: 30 };
   displaycallback(data);
   const newData = expandCallBack(data, "url", url);
@@ -16,7 +16,7 @@ function expandData(data, key1, value) {
 }
 
 // Usage: Pass the displayData function and expand Function as a callback
-const dataFromCallBack = fetchData(
+const dataFromCallBack = HigerOrderFunction(
   "https://api.example.com/data",
   displayData,
   expandData

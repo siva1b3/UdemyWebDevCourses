@@ -1,71 +1,25 @@
-// const main1 = (url, success, failure) => {
-//   const delay = Math.floor(Math.random() * 4500) + 500;
-//   setTimeout(() => {
-//     console.group("Inside of Settimeout");
-//     console.log(`${km}`);
-//     console.log("three seconds are over");
-//     console.log(km());
-//     console.groupEnd();
-//     return km();
-//   }, 3000);
-//   function km() {
-//     if (delay > 10000) {
-//       return failure(`${url} failed now`);
-//     } else {
-//       return success(`Here is your fake data from ${url}`);
-//     }
-//   }
-// };
-
-// function datafetchScuess(k = "None") {
-//   return "datafetchScuess " + k;
-// }
-
-// function datafetchFailed(k = "None") {
-//   return "datafetchFailed " + k;
-// }
-
-// const k = main1("https://example.com", datafetchScuess, datafetchFailed);
-
-// console.log(k);
-
-const main1 = (url, success, failure, callback) => {
+// THE CALLBACK VERSION
+const fakeRequestCallback = (url, success, failure) => {
   const delay = Math.floor(Math.random() * 4500) + 500;
   setTimeout(() => {
-    console.group("Inside of Settimeout");
-    console.log(`${km}`);
-    console.log("three seconds are over");
-    console.log(km());
-    console.groupEnd();
-    const finalReasult = km();
-    callback(finalReasult);
-  }, 3000);
-
-  function km() {
-    if (delay > 10000) {
-      return failure(`${url} failed now`);
+    if (delay > 4000) {
+      failure("Connection Timeout :(");
     } else {
-      return success(`Here is your fake data from ${url}`);
+      success(`Here is your fake data from ${url}`);
     }
-  }
+  }, delay);
 };
 
-function datafetchScuess(k = "None") {
-  return "datafetchScuess " + k;
-}
-
-function datafetchFailed(k = "None") {
-  return "datafetchFailed " + k;
-}
-
-// Pass a callback to handle the result
-let k = undefined;
-
-main1(
-  "https://example.com",
-  datafetchScuess,
-  datafetchFailed,
-  (result) => (k = result)
-);
-
-console.log(k);
+// THE PROMISE VERSION
+const fakeRequestPromise = (url) => {
+  return new Promise((resolve, reject) => {
+    const delay = Math.floor(Math.random() * 4500) + 500;
+    setTimeout(() => {
+      if (delay > 4000) {
+        reject("Connection Timeout :(");
+      } else {
+        resolve(`Here is your fake data from ${url}`);
+      }
+    }, delay);
+  });
+};
