@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ModrenHtml Assignment Question 1</title>
+  </head>
+  <body>
+    <pre>
+      <h1>HTML5 features</h1>
+      1. DOCTYPE declaration
+      &lt;!DOCTYPE html&gt;
+  
+      2. Semantic elements
+      &lt;header&gt;
+        &lt;nav&gt;
+          &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+      &lt;/header&gt;
+  
+      3. Video and audio elements
+      &lt;video src="video.mp4" controls&gt;&lt;/video&gt;
+      &lt;audio src="audio.mp3" controls&gt;&lt;/audio&gt;
+  
+      4. Canvas for graphics
+      &lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+  
+      5. Local storage and session storage
+      &lt;script&gt;
+        // Local storage
+        localStorage.setItem("key", "value");
+        console.log(localStorage.getItem("key"));
+  
+        // Session storage
+        sessionStorage.setItem("key", "value");
+        console.log(sessionStorage.getItem("key"));
+      &lt;/script&gt;
+  
+      6. Geolocation
+      &lt;script&gt;
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            console.log("Latitude: " + position.coords.latitude);
+            console.log("Longitude: " + position.coords.longitude);
+          });
+        } else {
+          console.log("Geolocation is not supported by this browser.");
+        }
+      &lt;/script&gt;
+  
+      7. Forms and input types
+      &lt;form&gt;
+        &lt;label for="username"&gt;Username:&lt;/label&gt;
+        &lt;input type="text" id="username" name="username" required /&gt;
+  
+        &lt;label for="email"&gt;Email:&lt;/label&gt;
+        &lt;input type="email" id="email" name="email" required /&gt;
+  
+        &lt;label for="password"&gt;Password:&lt;/label&gt;
+        &lt;input type="password" id="password" name="password" required /&gt;
+  
+        &lt;input type="submit" value="Submit" /&gt;
+      &lt;/form&gt;
+  
+      8. New semantic elements
+      &lt;figure&gt;
+        &lt;img
+          src="https://source.unsplash.com/random/300x200/?wallpaper,landscape,XpdwrlrBmuQxhol7"
+          alt="Image"
+        /&gt;
+        &lt;figcaption&gt;Caption for the image&lt;/figcaption&gt;
+      &lt;/figure&gt;
+  
+      9. Drag and drop
+      &lt;div
+        id="draggable"
+        draggable="true"
+        ondragstart="event.dataTransfer.setData('text/plain', 'Drag me!')"
+      &gt;
+        Drag me
+      &lt;/div&gt;
+      &lt;div id="droppable" ondrop="drop(event)" ondragover="allowDrop(event)"&gt;
+        Drop here
+      &lt;/div&gt;
+  
+      &lt;script&gt;
+        function allowDrop(event) {
+          event.preventDefault();
+        }
+  
+        function drop(event) {
+          event.preventDefault();
+          var data = event.dataTransfer.getData("text/plain");
+          event.target.innerHTML = data;
+        }
+      &lt;/script&gt;
+</pre>
+  </body>
+</html>

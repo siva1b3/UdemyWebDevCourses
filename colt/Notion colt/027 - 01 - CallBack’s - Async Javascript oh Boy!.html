@@ -1,0 +1,733 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>027 - 01 - CallBack’s - Async Javascript oh Boy! </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="487837ae-c9c4-4f16-82aa-7493eea7b878" class="page sans"><header><h1 class="page-title">027 - 01 - CallBack’s - Async Javascript oh Boy! </h1><p class="page-description"></p></header><div class="page-body"><figure id="3bc27ce1-c0dd-498d-a103-d02f111c92d5" class="link-to-page"><a href="https://www.notion.so/025-The-Missing-Dom-Pieces-And-Events-3bc27ce1c0dd498da103d02f111c92d5?pvs=21">025 - The Missing Dom Pieces And Events</a></figure><figure id="6a8be3c0-8bab-4e83-b390-e61c46aa0a73" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled.png"><img style="width:1571px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled.png"/></a></figure><p id="64ae21b6-39d9-4b61-b638-fcb86bd04da8" class="block-color-orange_background">
+</p><h1 id="1bfb9a2f-0224-48e6-a9da-d6c60e2b6313" class="block-color-orange_background">The Call Stack</h1><figure id="11941c5d-5f01-41dc-a7dc-84129458d192" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%201.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%201.png"/></a></figure><p id="c9e1499d-cd19-4582-8422-56da42b7d855" class="block-color-orange_background">
+</p><figure id="871266a7-364f-4bbb-b82e-384b2a5b1617" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%202.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%202.png"/></a></figure><p id="165c6fdb-c88a-4650-87c2-6be893baf7e7" class="block-color-orange_background">
+</p><figure id="7d14c554-6d48-428c-a822-6a7592fc57b7" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%203.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%203.png"/></a></figure><p id="e3efbb6f-04d2-4f57-9df2-69d56ecd7264" class="block-color-orange_background">Stack data structure explained</p><figure id="d8305d49-1c9f-4d7b-8e4a-93f8226d6baa" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%204.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%204.png"/></a></figure><p id="b27a862c-f3fc-4f86-8117-c847fcf81cf9" class="block-color-orange_background">
+</p><figure id="98b1cf02-a34a-4b3e-844c-fd1a5a728aa4" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%205.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%205.png"/></a></figure><p id="c75e45c7-8995-4f6a-9689-d5e747cf5970" class="block-color-orange_background">
+</p><figure id="e1dc836b-6328-4bca-bf4c-f28041924265" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%206.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%206.png"/></a></figure><p id="57c8dcb5-b8b7-44ff-8003-b629ab5e61ea" class="block-color-orange_background">
+</p><figure id="afb88ec6-f585-4e8b-96a7-ed2e07096e4d" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%207.png"><img style="width:1239px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%207.png"/></a></figure><p id="ba1dccd5-ac04-4cfa-8b19-1bf4501eda92" class="block-color-orange_background">
+</p><figure id="83a1380d-9b72-48c7-ae64-74703a7ef4d4" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%208.png"><img style="width:730px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%208.png"/></a></figure><p id="dc2480f9-c933-49b2-aacb-b0fb341b1a14" class="block-color-orange_background">
+</p><figure id="5df79322-91a6-4cf2-9221-153002b13d47" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%209.png"><img style="width:880px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%209.png"/></a></figure><p id="1390429f-b5a7-4639-91b0-d8d1d480055a" class="block-color-orange_background">Each function call is represented as a book stacked on one other</p><figure id="28d8d467-1b1e-4af6-8045-3efb92ef4126" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2010.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2010.png"/></a></figure><p id="8614b938-902d-490c-b7a8-801bd46fe0ba" class="block-color-orange_background">
+</p><figure id="de8a1ddc-6e4d-4f72-bf4b-ef3e703f49c0" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2011.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2011.png"/></a></figure><p id="08272f92-72d2-4a96-8196-6aec1be5823d" class="block-color-orange_background">
+</p><figure id="255b23c8-d2fa-4f77-b214-c31f9200b9d7" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2012.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2012.png"/></a></figure><p id="09c01c23-2033-41e7-a38a-cc5396c07ee3" class="block-color-orange_background">
+</p><figure id="9014a872-94d8-45f2-a05d-2cd3bedc5cff" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2013.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2013.png"/></a></figure><p id="b5dcf3d7-3658-4a0f-8a5b-bf84de8e3210" class="block-color-orange_background">
+</p><figure id="2bb5c23f-9469-4155-81f5-072f11e28f21" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2014.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2014.png"/></a></figure><p id="e9cb0b3d-c6c5-4b81-b768-dd4122c9daf3" class="block-color-orange_background">
+</p><figure id="10f2f8c6-28e2-43c1-bf02-8f7343a523c9" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2015.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2015.png"/></a></figure><p id="866100a3-57c5-4032-b5f9-2f4220ab00cd" class="block-color-orange_background">
+</p><figure id="ee2d98f1-b285-4454-9852-bb91634f5978" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2016.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2016.png"/></a></figure><p id="acd842c0-663f-435d-b688-88168232d6a1" class="block-color-orange_background">
+</p><figure id="fe4ef479-b4ae-44bb-ba8d-cfa88ad7e241" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2017.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2017.png"/></a></figure><p id="5225c176-37f6-4dc0-afb8-afb064e41ee6" class="block-color-orange_background">
+</p><figure id="4b3c31e3-d9c1-4b7d-a0c8-bd91e802a46f" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2018.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2018.png"/></a></figure><p id="8fc9f119-ee79-42d5-a00c-8cc0ce58fca0" class="block-color-orange_background">
+</p><figure id="841c62c7-652b-4bff-a592-efd7004d7392" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2019.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2019.png"/></a></figure><h3 id="f279a215-c40e-4cad-960d-e1e26749fe97" class="block-color-orange_background">loupe call stack visualized </h3><figure id="938d651e-5b93-4892-b249-92ba30b00089" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2020.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2020.png"/></a></figure><h1 id="2c465f66-c07a-45d9-a16d-4b087447b4a3" class="block-color-orange_background">Very important</h1><p id="22ad0206-aa6a-47d9-a2ef-78cc2db064e9" class="block-color-orange_background">We can see three elements in loupe 
+1. Call Stack
+2. Web API’s
+3. Callback Queue
+
+<mark class="highlight-red"><span style="border-bottom:0.05em solid"><em><strong>The better understanding of these three elements the better code we can write</strong></em></span></mark></p><figure id="0598cf64-ef8c-43a1-9459-7d755682d9e6" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2021.png"><img style="width:800px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2021.png"/></a></figure><p id="45d3dfe6-1029-4a9e-a75e-00dc7d62b999" class="block-color-purple_background">Here&#x27;s a concise summary of the key points regarding Web APIs, the Callback Queue, and their role in JavaScript&#x27;s asynchronous execution model:</p><ul id="db1b3e7c-1c1e-45cb-baef-4be51e02324e" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc"><strong>Web APIs:</strong> <strong><em>These are sets of functions provided by web browsers to perform tasks beyond JavaScript&#x27;s core capabilities.</em></strong> They include operations like making HTTP requests and setting timers. Web API functions are executed outside the JavaScript engine&#x27;s main context.</li></ul><ul id="2552dbfb-9714-44f3-bab5-b1607a17cdcd" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc"><strong>Callback Queue:</strong> The Callback Queue, also known as the message queue, is a data structure that holds callback functions resulting from asynchronous operations initiated through Web APIs. It ensures that these callbacks are executed in the correct order, following the completion of the call stack.</li></ul><ul id="d2a228fc-6e8a-4e92-b9e9-80c18a3a9e20" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc"><strong>Asynchronous Nature:</strong> Most Web API operations are asynchronous, meaning they don&#x27;t block the main JavaScript execution. Instead, they run in the background. Asynchronous callbacks are placed in the Callback Queue once their associated tasks are complete.</li></ul><ul id="fbeb14de-8c44-4661-aa81-3b16fe1b4401" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc"><strong>Execution Order:</strong> The event loop continuously monitors the Callback Queue. When the call stack is empty, it dequeues and executes callback functions from the queue, ensuring proper ordering and non-blocking behavior.</li></ul><ul id="69125ee0-32b9-43a5-a8f7-cd132bfe6878" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc"><strong>Benefits:</strong> This separation between Web APIs and the Callback Queue enables JavaScript to remain responsive and non-blocking, even when performing time-consuming tasks like network requests. It allows for concurrency without multi-threading, maintaining a predictable execution flow in complex applications.</li></ul><p id="3789f280-3525-41c6-9b11-0f4b04c1d2cb" class="block-color-purple_background">In essence, Web APIs and the Callback Queue are integral to JavaScript&#x27;s ability to handle asynchronous operations while ensuring smooth, non-blocking execution, crucial for building responsive web applications.</p><p id="1d3b6b3a-8dfc-4eaf-b545-10f560a78cff" class="block-color-orange_background">Debugging in chrome intro </p><figure id="9923da66-93c1-4c28-bf5a-f56235f5b248" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2022.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2022.png"/></a></figure><p id="5d0f1e89-0f5d-4300-9e16-445408cbc30a" class="block-color-orange_background">
+</p><h1 id="1eeeae02-c5de-46e1-8bd7-5f55e1990611" class="block-color-orange_background"><strong>278. WebAPIs &amp; Single Threaded</strong></h1><figure id="d0d66ead-da85-46bb-b035-6be88796250a" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2023.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2023.png"/></a></figure><p id="46c80662-0c92-41d2-b2f6-bcd0d60211fd" class="block-color-orange_background">
+</p><figure id="815671c1-860e-4813-b915-02aba59b5dfe" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2024.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2024.png"/></a></figure><p id="ded1babb-7803-4d7a-ab62-09b627f26c11" class="block-color-orange_background">When we asked data from server — it will take some time to get the reply from the server</p><figure id="ddd0b9f5-b0b9-4db7-80cf-9c026488f653" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2025.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2025.png"/></a></figure><p id="f8370405-e7a9-4e01-a78e-95f5d49f09f2" class="block-color-orange_background">
+</p><figure id="f065f67c-7cb1-4533-83e4-3de571dcc38f" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2026.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2026.png"/></a></figure><p id="56c0caee-6101-40d1-909f-3a7467b75b9a" class="block-color-orange_background">Does that mean javascript will do nothing in the mean time until it gets the data from server</p><figure id="935d75ad-e828-4c18-9f31-11e6684157c9" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2027.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2027.png"/></a></figure><p id="ba4e61bd-0275-4598-8abd-520562e141a2" class="block-color-orange_background">Nothing will happen for five seconds</p><figure id="b1c4fd84-a073-4b9a-baf0-4b9d5d88ec80" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2028.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2028.png"/></a></figure><p id="8acee251-e707-4a4e-839d-089f5c7a4cd3" class="block-color-orange_background">
+</p><figure id="fe0e202a-e43c-47ef-9d8c-2266e2055dde" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2029.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2029.png"/></a></figure><p id="98a28aca-e1dd-40e9-823d-50d51a15bc66" class="block-color-orange_background">Javascript will give the tasks that take time — to the Browser by using WebAPI’s instead of doing it by it self and browser is always ready to Help javascript in handling tasks that are not native to the javascript.
+
+this functionality is called as Callbacks in Javascript</p><figure id="5d387d35-b41e-4ace-8fa9-75fbd099f8d7" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2030.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2030.png"/></a></figure><p id="a066f333-0faa-49a6-8e09-fad04657453b" class="block-color-orange_background">
+</p><figure id="32491321-6cba-4440-b017-7c5879a6a32d" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2031.png"><img style="width:1364px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2031.png"/></a></figure><p id="fc793cc0-a9fc-4f48-9f1a-7840e094830d" class="block-color-orange_background">
+</p><figure id="2ae95108-eda1-4fcf-8756-55df1a986cbb" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2032.png"><img style="width:1920px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2032.png"/></a></figure><ol type="1" id="4c5dd665-8b9d-4ff8-b758-b7ccf8b62085" class="block-color-orange_background numbered-list" start="1"><li>we can see the second function executing in the last — but why?</li></ol><figure id="dbaa8af6-30b4-4c05-9b4f-bbf69cad8aee" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2033.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2033.png"/></a></figure><p id="31ab9f93-1fcf-4fc9-8e94-8e590a77b08f" class="block-color-orange_background">
+</p><figure id="f1982c60-7eee-4eda-829e-d1fba90ba530" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2034.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2034.png"/></a></figure><p id="d7e4df36-0d70-407e-8985-704fbd0ee693" class="block-color-orange_background">
+</p><figure id="2f226228-83bc-4755-82b9-fecedf9a68b4" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2035.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2035.png"/></a></figure><p id="04d63c97-94a3-4cb8-9fd1-76b9508cedec" class="block-color-orange_background">Browser will take some tasks from javascript in the from of web API’s and send them back to the Javascript when certain conditions met, 
+until that time they will stay in browser callback queue waiting for the conditions to meet </p><figure id="82ee9e00-9d94-4346-afa7-33c115d780b8" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2036.png"><img style="width:3401px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2036.png"/></a></figure><h2 id="0ad6e672-8003-4211-9e8b-b34c6e1c49e9" class="block-color-orange_background">asynchronous callback explained in more detail</h2><figure id="efa49630-c88c-4c0c-93d8-b273af68406f" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2037.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2037.png"/></a></figure><p id="3351392d-8eaf-432b-8f67-00ba531af687" class="block-color-orange_background">
+</p><figure id="3dd31096-678a-4f66-bbd2-b7ab71659454" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2038.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2038.png"/></a></figure><p id="b64d6197-7484-43a9-b81f-340950d16d34" class="block-color-orange_background">after running second block of code javascript will go to the third line — meanwhile browser got the instructions of what to do next</p><figure id="2338bc4f-4a45-44b5-b4fe-2a645a514fe2" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2039.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2039.png"/></a></figure><p id="61b6566c-e94e-4610-995e-1fda1e8183aa" class="block-color-orange_background">
+</p><figure id="8785721d-0580-4536-9677-2679c090e973" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2040.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2040.png"/></a></figure><p id="eb9a15dc-e024-4ace-bed6-f1b603263788" class="block-color-orange_background">
+</p><figure id="24f755df-f213-4447-9584-c8645d04d0a8" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2041.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2041.png"/></a></figure><p id="d46d3e38-1524-48a9-924b-6d7430e78b05" class="block-color-orange_background">
+</p><figure id="bd10deb0-6a76-44d2-8eab-89993e70ca06" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2042.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2042.png"/></a></figure><p id="2993179a-f5a7-4b99-9a5b-0a47e9936f99" class="block-color-orange_background">
+</p><figure id="de6a0be5-4ee3-47d2-90f6-629e1d6116cb" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2043.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2043.png"/></a></figure><p id="d30ab8fc-a6cc-4edb-b23c-f3d7821d0db9" class="block-color-orange_background">
+</p><figure id="782bcd04-b80c-45fe-8bb6-27ea443c4a28" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2044.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2044.png"/></a></figure><p id="2a33758f-dd7e-4413-90a1-9f79cdb786ed" class="block-color-orange_background">
+</p><figure id="ab7da578-2ac6-4e39-a071-656be18ad5ac" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2045.png"><img style="width:1914px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2045.png"/></a></figure><p id="03344f4e-bb0f-4b2a-b47d-1a3fa3bad091" class="block-color-orange_background">
+</p><figure id="de271823-92bb-4cae-9077-bb32003be879" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2046.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2046.png"/></a></figure><p id="016814ee-7a03-474a-a543-b81201acbb9a" class="block-color-orange_background">
+</p><figure id="6bc05ab3-30bb-42b5-b3f3-237380c6d20c" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2047.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2047.png"/></a></figure><p id="37725f43-8e44-4514-83d6-3765d97e17b3" class="block-color-orange_background">
+</p><figure id="67df87dc-4682-42f2-9909-0586f5cfed6c" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2048.png"><img style="width:1571px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2048.png"/></a></figure><p id="de684e62-939d-4295-92a9-877626809637" class="block-color-orange_background">
+</p><h1 id="28a88dd7-c712-4dde-a513-91cfb786495c" class="block-color-orange_background"><mark class="highlight-red">Callback and asynchronous callback explained using examples</mark></h1><h1 id="6c252811-b5c8-43f8-9b85-0ee59b3f0ac4" class="block-color-orange_background">VERY IMPORTANT CONCEPTS</h1><h2 id="0e770cab-2cbd-4385-9eb6-f16c17502b5a" class="block-color-orange_background">simple callback</h2><figure id="978ebb6a-f83e-4336-8c1f-c9ae8e2028d2" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2049.png"><img style="width:1778px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2049.png"/></a></figure><p id="b13331b6-dccb-42bc-8850-90f729f701ab" class="block-color-orange_background">A<strong> callback function</strong> in JavaScript is a function that&#x27;s passed as an argument to another function. The function that received callback function is called Higher order function.</p><p id="ccf5813a-b81e-4d11-800b-eaf212097d17" class="block-color-purple_background">Callback&#x27;s are used for</p><ol type="1" id="affea90f-a255-4712-8331-ecd4942c69a0" class="block-color-purple_background numbered-list" start="1"><li><strong>Asynchronous JavaScript</strong>:
+Callback functions are primarily used to handle asynchronous operations in JavaScript. Asynchronous operations are tasks that don&#x27;t execute immediately, like reading a file, making an API call, or handling events.</li></ol><ol type="1" id="9b6c65dd-c1d6-49b3-b078-095604904cdb" class="block-color-purple_background numbered-list" start="2"><li><strong>Function Passed as an Argument</strong>:
+In JavaScript, functions are treated as first-class citizens, which means they can be passed around and used just like any other object. When you pass a function as an argument to another function, it&#x27;s known as a callback function.</li></ol><p id="0da605ff-18a8-480e-8725-5093890b3436" class="block-color-orange_background">
+</p><h2 id="07878971-9812-4ebb-85f1-e8156715eb4e" class="block-color-orange_background">Async Callback</h2><figure id="48d6e8a1-092d-4a33-8a4a-d28868b94bc1" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2050.png"><img style="width:1920px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2050.png"/></a></figure><p id="aad975cc-ff3d-4cee-a00c-bcf52c6e2631" class="block-color-orange_background">Set time out will call the callback function asynchronous — meanwhile javascript will continue to execute the other lines of code
+
+<strong><mark class="highlight-red">this kind of asynchronous call of the functions after or middle of remaining lines of code executed will cause some problem that we will see in detail</mark></strong></p><p id="82dd876d-af84-4926-a133-11234df2869b" class="block-color-orange_background">
+</p><h2 id="a79083a4-dedc-4b05-83bf-309edf3c9711" class="block-color-orange_background">problems with asynchronous callback in js</h2><figure id="93b9d6f6-1cc4-4f16-ad56-51d050b900bf" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2051.png"><img style="width:1897px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2051.png"/></a></figure><h3 id="bcc1c241-6f65-431a-a42a-2916f91455fa" class="block-color-orange_background">the result we get into finalvalue variable is undefined because assignment happens to variable before the function returns some thing </h3><p id="7258cfe2-dbe4-4997-8fdd-2d8cb8ff02e3" class="block-color-orange_background">
+</p><h1 id="1361dcfc-ac5f-4535-8f2a-2b744bfc60a4" class="block-color-orange_background">partial solution to asynchronous callback in js</h1><h3 id="bf990e03-83e9-468e-9216-c2e8db8b47db" class="block-color-orange_background">Not a complete solution a partial workaround</h3><figure id="921688dd-4847-4d33-89bb-d21398bfc3f0" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2052.png"><img style="width:1842px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2052.png"/></a></figure><ol type="1" id="30697701-397b-4abe-b4a4-c6934bb99972" class="block-color-orange_background numbered-list" start="1"><li>create variable as undefined </li></ol><ol type="1" id="e8fc83da-fe5d-4fcb-9f32-bc2d7bbdade4" class="block-color-orange_background numbered-list" start="2"><li>add another callback function in arguments</li></ol><ol type="1" id="2844d17c-6b26-4085-aa1a-ad3115f67e72" class="block-color-orange_background numbered-list" start="3"><li>get the callback function</li></ol><ol type="1" id="fb44d7b7-bec7-4db8-856b-c211ac0f518b" class="block-color-orange_background numbered-list" start="4"><li>use the callback function to pass data outside after 2 seconds</li></ol><p id="36487bd6-eaa0-41d9-9c9e-950ee61684d6" class="block-color-orange_background">in the above partial solution even though we can see initial value of “undefined” in console log but after 2 seconds finalvalue variable will be assigned with expected results</p><p id="572edd82-6f4e-4830-ab05-916a6e4546b9" class="block-color-orange_background">
+</p><h1 id="9c249376-d36a-4726-9fd7-7c1b091c1f61" class="block-color-orange_background"><strong>279. Callback Hell :(</strong></h1><figure id="9e4f90b7-dde5-40e2-9d6d-4e91b0e5718a" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2053.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2053.png"/></a></figure><p id="2f77d2fa-c2cb-483f-8cf4-bc102df15696" class="block-color-orange_background">we can do it other way also </p><figure id="f21d7304-293a-476b-9988-0ec3525ae63a" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2054.png"><img style="width:528px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2054.png"/></a></figure><p id="81aaa5fb-59a7-4be9-9fa2-e392ff7fea53" class="block-color-orange_background">we can use functions also 
+
+using functions may reduced the size but still it is a callback HELL</p><figure id="32185b8c-f584-465b-8e7e-bde507783ba8" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2055.png"><img style="width:528px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2055.png"/></a></figure><p id="a2854b86-5145-4fd4-9b67-31b0002c9854" class="block-color-orange_background">
+</p><figure id="12252909-9ba4-4d54-8cea-778825687458" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2056.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2056.png"/></a></figure><p id="4c3145bf-a298-490e-aa1e-d0585bbcbaa5" class="block-color-orange_background">
+</p><figure id="587ccef9-8723-4a85-ad7e-515a892879ed" class="image"><a href="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2057.png"><img style="width:1919px" src="027%20-%2001%20-%20CallBack%E2%80%99s%20-%20Async%20Javascript%20oh%20Boy!%20487837aec9c44f1682aa7493eea7b878/Untitled%2057.png"/></a></figure><p id="81eb6553-d15d-42a9-ada7-d98049bd0bb6" class="block-color-orange_background">
+</p><figure id="da894263-5063-4ff2-9286-8f57a5291e3b" class="link-to-page"><a href="https://www.notion.so/027-02-Promises-Async-Javascript-oh-Boy-da89426350634ff292868f57a5291e3b?pvs=21">027 - 02 - Promises - Async Javascript oh Boy! </a></figure></div></article></body></html>

@@ -1,0 +1,771 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>027 - 02 - Promises - Async Javascript oh Boy! </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="da894263-5063-4ff2-9286-8f57a5291e3b" class="page sans"><header><h1 class="page-title">027 - 02 - Promises - Async Javascript oh Boy! </h1><p class="page-description"></p></header><div class="page-body"><figure id="487837ae-c9c4-4f16-82aa-7493eea7b878" class="link-to-page"><a href="https://www.notion.so/027-01-CallBack-s-Async-Javascript-oh-Boy-487837aec9c44f1682aa7493eea7b878?pvs=21">027 - 01 - CallBack’s - Async Javascript oh Boy! </a></figure><figure id="4b285778-31bc-4658-bad6-a747a7a1777e" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled.png"><img style="width:2000px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled.png"/></a></figure><p id="d52da146-aeb8-45e1-b1af-431d57953777" class="block-color-orange_background">
+</p><figure id="3e008734-4648-461f-8bb2-bf7402c0d646" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%201.png"><img style="width:828px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%201.png"/></a></figure><p id="89f532ca-3558-4830-ba92-81eb5cc1bc37" class="block-color-orange_background">
+</p><figure id="964bc48f-3059-4266-8354-85a093d8e526" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%202.png"><img style="width:1200px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%202.png"/></a></figure><p id="8fb6facd-8321-4d3b-a2f8-0a1d93ef10f6" class="block-color-orange_background">
+</p><figure id="6365a8e5-8e5e-4a5d-ae40-c0c194d02021" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%203.png"><img style="width:728px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%203.png"/></a></figure><p id="1bfa5f1f-94bd-4dcd-a569-ae19447f12f0" class="block-color-orange_background">
+</p><figure id="589915bb-1176-4e0a-9708-670df76196c3" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%204.png"><img style="width:1078px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%204.png"/></a></figure><p id="fc34b18a-5292-44d2-aca5-27cbe7cc017f" class="block-color-orange_background">
+</p><figure id="5e29cad4-4e01-4c04-8df1-348095a9e430" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%205.png"><img style="width:722px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%205.png"/></a></figure><p id="46f7ae5b-6b7c-4e76-8d05-d709292696a8" class="block-color-orange_background">
+</p><figure id="6ecb3180-8c82-42b9-8e0c-2243e10032fd" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%206.png"><img style="width:868px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%206.png"/></a></figure><p id="13aa3d58-a6e5-4e9e-be49-3e0f10fabeaa" class="block-color-orange_background">
+</p><figure id="82386baf-0834-4aec-918c-d3ae9d49864b" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%207.png"><img style="width:839px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%207.png"/></a></figure><p id="6391ada3-9f54-491e-b2c8-f26517663a54" class="block-color-orange_background">
+</p><figure id="09ad499b-0806-408b-8678-cb37a3472e24" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%208.png"><img style="width:805px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%208.png"/></a></figure><p id="41797bc3-ed0d-492f-ba2f-5283e29ea678" class="block-color-orange_background">
+</p><h1 id="f2da4c7b-cf80-44a9-856b-4b62b4c50c5b" class="block-color-orange_background"><strong>280. Demo: fakeRequest Using Callbacks</strong></h1><figure id="ede7db0b-48e2-422d-85f1-26df4637448a" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%209.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%209.png"/></a></figure><p id="02da8914-59aa-4d19-98ea-dfe1679d1e96" class="block-color-orange_background">Asynchronous callbacks simulates a server connection</p><figure id="fc40bd9b-76f1-4b45-a29f-64ca03a93f27" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2010.png"><img style="width:576px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2010.png"/></a></figure><p id="64b3067e-5bb8-47e1-aece-a4b11b52111c" class="block-color-orange_background">
+</p><figure id="a5028eb7-ae4d-443a-836e-66b1ab156c4e" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2011.png"><img style="width:432px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2011.png"/></a></figure><ol type="1" id="6b27cb80-ff30-48b3-9435-906ce0a16ff2" class="block-color-orange_background numbered-list" start="1"><li>url</li></ol><ol type="1" id="ebaec77f-7b49-4df7-8be9-dfa117bea3ae" class="block-color-orange_background numbered-list" start="2"><li>success Callback function</li></ol><ol type="1" id="d74810dc-d877-4113-955e-6e5e05130fee" class="block-color-orange_background numbered-list" start="3"><li>failure callback function</li></ol><p id="65f50dff-309d-4f09-ac75-f65ab584a718" class="block-color-orange_background">if the connection is successful we will ask for more data by adding more functions to same method</p><figure id="73893d89-f8db-4847-8c6f-c2c8906a24ca" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2012.png"><img style="width:480px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2012.png"/></a></figure><ol type="1" id="767bc906-cf76-46be-bacb-695b6abc9316" class="block-color-orange_background numbered-list" start="1"><li>success callback</li></ol><ol type="1" id="ef97cf22-16ac-4a59-9f2a-824501ba7200" class="block-color-orange_background numbered-list" start="2"><li>asking for second request</li></ol><ol type="1" id="879a2ccd-22f9-4c2a-a733-0bbf594518b4" class="block-color-orange_background numbered-list" start="3"><li>second request success callback</li></ol><ol type="1" id="58706a2c-1e94-4d2a-a2f7-bed5de74d39e" class="block-color-orange_background numbered-list" start="4"><li>second request failure callback</li></ol><p id="05964a65-5248-4539-975d-14fb61310e20" class="block-color-orange_background">same goes again if second request is successful we will make third one — and that creates a callback HELL </p><figure id="fbe8c8a6-59d5-410f-a310-3e3d5fd1f921" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2013.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2013.png"/></a></figure><p id="f4bafafb-0f1a-47b7-9965-b567dba397b0" class="block-color-orange_background">
+</p><figure id="77e14996-213a-4fc6-ae56-4b0ac313c1b9" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2014.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2014.png"/></a></figure><p id="b7f3a78b-6606-4e50-8c22-efa55bda0a59" class="block-color-orange_background">
+</p><figure id="b04de66e-37cb-4223-a58e-3ee04c5c59ab" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2015.png"><img style="width:1280px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2015.png"/></a></figure><p id="d7077c58-0703-457b-8e2a-f4899615d1c2" class="block-color-orange_background">
+</p><figure id="59ce41db-798a-4729-ad4c-2210654686c8" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2016.png"><img style="width:1600px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2016.png"/></a></figure><p id="fd11a374-86c6-441a-a3e0-5ceaf1a67b81" class="block-color-orange_background">
+</p><h1 id="f4107928-9bca-4053-b6ff-49ae3e2a22ff" class="block-color-orange_background"><strong>281. Demo: fakeRequest Using Promises</strong></h1><figure id="2d3039ac-c8bb-4443-822e-3d55e9ae307d" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2017.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2017.png"/></a></figure><p id="da77e744-3b34-46af-b572-c55e90d6deb0" class="block-color-orange_background">
+</p><figure id="0543ac82-d9e9-4f16-8f1c-71e4e606722e" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2018.png"><img style="width:1958px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2018.png"/></a></figure><p id="8e9d1921-8f98-49b1-9232-bbc50ffa5dc8" class="block-color-orange_background">
+</p><figure id="3d1a721c-6136-43b5-8aa7-6f337800d827" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2019.png"><img style="width:512px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2019.png"/></a></figure><p id="6b08e324-91ed-4bb8-a1d4-377472824d6c" class="block-color-orange_background">
+</p><figure id="69acd710-926d-4cf5-bfee-492049b5649a" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2020.png"><img style="width:2000px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2020.png"/></a></figure><p id="3d5ed0d7-1642-4d20-baa5-269525c32bb8" class="block-color-orange_background">
+</p><figure id="c4f9423b-1e4b-439d-90b6-87b057aa5a2d" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2021.png"><img style="width:1400px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2021.png"/></a></figure><p id="b27ff918-0d1d-4d4e-ad0e-d602953b0cf8" class="block-color-orange_background">
+</p><figure id="e6de4652-74e0-410c-afef-71ead90497e2" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2022.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2022.png"/></a></figure><p id="50c10bc8-7c79-429c-8d6a-deb056eb9076" class="block-color-orange_background">example of a promise creation</p><figure id="4f6240eb-c83e-43bc-a82a-d8dbe83d89e8" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2023.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2023.png"/></a></figure><p id="47dc5a1b-1978-4f00-af72-2a7bf2decca4" class="block-color-orange_background"><strong>A promise can be in one of three states:</strong></p><ul id="29ca3c7d-51db-419d-b825-ed4e161c4edc" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>Pending:</strong> Initial state, neither fulfilled nor rejected.</li></ul><ul id="77ca8cd7-0816-412e-9cca-a2f4d2fc11e2" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>Fulfilled:</strong> The asynchronous operation completed successfully.</li></ul><ul id="0e0c0851-fe8c-4f3a-b360-c01414959d58" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>Rejected:</strong> The asynchronous operation failed or encountered an error.</li></ul><h3 id="d1c41db9-a434-4b39-af72-598a761bbf12" class="block-color-orange_background">A simple promise — that succeeded</h3><figure id="6eb41a67-715d-4f2a-9b11-707700ad7567" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2024.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2024.png"/></a></figure><h3 id="f76ec3d3-7070-4c7c-a1cb-6c4836dc9643" class="block-color-orange_background">A simple promise — that failed</h3><p id="f57b0790-2d84-4a7f-b19b-970eaefd0e8d" class="block-color-orange_background">— A rejected promise will create an error in console</p><figure id="6a399d3d-2322-4fd8-a434-5ae3d2c4bd6d" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2025.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2025.png"/></a></figure><p id="6f474aac-1e38-477c-abd5-9dbe24126acc" class="block-color-orange_background"><em><span style="border-bottom:0.05em solid"><strong>instead of simple variable assignment promise will make the variable to wait for the request to complete either it succeeded or fails the variable will wait for the promise to complete.</strong></span></em>
+
+this promise solves the biggest issue with asynchronous callback which we always get undefined</p><h3 id="21aedd2f-c691-4b9a-9bf1-c3568242250f" class="block-color-orange_background">Handling error that will be created when we promise was rejected — while using promises</h3><p id="cafacd89-fb9e-47cf-add4-eaeb1e6851ce" class="block-color-orange_background">we can use <strong>then</strong> or <strong>catch </strong>with conjunction of promise to stop <strong>“uncaught” error when promise is rejected</strong></p><p id="e7c8ee70-6600-4321-99e7-07b270c0c499" class="block-color-orange_background">Callback function in catch block will run if the promise is rejected</p><figure id="b3b6e6c4-1b0e-43f9-a7ad-917440d37ecd" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2026.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2026.png"/></a></figure><p id="da364080-1e6e-4774-be38-a5c9c3726bbb" class="block-color-orange_background">Callback function in then block will run if the promise is fulfilled</p><figure id="9c92018c-c175-4e82-af77-237444f14589" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2027.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2027.png"/></a></figure><p id="62483ebd-2615-4f30-abf1-3338d1ddc3f4" class="block-color-orange_background">
+</p><figure id="7cbdf165-23b6-4635-89a2-0ab3cd3345d0" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2028.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2028.png"/></a></figure><p id="0d6a3591-16c8-4051-a464-c6e493891cce" class="block-color-orange_background">
+</p><figure id="4c49f505-5ab9-43ff-8d1c-fdba4865215c" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2029.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2029.png"/></a></figure><p id="4ae4defb-398b-4551-8606-c496c7b259ce" class="block-color-orange_background">we attach callbacks to the promise rather than passing them as arguments to the function</p><figure id="cff6d4c5-0920-4c32-a61a-52f192cc53a6" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2030.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2030.png"/></a></figure><p id="0a0f316e-acd3-4fc7-b94e-42a00e135d78" class="block-color-orange_background">we can also use promise without any variables like shown above</p><figure id="24a21cd7-695b-4374-bc7e-ed4073535efd" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2031.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2031.png"/></a></figure><ol type="1" id="0fe1cf35-47f8-4351-a6e0-de2ef1a319ca" class="block-color-orange_background numbered-list" start="1"><li>promise call</li></ol><ol type="1" id="78b1398f-44a1-40e2-9936-ad5c973efb37" class="block-color-orange_background numbered-list" start="2"><li>then block — only runs if promise is fulfilled (or) succeeded</li></ol><ol type="1" id="0653cc0d-b4d8-44db-ac03-f5abe70364da" class="block-color-orange_background numbered-list" start="3"><li>catch block — only runs if promise is failed (or) rejected</li></ol><figure id="77870f34-6d2f-462b-a94a-550e987f79e9" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2032.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2032.png"/></a></figure><p id="953ce0b5-5220-40e1-9e01-222526882b55" class="block-color-orange_background">
+</p><h1 id="b8e6d11e-ae52-484e-990e-a3b42b2819ad" class="block-color-orange_background"><strong>282. The Magic Of Promises</strong></h1><p id="09da8976-4db1-4a18-b42e-2ff67597ac8f" class="block-color-orange_background">as we can see that even promises are also staking one inside other — which makes the code petty hard to understand and debug — but unlike callback&#x27;s promises gave an alternative to stop this kind of coding </p><figure id="8e8ef403-4ea0-4868-b3a2-9afd492c27fe" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2032.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2032.png"/></a></figure><h1 id="21734520-8f73-41e2-9e5a-1a6a59fbc87b" class="block-color-orange_background">easy way of using multiple promises
+
+<mark class="highlight-red">every time a promise was fulfilled it will return a new promise this is called promise chaining</mark></h1><figure id="456ce30b-853e-4afb-a6af-4a3c325cf848" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2033.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2033.png"/></a></figure><p id="90bc46f0-f650-4b4a-86eb-15a66b41f3aa" class="block-color-orange_background">
+</p><h1 id="2d801f7d-d5a2-4ff1-864f-aa2dfae9ebfa" class="block-color-orange_background"><strong>283. Creating Our Own Promises</strong></h1><p id="71306d9f-de49-4d2f-bed3-9b52ce4624d7" class="block-color-orange_background"><strong>A promise can be in one of three states:</strong></p><ul id="2115cee5-7273-41f0-bb7f-28d1f26ef865" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>Pending:</strong> Initial state, neither fulfilled nor rejected.</li></ul><ul id="cc4bb66b-13fc-4d6e-afed-06d2d306a294" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>Fulfilled:</strong> The asynchronous operation completed successfully.</li></ul><ul id="4ec87c96-b8ed-4c92-8f33-79c1cff42118" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>Rejected:</strong> The asynchronous operation failed or encountered an error.</li></ul><figure id="6fc09b3b-2e7f-4a85-b156-27d25cebf51a" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2034.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2034.png"/></a></figure><p id="a178d67c-ceb1-474d-ad57-0be708ad53f6" class="block-color-orange_background">n a Promise, the state is initially undetermined or pending. The state can transition to either fulfilled (resolved) or rejected, and this transition is determined by whichever function among <code><strong>resolve</strong></code> and <code><strong>reject</strong></code> is called first inside the Promise&#x27;s callback function.</p><ul id="ee3ee076-7cd7-487b-ae37-4031bc772dd1" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">If you call <code><strong>resolve()</strong></code> first inside the callback, the Promise transitions to the fulfilled state, indicating successful completion of the asynchronous operation.</li></ul><ul id="1939e08a-3c53-404e-917b-8964db8c6cec" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">If you call <code><strong>reject()</strong></code> first inside the callback, the Promise transitions to the rejected state, indicating an error or failure in the asynchronous operation.</li></ul><p id="7e5beeec-e1ac-4e90-ad3f-59656ebaf852" class="block-color-orange_background">
+</p><h1 id="f20226fe-39c8-476f-8507-f17fad15458e" class="block-color-orange_background">Errors in function that is returning the promise:-</h1><p id="26abdbc0-761f-4ee9-86a7-a60c8d3b1449" class="block-color-orange_background">if an function that returning a promise is having some error then — promises will stay in pending status permanently as the asynchronous function was causing the error instead of calling either “reject (or) resolve” functions</p><figure id="977ad0c3-2e51-4085-81ce-d873c50d2369" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2035.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2035.png"/></a></figure><p id="fbd1ffe2-829e-4a47-865e-8a5fdd7b3b0e" class="block-color-orange_background">
+</p><p id="ad6e463c-4650-4170-880b-4b212e9a2602" class="block-color-pink_background">When you call <code>resolve</code> and encounter an error inside the <code>resolve</code> function, the behavior depends on how you handle that error within the <code>resolve</code> function.</p><p id="de223de3-a8f7-48fa-8998-fef49e96bac3" class="block-color-pink_background">Here&#x27;s what typically happens:</p><ol type="1" id="6bf44fcd-1bab-4528-8b38-b94bd8224990" class="block-color-pink_background numbered-list" start="1"><li><strong>Error within the </strong><code><strong>resolve</strong></code><strong> function:</strong><p id="9036d692-4605-45ac-a389-7106c1bbe748" class="">If an error occurs inside the <code>resolve</code> function, it will throw an error just like any regular JavaScript code would. For instance:</p><pre id="3289e425-f18b-457d-8b0b-dcdfa0783dc6" class="code code-wrap"><code>const promise = new Promise((resolve, reject) =&gt; {
+    try {
+        // Some operation that throws an error
+        throw new Error(&#x27;An error occurred inside resolve.&#x27;);
+        resolve(&#x27;Success!&#x27;);  // This line will not be executed
+    } catch (error) {
+        reject(error);  // Reject the promise with the error
+    }
+});</code></pre><p id="3b414301-a274-4819-bc6b-81e2dd03ae60" class="">In this case, the error will be caught within the <code>catch</code> block, and the promise will be rejected with the error that occurred inside the <code>resolve</code> function.</p></li></ol><ol type="1" id="a20f8046-328d-4968-8322-bdbb0edad323" class="block-color-pink_background numbered-list" start="2"><li><strong>Handling errors within the </strong><code><strong>resolve</strong></code><strong> function:</strong><p id="197a4302-6082-4d06-b83b-539ec6629e5f" class="">You can also handle the error inside the <code>resolve</code> function and still resolve the promise with a different value. For example:</p><pre id="b2ce55fe-0979-4d01-b42a-bcf66698bd05" class="code code-wrap"><code>const promise = new Promise((resolve, reject) =&gt; {
+    try {
+        // Some operation that might throw an error
+        const result = performSomeOperation();
+        resolve(result);  // Resolve the promise with the result
+    } catch (error) {
+        // Handle the error and still resolve with a different value
+        resolve(&#x27;Fallback value due to an error.&#x27;);
+    }
+});</code></pre><p id="7f6218c3-98f1-4a1a-94b3-ff6bf4d98442" class="">In this case, even if an error occurs, you&#x27;re handling it within the <code>resolve</code> function and still resolving the promise with a fallback value.</p></li></ol><p id="efc2f1a2-3d53-425a-80e0-f8ef8e20b0a8" class="block-color-pink_background">So, calling <code>resolve</code> and encountering an error inside the <code>resolve</code> function won&#x27;t prevent the error from propagating; it will throw an error that you can handle within a <code>try...catch</code> block or choose to resolve the promise with a fallback value.</p><p id="c7a16edc-78a5-4cd9-a033-a67d971fbee7" class="block-color-orange_background">
+</p><figure id="92c1dcef-a853-4a23-8b67-7ac5d44accef" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2036.png"><img style="width:432px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2036.png"/></a></figure><p id="523a25ed-4510-4ae2-ad43-06d1078275b2" class="block-color-orange_background">delayedColorChange using promises</p><figure id="c6e9f7d8-7b2a-4f7c-8da5-9686514ff37e" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2037.png"><img style="width:576px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2037.png"/></a></figure><p id="31d2e39d-08d2-4d75-a486-d647a2fdbfcc" class="block-color-orange_background">
+</p><h1 id="23758df2-13b1-49b9-80b4-9bf7d0a1323b" class="block-color-orange_background">the Async Keyword</h1><figure id="45c1c939-9568-49ed-bd4c-ef5f7e1481c8" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2038.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2038.png"/></a></figure><p id="6b3c78c0-2d0e-424c-955f-51a24d7be76b" class="block-color-orange_background">
+</p><figure id="a077f203-ccde-4a4a-98ba-7b2d893b49a6" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2039.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2039.png"/></a></figure><p id="6775bba8-11d4-41f9-ba99-da7761ee961a" class="block-color-orange_background">
+</p><figure id="05f3483c-dde0-4913-bc2b-38368e5e7af8" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2040.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2040.png"/></a></figure><p id="6d26fbc0-8a7e-4cf2-ae5b-5f301c8f54d9" class="block-color-orange_background">
+</p><figure id="a925acc7-eb5b-44e0-93d2-36c9a43dcdc8" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2041.png"><img style="width:1919px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2041.png"/></a></figure><p id="6791d3d2-5166-4d2f-b1f8-a63e2c180680" class="block-color-orange_background">
+</p><figure id="0b0d8b21-c990-4f3e-ac9c-2a0ea6cd3e8f" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2042.png"><img style="width:480px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2042.png"/></a></figure><p id="abdee936-15e9-4139-aba6-65f25ddd74ec" class="block-color-orange_background">Async Function will always return a promise weather we explicitly returned a promise or not is not matters.
+
+as we seen bellow we had two functions 
+one is returning a string and 
+other is returning a promise 
+but as both the functions are defined as async — the functions by default return a promise.</p><figure id="e17d65bc-643a-427b-85fd-302f79f463da" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2043.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2043.png"/></a></figure><p id="35d333ec-ed9b-4447-90d0-70d0357f54e8" class="block-color-orange_background">we can also chain the “then” and “catch” block to the function if it was defined as an async function.</p><figure id="b511a04f-759e-49a7-b1af-df6880ca78cb" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2044.png"><img style="width:480px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2044.png"/></a></figure><p id="ba203dab-114f-43e3-a3c4-c56d7414804d" class="block-color-orange_background">
+</p><figure id="f45ac087-8e24-42fc-bb44-0617703ecdc9" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2045.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2045.png"/></a></figure><ol type="1" id="6d3184a5-2431-4e8e-a648-3308f5224270" class="block-color-orange_background numbered-list" start="1"><li>output while then block runs</li></ol><ol type="1" id="0b448e56-6ab9-47b3-8115-1703a9c1ef84" class="block-color-orange_background numbered-list" start="2"><li>output while catch block runs</li></ol><p id="b08ffba2-9ff7-4a06-a615-12fd0f8c6c82" class="block-color-orange_background">
+</p><figure id="f2e3da66-83ae-4255-b7cb-b6358b573b88" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2046.png"><img style="width:1024px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2046.png"/></a></figure><p id="ca2b0e0b-6bcf-4608-885a-61aac47fc917" class="block-color-orange_background">
+</p><h1 id="622432f6-5eea-43cf-8c23-f149807d9efd" class="block-color-orange_background">285. The Await Keyword</h1><figure id="33b1bf5d-1f24-426a-b7f9-8717c6f3f201" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2047.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2047.png"/></a></figure><p id="cc6dd2cb-0aeb-4afb-96de-411264a4923c" class="block-color-orange_background">
+</p><figure id="d0d1cb63-fb06-4823-baa6-fb5cdfdd416d" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2048.png"><img style="width:1920px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2048.png"/></a></figure><p id="fdb8dffc-5543-445c-b177-d1ab9c5ef927" class="block-color-orange_background">
+</p><figure id="1a8615e4-8bb6-41e4-9ac7-4cb26d2e1761" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2049.png"><img style="width:670px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2049.png"/></a></figure><p id="12b55c76-d610-4dae-8035-fd978d0f29f7" class="block-color-orange_background"><strong>Method 1</strong> not efficient and bulky —  Rarely used</p><figure id="1b0a9dc5-29a4-4201-9187-6f41b78310e7" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2050.png"><img style="width:2032px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2050.png"/></a></figure><p id="94ae13a6-5ce0-48d2-9947-0a3b75ac5f46" class="block-color-orange_background">Method 2 Important, easy — Industry standard</p><figure id="66724bb8-20f2-4fa1-a39f-6c08555aab6b" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2051.png"><img style="width:2032px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2051.png"/></a></figure><h1 id="d79d4135-4154-4de9-ba88-06feae78d0f9" class="block-color-orange_background">Main thing both can run in same program as two isolated tasks — for more details follow color code explanation of Asynchronous Javascript</h1><p id="51be6e1d-f1cf-4028-b2c9-acf3dd5ab0e0" class="block-color-orange_background">
+</p><h1 id="d1a93f3d-4da8-482f-9a8d-934f1db37143" class="block-color-orange_background">IMPORATNT RESOURCES FOR ASYNC AND AWAIT </h1><p id="9d82b9db-f591-4c72-89e7-22e01a0a14b2" class="block-color-orange_background">
+</p><figure id="2e587118-6c7d-499c-8b02-9b6d379b555d"><div class="source"><a href="https://www.youtube.com/playlist?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP">https://www.youtube.com/playlist?list=PL1PqvM2UQiMoGNTaxFMSK2cih633lpFKP</a></div></figure><p id="6adaeb30-a4f0-4075-8fb2-28902e883a10" class="block-color-orange_background">
+</p><figure id="d4081f06-4af1-4211-ba0a-cc0479eefed0"><a href="https://www.youtube.com/watch?v=vn3tm0quoqE" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">The Async Await Episode I Promised</div><div class="bookmark-description">The await is over! Learn how to make your JavaScript Promise code beautiful and concise with async-await https://github.com/codediodeio/async-await-pro-tips
+
+Jake Archibald&#x27;s Talk: https://youtu.be/cCOL7MC4Pl0
+Demos with Angular: https://www.youtube.com/channel/UCYFd7Qy93YP7gPERnxP545A</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/dbf5c200/img/favicon_144x144.png" class="icon bookmark-icon"/>https://www.youtube.com/watch?v=vn3tm0quoqE</div></div><img src="https://i.ytimg.com/vi/vn3tm0quoqE/maxresdefault.jpg" class="bookmark-image"/></a></figure><p id="a2a43f07-56fa-4fb2-b3e5-1a192b27fa83" class="block-color-orange_background">
+</p><figure id="ccdbf0c0-d9eb-4422-8c5f-4019efa7dd4c"><a href="https://youtu.be/PgZ9npYJZzU?si=_qc9VelBz6nrk9fG" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Asynchronous Javascript Tutorial - Promises and Async Await Explained</div><div class="bookmark-description">CHECK OUT LADDER: https://bit.ly/3Ca4H0C
+
+In this video I go over the basics of asynchronous programming in Javascript. 
+
+🚀  Learn ReactJS By Building 6 Projects: https://codedamn.com/learn/reactjs-projects
+
+
+Social
+▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+Website: machadopedro.com
+Linkedin: https://www.linkedin.com/in/machadop1407/
+Instagram: https://www.instagram.com/_pedro.machado_
+Github: https://github.com/machadop1407
+Email: machadop1407@gmail.com
+
+Tags:
+- ReactJS Tutorial
+- ReactJS and MySQL
+- NodeJS Tutorial
+- API Tutorial
+
+Timestamps 
+00:00 | Intro
+01:26 | Promises
+17:00 | Async Await</div></div><div class="bookmark-href"><img src="https://www.youtube.com/s/desktop/8093e6f6/img/favicon_144x144.png" class="icon bookmark-icon"/>https://youtu.be/PgZ9npYJZzU?si=_qc9VelBz6nrk9fG</div></div><img src="https://i.ytimg.com/vi/PgZ9npYJZzU/maxresdefault.jpg" class="bookmark-image"/></a></figure><p id="226423e4-066c-417f-9def-94518e86b553" class="block-color-orange_background">
+</p><h1 id="e2e987e9-8963-47f9-b4b6-4a5d5d06feda" class="block-color-orange_background">286. Handling Errors In Async Functions</h1><p id="f1e6ea56-4dc8-4b29-9112-365d988e60a9" class="block-color-orange_background">we will use try catch blocks in async functions when there is an possibility of an error</p><figure id="57e50dcd-1bbf-40b7-97b6-adbc6c8242a2" class="image"><a href="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2052.png"><img style="width:528px" src="027%20-%2002%20-%20Promises%20-%20Async%20Javascript%20oh%20Boy!%20da89426350634ff292868f57a5291e3b/Untitled%2052.png"/></a></figure><p id="647bcc74-481a-4513-9bf1-11662ffb861a" class="block-color-orange_background">
+</p><figure id="8ef25fb6-e8f4-4804-8e7c-ad43d815906e" class="link-to-page"><a href="https://www.notion.so/028-AJAX-and-API-s-8ef25fb6e8f448048e7cad43d815906e?pvs=21">028 - AJAX and API’s</a></figure></div></article></body></html>

@@ -1,0 +1,721 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>028 - AJAX and API’s</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8ef25fb6-e8f4-4804-8e7c-ad43d815906e" class="page sans"><header><h1 class="page-title">028 - AJAX and API’s</h1><p class="page-description"></p></header><div class="page-body"><figure id="da894263-5063-4ff2-9286-8f57a5291e3b" class="link-to-page"><a href="https://www.notion.so/027-02-Promises-Async-Javascript-oh-Boy-da89426350634ff292868f57a5291e3b?pvs=21">027 - 02 - Promises - Async Javascript oh Boy! </a></figure><figure id="0c547654-34b4-47ec-95e0-5bb11b3e2c33" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled.png"/></a></figure><p id="59b712db-b87b-42f0-bc9a-aef16349fb9b" class="block-color-orange_background">
+</p><h1 id="cb7c0bac-02b5-47fe-adbf-3409316dc341" class="block-color-orange_background">288. Intro to AJAX</h1><h1 id="b140c22e-6a96-4b41-b693-2315add1659b" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="9aa49a72-5518-4d0c-9a63-049732ad6973" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="2662719f-0647-4f38-8b7a-7cf1386ed492" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%201.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%201.png"/></a></figure><p id="0423bdeb-86f7-4d66-bc9c-3a00e1597c3e" class="block-color-orange_background">
+</p><figure id="ec030cd8-7477-4575-b30b-ff8357b2c167" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%202.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%202.png"/></a></figure><p id="e4e754e1-40e2-409f-92ab-7f6bf084e12e" class="block-color-orange_background">
+</p><figure id="449e0f8c-0dc1-4a37-81f6-0c58a558a145" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%203.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%203.png"/></a></figure><p id="92054b26-823d-41f1-b738-2049d883715e" class="block-color-orange_background">
+</p><h1 id="2e4b07b1-81c5-4955-9a88-80b144b29e7c" class="block-color-orange_background">289. Intro to APIs</h1><h1 id="4e7b9cb9-20ae-406c-a4c4-9fabfe51e7e1" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="4be9795c-b377-42d9-9fec-1c14753f7fb7" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="97cfa23b-38f2-41e5-9c4b-7f11baa11cdf" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%204.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%204.png"/></a></figure><p id="9f775b49-4fec-437b-9683-92dfabf2f242" class="block-color-orange_background">
+</p><figure id="0774c538-cbc8-41f6-904e-b5a8ee2e3991" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%205.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%205.png"/></a></figure><p id="54afefbf-19c7-41ee-8868-e7265bb072c7" class="block-color-orange_background">
+</p><figure id="48b42b10-0d76-42a3-842e-c692bc9aa8ed" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%206.png"><img style="width:432px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%206.png"/></a></figure><h2 id="52400baf-0aa9-4a46-bc64-4cd6062a2ab4" class="block-color-orange_background"><strong>The term API stands for application programming interface,</strong></h2><figure id="4b3ab9f8-b75c-44cc-a5da-8ca90bc20c6b" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%207.png"><img style="width:560px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%207.png"/></a></figure><p id="1ebab7c3-8865-4fb1-9d74-034ede3f5cac" class="block-color-orange_background">
+</p><figure id="f4b7571d-c7c3-4912-8f11-c0e290190678" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%208.png"><img style="width:1117px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%208.png"/></a></figure><p id="ccacdfbc-307b-4486-a70c-c5e59dd1e8ab" class="block-color-orange_background">
+</p><figure id="29962083-62ad-4579-a2e2-181968a2ffb6" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%209.png"><img style="width:700px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%209.png"/></a></figure><p id="6897c2bd-b07a-42f0-87ab-2e3f2f3df5c8" class="block-color-orange_background">
+</p><figure id="4fd4013b-0bf4-4289-ba50-2030dd9ded5e" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2010.png"><img style="width:818px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2010.png"/></a></figure><p id="c864181d-4989-4149-bdf2-f52247f23504" class="block-color-orange_background">
+</p><h1 id="3deab198-9d54-49c2-a957-873e21c54f3c" class="block-color-orange_background"><strong>290. WTF is JSON</strong></h1><h1 id="e5c8de17-a86f-4ed2-822d-3c7eaf0582de" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="ca296cc2-34cd-4aa1-99c0-73ddd754e26c" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="5c34e382-1cc3-4dd0-ac5b-547c8f1181dd" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2011.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2011.png"/></a></figure><p id="49c681c2-ec72-4ef5-a531-123c1ef2e40c" class="block-color-orange_background">
+</p><figure id="b839e91a-59e4-49a5-84fa-a2cf7a572271" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2012.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2012.png"/></a></figure><p id="1948cc0e-d6e8-46dc-b15c-1ab932c559a3" class="block-color-orange_background">In old days we used XML but it is not much of a use right now</p><figure id="5029d7ff-2c24-49d0-86d5-05eef8da1fa5" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2013.png"><img style="width:411px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2013.png"/></a></figure><p id="24cc1641-ff25-4eb6-b0b9-4449458c65a4" class="block-color-orange_background">
+</p><figure id="faf6d695-7158-4d32-9c7e-0a9dd420a2ad" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2014.png"><img style="width:650px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2014.png"/></a></figure><p id="9ee9d947-2095-4624-880f-005d2969b929" class="block-color-orange_background">
+</p><h1 id="e0f175f9-fec9-48d5-a3c0-81743a5c6fec" class="block-color-orange_background">JSON is the new and Updated industry standard</h1><figure id="270f54a0-1ea8-4f01-a928-ef020894b73c" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2015.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2015.png"/></a></figure><p id="48c6b71c-9981-459d-bfbb-56111255928b" class="block-color-orange_background">
+</p><figure id="97ebcfa1-544a-4216-82ba-290e6253ca6d" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2016.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2016.png"/></a></figure><p id="c4db32ff-a238-49c4-aa06-1b092bd0ad6f" class="block-color-orange_background">
+</p><figure id="16627cb5-12e1-453f-8737-e563163e5416" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2017.png"><img style="width:413px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2017.png"/></a></figure><p id="f306f218-5e14-42a2-8fec-c41c3987070f" class="block-color-orange_background">
+</p><figure id="5b16e60b-5cf8-4d60-8b7c-0c4bed6b4087" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2018.png"><img style="width:460px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2018.png"/></a></figure><p id="540871a3-bb77-4853-92fb-84e985ea1c5e" class="block-color-orange_background">
+</p><h1 id="2f67110b-0b33-40e5-99d7-ae702be86c63" class="block-color-orange_background"><strong>291. Using Hoppscotch (or Postman)</strong></h1><h1 id="b41cdee7-794c-4840-8486-a201d5405efe" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="46d682cd-819e-4853-b71a-cce4db5cfed2" class="block-color-orange_background">VERY THEORY VIDEO </h1><p id="e7db28f5-d162-41ce-80d7-f9d700d3999a" class="block-color-orange_background">
+</p><h1 id="a8f75e8a-c2a8-4cae-a938-356573aab11e" class="block-color-orange_background"><strong>292. HTTP Verbs</strong></h1><h1 id="b153c255-bfd1-4c03-9104-e77919c79750" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="6de60d06-5051-426f-b4a6-4759d13c1d98" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="a170e485-5420-42d3-a82f-6aa4832f9b4a" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2019.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2019.png"/></a></figure><p id="e6f6d252-f156-499a-960a-bdafe90053ae" class="block-color-orange_background">
+</p><h1 id="a9525895-7320-4c4f-a03b-570787cfb672" class="block-color-orange_background"><strong>293. HTTP Status Codes</strong></h1><h1 id="5220b434-bde5-4cd5-899e-9cfd19e44aa8" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="de8e73d2-0f08-40ff-8852-3c85934a15f3" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="ce3e5e4a-1f70-41c0-b4b5-4e5209cdd320" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2020.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2020.png"/></a></figure><p id="4020da76-8b3b-4650-bf47-e5e8aee7b1fc" class="block-color-orange_background">
+</p><figure id="d0af2766-d450-43ee-bfac-237c9d8fa169" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2021.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2021.png"/></a></figure><p id="3f34b189-8410-42d6-98d4-e8768b90f0ae" class="block-color-orange_background">
+</p><figure id="95e5671d-1bed-4f18-a88b-8fc6e761270f" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2022.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2022.png"/></a></figure><p id="3e638199-1a46-4d19-8457-745f1ae5f19d" class="block-color-orange_background">
+</p><figure id="379492d1-6217-4d0e-bbb3-657138f174d6" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2023.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2023.png"/></a></figure><p id="343c2726-1c87-40b9-91a7-8c9be7137c79" class="block-color-orange_background">
+</p><figure id="392cfd02-eb64-42b6-9c97-e6e1c92a89f7" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2024.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2024.png"/></a></figure><p id="b8ab94af-8d7f-4672-b97a-707b21b7014a" class="block-color-orange_background">
+</p><h1 id="8700d2f2-e27c-4dac-b207-bfe25d559355" class="block-color-orange_background"><strong>294. Understanding Query Strings</strong></h1><h1 id="881f41a8-9426-496f-a4b7-6114e14aefd6" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="4bf2f56a-acbf-4590-96d1-00e5767b9b8e" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="058130fe-b85a-4521-8165-33c71617a64e" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2025.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2025.png"/></a></figure><p id="8ea81eef-419f-4780-983e-7dc1f627438b" class="block-color-orange_background">Base URL for an endpoint is something that is very important for any kind of API request — small or minute change in base URL will cause BIG errors </p><figure id="612e59f8-40ef-4497-94e3-ccb9855a8395" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2026.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2026.png"/></a></figure><p id="fb78848a-6685-49bd-a6b6-7b6207ae07ef" class="block-color-orange_background">Query string will come after base URL which starts with “question mark symbol” (?) and will have list of key value pairs separated by “ampersand” (&amp;) Symbol </p><p id="e486c20f-4e5f-49eb-bc16-76f78b2386ba" class="block-color-orange_background">And in each pair key and value will be separated by “=” symbol</p><figure id="9cf87115-b957-4017-aa13-025ea0813907" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2027.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2027.png"/></a></figure><p id="6a046923-8d61-461a-af5b-070a172dcb93" class="block-color-orange_background">Even if there is an error in the query string part of URL the API will ignore it — but if there is an error in URL part it will show the error </p><figure id="72c15d3a-f7af-49c2-ab13-19ef9214cc36" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2028.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2028.png"/></a></figure><ol type="1" id="7b3f3a71-0f1a-4038-ab75-66a088165084" class="block-color-orange_background numbered-list" start="1"><li>In the Above API request we don&#x27;t need Query string even though we sent it — the query string will be ignored </li></ol><figure id="401d12dc-eda4-4c94-bb4c-e1c762456ad1" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2029.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2029.png"/></a></figure><ol type="1" id="cbdefb3f-25a2-4374-8051-edae80026908" class="block-color-orange_background numbered-list" start="1"><li>simple example of one key value pair in Query string</li></ol><figure id="c42ee48f-7aac-4f26-82f8-c81569795ef7" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2030.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2030.png"/></a></figure><ol type="1" id="61b9c435-9f04-4979-9c03-15abbedb5fe6" class="block-color-orange_background numbered-list" start="1"><li>simple example of multiple key value Paris in Query string</li></ol><figure id="8f334d83-7328-472a-82ac-fd313eace8f7" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2031.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2031.png"/></a></figure><p id="46c73704-1ec5-4e7e-92b6-6662ce0e45b9" class="block-color-orange_background">The query string can be written in two way one is directly writing parameters in URL </p><p id="dc422cdf-89bd-4caf-b7e6-e583a9273eed" class="block-color-orange_background">other is using parameters option in postman as shown bellow it will automatically creates the query string for us</p><figure id="fdd1dfbd-e1d4-4d24-98fd-b270a6136a19" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2032.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2032.png"/></a></figure><p id="28c6b48a-c062-466d-b367-0af1b2c5af87" class="block-color-orange_background">
+</p><h1 id="410cc741-c9fd-4dd7-a8f1-7d5508c034af" class="block-color-orange_background"><strong>295. HTTP Headers</strong></h1><h1 id="b0241e1e-76c7-4d98-9005-94719976ba13" class="block-color-orange_background">VERY IMPORATNT VIDEO </h1><h1 id="0450b094-02d1-46a1-8a15-34f31c8403b6" class="block-color-orange_background">VERY THEORY VIDEO </h1><figure id="23229ca7-fd4c-4ddf-9dd6-13f7c9f03ee7" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2033.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2033.png"/></a></figure><p id="458357e7-b52e-4fa8-94a5-17b660a13f1f" class="block-color-orange_background">
+</p><figure id="8c41bb30-d8f4-4f1e-b947-2bae0475bcdf" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2034.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2034.png"/></a></figure><p id="f683a7d8-3c9e-4ccc-b6ac-57b50476b3a3" class="block-color-orange_background">
+</p><h1 id="394bc890-dbb0-49a2-bc48-1a083f8bab58" class="block-color-orange_background"><strong>296. Making XHRs</strong></h1><figure id="d2589bb2-9115-4517-a91a-cfcf5dc69de8" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2035.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2035.png"/></a></figure><p id="9d571d2f-9cb9-48b4-aaa9-0814ba8cb7b4" class="block-color-orange_background">
+</p><p id="2eeeb1f8-fe01-470e-a425-0b1a390a735c" class="block-color-orange_background">XML HTTP requests and why they are considered outdated:</p><ol type="1" id="dca3a34d-4f38-449f-adb9-3fdadd677411" class="block-color-orange_background numbered-list" start="1"><li><strong>Older Approach - XML HTTP Request (XHR)</strong>: XHR is highlighted as the older and less useful way of making HTTP requests from JavaScript.</li></ol><ol type="1" id="4e01834f-0eba-4962-aab0-02b3b870df17" class="block-color-orange_background numbered-list" start="2"><li><strong>Introduction for Context</strong>: The demonstration of XHR is presented to give context and set the stage for the advancements in modern approaches like Fetch and Axios.</li></ol><ol type="1" id="a1d9ccd1-51a6-4c44-96b1-5c662ff1fd44" class="block-color-orange_background numbered-list" start="3"><li><strong>Lack of Promise Support</strong>: XHR lacks support for promises, resulting in a reliance on callbacks for handling requests, making the code structure cumbersome and messy.</li></ol><ol type="1" id="e8fae98e-8a33-4202-8dc6-522373864f44" class="block-color-orange_background numbered-list" start="4"><li><strong>Syntax and Capitalization Issues</strong>: The syntax of XHR is described as clunky and difficult to remember. The inconsistent capitalization in terms like XML and HTTP adds to the complexity.</li></ol><ol type="1" id="527cd226-8d3e-4789-af7b-a1f1781a9e07" class="block-color-orange_background numbered-list" start="5"><li><strong>Preparation for Learning Modern Approaches</strong>: While XHR is presented for understanding, it&#x27;s emphasized that memorizing its syntax is unnecessary, preparing the learner for the subsequent introduction of more efficient methods like Fetch and Axios.</li></ol><p id="f238b34d-206a-4e06-8383-3f67e77f74a9" class="block-color-orange_background">In summary, the drawbacks of the XHR approach, including its callback-based nature, syntax challenges, and lack of promise support, while also setting the stage for learning newer and better alternatives like Fetch and Axios.</p><p id="d6cd08d5-413a-4bfb-bd35-66c5c322bc15" class="block-color-orange_background">
+</p><h2 id="13d61bfa-5184-4e74-81cd-3bd7ffb988d6" class="block-color-orange_background">How to Make a request </h2><p id="e12230ff-22a4-4f8a-b855-02d479f4f5a1" class="block-color-orange_background">Making a request using XML HTTP request and preparing the response for use:</p><ol type="1" id="78439f93-174e-4bab-993f-549b76417a0c" class="block-color-orange_background numbered-list" start="1"><li><strong>XML HTTP Request (XHR)</strong>: The original method for making HTTP requests from JavaScript. Involves creating a new XHR object, opening a connection with a specified method (e.g., GET), providing the URL, sending the request, and handling the response and potential errors.</li></ol><ol type="1" id="34284126-f014-4012-b9f1-74d0fa052474" class="block-color-orange_background numbered-list" start="2"><li><strong>Creating XHR Object</strong>: To make a request, create an XHR object using <code>new XMLHttpRequest()</code> and save it to a variable (e.g., <code>request</code>).</li></ol><ol type="1" id="27c69542-4a6c-468d-8c57-562b15894a05" class="block-color-orange_background numbered-list" start="3"><li><strong>Opening the Request</strong>: Use <code>request.open()</code> to specify the method (e.g., GET) and the URL you want to request.</li></ol><ol type="1" id="5c83e7dc-b6ad-4352-b312-65a2d8dffb04" class="block-color-orange_background numbered-list" start="4"><li><strong>Sending the Request</strong>: After opening the request, use <code>request.send()</code> to send the request.</li></ol><ol type="1" id="4b2d140c-83d0-4e66-8f1b-114b07c15fd7" class="block-color-orange_background numbered-list" start="5"><li><strong>Handling Callbacks</strong>: Set up callbacks to handle the response. Typically, you&#x27;ll use <code>request.onload</code> for successful responses and <code>request.onerror</code> for errors.</li></ol><ol type="1" id="7366b50d-c782-4fb8-a45c-315e312c1c62" class="block-color-orange_background numbered-list" start="6"><li><strong>Parsing Response</strong>: The response is initially in text format. To work with it as a JavaScript object, parse it using <code>JSON.parse()</code> to convert it into an object.</li></ol><ol type="1" id="7d0cdbef-51f3-4dbc-847d-c85094633405" class="block-color-orange_background numbered-list" start="7"><li><strong>Using the Response</strong>: Once parsed, you can access data in the response object and use it in your application.</li></ol><p id="0b50c54f-0f7a-4a97-af4b-969e15ac1d8c" class="block-color-orange_background">The XHR approach is considered outdated and cumbersome compared to modern alternatives like <code>fetch</code> and <code>Axios</code>, which offer a cleaner and more efficient syntax.</p><p id="891a07ca-cde3-47e1-947c-16d2b77d9222" class="block-color-orange_background">
+</p><figure id="cbc57f3d-227e-4be2-8875-162f7663393e" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2036.png"><img style="width:576px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2036.png"/></a></figure><p id="2aac7c27-545d-40c5-8536-fd6f81f123c5" class="block-color-orange_background">
+</p><figure id="c541f2ef-c29a-4665-a8c3-8658180ff445" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2037.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2037.png"/></a></figure><p id="d061de8d-f532-4c90-ba7e-693dbc36c07d" class="block-color-orange_background">
+</p><h1 id="828884ee-fa59-4a2b-b491-d30469b8e703" class="block-color-orange_background"><strong>297. Using The Fetch API</strong></h1><figure id="dd02269e-1d88-4906-a904-96e0f7cb03a9" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2038.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2038.png"/></a></figure><p id="b47bb4f8-80c6-4924-8c12-108620820b55" class="block-color-orange_background">Xhr suck — because it don&#x27;t support promise</p><figure id="ec5739cb-7337-4d02-bdf6-0b01da942018" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2039.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2039.png"/></a></figure><p id="454d361e-aab3-40dc-a0bf-a5587b92f10c" class="block-color-orange_background">
+</p><figure id="8d3706a6-0116-4f0a-99a0-49f5d1bd5c23" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2040.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2040.png"/></a></figure><p id="38007bcc-fa54-4aba-91c4-a1abbd054570" class="block-color-orange_background">
+</p><figure id="32eb37f2-f94b-464f-ba72-f627ed8468cc" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2041.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2041.png"/></a></figure><p id="df3c45b2-a480-432a-b8dd-25d7c70d056a" class="block-color-orange_background">fetch will always return a promise </p><figure id="5be5d341-bd2d-4c32-9492-0cd5f02adbda" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2042.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2042.png"/></a></figure><p id="8c3f61ef-0645-41ea-9d0e-30dd264a9994" class="block-color-orange_background">Extract data from Fetch</p><figure id="00f4c1dd-4758-45f0-9bcb-e6a1fd5d2e5f" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2043.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2043.png"/></a></figure><p id="3e9e0dc4-719b-4c1f-8144-5b8821cd11f6" class="block-color-orange_background">
+</p><figure id="965fa51a-f748-494a-a1ec-ff6b3e81d264" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2044.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2044.png"/></a></figure><ol type="1" id="b425d131-a4d6-4dc3-a4c8-c8a9ee1815e1" class="block-color-orange_background numbered-list" start="1"><li>data from fetch promise</li></ol><ol type="1" id="b25f6065-8ac9-41db-8a27-b5721fd5c99f" class="block-color-orange_background numbered-list" start="2"><li>data from fetch.Json promise </li></ol><p id="23e4e772-e194-44d8-b26b-fb99962d3155" class="block-color-orange_background">
+</p><figure id="7d9ad3cd-1066-426b-9cea-d2a3d7ca9340" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2045.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2045.png"/></a></figure><p id="5e6bf30d-54ec-4abc-b9a9-24bab0a0abaf" class="block-color-orange_background">
+</p><figure id="c39f9d5f-30df-4071-81fd-7f90bd8d3504" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2046.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2046.png"/></a></figure><ol type="1" id="30db297d-a8dd-45c9-89d6-783f4bc4709b" class="block-color-orange_background numbered-list" start="1"><li>data from first fetch</li></ol><ol type="1" id="a0122d0c-d23c-41fa-ad73-64936f895513" class="block-color-orange_background numbered-list" start="2"><li>data from second fetch</li></ol><figure id="8dc4a439-50a3-4439-ba8f-8256834d0622" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2047.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2047.png"/></a></figure><p id="22e1bafc-6846-4abe-9151-4e70de2b021a" class="block-color-orange_background">
+</p><h1 id="f44875c4-0b06-48ff-9650-17faa2a9a6c0" class="block-color-orange_background"><strong>298. Introducing Axios</strong></h1><figure id="103c8a29-db78-4a69-bed0-7687c781829c" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2048.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2048.png"/></a></figure><p id="e6d708c2-e67f-455a-86f2-5ea2c20ea1ba" class="block-color-orange_background">
+</p><figure id="7234547e-a5b9-4d8a-b5ca-315ef5788e8d" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2049.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2049.png"/></a></figure><p id="15a3d5ca-b8c6-4d09-8764-6796a76e39d5" class="block-color-orange_background">
+</p><figure id="95c70e47-56d3-4c2f-934e-29f784f8b2d3" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2050.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2050.png"/></a></figure><p id="acb41a44-552a-4e70-9996-f2e1ee088adb" class="block-color-orange_background">
+</p><h1 id="3945213f-a997-4cce-bb69-b02dd25116a9" class="block-color-orange_background"><strong>299. Setting Headers With Axios</strong></h1><figure id="792852cb-3f86-460d-8ffb-ccb36416915f" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2051.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2051.png"/></a></figure><p id="21edece3-aacf-433c-a9ff-7ac569b68255" class="block-color-orange_background">
+</p><figure id="6d6513ec-17c4-4aae-925b-509a7f21bfec" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2052.png"><img style="width:1736px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2052.png"/></a></figure><p id="e45f2619-8dce-4a50-9389-8648744ba382" class="block-color-orange_background">
+</p><h1 id="931ea4c2-04bb-4c14-b9e4-8aa42a74441f" class="block-color-orange_background"><strong>300. TV Show Search App</strong></h1><figure id="f219788a-0567-4cb8-a485-8cce390a4138" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2053.png"><img style="width:1920px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2053.png"/></a></figure><p id="b01d2bb1-4340-4678-a0c6-598d712c81c0" class="block-color-orange_background">
+</p><figure id="8c6d3a5a-ac2b-4387-bb5e-f283179c667e" class="image"><a href="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2054.png"><img style="width:2052px" src="028%20-%20AJAX%20and%20API%E2%80%99s%208ef25fb6e8f448048e7cad43d815906e/Untitled%2054.png"/></a></figure><p id="b3dc0e57-345f-4c1f-acab-87ca706fd9e5" class="block-color-orange_background">
+</p><figure id="fbf5d4e9-026d-4f1b-925e-fde099ac01b8" class="link-to-page"><a href="https://www.notion.so/029-Prototypes-classes-and-OOP-fbf5d4e9026d4f1b925efde099ac01b8?pvs=21">029 - Prototypes , classes and OOP</a></figure></div></article></body></html>

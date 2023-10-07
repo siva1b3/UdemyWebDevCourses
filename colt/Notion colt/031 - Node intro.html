@@ -1,0 +1,696 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>031 - Node intro</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8ffd08b1-b003-4aad-ad45-418a189cacfa" class="page sans"><header><h1 class="page-title">031 - Node intro</h1><p class="page-description"></p></header><div class="page-body"><figure id="8124aead-2fe4-4b8d-b5ff-3e3f20714b32" class="link-to-page"><a href="https://www.notion.so/030-Mastering-The-Terminal-8124aead2fe44b8db5ff3e3f20714b32?pvs=21">030 - Mastering The Terminal</a></figure><figure id="1c0338ac-3619-4b0d-bd2a-ffc9bc89d7b8" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled.png"/></a></figure><p id="fe0a7812-8d8c-4f8c-ae61-85ecdfabd1a1" class="block-color-orange_background">
+</p><h1 id="cb216732-1cae-4ba7-8b95-e12ff3b5bbd1" class="block-color-orange_background"><strong>322. Introducing Node JS</strong></h1><figure id="be0118a7-3d16-47e7-8279-f3cf894801e0" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%201.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%201.png"/></a></figure><p id="2b2dddee-716f-4cf1-b86c-915b832d7288" class="block-color-orange_background">
+</p><figure id="f2c64c11-2b1b-47f4-9ab3-fe31ef7cef0c" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%202.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%202.png"/></a></figure><p id="71aef68d-6ffc-4cd0-985c-3120c26dbab8" class="block-color-orange_background">
+</p><figure id="c87c729b-3a86-4b72-995d-0694aa206d77" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%203.png"><img style="width:880px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%203.png"/></a></figure><p id="3998edb7-233c-4558-aa5f-93ab17786f70" class="block-color-orange_background">
+</p><figure id="4542b3af-6632-4d24-bce1-702b3dc1cff7" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%204.png"><img style="width:812px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%204.png"/></a></figure><p id="34a67fd9-faba-49ee-93e5-daf1232838dd" class="block-color-orange_background">
+</p><h1 id="5ba4b5d6-cf2f-48a0-b2f7-8c0b21e510d5" class="block-color-orange_background"><strong>323. What Is Node Used For?</strong></h1><figure id="4f2e414f-29bc-4572-a36c-68c55ccdcdfb" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%205.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%205.png"/></a></figure><p id="a6adb2d4-3946-4706-a3da-15aeeebfbfde" class="block-color-orange_background">
+</p><figure id="92fd7c12-c52d-4404-9e12-87e1437470b8" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%206.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%206.png"/></a></figure><p id="60def59b-2c5b-45ef-9075-b94dd6a057d7" class="block-color-orange_background">
+</p><h1 id="4429906b-f9ba-47cd-80de-93a11ebf647f" class="block-color-orange_background"><strong>325. The Node REPL</strong></h1><figure id="dee87019-d6ed-4428-8b17-805128fa54f3" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%207.png"><img style="width:1097px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%207.png"/></a></figure><p id="2970dfbc-1ba7-4b77-86ba-93df29741725" class="block-color-orange_background">
+</p><figure id="72ca48c9-4c70-4da4-9472-4ece502cfe8b" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%208.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%208.png"/></a></figure><p id="88c4c06e-591b-4b12-99b5-659de0f9cdbd" class="block-color-orange_background">
+</p><figure id="8891f669-2f18-4489-ab64-4766e3a6c80e" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%209.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%209.png"/></a></figure><p id="d9366862-9dea-468b-b259-e07fb4e22536" class="block-color-orange_background">
+</p><figure id="8b9d4659-c4df-4f1e-8de9-958b982dda2c" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2010.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2010.png"/></a></figure><p id="76ed16d3-3ab1-4f32-93f1-b5c7ef888263" class="block-color-orange_background">
+</p><h1 id="8ab61b8d-eaf7-42f0-adf3-48593b35087c" class="block-color-orange_background">326. Running Node Files</h1><figure id="d1ecc24a-0170-4fc9-b0d9-627572414fb3" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2011.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2011.png"/></a></figure><p id="b9092a1a-e681-4f6e-864a-645386375ab9" class="block-color-orange_background">
+</p><h1 id="8ffcc636-0057-424c-bfc6-3c360a3dc7e8" class="block-color-orange_background"><strong>327. Process &amp; Argv</strong></h1><figure id="186c8b67-3963-4846-ad91-c90f370603c3" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2012.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2012.png"/></a></figure><p id="30efb6db-7db3-4a55-b32c-58a9c41620e3" class="block-color-orange_background">
+</p><figure id="9eb8a777-1ddb-49c5-994b-dc18c647939b" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2013.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2013.png"/></a></figure><p id="49df51e9-3e49-449d-9ddf-60d8fb2772cd" class="block-color-orange_background">
+</p><figure id="0efeb6b1-8657-47a8-804e-999271d81f87" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2014.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2014.png"/></a></figure><ol type="1" id="3a4ca60c-6239-4959-8558-f2061505bac2" class="block-color-orange_background numbered-list" start="1"><li>arguments are given to file</li></ol><ol type="1" id="98815867-9b69-42b3-aea0-ad51ae90852f" class="block-color-orange_background numbered-list" start="2"><li>arguments are passed as an array to the file</li></ol><p id="61988a8a-f455-4b07-a1f5-68117d08639f" class="block-color-orange_background">
+</p><figure id="c26a3ea9-0d92-4575-bdf7-a43e97d0e0c2" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2015.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2015.png"/></a></figure><p id="4a401efd-a37f-4cf8-bea3-b841360d375c" class="block-color-orange_background">
+</p><figure id="c1b474ae-cbf6-4aaf-8e1d-d30a5324b36a" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2016.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2016.png"/></a></figure><ol type="1" id="2e6d2c86-9ef7-4d4e-bfce-da6ffa501076" class="block-color-orange_background numbered-list" start="1"><li>arguments from cmd are passed as an array using “process.argv” in the code</li></ol><p id="2701f689-b072-4384-9383-08ae208ad116" class="block-color-orange_background">
+</p><h1 id="ae47f402-5f26-4828-9ec9-75f34b1dbe82" class="block-color-orange_background"><strong>328. File System Module Crash Course</strong></h1><figure id="e98e2853-ce53-4c85-a0cf-37969115e32a" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2017.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2017.png"/></a></figure><p id="26873fc1-77e7-46cb-8bd7-83f033d6d7d3" class="block-color-orange_background">
+</p><figure id="f34a43f8-8fca-4a92-b2b7-dc745338828c" class="image"><a href="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2018.png"><img style="width:1920px" src="031%20-%20Node%20intro%208ffd08b1b0034aadad45418a189cacfa/Untitled%2018.png"/></a></figure><p id="18da38cd-501a-4e8f-b18c-66e0e377e793" class="block-color-orange_background">
+</p><p id="98710102-06a9-4811-a73d-1ad5b17c1638" class="block-color-orange_background">
+</p><figure id="bf05fc59-e30a-4277-8851-2d2aa004fe07" class="link-to-page"><a href="https://www.notion.so/032-Exploring-Modules-and-NPM-universe-bf05fc59e30a427788512d2aa004fe07?pvs=21">032 - Exploring Modules and NPM universe</a></figure></div></article></body></html>

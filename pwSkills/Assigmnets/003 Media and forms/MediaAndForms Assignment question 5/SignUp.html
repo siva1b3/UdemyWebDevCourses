@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+  </head>
+  <body>
+    <main>
+      <form action="">
+        <fieldset>
+          <legend>SignUp</legend>
+          <label for="First Name">First name:</label>
+          <input
+            type="text"
+            id="First Name"
+            name="First Name"
+            placeholder="First name"
+          /><br /><br />
+          <label for="last name">Last name:</label>
+          <input
+            type="text"
+            id="last name"
+            name="last name"
+            placeholder="Last Name"
+          /><br /><br />
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@email.com"
+            required
+            minlength="5"
+            maxlength="50"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          /><br /><br />
+          <label for="password">password:</label>
+          <input
+            type="password"
+            placeholder="password"
+            id="password"
+            name="password"
+            required
+            minlength="8"
+            maxlength="30"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+          /><br /><br />
+          <label for="Confirm password">Confirm password:</label>
+          <input
+            type="password"
+            placeholder="Confirm password"
+            id="Confirm password"
+            name="Confirm password"
+            required
+            minlength="8"
+            maxlength="30"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+          /><br /><br />
+          <label for="age">Age: </label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            min="1"
+            max="120"
+            step="1"
+            placeholder="Age"
+          /><br /><br />
+          <label for="gender">Gender:</label><br />
+
+          <input type="radio" id="male" name="gender" value="male" />
+          <label for="male">Male</label><br />
+
+          <input type="radio" id="female" name="gender" value="female" />
+          <label for="female">Female</label><br />
+
+          <input type="radio" id="other" name="gender" value="other" />
+          <label for="other">Other</label> <br /><br />
+          <input type="checkbox" id="agree" name="agree" />
+          <label for="agree">I agree to the terms and conditions</label>
+          <br /><br />
+
+          <input type="submit" value="Submit" />
+          <input type="Reset" value="Reset" />
+        </fieldset>
+      </form>
+      <fieldset>
+        <legend>SignIn After Sign Up</legend>
+        <a href="./SiginIn.html"><button>SignIn</button></a>
+      </fieldset>
+    </main>
+  </body>
+</html>

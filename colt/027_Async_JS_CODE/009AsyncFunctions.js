@@ -2,7 +2,7 @@ async function hello() {
   return "string example";
 }
 
-console.log(hello());
+// console.log(hello());
 
 async function helloAsync() {
   return new Promise((resolve, reject) => {
@@ -12,22 +12,36 @@ async function helloAsync() {
   });
 }
 
-console.log(helloAsync());
+// console.log(helloAsync());
 
-const asyncPromise = helloAsync();
+// const asyncPromise = helloAsync();
 
-console.log(asyncPromise);
+// console.log(asyncPromise);
 
-setTimeout(() => {
-  console.log("after 3 seconds");
-  console.log(asyncPromise);
-}, 3000);
+// setTimeout(() => {
+//   console.log("after 3 seconds");
+//   console.log(asyncPromise);
+// }, 3000);
 
-const singproperly = async () => {
+const singProperly = async () => {
   return "LA LA LA LA";
 };
 
-singproperly()
+singProperly()
+  .then((data) => {
+    console.log("PROMISE RESOLVED WITH:", data);
+  })
+  .catch((err) => {
+    console.log("OH NO, PROMISE REJECTED!");
+    console.log(err);
+  });
+
+const singImproperly = async () => {
+  throw new Error("Improper Singing");
+  return "LA LA LA LA";
+};
+
+singImproperly()
   .then((data) => {
     console.log("PROMISE RESOLVED WITH:", data);
   })

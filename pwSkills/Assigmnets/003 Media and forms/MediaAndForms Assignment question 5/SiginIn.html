@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignIn</title>
+  </head>
+  <body>
+    <main>
+      <fieldset>
+        <legend>SignUp before sign In</legend>
+        <a href="./SignUp.html"><button>Sign Up</button></a>
+      </fieldset>
+      <form action="">
+        <fieldset>
+          <legend>SignIn</legend>
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@email.com"
+            required
+            minlength="5"
+            maxlength="50"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          /><br /><br />
+          <label for="password">password:</label>
+          <input
+            type="password"
+            placeholder="password"
+            id="password"
+            name="password"
+            required
+            minlength="8"
+            maxlength="30"
+            pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+          /><br /><br />
+          <input type="submit" value="Submit" />
+          <input type="Reset" value="Reset" />
+        </fieldset>
+      </form>
+    </main>
+  </body>
+</html>

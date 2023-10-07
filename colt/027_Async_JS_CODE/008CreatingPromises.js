@@ -42,14 +42,12 @@ delayedColorChange("green", 3000)
   .then(() => {
     console.log("hi");
   })
-  // then will always return promise
-  // weather we like it explicitly or not
   .then(() => delayedColorChange("red", 3000))
   .then(() => delayedColorChange("blue", 6000))
   .then(() => delayedColorChange("pink", 3000))
-  .then(() => delayedColorChange("aqua", 3000))
-  .then(() => delayedColorChange("yellow", 3000))
   .catch((err) => {
     console.log("error");
     console.log(err);
-  });
+  })
+  .then(() => delayedColorChange("aqua", 3000))
+  .then(() => delayedColorChange("yellow", 3000));
