@@ -1,0 +1,54 @@
+
+experience:- 
+Designed and implemented stored procedures views and other application database code objects.
+Maintained SQL scripts indexes and complex queries for analysis and extraction.
+Performed quality testing and assurance for SQL servers.
+Worked with stakeholders developers and production teams across units to identify business needs and solution options.
+Ensured best practice application to maintain security and integrity of data.
+
+experience:- 
+Lead role for efforts that involve multi-terabyte data management / migrations
+Create and support HA for tier 1 production servers using Always-On Availability groups and replication
+Excellent backend skills in creating SQL objects like tables,stored procedures,views,indexes, constraints and user defined data types
+Responsible for monitoring customer Facing databases and ensuring 24x7x365 uptime within our internal SLA of 99.99 with on call responsibility
+Troubleshoot any performance anomalies and respond to high priority issues
+Developed Oracle Database Backups &amp; Recovery Strategies and created High Availability processes using Windows Clustering and Database Replication Technologies.
+Recommending and implementing data security by creating users and assigning permissions based on the minimum level of database access the user would need and with tools like Always
+Encrypted, Transparent Data Encryption (TDE) and Dynamic Data Masking (DDM) to secure clients sensitive data.
+Performed administrative activities like Database Maintenance, Indexing Large Databases, Database Tuning, Query Optimization and Database Backup &amp; Recovery.
+Developed and automated daily, weekly and monthly system maintenance tasks such as database backup, database integrity verification and indexing.
+Develop and managed SLAs, including RTO &amp; RPO, for all server instances (50+)
+Perform Patching and Database upgrades and migration on multiple versions of SQL server to ensure instances are up to date with the latest security fixes from Microsoft
+Implementation of SQL logins, roles and authentication modes as a part of security policies for various categories of users by creating users and assigning permissions based on minimum level of database access
+Provide 24x7 support for critical production database systems.
+Managed identification, protection and use of data assets.
+Planned and installed upgrades of database management system software to enhance database performance.
+Gathered, defined and refined requirements, led project design and oversaw implementation.
+Developed database architectural strategies at modeling, design and implementation stages to address business or industry requirements.
+Collaborated with system architects, design analysts and others to understand business and industry requirements.
+Communicate with corporate customers via telephone, written correspondence, or electronic service regarding problems identified in Microsoft SQL Server software.
+Provided Microsoft SQL Server performance monitoring to establish baselines and adjust resources and/or database settings to achieve higher performance.
+Installed, configured Microsoft SQL Server instances for high availability and disaster recovery on remote locations.
+Provide day-to-day maintenance and administration of Microsoft SQL Server databases supporting client-facing and back-office production applications.
+Performed daily DBA management tasks including troubleshooting, performance and tuning, database monitoring and backup/recovery.
+Supervised daily DBA operations; implemented infrastructure and processes to support over 500 databases across enterprise.
+
+
+Produced high-standard database solutions to meet stability, reliability, and performance metrics.
+Created optimal technical solutions to user needs through research and in-depth system analysis.
+Administered, supported, and monitored databases by proactively resolving database issues and maintaining servers.
+Wrote and maintained technical and functional specifications to document database intentions and requirements.
+Configured High Availability and disaster recovery solutions such as Always on, Traditional Failover Clustering, Replication, and Log shipping.
+Setting up TDE and always encrypted
+Setup, test and maintain business continuity/ disaster recovery infrastructure database and applications.
+Migrating and upgrading SQL server 2012 to SQL server 2019
+Planned and implemented security measures to safeguard vital business data.
+Implemented BI solution framework for end-to-end business intelligence projects.
+Upgrading SQL server by reviewing, planning, testing, and installing database securing patches and service packs.
+SQL Server Profiler, Extended Events, Query Store, and Database Engine Tuning Advisor (DTA) for performance.
+Implemented system enhancements to propose, design, and develop solutions to fulfill requests and address problem reports.
+Administered, supported, and monitored databases by proactively resolving database issues and maintaining servers.
+Supported multiple concurrent projects enabling delivery efficiencies and technical resolution.
+Maintained complex T-SQL queries, views, and stored procedures in a multi-database environment with little supervision.
+Managed workload independently but collaborated with colleagues to complete larger-scale tasks in a distributed team environment.
+Integrated Enterprise Business Objects infrastructure with SSRS (SQL Server Reporting service) for front-end reporting.

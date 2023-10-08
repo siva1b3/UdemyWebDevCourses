@@ -1,0 +1,34 @@
+Core Qualifications:- 
+Superior ability to support and develop analysis solutions and data transformations
+Excellent ability to develop and implement data and reporting solutions
+Profound understanding of SDLC (software development life cycle)
+High achievement record in process quality improvement and efficient data solutions management
+Superb maintenance of all working relationships
+Comprehensive knowledge of computer languages
+
+Skills:- 
+Database Administration
+Database Design and Modeling
+SQL Server
+T-SQL/ Scripting
+Backup, Disaster and Recovery solution
+SQl Server Monitoring, Performance TuninTroubleshooting and Management
+BCP, SSIS/ETL Processes
+Data integrity and Security
+Capacity Planning
+Communication and Documentation skills
+Infrastructure/Team support
+Encryption
+
+
+skills :- 
+Excellent work ethic, professionalism, attention to detail, ability to work in a highly collaborative team environment
+Excellent analytical skills with the ability to manage time, priorities, and requests. Excellent communication and interpersonal skills
+Strong knowledge of database recovery models, high-availability (HA) and disaster recovery (DR) options for SQL Server
+Ability to produce quality work products with attention to detail
+Highly self-motivated and adaptable to learning and understanding new technologies
+Good interpersonal skills; solid team player
+Experience with building a highly available environment (mirroring/log shipping/Always on)
+Ability to serve and communicate with diverse client base
+Effective time management
+Work from Home experience

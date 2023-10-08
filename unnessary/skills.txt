@@ -1,0 +1,67 @@
+Experience:
+Data Engineer | Quberoot analitics | November 2021 - Present
+1. Successfully manage and maintain 10 shared nothing databases using MS SQL Server to ensure optimal performance, data integrity, and real-time transactional operations.
+2. Design and implement efficient database schemas, tables, indexes, stored procedures, functions, and triggers to meet specific business requirements and ensure data normalization.
+3. Develop and manage robust ETL processes, extracting, transforming, and loading data from multiple databases into a centralized data warehouse for seamless integration and analysis.
+4. Utilize SQL server scripts to regularly update and maintain data within the data warehouse, ensuring it is constantly up-to-date and readily available for business intelligence purposes.
+5. Implement comprehensive data quality checks to ensure data consistency, accuracy, and reliability within the data warehouse, ensuring trustworthy insights for decision-making.
+6. Continuously monitor and optimize database and data warehouse performance, leveraging indexing, partitioning, and query tuning techniques to maximize efficiency and response times.
+7. Seamlessly integrate data from various systems, databases, and external sources into the data warehouse, employing effective data pipeline design and development practices.
+8. Investigate and resolve data-related issues, using a proactive and collaborative approach, to maintain data consistency and identify performance bottlenecks in a fast-paced startup environment.
+9. Proficiently perform data extraction, transformation, and loading (ETL) tasks, standardizing data formats, resolving inconsistencies, and aligning data across databases.
+10. Utilize PowerBI and Excel for insightful reporting and visualization, creating dynamic dashboards and generating comprehensive reports based on integrated data.
+11. Excel in building APIs using Flask to enhance application integration and provide seamless data access and functionality for various projects.
+12. Provide expert support for data-related tasks in ongoing maintenance and enhancements of the web application, employing Python for data analysis, cleaning, and machine learning tasks.
+13. Expertly provide support for data-related tasks in ongoing maintenance and enhancements of the web application, catering to a team of over 50 developers and serving a user base of 2000+ business users.
+14. Utilize Python extensively for advanced data analysis, cleaning, and machine learning tasks, delivering accurate insights and predictive models to drive data-driven decision-making.
+15. Collaborate closely with developers, understanding their specific data requirements, and ensure seamless integration of data into the application, optimizing performance and functionality.
+16. Perform comprehensive data profiling and data quality assessments, identifying anomalies, and implementing corrective measures to maintain high data integrity and reliability.
+17. Collaborate with the development team on data-related enhancements, leveraging SQL server expertise to optimize query performance, improve database scalability, and refine data models.
+18. Assist in the design and development of RESTful APIs using Flask, facilitating seamless integration of data into the web application and enabling efficient data retrieval and manipulation for developers.
+19. Actively engage with the business users, gathering their data needs, and delivering customized reports, visualizations, and dashboards in PowerBI and Excel to meet their analytical requirements.
+20. Continuously monitor data ingestion processes, proactively identifying and resolving data inconsistencies, ensuring data accuracy, and minimizing disruptions to business operations.
+21. Continuously stay updated with the latest advancements in data engineering, SQL server, Python, and data analysis techniques to improve processes, enhance efficiency, and drive innovation.
+
+
+
+
+
+
+
+
+
+
+Experience:
+Data Engineer | Quberoot Analytics | November 2021 - Present
+Manage and maintain 10 shared nothing databases using MS SQL Server, ensuring optimal performance, data integrity, and real-time transactional operations.
+Design and implement efficient database schemas, tables, indexes, stored procedures, functions, and triggers to meet specific business requirements and ensure data normalization.
+Develop and manage robust ETL processes, extracting, transforming, and loading data from multiple databases into a centralized data warehouse for seamless integration and analysis.
+Utilize SQL server scripts to regularly update and maintain data within the data warehouse, ensuring it is constantly up-to-date and readily available for business intelligence purposes.
+Implement comprehensive data quality checks to ensure data consistency, accuracy, and reliability within the data warehouse, providing trustworthy insights for decision-making.
+Continuously monitor and optimize database and data warehouse performance, leveraging indexing, partitioning, and query tuning techniques to maximize efficiency and response times.
+Seamlessly integrate data from various systems, databases, and external sources into the data warehouse, employing effective data pipeline design and development practices.
+Investigate and resolve data-related issues using a proactive and collaborative approach, maintaining data consistency, and identifying performance bottlenecks in a fast-paced startup environment.
+Perform data extraction, transformation, and loading (ETL) tasks, standardizing data formats, resolving inconsistencies, and aligning data across databases.
+Utilize PowerBI and Excel for insightful reporting and visualization, creating dynamic dashboards and generating comprehensive reports based on integrated data.
+Build APIs using Flask to enhance application integration and provide seamless data access and functionality for various projects.
+Provide expert support for data-related tasks in ongoing maintenance and enhancements of the web application, employing Python for data analysis, cleaning, and machine learning tasks.
+Support a team of over 50 developers and serve a user base of 2000+ business users, ensuring smooth data operations and delivering accurate insights.
+Collaborate closely with developers, understanding their data requirements, and ensuring optimal integration of data into the application, maximizing performance and functionality.
+Perform comprehensive data profiling and quality assessments, identifying anomalies, and implementing corrective measures to maintain high data integrity and reliability.
+Collaborate with the development team on data-related enhancements, leveraging SQL server expertise to optimize query performance, improve database scalability, and refine data models.
+Assist in the design and development of RESTful APIs using Flask, facilitating seamless integration of data into the web application for efficient data retrieval and manipulation by developers.
+Engage with business users to gather data
+
+
+
+Category	Skills
+Databases	SQL Server, MySQL, PostgreSQL
+Version Control & API Development	Git, Flask
+Data Analysis & Visualization	Python, PowerBI, Excel
+Data Warehousing	ETL Processes, Data Integration, Data Warehouse Design, Data Warehouse Maintenance
+Database Management	Indexing, Query Optimization
+Data Cleaning	Data Profiling, Data Quality Assessments
+Test Scripting	Intra-Database Testing, Inter-Database Testing, Data Warehouse Testing
+Collaboration	Teamwork, Communication Skills
+SDLC	Understanding of Software Development Life Cycle
+Reporting Solutions	Development and implementation of data and reporting solutions
