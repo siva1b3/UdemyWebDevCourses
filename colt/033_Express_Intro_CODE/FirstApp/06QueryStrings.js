@@ -47,6 +47,13 @@ app.post("/cat", function (incommingRequest, outgoingResponse) {
   outgoingResponse.send("<h1 style='color:red;'>This is a post requet</h1>");
 });
 
+app.get("/serach", function (incommingRequest, outgoingResponse) {
+  console.log(incommingRequest.query);
+  outgoingResponse.send(
+    `<h1 style='color:red;'>This is a post requet</h1> ${incommingRequest.query}`
+  );
+});
+
 app.get("*", function (incommingRequest, outgoingResponse) {
   outgoingResponse.send("<h1 style='color:red;'>This is Wrong stop it</h1>");
 });
