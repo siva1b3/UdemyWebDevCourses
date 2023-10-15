@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Submission</title>
+  </head>
+  <body>
+    <h1>Form Submission</h1>
+
+    <form action="http://localhost:8080/submit" method="POST">
+      <label for="username">Username:</label><br />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Enter your username"
+      /><br /><br />
+      <label for="Password">Password:</label><br />
+      <input
+        type="password"
+        id="Password"
+        name="Password"
+        placeholder="Enter your Password"
+      /><br /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <div class="result"></div>
+  </body>
+</html>
