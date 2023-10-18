@@ -19,3 +19,8 @@ module.exports = { modulus }
 /* we cannot use both methods in one file ----------------------------------- */
 /* because exports.add (or) module.exports.add ------------------------------ */
 /* both will add new key - values paris to module.exports Object ------------ */
+/* which is method 1 -------------------------------------------------------- */
+/* but if we used method2 after method1 then exports.* will not work -------- */
+/* because method2 will over write module.exports object -------------------- */
+/* which was created in method1 by appending key - values paris ------------- */
+/* hence don't use both methods in one file --------------------------------- */

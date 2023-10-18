@@ -1,5 +1,6 @@
 const { add, subtract, multiply, divide} = require("./06-01 helper math");
 // ! nothing is here,
+// * we will get errrors if we try to run this file
 // see the 06-01 helper math.js file 
 // common mistake while using exports from math.js file
 
