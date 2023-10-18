@@ -2,16 +2,19 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-// app.use((incommingRequest, outgoingResponse) => {
-//   console.log("WE GOT A NEW REQUEST!!");
-//   outgoingResponse.send("<h1 style='color:red;'>This is my web page</h1>");
-// });
+// Middleware to log incoming requests
+app.use((incomingRequest, outgoingResponse, next) => {
+  console.log("New incoming request received.");  
+  // Log a message indicating a new request
+  next();  // Continue to the next middleware in the chain
+});
+
 
 app.get("/siva/:parameter1", function (incommingRequest, outgoingResponse) {
   const { parameter1 } = incommingRequest.params;
   console.log(parameter1);
   outgoingResponse.send(
-    `<h1 style='color:red;'>This is Page of ${parameter1}</h1>`
+    `<h1 style='color:red;'>This is Page of ${parameter1} from ${incommingRequest.params}</h1>`
   );
 });
 
@@ -22,7 +25,7 @@ app.get(
     console.log(parameter1, parameter2);
     outgoingResponse.send(
       `<h1 style='color:green;'>This is Page of ${parameter1} 
-      and subpage of ${parameter2}</h1>`
+      and subpage of ${parameter2} from ${incommingRequest.params}</h1>`
     );
   }
 );

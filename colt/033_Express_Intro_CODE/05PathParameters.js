@@ -6,18 +6,22 @@ const app = express();
 const port = 3000;
 
 // Middleware to log incoming requests
-app.use((incomingRequest, outgoingResponse) => {
-  console.log("WE GOT A NEW REQUEST!!");
+app.use((incomingRequest, outgoingResponse, next) => {
+  console.log("New incoming request received.");  
+  // Log a message indicating a new request
+  next();  // Continue to the next middleware in the chain
 });
+
 
 // Handler for GET request to '/siva/:parameter1' endpoint
 app.get("/siva/:parameter1", function (incomingRequest, outgoingResponse) {
   // Extract the parameter1 value from the request params
   const { parameter1 } = incomingRequest.params;
-  console.log(parameter1);
+  const incomingParameters = JSON.stringify(incomingRequest.params);
+  console.log(parameter1, incomingParameters);
   // Send a response with HTML content including the parameter1 value
   outgoingResponse.send(
-    `<h1 style='color:red;'>This is Page of ${parameter1}</h1>`
+    `<h1 style='color:red;'>This is Page of ${parameter1} from ${incomingParameters} </h1>`
   );
 });
 
@@ -27,10 +31,11 @@ app.get(
   function (incomingRequest, outgoingResponse) {
     // Extract parameter1 and parameter2 values from the request params
     const { parameter1, parameter2 } = incomingRequest.params;
+    const incomingParameters = JSON.stringify(incomingRequest.params);
     console.log(parameter1, parameter2);
     // Send a response with HTML content including parameter1 and parameter2 values
     outgoingResponse.send(
-      `<h1 style='color:green;'>This is Page of ${parameter1} and subpage of ${parameter2}</h1>`
+      `<h1 style='color:green;'>This is Page of ${parameter1} and subpage of ${parameter2} from ${incomingParameters}</h1>`
     );
   }
 );

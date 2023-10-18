@@ -2,9 +2,13 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-app.use((incomingRequest, outgoingResponse) => {
-  console.log("WE GOT A NEW REQUEST!!");
+// Middleware to log incoming requests
+app.use((incomingRequest, outgoingResponse, next) => {
+  console.log("New incoming request received.");  
+  // Log a message indicating a new request
+  next();  // Continue to the next middleware in the chain
 });
+
 
 app.get('/', (incomingRequest, outgoingResponse) => {
   outgoingResponse.send("<h1 style='color:red;'>This is my web page</h1>");

@@ -6,9 +6,12 @@ const app = express();
 const port = 3000;
 
 // Middleware to log incoming requests
-app.use((incomingRequest, outgoingResponse) => {
-  console.log("WE GOT A NEW REQUEST!!");
+app.use((incomingRequest, outgoingResponse, next) => {
+  console.log("New incoming request received.");  
+  // Log a message indicating a new request
+  next();  // Continue to the next middleware in the chain
 });
+
 
 // Handler for GET request to '/cat' endpoint
 app.get('/cat', function (incomingRequest, outgoingResponse) {
