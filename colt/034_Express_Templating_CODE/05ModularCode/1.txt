@@ -1,0 +1,83 @@
+file tree
+05ModularCode
+|-- data
+|-- -- productData.js
+|-- routes
+|-- -- aboutRoute.js
+|-- -- productsRoute.js
+|-- -- randomRoute.js
+|-- -- rootRoute.js
+|-- app.js
+|-- index.js
+|-- routes.js
+05views
+|-- about.ejs
+|-- products.ejs
+|-- 03ReciveDataFromjs.ejs
+|-- 02EjsWithJavaScriptCode.ejs
+
+// index.js
+const { app, port } = require("./app");
+require("./routes");
+app.listen(port, () => {
+  console.log("Listening on port " + port);
+});
+
+// app.js
+const express = require("express");
+const app = express();
+const path = require("path");
+const port = 3000;
+app.set("view engine", "ejs");
+const parentDirectory = path.join(__dirname, "..");
+app.set("views", path.join(parentDirectory, "05views"));
+module.exports = { app, port };
+
+// routes.js
+const { app } = require("./app");
+const { rootRoute } = require("./routes/rootRoute");
+const { getRandomNumbersHandler } = require("./routes/randomRoute");
+const { getProducts } = require("./routes/productsRoute");
+app.get("/", rootRoute); 
+app.get("/random", getRandomNumbersHandler); 
+app.get("/products", getProducts); 
+require("./routes/aboutRoute"); 
+
+// aboutRoute.js
+const { app } = require("../app");
+app.get("/about", function (req, res) {
+  res.render("about");
+});
+
+// productsRoute.js
+const { app } = require("../app");
+const { products } = require("../data/productData");
+function getProducts(req, res) {
+  res.render("products", { products });
+}
+module.exports = { getProducts };
+
+// randomRoute.js
+function getRandomNumbersHandler(req, res) {
+  const randomNumber1 = Math.floor(Math.random() * 100);
+  const randomNumber2 = Math.floor(Math.random() * 100);
+  res.render("03ReciveDataFromjs", { rand: randomNumber1, randomNumber2 });
+}
+module.exports = { getRandomNumbersHandler };
+
+// rootRoute.js
+function rootRoute(req, res) {
+  res.render("02EjsWithJavaScriptCode.ejs");
+}
+module.exports = { rootRoute };
+
+
+// productData.js
+const products = [
+  { id: 1, name: "Product X" },
+  { id: 2, name: "Product Y" },
+  { id: 3, name: "Product Z" },
+];
+module.exports = { products };
+
+explain what more i con do here
