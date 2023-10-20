@@ -4,6 +4,10 @@ const path = require("path");
 const filePath1 = "file.txt";
 const newFilePath = "newFile.txt";
 
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+}
+
 async function readFileAndAppendData(filePath, newFilePath) {
   try {
     const d = new Date(Date.now());
@@ -59,41 +63,41 @@ async function readFileAndAppendData(filePath, newFilePath) {
   }
 }
 
-// const filePath01 = path.join(__dirname, "files", "001.txt");
-// const newFilePath01 = path.join(__dirname, "files", "101.txt");
+const filePath01 = path.join(__dirname, "files", "001.txt");
+const newFilePath01 = path.join(__dirname, "files", "101.txt");
 
-// const filePath02 = path.join(__dirname, "files", "002.txt");
-// const newFilePath02 = path.join(__dirname, "files", "102.txt");
+const filePath02 = path.join(__dirname, "files", "002.txt");
+const newFilePath02 = path.join(__dirname, "files", "102.txt");
 
-// const filePath03 = path.join(__dirname, "files", "003.txt");
-// const newFilePath03 = path.join(__dirname, "files", "103.txt");
+const filePath03 = path.join(__dirname, "files", "003.txt");
+const newFilePath03 = path.join(__dirname, "files", "103.txt");
 
-// const filePath04 = path.join(__dirname, "files", "004.txt");
-// const newFilePath04 = path.join(__dirname, "files", "104.txt");
+const filePath04 = path.join(__dirname, "files", "004.txt");
+const newFilePath04 = path.join(__dirname, "files", "104.txt");
 
-// const filePath05 = path.join(__dirname, "files", "005.txt");
-// const newFilePath05 = path.join(__dirname, "files", "105.txt");
+const filePath05 = path.join(__dirname, "files", "005.txt");
+const newFilePath05 = path.join(__dirname, "files", "105.txt");
 
-// const filePath06 = path.join(__dirname, "files", "006.txt");
-// const newFilePath06 = path.join(__dirname, "files", "106.txt");
+const filePath06 = path.join(__dirname, "files", "006.txt");
+const newFilePath06 = path.join(__dirname, "files", "106.txt");
 
-const filePath01 = path.join(__dirname, "files", "101.txt");
-const newFilePath01 = path.join(__dirname, "files", "001.txt");
+// const filePath01 = path.join(__dirname, "files", "101.txt");
+// const newFilePath01 = path.join(__dirname, "files", "001.txt");
 
-const filePath02 = path.join(__dirname, "files", "102.txt");
-const newFilePath02 = path.join(__dirname, "files", "002.txt");
+// const filePath02 = path.join(__dirname, "files", "102.txt");
+// const newFilePath02 = path.join(__dirname, "files", "002.txt");
 
-const filePath03 = path.join(__dirname, "files", "103.txt");
-const newFilePath03 = path.join(__dirname, "files", "003.txt");
+// const filePath03 = path.join(__dirname, "files", "103.txt");
+// const newFilePath03 = path.join(__dirname, "files", "003.txt");
 
-const filePath04 = path.join(__dirname, "files", "104.txt");
-const newFilePath04 = path.join(__dirname, "files", "004.txt");
+// const filePath04 = path.join(__dirname, "files", "104.txt");
+// const newFilePath04 = path.join(__dirname, "files", "004.txt");
 
-const filePath05 = path.join(__dirname, "files", "105.txt");
-const newFilePath05 = path.join(__dirname, "files", "005.txt");
+// const filePath05 = path.join(__dirname, "files", "105.txt");
+// const newFilePath05 = path.join(__dirname, "files", "005.txt");
 
-const filePath06 = path.join(__dirname, "files", "106.txt");
-const newFilePath06 = path.join(__dirname, "files", "006.txt");
+// const filePath06 = path.join(__dirname, "files", "106.txt");
+// const newFilePath06 = path.join(__dirname, "files", "006.txt");
 
 async function write1() {
   await readFileAndAppendData(filePath01, newFilePath01);
@@ -160,6 +164,14 @@ console.log("exiting02");
 for (let i = 0; i < 100; i++) {
   console.log(i);
 }
+
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Inside setTimeout callback");
+}, 0);
+
+console.log("End");
 
 const d03 = new Date(Date.now());
 console.log("\n");
