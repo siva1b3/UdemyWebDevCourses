@@ -4,8 +4,7 @@ const path = require("path");
 
 const imageUrl =
   "https://source.unsplash.com/random/300x200/?wallpaper,landscape";
-const parentDirectory = path.join(__dirname, "..");
-const destinationFolder = path.join(parentDirectory, "images");
+const destinationFolder = path.join(__dirname, "images");
 const imageFileName = `randomImage_${Math.floor(Math.random() * 100) + 20}.jpg`; // Change this to the desired filename
 
 // Make a GET request to fetch the image
