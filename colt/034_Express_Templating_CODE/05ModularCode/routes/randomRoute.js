@@ -1,3 +1,5 @@
+// randomRoute.js
+
 function getRandomNumbersHandler(req, res) {
   // Generate two random numbers between 0 and 100.
   const randomNumber1 = Math.floor(Math.random() * 100);

@@ -1,3 +1,5 @@
+// subreditRoute.js
+
 const { app } = require("../app");
 
 app.get("/r/:id", function (req, res) {
