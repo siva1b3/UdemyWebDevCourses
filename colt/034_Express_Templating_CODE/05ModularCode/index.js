@@ -3,6 +3,11 @@
 // Import the 'app' and 'port' variables from the 'app' module.
 const { app, port } = require("./app");
 
+app.use(function (req, res, next) {
+  console.log("in use");
+  next();
+});
+
 // Import routes from the 'routes' module.
 // Assuming you have defined your routes there.
 require("./routes");
