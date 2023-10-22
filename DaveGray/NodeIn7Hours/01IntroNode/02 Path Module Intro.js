@@ -1,4 +1,4 @@
-// How Node differs from the vanilla js 
+// How Node differs from the vanilla js
 // 1. Node runs in the server - not in the browser (backend not frontend)
 // 2. the console is terminal window now
 // console.log("Hello from Node.js");
@@ -19,21 +19,36 @@ const os = require("os");
 // import path variables
 
 const path = require("path");
-console.log("\n \n \n ");
+console.log("\n \n ");
 
-console.log("path.dirname(__filename)");
-console.log(path.dirname(__filename));
-console.log("\n \n \n ");
+console.log("(__dirname)");
+console.log(__dirname);
+console.log("\n \n");
 
-console.log("path.basename(__filename)");
-console.log(path.basename(__filename));
-console.log("\n \n \n ");
-
-console.log("path.extname(__filename)");
-console.log(path.extname(__filename));
-console.log("\n \n \n ");
+console.log("(__filename)");
+console.log(__filename);
+console.log("\n \n");
 
 console.log("path.parse(__filename)");
 console.log(path.parse(__filename));
-console.log("\n \n \n ");
+console.log("\n \n ");
 
+console.log("path.parse(__dirname)");
+console.log(path.parse(__dirname));
+console.log("\n \n ");
+
+console.log("path.dirname(__filename)");
+console.log(path.dirname(__filename));
+console.log("\n \n ");
+
+console.log("path.basename(__filename)");
+console.log(path.basename(__filename));
+console.log("\n \n ");
+
+console.log("path.extname(__filename)");
+console.log(path.extname(__filename));
+console.log("\n \n ");
+
+console.log("path.parse(__filename)");
+console.log(path.parse(__filename));
+console.log("\n \n ");

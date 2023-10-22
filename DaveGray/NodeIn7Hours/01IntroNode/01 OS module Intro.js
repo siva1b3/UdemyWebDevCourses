@@ -1,8 +1,10 @@
-// How Node differs from the vanilla js 
+// How Node differs from the vanilla js
 // 1. Node runs in the server - not in the browser (backend not frontend)
 // 2. the console is terminal window now
+console.log("\n \n");
 console.log("Hello from Node.js");
 // 3. there is no window object like in the browser now we had global object
+console.log("\n \n");
 console.log(global);
 // 4. node has common core modules that we can use for everything
 // 5. node modules can be imported using the common js syntax
@@ -23,7 +25,6 @@ console.log("\n \n");
 console.log("os.hostname()");
 console.log(os.hostname());
 console.log("\n \n");
-
 
 console.log("(__dirname)");
 console.log(__dirname);
