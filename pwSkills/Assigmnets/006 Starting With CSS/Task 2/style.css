@@ -1,0 +1,42 @@
+/* Block: example-block */
+.example-block {
+  background: lightcoral;
+  width: 430px;
+  border: 1px solid #777;
+  border-radius: 10px;
+  padding: 34px;
+  margin: 0% auto;
+}
+
+/* Element of Block example-block: example-heading */
+.example-heading {
+  font-weight: bold;
+  margin: 18px 0px;
+}
+
+/* Element of Block example-block: example-para */
+.example-para {
+  font-size: 22px;
+  margin: 30px 0px;
+}
+
+/* Element of Block example-block: example-button */
+.example-button {
+  padding: 7px 40px;
+  font-size: 22px;
+  border: 1px solid lightgray;
+  border-radius: 7px;
+  margin-right: 22px;
+}
+
+/* Modifier of Block example-block (primary) and Element of Block example-block: example-button */
+.example-button--primary {
+  background-color: blue;
+  color: red;
+}
+
+/* Modifier of Block example-block (secondary) and Element of Block example-block: example-button */
+.example-button--secondary {
+  background-color: white;
+  color: black;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Form Task 3</title>
+    <style>
+      body {
+        text-align: center;
+        background-color: #f2f2f2;
+        box-sizing: border-box;
+      }
+
+      .form-container {
+        display: inline-block;
+        text-align: left;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-input {
+        display: block;
+        margin: 10px 0;
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .submit-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .form-textarea {
+        display: block;
+        margin: 10px 0;
+        padding: 8px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>HTML Form Task 3</h2>
+      <form>
+        <!-- Text Input -->
+        <input type="text" class="form-input" placeholder="Text Input" />
+
+        <!-- Email Input -->
+        <input type="email" class="form-input" placeholder="Email Input" />
+
+        <!-- Password Input -->
+        <input
+          type="password"
+          class="form-input"
+          placeholder="Password Input"
+        />
+
+        <!-- Checkbox Input -->
+        <label for="checkboxInput"
+          >Checkbox Input:
+          <input type="checkbox" class="form-input" id="checkboxInput" />
+        </label>
+
+        <!-- Radio Inputs -->
+        <label for="radioInput1"
+          >Radio Input 1:
+          <input
+            type="radio"
+            class="form-input"
+            id="radioInput1"
+            name="radioGroup"
+            value="option1"
+          />
+        </label>
+        <label for="radioInput2"
+          >Radio Input 2:
+          <input
+            type="radio"
+            class="form-input"
+            id="radioInput2"
+            name="radioGroup"
+            value="option2"
+          />
+        </label>
+        <label for="radioInput3"
+          >Radio Input 3:
+          <input
+            type="radio"
+            class="form-input"
+            id="radioInput3"
+            name="radioGroup"
+            value="option3"
+          />
+        </label>
+
+        <!-- Textarea -->
+        <textarea class="form-textarea" placeholder="Textarea"></textarea>
+
+        <!-- Select Input -->
+        <label for="selectInput"
+          >Select Input:
+          <select id="selectInput" class="form-input">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select>
+        </label>
+
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
