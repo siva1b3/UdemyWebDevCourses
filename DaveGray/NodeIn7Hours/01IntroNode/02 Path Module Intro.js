@@ -16,39 +16,61 @@ const os = require("os");
 // console.log(__dirname);
 // console.log(__filename);
 
-// import path variables
-
+// Import the 'path' module
 const path = require("path");
-console.log("\n \n ");
 
-console.log("(__dirname)");
+// Display a newline for better formatting
+console.log("\n");
+
+// Log the current directory using '__dirname'
+console.log("Logging Current Directory:");
+console.log("__dirname");
 console.log(__dirname);
-console.log("\n \n");
+console.log("\n");
 
-console.log("(__filename)");
+// Log the current filename using '__filename'
+console.log("Logging Current Filename:");
+console.log("__filename");
 console.log(__filename);
-console.log("\n \n");
+console.log("\n");
 
+// Parse and log the details of the current filename using 'path.parse'
+console.log("Logging Parsed Filename:");
 console.log("path.parse(__filename)");
-console.log(path.parse(__filename));
-console.log("\n \n ");
+const parsedFilename = path.parse(__filename);
+console.log(parsedFilename);
+console.log("\n");
 
+// Parse and log the details of the current directory using 'path.parse'
+console.log("Logging Parsed Directory:");
 console.log("path.parse(__dirname)");
-console.log(path.parse(__dirname));
-console.log("\n \n ");
+const parsedDirectory = path.parse(__dirname);
+console.log(parsedDirectory);
+console.log("\n");
 
+// Get and log the directory name from the current filename using 'path.dirname'
+console.log("Logging Directory Name from Filename:");
 console.log("path.dirname(__filename)");
-console.log(path.dirname(__filename));
-console.log("\n \n ");
+const directoryName = path.dirname(__filename);
+console.log(directoryName);
+console.log("\n");
 
+// Get and log the base name (file name with extension) from the current filename using 'path.basename'
+console.log("Logging Base Name from Filename:");
 console.log("path.basename(__filename)");
-console.log(path.basename(__filename));
-console.log("\n \n ");
+const baseName = path.basename(__filename);
+console.log(baseName);
+console.log("\n");
 
+// Get and log the file extension from the current filename using 'path.extname'
+console.log("Logging File Extension from Filename:");
 console.log("path.extname(__filename)");
-console.log(path.extname(__filename));
-console.log("\n \n ");
+const fileExtension = path.extname(__filename);
+console.log(fileExtension);
+console.log("\n");
 
+// Parse and log the details of the current filename using 'path.parse' (repeated for clarity)
+console.log("Logging Parsed Filename (Repeated):");
 console.log("path.parse(__filename)");
 console.log(path.parse(__filename));
-console.log("\n \n ");
+console.log("\n");

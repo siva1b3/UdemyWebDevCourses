@@ -5,6 +5,7 @@ console.log("\n \n");
 console.log("Hello from Node.js");
 // 3. there is no window object like in the browser now we had global object
 console.log("\n \n");
+console.log("global object in node js common js");
 console.log(global);
 // 4. node has common core modules that we can use for everything
 // 5. node modules can be imported using the common js syntax
