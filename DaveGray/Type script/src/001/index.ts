@@ -7,3 +7,8 @@ let c: number = 2;
 
 // console.log(a / b);
 // console.log(c * b);
+
+// alternite syntax old syntax
+let e4 = <string>"world";
+let e5 = <number>23;
+let e6 = <number | string>23;

@@ -87,6 +87,25 @@ let userId: string | null;
 userId = "ABC123";
 userId = null; // Valid
 
+/*
+ * let value: string | number = "Hello";
+ *
+ * // TypeScript error: 'charAt' does not exist on type 'string | number'
+ * // value.charAt(0);
+ *
+ * // This works because 'toString' is common to both string and number
+ * console.log(value.toString());
+ *
+ * value = 123;
+ *
+ * // This works because 'toString' is common to both string and number
+ * console.log(value.toString());
+ *
+ * // This would cause a runtime error if 'value' is a number
+ * // console.log(value.toLocaleLowerCase());
+ *
+ */
+
 let regex: RegExp = /^[a-zA-Z0-9]+$/; // Matches alphanumeric characters only
 
 let str: string = "Hello123";
