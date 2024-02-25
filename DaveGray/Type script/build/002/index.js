@@ -18,6 +18,9 @@ const sum = (a, b) => {
 const concat = (a, b) => {
     return a + b;
 };
+const concatWithNumbers = (a, b) => {
+    return a + b;
+};
 // ! union types
 let dualType;
 dualType = "siva";
@@ -29,9 +32,12 @@ let num = 10;
 let decimal = 10.5;
 let message = "Hello, TypeScript!";
 let isDone = false;
+// array
 let numbers = [1, 2, 3, 4, 5];
 let names = ["Siva", "John", "Alice"];
-let person = ["Siva", 25]; // Tuple with string and number
+// Tuple with string and number
+let person = ["Siva", 25];
+// enum
 var Color;
 (function (Color) {
     Color[Color["Red"] = 0] = "Red";

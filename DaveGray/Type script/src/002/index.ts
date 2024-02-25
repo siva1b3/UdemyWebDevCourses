@@ -18,7 +18,11 @@ const sum = (a: number, b: number) => {
   return a + b;
 };
 
-const concat = (a: number, b: string) => {
+const concat = (a: string, b: string) => {
+  return a + b;
+};
+
+const concatWithNumbers = (a: number, b: string) => {
   return a + b;
 };
 
@@ -37,9 +41,15 @@ let num: number = 10;
 let decimal: number = 10.5;
 let message: string = "Hello, TypeScript!";
 let isDone: boolean = false;
+
+// array
 let numbers: number[] = [1, 2, 3, 4, 5];
-let names: Array<string> = ["Siva", "John", "Alice"];
-let person: [string, number] = ["Siva", 25]; // Tuple with string and number
+let names: string[] = ["Siva", "John", "Alice"];
+
+// Tuple with string and number
+let person: [string, number] = ["Siva", 25];
+
+// enum
 enum Color {
   Red,
   Green,
