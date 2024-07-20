@@ -1,6 +1,7 @@
 {
   "name": "type-script",
   "version": "1.0.0",
+  "type": "module",
   "description": "learn type script",
   "main": "index.js",
   "scripts": {
