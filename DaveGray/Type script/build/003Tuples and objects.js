@@ -146,3 +146,42 @@ var AccountType2;
 })(AccountType2 || (AccountType2 = {}));
 const accountTypeCustom = AccountType2.CUSTOM;
 console.log(accountTypeCustom); // 0
+// enum
+var Color;
+(function (Color) {
+    Color[Color["Red"] = 0] = "Red";
+    Color[Color["Green"] = 1] = "Green";
+    Color[Color["Blue"] = 2] = "Blue";
+})(Color || (Color = {}));
+let c1 = Color.Green;
+console.log(c1); // Output: 1
+// Example of using enum type
+var Status;
+(function (Status) {
+    Status[Status["Active"] = 0] = "Active";
+    Status[Status["Inactive"] = 1] = "Inactive";
+    Status[Status["Suspended"] = 2] = "Suspended";
+})(Status || (Status = {}));
+let userStatus = Status.Active; // Assigning enum value to userStatus
+console.log(userStatus);
+let user2Status = Status.Inactive;
+console.log(user2Status);
+const user02 = {
+    name: "Siva",
+    age: 30,
+    isActive: true,
+};
+// Function with object parameter
+const displayUserInfo02 = (user) => {
+    console.log(`Name: ${user02.name}, Age: ${user02.age}, Active: ${user02.isActive}`);
+};
+const newUser01 = {
+    name: "Jane",
+    age: 28,
+    // email: "jane@example.com" // Error: Object literal may only specify known properties
+};
+// To avoid this error, use type assertions or avoid object literals with extra properties
+const anotherUser01 = {
+    name: "John",
+    age: 30,
+};

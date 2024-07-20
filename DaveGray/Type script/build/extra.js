@@ -1,15 +1,6 @@
 "use strict";
 // Tuple with string and number
 let person = ["Siva", 25];
-// enum
-var Color;
-(function (Color) {
-    Color[Color["Red"] = 0] = "Red";
-    Color[Color["Green"] = 1] = "Green";
-    Color[Color["Blue"] = 2] = "Blue";
-})(Color || (Color = {}));
-let c1 = Color.Green;
-console.log(c1); // Output: 1
 // Union type in arrays
 let mixedArray = ["ABC123", 123, "XYZ456", 456];
 let userId01;
@@ -61,17 +52,6 @@ console.log(regex1);
 let userDetails;
 // Tuple: [username, age, isAdmin]
 userDetails = ["siva", 30, true];
-// Example of using enum type
-var Status;
-(function (Status) {
-    Status[Status["Active"] = 0] = "Active";
-    Status[Status["Inactive"] = 1] = "Inactive";
-    Status[Status["Suspended"] = 2] = "Suspended";
-})(Status || (Status = {}));
-let userStatus = Status.Active; // Assigning enum value to userStatus
-console.log(userStatus);
-let user2Status = Status.Inactive;
-console.log(user2Status);
 // Function with optional parameters
 const greetUser = (name, age) => {
     if (age) {
