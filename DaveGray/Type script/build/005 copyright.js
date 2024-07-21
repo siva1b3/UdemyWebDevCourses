@@ -15,9 +15,6 @@
 // }
 // ! 2nd Variation
 let year = document.getElementById("year");
-let thisYear;
-thisYear = new Date().getFullYear().toString();
-if (year) {
-    year.setAttribute("datetime", thisYear);
-    year.textContent = thisYear;
-}
+let thisYear = new Date().getFullYear().toString();
+year.setAttribute("datetime", thisYear);
+year.textContent = thisYear;
